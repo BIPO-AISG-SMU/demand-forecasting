@@ -4,13 +4,13 @@
   "checkout": null,
   "context": {
     "cookiecutter": {
-      "project_name": "bipo",
-      "description": "demand forecasting",
+      "project_name": "BIPO",
+      "description": "Demand Forecasting",
       "repo_name": "bipo",
       "src_package_name": "bipo",
       "src_package_name_short": "bipo",
-      "harbor_registry_project_path": "https://registry.aisingapore.net/harbor/projects/55/repositories",
-      "author_name": "batch_12_project",
+      "harbor_registry_project_path": "registry.aisingapore.net/100e-bipo",
+      "author_name": "bipo",
       "open_source_license": "No license file",
       "_copy_without_render": [
         "aisg-context/polyaxon/polyaxonfiles"
