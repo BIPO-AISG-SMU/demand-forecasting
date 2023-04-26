@@ -1,0 +1,46 @@
+version: 1.1
+kind: component
+name: streamlit-dashboard
+description: Dashboard using Streamlit.
+tags: [streamlit, dashboard, keras]
+inputs:
+  - name: DOCKER_IMAGE
+    isOptional: true
+    type: str
+    value: registry.aisingapore.net/<PROJECT_REPO>/streamlit:0.1.0
+run:
+  kind: service
+  environment:
+    imagePullSecrets: ["harbor-credentials"]
+  ports:
+    - 8501
+  rewritePath: true
+  container:
+    image: "{{ DOCKER_IMAGE }}"
+    imagePullPolicy: IfNotPresent
+    command:
+      - /bin/bash
+      - ./scripts/dashboard/streamlit-entrypoint.sh
+    env:
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: ecs-s3-credentials
+            key: awsAccessKeyID
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: ecs-s3-credentials
+            key: awsSecretAccessKey
+      - name: MLFLOW_S3_ENDPOINT_URL
+        valueFrom:
+          secretKeyRef:
+            name: ecs-s3-credentials
+            key: ecsS3EndpointURL
+    resources:
+      requests:
+        memory: "4Gi"
+        cpu: "4"
+      limits:
+        memory: "4Gi"
+        cpu: "4"

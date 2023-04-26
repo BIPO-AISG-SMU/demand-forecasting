@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: streamlit-deployment
+spec:
+  selector:
+    matchLabels:
+      app: streamlit
+  template:
+    metadata:
+      labels:
+        app: streamlit
+    spec:
+      containers:
+        - image: https://registry.aisingapore.net/harbor/projects/55/repositories/streamlit:0.1.0
+          imagePullPolicy: Always
+          name: streamlit
+          resources:
+            requests:
+              memory: "4Gi"
+              cpu: "4"
+            limits:
+              memory: "4Gi"
+              cpu: "4"
+          ports:
+            - containerPort: 8501
+              name: streamlit
+          volumeMounts:
+            - name: streamlit-persistent-storage
+              mountPath: /home/aisg/from-ecs
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: ecs-s3-credentials
+                  key: awsAccessKeyID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ecs-s3-credentials
+                  key: awsSecretAccessKey
+            - name: MLFLOW_S3_ENDPOINT_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ecs-s3-credentials
+                  key: ecsS3EndpointURL
+      imagePullSecrets:
+        - name: harbor-credentials
+      volumes:
+        - name: streamlit-persistent-storage
+          persistentVolumeClaim:
+            claimName: fstore-rwx-pvc
