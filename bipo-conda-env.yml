@@ -12,6 +12,7 @@ dependencies:
     - matplotlib==3.5.1
     - ipykernel==6.9.2
     - mlflow==2.3.0
+    - pre-commit==2.20.0
     - pylint==2.6.0
     - pytest-cov==2.10.1
     - tensorflow==2.8.0
