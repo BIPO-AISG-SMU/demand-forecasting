@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Config
+clusters:
+- name: "bipo-cluster"
+  cluster:
+    server: "https://rancher.aisingapore.net/k8s/clusters/c-m-xwdvkk2p"
+- name: "bipo-cluster-fqdn"
+  cluster:
+    server: "https://bipo-cluster.aisingapore.net"
+
+users:
+- name: "bipo-cluster"
+  user:
+    token: "kubeconfig-u-reuezuzhda4tmsp:z9kv44zjbvmd5287684jgqtclqs8d2v8k8fgt5z5rqtzptskk7d4kk"
+
+
+contexts:
+- name: "bipo-cluster"
+  context:
+    user: "bipo-cluster"
+    cluster: "bipo-cluster"
+- name: "bipo-cluster-fqdn"
+  context:
+    user: "bipo-cluster"
+    cluster: "bipo-cluster-fqdn"
+
+current-context: "bipo-cluster"

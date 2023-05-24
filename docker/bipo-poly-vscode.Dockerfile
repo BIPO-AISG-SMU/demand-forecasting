@@ -26,6 +26,7 @@ RUN apt-get update \
     vim.tiny \
     lsb-release \
     wget \
+    unzip \
     apt-transport-https ca-certificates gnupg && \
     rm -rf /var/lib/apt/lists/*
 
@@ -34,9 +35,14 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
     unzip awscliv2.zip && \
     ./aws/install
 
-RUN apt-get update && \
-    apt-get install -y \
-    kubectl
+# RUN apt-get update && \
+#     apt-get install -y \
+#     kubectl
+RUN mkdir -p /etc/apt/keyrings && \
+    curl -fsSL "https://packages.cloud.google.com/apt/doc/apt-key.gpg" | gpg --dearmor -o /etc/apt/trusted.gpg.d/kubernetes-archive-keyring.gpg && \
+    echo 'deb https://packages.cloud.google.com/apt kubernetes-xenial main' > /etc/apt/sources.list.d/kubernetes.list && \
+    sudo apt-get update && \
+    sudo apt-get install -y kubectl
 
 RUN curl https://baltocdn.com/helm/signing.asc | sudo apt-key add - && \
     echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list && \
