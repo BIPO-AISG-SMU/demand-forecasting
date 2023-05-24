@@ -4,6 +4,7 @@ conf/local/**
 
 # Ignore potentially sensitive credentials files
 conf/**/*credentials*
+*.conf
 
 # Ignore everything in the following folders
 data/**
