@@ -1,67 +1,122 @@
-# End-to-end Project Template (On-prem - Polyaxon)
+# demand-forecasting-kedro
 
-__Customised for `BIPO`__.
+## Overview
 
-__Project Description:__ Demand Forecasting
+This is your new Kedro project, which was generated using `Kedro 0.18.10`.
 
-This template that is also accompanied with an end-to-end guide was
-generated and customised using the
-following
-[`cookiecutter`](https://cookiecutter.readthedocs.io/en/stable/)
-template:
-https://github.com/aisingapore/ml-project-cookiecutter-onprem-poly
+Take a look at the [Kedro documentation](https://docs.kedro.org) to get started.
 
-The contents of the guide have been customised
-according to the inputs provided upon generation of this repository
-through the usage of [`cruft`](https://cruft.github.io/cruft/),
-following instructions detailed
-[here](https://github.com/aisingapore/ml-project-cookiecutter-onprem-poly/blob/master/README.md)
-.
+## Rules and guidelines
 
-Inputs provided to `cookiecutter`/`cruft` for the generation of this
-template:
+In order to get the best out of the template:
 
-- __`project_name`:__ BIPO
-- __`description`:__ Demand Forecasting
-- __`repo_name`:__ bipo
-- __`src_package_name`:__ bipo
-- __`src_package_name_short`:__ bipo
-- __`harbor_registry_project_path`:__ registry.aisingapore.net/100e-bipo
-- __`author_name`:__ bipo
-- __`open_source_license`:__ No license file
+* Don't remove any lines from the `.gitignore` file we provide
+* Make sure your results can be reproduced by following a data engineering convention
+* Don't commit data to your repository
+* Don't commit any credentials or your local configuration to your repository. Keep all your credentials and local configuration in `conf/local/`
 
-## End-to-end Guide
+## How to install dependencies
 
-This repository contains a myriad of boilerplate codes and configuration
-files. On how to make use of these boilerplates, this repository
-has an end-to-end guide on that.
-The guide's contents are written in Markdown formatted files, located
-within `aisg-context/guide-site` and its subdirectories. While the
-Markdown files can be viewed directly through text editors or IDEs,
-the contents are optimised for viewing through
-[`mkdocs`](https://www.mkdocs.org) (or
-[`mkdocs-material`](https://squidfunk.github.io/mkdocs-material)
-specifically)
-.
-A demo of the site for the guide can be viewed
-[here](https://aisingapore.github.io/ml-project-cookiecutter-onprem-poly)
-.
+Declare any dependencies in `src/requirements.txt` for `pip` installation and `src/environment.yml` for `conda` installation.
 
-To spin up the site on your local machine, you can create a virtual
-environment to install the dependencies first:
+To install them, run:
 
-```bash
-$ conda create -n aisg-eptg-onprem-poly-guide python=3.8.13
-$ conda activate aisg-eptg-onprem-poly-guide
-$ pip install -r aisg-context/guide-site/mkdocs-requirements.txt
+```
+pip install -r src/requirements.txt
 ```
 
-After creating the virtual environment and installing the required
-dependencies, serve it like so:
+## How to run your Kedro pipeline
 
-```bash
-$ mkdocs serve --config-file aisg-context/guide-site/mkdocs.yml
+You can run your Kedro project with:
+
+```
+kedro run
 ```
 
-The site for the guide will then be viewable on
-[`http://localhost:8000`](http://localhost:8000).
+## How to test your Kedro project
+
+Have a look at the file `src/tests/test_run.py` for instructions on how to write your tests. You can run your tests as follows:
+
+```
+kedro test
+```
+
+To configure the coverage threshold, go to the `.coveragerc` file.
+
+## Project dependencies
+
+To generate or update the dependency requirements for your project:
+
+```
+kedro build-reqs
+```
+
+This will `pip-compile` the contents of `src/requirements.txt` into a new file `src/requirements.lock`. You can see the output of the resolution by opening `src/requirements.lock`.
+
+After this, if you'd like to update your project requirements, please update `src/requirements.txt` and re-run `kedro build-reqs`.
+
+[Further information about project dependencies](https://docs.kedro.org/en/stable/kedro_project_setup/dependencies.html#project-specific-dependencies)
+
+## How to work with Kedro and notebooks
+
+> Note: Using `kedro jupyter` or `kedro ipython` to run your notebook provides these variables in scope: `context`, `catalog`, and `startup_error`.
+>
+> Jupyter, JupyterLab, and IPython are already included in the project requirements by default, so once you have run `pip install -r src/requirements.txt` you will not need to take any extra steps before you use them.
+
+### Jupyter
+To use Jupyter notebooks in your Kedro project, you need to install Jupyter:
+
+```
+pip install jupyter
+```
+
+After installing Jupyter, you can start a local notebook server:
+
+```
+kedro jupyter notebook
+```
+
+### JupyterLab
+To use JupyterLab, you need to install it:
+
+```
+pip install jupyterlab
+```
+
+You can also start JupyterLab:
+
+```
+kedro jupyter lab
+```
+
+### IPython
+And if you want to run an IPython session:
+
+```
+kedro ipython
+```
+
+### How to convert notebook cells to nodes in a Kedro project
+You can move notebook code over into a Kedro project structure using a mixture of [cell tagging](https://jupyter-notebook.readthedocs.io/en/stable/changelog.html#release-5-0-0) and Kedro CLI commands.
+
+By adding the `node` tag to a cell and running the command below, the cell's source code will be copied over to a Python file within `src/<package_name>/nodes/`:
+
+```
+kedro jupyter convert <filepath_to_my_notebook>
+```
+> *Note:* The name of the Python file matches the name of the original notebook.
+
+Alternatively, you may want to transform all your notebooks in one go. Run the following command to convert all notebook files found in the project root directory and under any of its sub-folders:
+
+```
+kedro jupyter convert --all
+```
+
+### How to ignore notebook output cells in `git`
+To automatically strip out all output cell contents before committing to `git`, you can run `kedro activate-nbstripout`. This will add a hook in `.git/config` which will run `nbstripout` before anything is committed to `git`.
+
+> *Note:* Your output cells will be retained locally.
+
+## Package your Kedro project
+
+[Further information about building project documentation and packaging your project](https://docs.kedro.org/en/stable/tutorial/package_a_project.html)

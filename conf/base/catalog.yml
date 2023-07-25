@@ -1,0 +1,81 @@
+# Here you can define all your data sets by using simple YAML syntax.
+#
+# Documentation for this file format can be found in "The Data Catalog"
+# Link: https://docs.kedro.org/en/stable/data/data_catalog.html
+# Here you can define all your data sets by using simple YAML syntax.
+#
+# Documentation for this file format can be found in "The Data Catalog"
+# Link: https://docs.kedro.org/en/stable/data/data_catalog.html
+
+
+#Dataset of interest. Not scalable for more outlets with such implementation.
+#Outlet AZ
+AZ_engineered:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature_engineering/merged_AZ_West_processed_fe.csv
+  save_args:
+    index: "date"
+
+AZ_train:
+  type: pandas.CSVDataSet
+  filepath: data/05_data_split/merged_AZ_West_processed_fe_train.csv
+  versioned: True
+AZ_val:
+  type: pandas.CSVDataSet
+  filepath: data/05_data_split/merged_AZ_West_processed_fe_val.csv
+  versioned: True
+AZ_test:
+  type: pandas.CSVDataSet
+  filepath: data/05_data_split/merged_AZ_West_processed_fe_test.csv
+  versioned: True
+
+#Outlet Z
+Z_engineered:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature_engineering/merged_Z_West_processed_fe.csv
+  save_args:
+    index: "date"
+    
+Z_train:
+  type: pandas.CSVDataSet
+  filepath: data/05_data_split/merged_Z_West_processed_fe_train.csv
+  versioned: True
+Z_val:
+  type: pandas.CSVDataSet
+  filepath: data/05_data_split/merged_Z_West_processed_fe_val.csv
+  versioned: True
+Z_test:
+  type: pandas.CSVDataSet
+  filepath: data/05_data_split/merged_Z_West_processed_fe_test.csv
+  versioned: True
+# Directories for IO dataset
+# feature_engineering_data:
+#   type: PartitionedDataSet
+#   path: data/04_feature_engineering
+#   dataset: pandas.CSVDataSet
+#   layer: feature_engineering
+
+# data_split:
+#   type: PartitionedDataSet
+#   path: data/05_data_split
+#   dataset: pandas.CSVDataSet
+#   layer: data_split
+
+# # Future subsectioning
+# train_data:
+#   type: PartitionedDataSet
+#   path: data/05_data_split/train
+#   dataset: pandas.CSVDataSet
+#   layer: data_split
+
+test_data:
+  type: PartitionedDataSet
+  path: data/05_data_split/test
+  dataset: pandas.CSVDataSet
+  layer: data_split
+
+val_data:
+  type: PartitionedDataSet
+  path: data/05_data_split/val
+  dataset: pandas.CSVDataSet
+  layer: data_split

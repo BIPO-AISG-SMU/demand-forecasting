@@ -1,44 +1,30 @@
-# Ignore all local configuration
+##########################
+# KEDRO PROJECT
+*.csv
+*.log
+# ignore all local configuration
 conf/local/**
 !conf/local/.gitkeep
+.telemetry
 
-# Ignore potentially sensitive credentials files
+# ignore potentially sensitive credentials files
 conf/**/*credentials*
-*.conf
 
-# Ignore everything in the following folders
+# ignore everything in the following folders
 data/**
 logs/**
-models/**
-aisg-context/k8s/pvc/**
-aisg-context/k8s/secrets/**
 
-# Except their sub-folders
+# except their sub-folders
 !data/**/
 !logs/**/
-!models/**/
-!aisg-context/k8s/pvc/**/
-!aisg-context/k8s/secrets/**/
 
-# Keep all .gitkeep files
+# also keep all .gitkeep files
 !.gitkeep
 
-# Ignore .deb packages
-*.deb
 
-# Ignore local MLflow logs
-**/mlruns
 
-# Ignore outputs from OmegaConf/Hydra
-**/outputs
-**/multirun
-
-####################
-### Common files ###
-####################
-
-# Obsidian config directory
-**/.obsidian
+##########################
+# Common files
 
 # IntelliJ
 .idea/
@@ -46,14 +32,11 @@ aisg-context/k8s/secrets/**
 out/
 .idea_modules/
 
-# macOS
+### macOS
 *.DS_Store
 .AppleDouble
 .LSOverride
 .Trashes
-
-# VSCode config
-.vscode/
 
 # Vim
 *~
@@ -73,13 +56,13 @@ atlassian-ide-plugin.xml
 # C extensions
 *.so
 
-# Python template
+### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Distribution / Packaging
+# Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -99,8 +82,8 @@ wheels/
 MANIFEST
 
 # PyInstaller
-# Usually these files are written by a python script from a template
-# before PyInstaller builds the exe, so as to inject date/other infos into it.
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
 
@@ -123,28 +106,27 @@ coverage.xml
 *.mo
 *.pot
 
-# Django stuff
+# Django stuff:
 *.log
 .static_storage/
 .media/
 local_settings.py
 
-# Flask stuff
+# Flask stuff:
 instance/
 .webassets-cache
 
-# Scrapy stuff
+# Scrapy stuff:
 .scrapy
 
 # Sphinx documentation
 docs/_build/
-public
 
 # PyBuilder
 target/
 
 # Jupyter Notebook
-.ipynb_checkpoints/
+.ipynb_checkpoints
 
 # IPython
 .ipython/profile_default/history.sqlite
@@ -159,8 +141,9 @@ celerybeat-schedule
 # SageMath parsed files
 *.sage.py
 
-# Environment files
+# Environments
 .env
+.envrc
 .venv
 env/
 venv/
@@ -168,7 +151,8 @@ ENV/
 env.bak/
 venv.bak/
 
+# mkdocs documentation
+/site
+
 # mypy
 .mypy_cache/
-
-####################
