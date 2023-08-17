@@ -31,11 +31,11 @@ $ sudo apt-get install
 |apt-show-versions|0.22.13|
 |ca-certificates|20230311ubuntu0.22.04.1|
 |gnupg|20230311ubuntu0.22.04.1|
-|docker-ce|5:24.0.5-1~ubuntu.22.04~jammy|
-|docker-ce-cli|5:24.0.5-1~ubuntu.22.04~jammy|
+|docker-ce|5:24.0.5-1-ubuntu.22.04-jammy|
+|docker-ce-cli|5:24.0.5-1-ubuntu.22.04-jammy|
 |containerd.io|1.6.22-1|
-|docker-buildx-plugin|0.11.2-1~ubuntu.22.04~jammy|
-|docker-compose-plugin|2.20.2-1~ubuntu.22.04~jammy|
+|docker-buildx-plugin|0.11.2-1-ubuntu.22.04-jammy|
+|docker-compose-plugin|2.20.2-1-ubuntu.22.04-jammy|
 
 ### 2.3 Python dependencies
 
@@ -44,7 +44,7 @@ All python library dependencies are install via requirements.txt in the provided
 ## 3. Preliminaries
 
 Please extract the .zip folder provided and ensure that the name of the folder is 'bipo_demand_forecasting'. Do check the subdirectories (conf, data, logs and models) are available as they would be mounted as volume to docker directory.
-
+```
 ├── bipo_demand_forecasting/
     ├── conf/ (Created and to be bind mounted)11
     ├── data/ (Created and to be bind mounted)
@@ -52,7 +52,7 @@ Please extract the .zip folder provided and ensure that the name of the folder i
     ├── models/ (Created and to be bind mounted)
 
 Ensure that models in .pkl file are placed in models/ directory prior to mounting the directories to the containers.
-
+```
 ## 4. Getting Started
 
 ### 4.1. Checking Docker service
