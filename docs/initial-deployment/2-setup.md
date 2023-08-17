@@ -108,4 +108,4 @@ bipo_inference    initial   <ID of the image>   XX days ago   XXXMB
 
 ### 4.2. Starting and Stopping Docker containers
 
-Please refer to [chapter 3](./3-inference-module.md) and [chapter 4](./4-endpoint.md) for more detailed config.
+Please refer to [Chapter 3 Inference Module](./3-inference-module.md) and [Chapter 4 Endpoint](./4-endpoint.md) for more detailed config.
