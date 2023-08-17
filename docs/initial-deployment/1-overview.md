@@ -11,10 +11,10 @@ The documentation does not provide any information pertaining to the following:
 ## 1. Architecture
 
 ## 1.1 Solution Architecture
-![image](../../assets/images/ml-pipeline.jpg)
+![image](./assets/ml-pipeline.png)
 
 ## 1.2 Initial deployment Architecture
-![image](../../assets/images/Initial_deployment_architecture.png)
+![image](./assets/Initial_deployment_architecture.png)
 
 ## 2. Deployment package contents
 ```
