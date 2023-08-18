@@ -15,10 +15,9 @@ This deployment has been tested in a STAGING environment using an on-premise ser
  - RAM: 2GB
  - User: Non-root user
 
-### 2.2. Installed OS binaries versions 
+### 2.2. Installation 
 
-The following binaries are installed (with its dependencies) to facilitate the execution of simple network troubleshooting and docker daemon execution. Installation are done using the help of the apt-install.sh with the following command with superuser rights.
-
+#### 2.2.1 Installing from script
 ```
 $ bash apt-install.sh
 ```
@@ -40,7 +39,7 @@ apt-get install -y net-tools traceroute apt-show-versions
 
 echo "Setting up installation process for docker engine in Ubuntu..."
 #Update the apt package index and install packages to allow apt to use a repository over HTTPS:
-apt-get install -y ca-certificates curl gnupg 
+apt-get install -y ca-certificates curl gnupg
 
 # Add Docker offical GPG key
 echo "Adding Docker GPG key"
@@ -50,10 +49,10 @@ chmod a+r /etc/apt/keyrings/docker.gpg
 
 # Setup repository
 echo \
-  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-  tee /etc/apt/sources.list.d/docker.list > /dev/null
-  
+	"deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+	"$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+	tee /etc/apt/sources.list.d/docker.list > /dev/null
+
 # update the package index files on the Ubuntu system
 apt-get update
 
@@ -70,18 +69,21 @@ unzip awscliv2.zip
 
 
 # Make bipo directory and its subdirectory
-echo "Creating bipo directory: $bipo_dir/"
-mkdir $bipo_dir && cd $bipo_dir
-mkdir conf data logs docker
-
-echo "Moving out of directory" 
-cd ..
+echo "Creating bipo directory: $bipo_dir/ if exists"
+if [ -d $bipo_dir ]
+	mkdir $bipo_dir && cd $bipo_dir
+	mkdir conf data logs docker
+	echo "Moving out of directory"
+	cd ..
+fi
 
 echo "Changing owner:group to $USER with rwxr-xr-x permissions"
-chown $USER:$USER -R $bipo_dir && chmod 755 -R $bipo_dir 
+chown $USER:$USER -R $bipo_dir && chmod 755 -R $bipo_dir
 ```
 
-**List of installed binaries and versions:**
+#### 2.2.2 List of installed binaries and versions
+
+The following binaries are installed (with its dependencies) to facilitate the execution of simple network troubleshooting and docker daemon execution. Installation are done using the help of the apt-install.sh with the following command with superuser rights.
 
 |Binaries|Version|
 | - | - |
