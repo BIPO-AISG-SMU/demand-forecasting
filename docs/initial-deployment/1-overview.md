@@ -44,7 +44,7 @@ The following diagram illustrates how an external system may interact with the D
 | logging.yml | Logging configuration |
 | constants.yml | Defined constants for use in python script. (Should not touch) |
 
-### 2.2 Data
+### 2.2. Data
 
 | Path | Description |
 | :- | - |
@@ -54,7 +54,7 @@ The following diagram illustrates how an external system may interact with the D
 |03_data_preprocessing/|Subdirectories for ...|
 |10_mode/|Subdirectories for ...|
 
-### 2.3 Logs
+### 2.3. Logs
 
 | Path | Description |
 | :- | - |
@@ -89,7 +89,7 @@ Any firewall configurations or other applications installed should not be using 
 | 2376 | Docker encrypted communication |
 | 8000 | FastAPI endpoint|
 
-## 3. Project File Structure in Container
+## 3. File Structure in Container
 
 The following file structure depicts the key directories and files contained in the containerised inference pipeline. **This is not the same directory with the host computer which docker is running.**
 
