@@ -129,7 +129,6 @@ To obtain predictions, format your POST request as follows:
 | `campaign_end_date`   | str         | Date when the marketing campaign concluded, formatted as "DD/MM/YYYY".                                        |
 | `campaign_total_cost` | float       | Aggregate expenditure associated with the marketing campaign.                                                 |
 | `lag_sales`           | List[float] | Sequential list of sales figures from the last 14 days, starting from the previous day up to two weeks prior. |
-|                       |
 
 #### Optional fields
 If not applicable (i.e. no ongoing marketing campaign during the inference period), remove the following 4 fields completely from the request.
