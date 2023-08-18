@@ -97,8 +97,6 @@ chown $USER:$USER -R $bipo_dir && chmod 755 -R $bipo_dir
 |docker-buildx-plugin|0.11.2-1-ubuntu.22.04-jammy|
 |docker-compose-plugin|2.20.2-1-ubuntu.22.04-jammy|
 
-Supporting script for insta
-
 
 ### 2.3 Python dependencies
 
