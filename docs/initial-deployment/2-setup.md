@@ -116,17 +116,17 @@ All Python library dependencies are install via `requirements.txt` within the pr
 
 ## 4. Getting Started
 
-### 4.1. Checking Docker service
+### 4.1. Checking Docker Service
 
 In the following order: 
 
-To get started, please ensure that the docker daemon is running. A quick check can be done with either of the following command:
+1. To get started, please ensure that the Docker daemon is running. A quick check can be done with either of the following commands:
 ``` bash
 $ systemctl status docker
 $ service docker status
 ```
 
-It should show a output similar to below indicating active (running) status:
+It should show an output similar to the below, indicating active (running) status:
 ``` bash
 ● docker.service - Docker Application Container Engine
      Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
@@ -141,30 +141,29 @@ TriggeredBy: ● docker.socket
              └─34819 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
 ```
 
-Otherwise, please execute the following commands to restart/start the docker daemon in the VM.
+Otherwise, please execute the following commands to restart/start the Docker daemon in the VM:
 
 ``` bash
 $ sudo systemctl stop docker
 $ sudo systemctl start docker
 ```
 
-
-If typing docker related command results in *"Permission denied"* error in Docker, please request your administrator to add the current login user to docker group with the following command to elevate your rights to access docker:
-
-``` bash
-$ sudo usermod -aG docker $USER
-```
-
-Docker load the provided tar.gz archive file with the following command:
+2. Docker load the provided tar.gz archive file using the following command:
 ``` bash
 $ docker load --input bipo_demand_forecasting/docker/bipo_inference_initial.tar
 ```
 
-After loading the image, check if it is loaded in the VM docker registry with the following command 'docker image ls' and you should see the following
+3. After loading the image, check if it is loaded in the VM Docker registry with the command `docker image ls` and you should see the following:
 ```
 $ docker image ls
 REPOSITORY        TAG       IMAGE ID            CREATED       SIZE
 bipo_inference    initial   <ID of the image>   XX days ago   XXXMB
+```
+
+If typing Docker commands results in a *"Permission denied"* error, please request your administrator to add the current login user to Docker group with the following command to elevate your rights to access Docker:
+
+``` bash
+$ sudo usermod -aG docker $USER
 ```
 
 ### 4.2. Starting and Stopping Docker containers
