@@ -1,12 +1,15 @@
-# Project Overview
+# BIPO Demand Forecasting Module: Project Overview
 
 ## Purpose of Documentation
 
-The purpose of the documentation is to provide an information overview pertaining to solution architecture and project file structure for inference module only. 
+This documentation serves as a guide for the technical user in deploying and using the inference submodule on a typical Linux system. 
 
-The documentation does not provide any information pertaining to the following:
-- Training module
-- Data pipeline module
+The reader is expected to have familiarity with using the command line and the Linux environment.
+
+This guide does not provide any information pertaining to:
+- Training submodule
+- Data pipeline submodule
+- Deployment on cloud
 
 ## 1. Architecture
 
