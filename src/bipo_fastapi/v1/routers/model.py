@@ -1,71 +1,80 @@
 import logging
-import fastapi
+from fastapi import APIRouter, HTTPException, status, Response
 
-import bipo_fastapi as bipo_fapi
+from bipo_fastapi.config import SETTINGS
+from bipo_fastapi.deps import PRED_MODEL
+from bipo_fastapi.schemas import SalesAttributes, SalesPrediction, SalesPredictions
 
-
-logger = logging.getLogger(__name__)
-
-
-ROUTER = fastapi.APIRouter()
-PRED_MODEL = bipo_fapi.deps.PRED_MODEL
+LOGGER = logging.getLogger(__name__)
+router = APIRouter()
 
 
-@ROUTER.post("/predict", status_code=fastapi.status.HTTP_200_OK)
-def predict_sentiment(movie_reviews_json: bipo_fapi.schemas.MovieReviews):
-    """Endpoint that returns sentiment classification of movie review
-    texts.
-
-    Parameters
-    ----------
-    movie_reviews_json : bipo_fapi.schemas.MovieReviews
-        'pydantic.BaseModel' object detailing the schema of the request
-        body
-
-    Returns
-    -------
-    dict
-        Dictionary containing the sentiments for each movie review in
-        the body of the request.
-
-    Raises
-    ------
-    fastapi.HTTPException
-        A 500 status error is returned if the prediction steps
-        encounters any errors.
+@router.get("/version")
+def version():
     """
-    result_dict = {"data": []}
+    Get version (UUID) of the model
+    - this endpoint returns the version (UUID) of the model currently loaded in the API.
 
-    try:
-        logger.info("Generating sentiments for movie reviews.")
-        movie_reviews_dict = movie_reviews_json.dict()
-        review_texts_array = movie_reviews_dict["reviews"]
-        for review_val in review_texts_array:
-            curr_pred_result = PRED_MODEL.predict([review_val["text"]])
-            sentiment = ("positive" if curr_pred_result > 0.5
-                        else "negative")
-            result_dict["data"].append(
-                {"review_id": review_val["id"], "sentiment": sentiment})
-            logger.info(
-                "Sentiment generated for Review ID: {}".
-                format(review_val["id"]))
+    Returns:
+        dict: A dictionary with a single key-value pair. The key is "version" and the value is the model version (UUID).
 
-    except Exception as error:
-        print(error)
-        raise fastapi.HTTPException(
-            status_code=500, detail="Internal server error.")
-
-    return result_dict
-
-
-@ROUTER.get("/version", status_code=fastapi.status.HTTP_200_OK)
-def get_model_version():
-    """Get version (UUID) of predictive model used for the API.
-
-    Returns
-    -------
-    dict
-        Dictionary containing the UUID of the predictive model being
-        served.
     """
-    return {"data": {"model_uuid": bipo_fapi.config.SETTINGS.PRED_MODEL_UUID}}
+    LOGGER.info("Received request for model version.")
+    return {"Model Version (UUID)": SETTINGS.PRED_MODEL_UUID}
+
+
+@router.post(
+    "/predict", response_model=SalesPredictions, status_code=status.HTTP_201_CREATED
+)
+def predict_sales(request: SalesAttributes, response: Response):
+    """
+    Predict sales classes based on the provided attributes.
+    - this endpoint receives a POST request containing a list of sales attributes,
+    - makes sales class predictions using a trained model, and
+    - returns the predictions.
+
+    Args:
+        request (SalesAttributes): A list of sales attributes for which to predict sales classes.
+
+    Returns:
+        SalesPredictions: A list of predicted sales classes.
+
+    Raises:
+        HTTPException: If the request data is invalid.
+    """
+
+    # Validate the sales request data
+    LOGGER.info("API request received.")
+
+    if not request.sales_attributes:
+        error_msg = "Invalid API request data provided."
+        LOGGER.error(error_msg)
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error_msg)
+
+    # Make predictions using the PredictionModel instance
+    LOGGER.info("Initiating model inference.")
+    sales_predictions = PRED_MODEL.predict(request)
+
+    if sales_predictions is not None:
+        # Log the successful prediction
+        LOGGER.info("Model inference completed successfully.")
+
+        # Return the SalesPredictions instance
+        return sales_predictions
+    else:
+        # Handling invalid prediction
+        response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+        error_msg = "Model inference failed: No predictions returned."
+        LOGGER.error(error_msg)
+
+        return SalesPredictions(
+            sales_predictions=[
+                SalesPrediction(
+                    date="",
+                    cost_centre_code=0,
+                    sales_class_id="",
+                    sales_class_name="",
+                    probabilities=[],
+                )
+            ]
+        )

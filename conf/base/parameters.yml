@@ -3,12 +3,130 @@
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://docs.kedro.org/en/0.18.10/kedro_project_setup/configuration.html#parameters
-outlet_name: ["AZ","Z"]
 
+inference:
+    lag_sales_date_range: #date formate have to be yyyy-mm-dd (must be 14 days)
+        { "start_date": "2023-03-04", "end_date": "2023-03-17" }
+    ordinal_columns:
+        { "cat_covid_group_size_cap": ["2", "5", "8", "10", "no limit"] }
+    inference_columns_rename_map: { "max_temp": "temp_max" }
+
+general:
+    target_feature: "proxy_revenue"
+
+dataloader:
+    # Files required for dataloader module. Change the file name accordingly
+    proxy_revenue_file: "proxy_revenue_masked.csv"
+    propensity_file: "consumer propensity to spend.xlsx"
+    marketing_file: "marketing.xlsx"
+    climate_record_file: "SG climate records 2021 - 2022.xlsx"
+    covid_record_file: "covid capcacity.xlsx"
+    holiday_data_file: "holiday_df.xlsx"
+
+    # Specify the target variable
+    target_feature: "ProxyRevenue" # raw name from data
+
+    # When target_variable has more than zero_percentage_threshold, drop cost centre is sound off. 10% of len of df (730 days) = 73 days
+    zero_percentage_threshold: 13
+
+    # General date range of interest
+    date_range: ["2021-01-01", "2022-12-31"] #set date range for merge_df and marketing_df
+    exclude_cost_centre_code: [] # Remove any cost centre that is not needed.
+
+    # Parameters to change in Marketing.xlsx
+    days_to_end_campaign: 51 # Inpute number of days for marketing data without a end date. (default is Campaign duration median value: 51.5 days)
+    marketing_sheet_campaign: ["Campaign", "Promotions", "Product Launch"] #sheet of interest. Limited to only "Campaign","Promotions","Product Launch"
+    marketing_sheet_ad: [
+            "TV Ad",
+            "Radio Ad",
+            "Poster Campaign",
+            "Digital ",
+            "Youtube Ad",
+            "Instagram Ad",
+            "Facebook Ad",
+        ] #sheet of interest. Limited to only "TV Ad", "Radio Ad", "Poster Campaign", "Digital ", "Youtube Ad", "Instagram Ad", "Facebook Ad"
+
+    ## Parameters to change in holiday_df.xlsx
+
+    ## Parameters to change in covid capcacity.xlsx
+
+    ## Parameters to change in consumer propensity to spend.xlsx
+
+    ## Parameters to change in proxy_revenue_masked.csv
+    revenue_location_rename_mapping: { "Northeast": "East", "Central": "East" }
+    number_of_days: 730 # only keep cost centres with specified number of days
+
+    ## SG climate records 2021 - 2022.xlsx
+
+data_preprocessing:
+    # Columns that we do not need
+    drop_columns: ["man_hours", "outlet", "cat_weather_station"]
+
+    # Threshold for imputing missing values
+    missing_percentage_threshold: 50
+
+feature_engineering:
+    # Exogenous variable: directly from input dataset
+    #   exog_feature_nobin: ["is_school_holiday", "is_public_holiday", "cat_day_of_week", "diff_temp"]
+    exog_feature_nobin:
+        ["is_school_holiday", "is_public_holiday", "cat_day_of_week"]
+
+    # Exogeneous variable which max-min is to be calculated. Add a line down under exog_feature_to_difference
+    exog_feature_todiff:
+        temperature: ["temp_min", "temp_max"]
+
+    # Exogenous variable: require binning
+    exog_feature_bin: ["rain_day_mm", "wind_mean_kmh"]
+    # Binning setup: rain_day_mm
+    rain_day_mm:
+        bins: [0, 1, 10, 50, 999]
+        labels:
+            [
+                "No precipitation",
+                "Low/Moderate precipitation",
+                "Heavy precipitation",
+                "Extreme precipitation",
+            ]
+    # Binning setup: wind_mean_kmh
+    wind_mean_kmh:
+        bins: [0, 1, 6, 12, 20, 29, 39, 50, 62, 75, 89, 103, 118, 999]
+        labels:
+            [
+                "Calm",
+                "Light Air",
+                "Light Breeze",
+                "Gentle Breeze",
+                "Moderate Breeze",
+                "Fresh Breeze",
+                "Strong Breeze",
+                "Near Gale",
+                "Gale",
+                "Strong Gale",
+                "Storm",
+                "Violent Storm",
+                "Hurricane",
+            ]
+
+    endo:
+        lag_days_list: [9, 14]
+        window_days_list: [7, 8] # Simple moving average
+        num_weeks_list: [1, 2]
+        shift_period: 9
+        bin_approach: "equal frequency" # or mean std (generate_bins func)
+        # bin_labels_list: ["Very Low","Low", "Below Average", "Medium", "Above Average", "High", "Very High", "Exceptional"] # Expand the bin labels to cater for more
+        bin_labels_list: ["Low", "Medium", "High", "Exceptional"] # Expand the bin labels to cater for more
+        tsfresh_entity: "week_sma"
+        tsfresh_num_features: 20
+        tsfresh_days_per_group: 2
+        extract_relevant: True
+        n_significant: 4
+        num_outlets: 3
+        filter_num_days: 365
+
+outlet_name: ["AZ", "Z"]
 data_split:
-    time_index_split: 
+    time_index_split:
         train:
             value: 60
         val:
             value: 20
-
