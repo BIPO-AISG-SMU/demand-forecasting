@@ -15,7 +15,7 @@ Before running the endpoint, make sure your environment meets all the prerequisi
 To run the Docker image containing the endpoint, execute the following command in your home directory. This assumes that your model, data, and configurations are stored in specific directories on your host machine. Note that all path used must be absolute paths.
 
 ```bash
-$ bipo_demand_forecasting/scripts/docker_run.sh
+$ bash ~/bipo_demand_forecasting/scripts/docker_run.sh
 ```
 
 ### 3. Interacting with the API through Swagger UI
