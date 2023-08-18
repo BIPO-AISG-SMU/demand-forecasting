@@ -1,14 +1,14 @@
-# BIPO Demand Forecasting module: Environment Setup
+# Environment Setup
 
 ## 1. Overview
 
-This document is intended for users seeking information on the installation and configuration of the BIPO Demand Forecasting Submodule solution.
+This document is intended for users seeking information on the installation and configuration of the BIPO Demand Forecasting Module.
 
 ## 2. Pre-requisites
 
-This deployment has been tested in a STAGING environment using an on-premise server based on the following specifications that mirrors the actual PRODUCTION environment to the best effort possible. We have not tested on setups which differ from what we have and unable to guarantee that the code will run without issues.
+This deployment has been tested in a **staging** environment using an on-premise server based on the following specifications that mirrors the actual/production environment to the best effort possible. We have not tested on set-ups which differ from what we have and unable to guarantee that the code will run without issues.
 
-### 2.1. System specifications
+### 2.1. System Specifications
 
  - OS: Ubuntu 22.04 LTS (Jammy Jellyfish)
  - CPU: 1 vCPU
@@ -17,24 +17,37 @@ This deployment has been tested in a STAGING environment using an on-premise ser
 
 ### 2.2. Installation 
 
-#### 2.2.1 Installing from script
+The following steps for installation assumes that the VM has internet access. 
+Unpack and extract the zip folder provided. 
+
 ```
-$ bash apt-install.sh
+unzip bipo_inference
 ```
 
-The following is the script *apt-install.sh*
+
+#### 2.2.1 Installing from script
+
+**NOTE**
+1. Before installing the necessary binaries, please ensure that the USER variable in apt-install.sh located in bipo_demand_forecasting/scripts/apt-install.sh is set to the correct VM user. Otherwise, wrong ownership will be set to the folders
+
+Open a terminal and navigate to your $HOME folder (i.e /home/<username>). Please run the following command
+```
+$ sudo bash bipo_demand_forecasting/src/apt-install.sh
+```
+
+The contents of the `apt-install.sh` script are as follows:
 ```
 #!/usr/bin/sh
 set -e
-set -x
-# Bash Variables. Bipo main directory and its subdir folder
-bipo_dir=bipo
-USER=aisg
+#set -x
 
+# Bash Variables. Bipo main directory and its subdir folder
+bipo_dir=bipo_demand_forecasting
+USER=aisg # Please amend based on your VM username
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 # Install necessary binaries for debugging and troubleshooting
-echo "Installing basic binaries such as net-tools, curl, traceroute apt-show-versions"
+echo "Installing basic binaries such as net-tools, curl, traceroute and apt-show-versions"
 apt-get install -y net-tools traceroute apt-show-versions
 
 echo "Setting up installation process for docker engine in Ubuntu..."
@@ -49,9 +62,9 @@ chmod a+r /etc/apt/keyrings/docker.gpg
 
 # Setup repository
 echo \
-	"deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-	"$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-	tee /etc/apt/sources.list.d/docker.list > /dev/null
+        "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+        "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+        tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # update the package index files on the Ubuntu system
 apt-get update
@@ -64,28 +77,32 @@ echo "Downloading AWS CLI v2 installer"
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 
 echo "Unzipping and installing AWS CLI v2 installer"
-unzip awscliv2.zip
-./aws/install
+unzip awscliv2.zip && ./aws/install
 
+echo "Cleaning up awscliv2.zip folders"
+rm -rf awscliv2.zip*
 
 # Make bipo directory and its subdirectory
-echo "Creating bipo directory: $bipo_dir/ if exists"
-if [ -d $bipo_dir ]
-	mkdir $bipo_dir && cd $bipo_dir
-	mkdir conf data logs docker
-	echo "Moving out of directory"
-	cd ..
+echo "Creating directories for $bipo_dir if it does not exist"
+if ! [ -d $bipo_dir ]
+then
+        mkdir $bipo_dir && cd $bipo_dir
+        echo "Creating conf data logs and docker subdirectory"
+        mkdir conf data logs docker
+        echo "Moving out of directory"
+        cd ..
+else
+        echo "$bipo_dir exists.Creating necessary subfolders if required."
+        cd $bipo_dir && mkdir -p conf data logs docker && cd ..
 fi
-
 echo "Changing owner:group to $USER with rwxr-xr-x permissions"
-chown $USER:$USER -R $bipo_dir && chmod 755 -R $bipo_dir
+chown -R $USER:$USER $bipo_dir/ && chmod 755 -R $bipo_dir/
 ```
 
 #### 2.2.2 List of installed binaries and versions
+Upon installation, you would have the following binaries installed.
 
-The following binaries are installed (with its dependencies) to facilitate the execution of simple network troubleshooting and docker daemon execution. Installation are done using the help of the apt-install.sh with the following command with superuser rights.
-
-|Binaries|Version|
+|Binary|Version|
 | - | - |
 |net-tools|1.60+git20181103.0eebece-1ubuntu5|
 |curl|7.81.0-1ubuntu1.13|
@@ -99,36 +116,36 @@ The following binaries are installed (with its dependencies) to facilitate the e
 |docker-buildx-plugin|0.11.2-1-ubuntu.22.04-jammy|
 |docker-compose-plugin|2.20.2-1-ubuntu.22.04-jammy|
 
+### 2.3. Python Dependencies
 
-### 2.3 Python dependencies
+All Python library dependencies are install via `requirements.txt` within the provided docker container. No dependencies will be installed on the host as the application is containerised.
 
-All python library dependencies are install via requirements.txt in the provided docker container. No dependencies will be installed on the host as the application is already dockerised.
+## 3. Preliminary Steps
 
-## 3. Preliminaries
-
-Please extract the .zip folder provided and ensure that the name of the folder is 'bipo_demand_forecasting'. Do check the subdirectories (conf, data, logs and models) are available as they would be mounted as volume to docker directory.
+1. Extract the .zip folder provided and ensure that the name of the extracted directory is `bipo_demand_forecasting`. Do check that the below subdirectories are present as they would be mounted as volume to the Docker container.
 ```
 ├── bipo_demand_forecasting/
-    ├── conf/ (Created and to be bind mounted)11
+    ├── conf/ (Created and to be bind mounted)
     ├── data/ (Created and to be bind mounted)
     ├── logs/ (Created and to be bind mounted)
     ├── models/ (Created and to be bind mounted)
 
-Ensure that models in .pkl file are placed in models/ directory prior to mounting the directories to the containers.
 ```
+2. Ensure that the trained model(s) (in `.pkl` format) are placed in the `models` subdirectory prior to mounting the directory to the container.
+
 ## 4. Getting Started
 
-### 4.1. Checking Docker service
+### 4.1. Checking Docker Service
 
 In the following order: 
 
-To get started, please ensure that the docker daemon is running. A quick check can be done with either of the following command:
+1. To get started, please ensure that the Docker daemon is running. A quick check can be done with either of the following commands:
 ``` bash
 $ systemctl status docker
 $ service docker status
 ```
 
-It should show a output similar to below indicating active (running) status:
+2. It should show an output similar to the below, indicating active (running) status:
 ``` bash
 ● docker.service - Docker Application Container Engine
      Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
@@ -143,32 +160,38 @@ TriggeredBy: ● docker.socket
              └─34819 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
 ```
 
-Otherwise, please execute the following commands to restart/start the docker daemon in the VM.
+- Otherwise, please execute the following commands to restart/start the Docker daemon in the VM:
 
 ``` bash
 $ sudo systemctl stop docker
 $ sudo systemctl start docker
 ```
 
-
-If typing docker related command results in *"Permission denied"* error in Docker, please request your administrator to add the current login user to docker group with the following command to elevate your rights to access docker:
-
-``` bash
-$ sudo usermod -aG docker $USER
-```
-
-Docker load the provided tar.gz archive file with the following command:
+3. Docker load the provided tar.gz archive file using the following command:
 ``` bash
 $ docker load --input bipo_demand_forecasting/docker/bipo_inference_initial.tar
 ```
 
-After loading the image, check if it is loaded in the VM docker registry with the following command 'docker image ls' and you should see the following
+4. After loading the image, check if it is loaded in the VM Docker registry with the command `docker image ls` and you should see the following:
 ```
 $ docker image ls
 REPOSITORY        TAG       IMAGE ID            CREATED       SIZE
 bipo_inference    initial   <ID of the image>   XX days ago   XXXMB
 ```
 
-### 4.2. Starting and Stopping Docker containers
+If typing Docker commands results in a *"Permission denied"* error, please request your administrator to add the current user to Docker group with the following command to elevate your rights to access Docker:
 
-Please refer to [Chapter 3 Inference Module](./3-inference-module.md) and [Chapter 4 Endpoint](./4-endpoint.md) for more detailed config.
+``` bash
+$ sudo usermod -aG docker $USER
+```
+
+### 4.2. Starting and Stopping Docker Containers
+
+Please refer to [Chapter 3: Inference Module](./3-inference-module.md) and [Chapter 4: Model Endpoint](./4-endpoint.md) for more details.
+
+### 4.3 Lifting of firewall ports in VM (if needed)
+Please execute the following to allow any incoming connections to port 8080 with the following command. 
+Please note that this requires sudo privilege. 
+```
+sudo ufw allow from any to any port 8080 proto tcp
+```
