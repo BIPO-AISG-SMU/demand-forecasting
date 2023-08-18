@@ -9,14 +9,14 @@ Our model serving endpoint is designed to take in input data, feed it into a tra
 
 ## 1. How to Run Endpoint
 
-### 2. Starting the Endpoint
+### 1.1. Starting the Endpoint
 To run the Docker image containing the endpoint, execute the following command in your home directory. This assumes that your model, data, and configurations are stored in specific directories on your host machine. Note that all path used must be absolute paths.
 
 ```bash
 $ bash ~/bipo_demand_forecasting/scripts/docker_run.sh
 ```
 
-### 3. Interacting with the API through Swagger UI
+### 1.2. Interacting with the API through Swagger UI
 
    After starting the Docker container, you can easily interact with the API endpoints using the Swagger UI, a powerful tool for visualizing and testing API endpoints.
 
@@ -30,7 +30,7 @@ $ bash ~/bipo_demand_forecasting/scripts/docker_run.sh
 
       ![Swagger UI Interactive Interface](assets/swaggerUI.png)
 
-### 1.4. Terminating the Endpoint
+### 1.3. Terminating the Endpoint
 
 - **Foreground Execution**: If the Docker container was started in the foreground, simply press `Ctrl + C` in the terminal to halt it.
 - **Background Execution**: If the container is running in the background, use the following command to stop it:
