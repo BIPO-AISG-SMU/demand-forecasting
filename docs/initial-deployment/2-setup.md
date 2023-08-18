@@ -13,7 +13,7 @@ This deployment has been tested in a **staging** environment using an on-premise
  - OS: Ubuntu 22.04 LTS (Jammy Jellyfish)
  - CPU: 1 vCPU
  - RAM: 2GB
- - User: Non-root user
+ - User: root user
 
 ### 2.2. Installation of binaries and dependencies in OS
 
@@ -28,7 +28,7 @@ unzip bipo_demand_forecasting.zip
 #### 2.2.1. Installing from script
 
 **NOTE**
-1. Before installing the necessary binaries, please edit the 'USER' variable in apt-install.sh script located in `/home/<user>/bipo_demand_forecasting/scripts/apt-install.sh`` is set to the correct VM user. Otherwise, wrong ownership will be set to the folders when executing the command below.
+1. Before installing the necessary binaries, please edit the 'USER' variable in apt-install.sh script located in `/home/<user>/bipo_demand_forecasting/scripts/apt-install.sh` is set to the correct VM user. Otherwise, wrong ownership will be set to the folders when executing the command below.
 
 Open a terminal and navigate to your $HOME folder (i.e /home/<username>). Please run the following command with elevated privilege:
 ```
@@ -185,8 +185,8 @@ $ docker load --input bipo_demand_forecasting/docker/bipo_inference_initial.tar
 4. After loading the image, check if it is loaded in the VM Docker registry with the command `docker image ls` and you should see the following:
 ```
 $ docker image ls
-REPOSITORY        TAG       IMAGE ID            CREATED       SIZE
-bipo_inference    initial   <ID of the image>   XX days ago   XXXMB
+REPOSITORY                                           TAG       IMAGE ID            CREATED       SIZE
+registry.aisingapore.net/100e-bipo/bipo_inference    initial   <ID of the image>   XX days ago   XXXMB
 ```
 
 If typing Docker commands results in a *"Permission denied"* error, please request your administrator to add the current user to Docker group with the following command to elevate your rights to access Docker:
@@ -199,7 +199,7 @@ $ sudo usermod -aG docker $USER
 
 Please refer to [Chapter 4: Model Endpoint](./4-endpoint.html) for more details.
 
-### 4.3 Lifting of firewall ports in VM (if needed)
+### 4.3. Lifting of firewall ports in VM (if needed)
 Please execute the following to allow any incoming connections to port 8080 with the following command. 
 Please note that this requires sudo privilege. 
 ```
