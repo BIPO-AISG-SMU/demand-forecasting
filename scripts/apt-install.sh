@@ -3,8 +3,8 @@ set -e
 #set -x
 
 # Bash Variables. Bipo main directory and its subdir folder
-bipo_dir=bipo_demand_forecasting
-USER=aisg #Please amend based on your VM username
+BIPO_DIR=bipo_demand_forecasting
+USER=aisg #Please amend based on your VM username
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
@@ -44,18 +44,10 @@ unzip awscliv2.zip && ./aws/install
 echo "Cleaning up awscliv2.zip folders"
 rm -rf awscliv2.zip*
 
-# Make bipo directory and its subdirectory
-echo "Creating directories for $bipo_dir if it does not exist"
-if ! [ -d $bipo_dir ]
-then
-        mkdir $bipo_dir && cd $bipo_dir
-        echo "Creating conf data logs and docker subdirectory"
-        mkdir conf data logs docker
-        echo "Moving out of directory"
-        cd ..
-else
-        echo "$bipo_dir exists.Creating necessary subfolders if required."
-        cd $bipo_dir && mkdir -p conf data logs docker && cd ..
-fi
+echo "Unzipping $BIPO_DIR in $HOME"
+cd ~
+unzip $BIPO_DIR.zip -d ./$BIPO_DIR
+
+
 echo "Changing owner:group to $USER with rwxr-xr-x permissions"
-chown -R $USER:$USER $bipo_dir/ && chmod 755 -R $bipo_dir/
+chown -R $USER:$USER $BIPO_DIR/ && chmod 755 -R $BIPO_DIR/
