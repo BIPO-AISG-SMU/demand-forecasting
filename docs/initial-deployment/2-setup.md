@@ -47,8 +47,8 @@ USER=aisg # Please amend based on your VM username
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 # Install necessary binaries for debugging and troubleshooting
-echo "Installing basic binaries such as net-tools, curl, traceroute and apt-show-versions"
-apt-get install -y net-tools traceroute apt-show-versions
+echo "Installing basic binaries such as net-tools, curl, traceroute, apt-show-versions and zip"
+apt-get install -y net-tools traceroute apt-show-versions zip
 
 echo "Setting up installation process for docker engine in Ubuntu..."
 #Update the apt package index and install packages to allow apt to use a repository over HTTPS:
@@ -81,10 +81,6 @@ unzip awscliv2.zip && ./aws/install
 
 echo "Cleaning up awscliv2.zip folders"
 rm -rf awscliv2.zip*
-
-echo "Unzipping $BIPO_DIR in $HOME"
-cd ~
-unzip $BIPO_DIR.zip -d ./$BIPO_DIR
 
 echo "Changing owner:group to $USER with rwxr-xr-x permissions"
 chown -R $USER:$USER $bipo_dir/ && chmod 755 -R $bipo_dir/
