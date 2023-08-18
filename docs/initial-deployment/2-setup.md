@@ -17,7 +17,7 @@ This deployment has been tested in a **staging** environment using an on-premise
 
 ### 2.2. OS Binary Installation  
 
-The following binaries are installed (with its dependencies) to facilitate the execution of basic network troubleshooting and docker daemon execution. Installation is done using `apt-install.sh`, executed with the following command with superuser rights.
+The following binaries are installed (with its dependencies) to facilitate the execution of basic network troubleshooting and Docker daemon execution. Installation is done using `apt-install.sh`, executed with the following command with superuser rights.
 
 ```
 $ bash apt-install.sh
@@ -67,7 +67,6 @@ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip
 echo "Unzipping and installing AWS CLI v2 installer"
 unzip awscliv2.zip
 ./aws/install
-
 
 # Make bipo directory and its subdirectory
 echo "Creating bipo directory: $bipo_dir/"
@@ -126,7 +125,7 @@ $ systemctl status docker
 $ service docker status
 ```
 
-It should show an output similar to the below, indicating active (running) status:
+2. It should show an output similar to the below, indicating active (running) status:
 ``` bash
 ● docker.service - Docker Application Container Engine
      Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
@@ -141,31 +140,31 @@ TriggeredBy: ● docker.socket
              └─34819 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
 ```
 
-Otherwise, please execute the following commands to restart/start the Docker daemon in the VM:
+- Otherwise, please execute the following commands to restart/start the Docker daemon in the VM:
 
 ``` bash
 $ sudo systemctl stop docker
 $ sudo systemctl start docker
 ```
 
-2. Docker load the provided tar.gz archive file using the following command:
+3. Docker load the provided tar.gz archive file using the following command:
 ``` bash
 $ docker load --input bipo_demand_forecasting/docker/bipo_inference_initial.tar
 ```
 
-3. After loading the image, check if it is loaded in the VM Docker registry with the command `docker image ls` and you should see the following:
+4. After loading the image, check if it is loaded in the VM Docker registry with the command `docker image ls` and you should see the following:
 ```
 $ docker image ls
 REPOSITORY        TAG       IMAGE ID            CREATED       SIZE
 bipo_inference    initial   <ID of the image>   XX days ago   XXXMB
 ```
 
-If typing Docker commands results in a *"Permission denied"* error, please request your administrator to add the current login user to Docker group with the following command to elevate your rights to access Docker:
+If typing Docker commands results in a *"Permission denied"* error, please request your administrator to add the current user to Docker group with the following command to elevate your rights to access Docker:
 
 ``` bash
 $ sudo usermod -aG docker $USER
 ```
 
-### 4.2. Starting and Stopping Docker containers
+### 4.2. Starting and Stopping Docker Containers
 
-Please refer to [Chapter 3 Inference Module](./3-inference-module.md) and [Chapter 4 Endpoint](./4-endpoint.md) for more detailed config.
+Please refer to [Chapter 3: Inference Module](./3-inference-module.md) and [Chapter 4: Model Endpoint](./4-endpoint.md) for more details.
