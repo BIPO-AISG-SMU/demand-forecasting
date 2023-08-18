@@ -1,15 +1,13 @@
 # Model Serving Endpoint
 
-This document provides detailed information on how to interact with our model serving endpoint, which facilitates predictions through a RESTful API. Ensure you've followed the [Environment Setup](2-setup.html) before diving in.
+This document provides detailed information on how to interact with our model serving endpoint, which facilitates predictions through a RESTful API. Ensure you've followed the [`Environment Setup`](2-setup.html) before diving in.
 
 ## Overview
 
-Our model serving endpoint is designed to take in input data, feed it into a trained model, and deliver the model predictions in real-time. If you're unfamiliar with REST APIs, consider browsing [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API) or [REST API Tutorial](https://restfulapi.net/) for foundational knowledge. 
+Our model serving endpoint is designed to take in input data, feed it into a trained model, and deliver the model predictions in real-time. If you're unfamiliar with REST APIs, consider browsing [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API) or [REST API Tutorial](https://restfulapi.net/) for foundational knowledge.
 
-## How to Run Endpoint
 
-### 1. Environment Setup
-Before running the endpoint, make sure your environment meets all the prerequisites mentioned in the [Environment Setup](2-setup.html) guide.
+## 1. How to Run Endpoint
 
 ### 2. Starting the Endpoint
 To run the Docker image containing the endpoint, execute the following command in your home directory. This assumes that your model, data, and configurations are stored in specific directories on your host machine. Note that all path used must be absolute paths.
@@ -20,19 +18,19 @@ $ bash ~/bipo_demand_forecasting/scripts/docker_run.sh
 
 ### 3. Interacting with the API through Swagger UI
 
-After starting the Docker container, you can easily interact with the API endpoints using the Swagger UI, a powerful tool for visualizing and testing API endpoints.
+   After starting the Docker container, you can easily interact with the API endpoints using the Swagger UI, a powerful tool for visualizing and testing API endpoints.
 
 1. **Access the Interface**: Open your preferred web browser and navigate to the Swagger UI, typically located at http://<VM_IP_address>:8000/docs
 2. **Submit Requests**: The interface provides an interactive platform to send requests and view responses. To initiate a request:
-     1. Locate the POST `/api/v1/model/predict` endpoint.
-     2. Click the `Try it out` button.
-     3. Enter the JSON data conforming to the [Request Format](#request-format).
-     4. Click `Execute` to send the request.
-3. **Viewing Responses**: After submission, the prediction response will be displayed directly within the Swagger UI. To understand the structure and meaning of the response, refer to the [Response Format](#response-format) section.
+    1. Locate the POST `/api/v1/model/predict` endpoint.
+    2. Click the `Try it out` button.
+    3. Enter the JSON data conforming to the [Request Format](#5-request-format).
+    4. Click `Execute` to send the request.
+3. **Viewing Responses**: After submission, the prediction response will be displayed directly within the Swagger UI. To understand the structure and meaning of the response, refer to the [Response Format](#6-response-format) section.
 
-![Swagger UI Interactive Interface](assets/swaggerUI.png)
+      ![Swagger UI Interactive Interface](assets/swaggerUI.png)
 
-### 4. Terminating the Endpoint
+### 1.4. Terminating the Endpoint
 
 - **Foreground Execution**: If the Docker container was started in the foreground, simply press `Ctrl + C` in the terminal to halt it.
 - **Background Execution**: If the container is running in the background, use the following command to stop it:
@@ -40,9 +38,9 @@ After starting the Docker container, you can easily interact with the API endpoi
 ```bash
 docker stop --name bipo_inference_initial
 ```
-Note: Replace `bipo_inference:initial` with the name you used when starting the container.
+Note: Replace `bipo_inference:initial` with the name you used when starting the container, if different.
 
-## Request Format
+## 2. Request Format
 
 To obtain predictions, format your POST request as follows: 
 
@@ -131,8 +129,18 @@ To obtain predictions, format your POST request as follows:
 | `campaign_end_date`   | str         | Date when the marketing campaign concluded, formatted as "DD/MM/YYYY".                                        |
 | `campaign_total_cost` | float       | Aggregate expenditure associated with the marketing campaign.                                                 |
 | `lag_sales`           | List[float] | Sequential list of sales figures from the last 14 days, starting from the previous day up to two weeks prior. |
+|                       |
 
-## Response Format
+#### Optional fields
+If not applicable (i.e. no ongoing marketing campaign during the inference period), remove the following 4 fields completely from the request.
+- `campaign_name`
+- `campaign_start_date`
+- `campaign_end_date`
+- `campaign_total_cost`
+
+For `lag_sales`, leave the field as `[ ]` if not applicable.
+
+## 3. Response Format
 
 The server's response contains:
 
@@ -174,27 +182,33 @@ The server's response contains:
 | `sales_class_id`    | str              | ID linked to the class with the highest probability from the `probabilities` attribute.                 |
 | `sales_class_name`  | str              | Descriptive name based on `sales_class_id` and the highest probability.                                 |
 | `probabilities`     | Dict[str, float] | Dictionary mapping class IDs to likelihood scores, determining `sales_class_id` and `sales_class_name`. |
+|                     |
+
+### Mapping of `sales_class_id` to `sales_class_name`: 
+
+| `sales_class_id` |       `sales_class_name`       |
+|---|---|
+| 0 |       Low       |
+| 1 |       Medium       |
+| 2 |       High       |
+| 3 |       Exceptional       |
 
 The `date` and `cost_centre_code` attributes serve as a mapping to the respective fields in the input API request payload, ensuring alignment and traceability between the request and response.
 
 #### Example
-For the entry on "20/3/2023" with a `cost_centre_code` of 308, the probabilities are `{"0": 0.0, "1": 0.1429, "2": 0.2857, "3": 0.5714}`. As 0.5714 is the highest probability, the corresponding `sales_class_id` is "3" and `sales_class_name` is "Exceptional". 
+
+For the entry on "20/3/2023" with a "cost_centre_code" of 308, the probabilities are {"0": 0.0, "1": 0.1429, "2": 0.2857, "3": 0.5714}. 
+- As 0.5714 is the highest probability, the corresponding `sales_class_id` is "3" and `sales_class_name` is "Exceptional". 
   
 Similarly, for "21/3/2023", the highest probability is 0.3284, resulting in a `sales_class_id` of "2" and a `sales_class_name` of "High".
 
-## API Error Codes
+## 4. API Error Codes
 
-When interacting with the API, you may occasionally encounter error responses. To help you navigate these situations, we've provided explanations for some of the common error status codes:
+When interacting with the API, you may occasionally encounter error responses. To help you navigate these situations, we've provided explanations for some of the more common error status codes:
 
-### Error 400 (Bad Request)
-This indicates that the server couldn't understand the request due to invalid syntax or format. Before making another request:
-- Ensure that the API request payload adheres to the expected format.
-- Double-check against the [Request Format](#request-format) section to ensure accuracy.
-
-### Error 500 (Internal Server Error)
-This is a catch-all error, indicating unexpected conditions on the server side. Possible steps to troubleshoot include:
-- Review server logs for detailed error messages.
-- Ensure the server environment and dependencies are correctly set up.
-- If the issue persists, reach out to the technical support or the system administrator for assistance.
+|Error code|Description|
+|---|---|
+|400 (Bad Request)|This indicates that the server couldn't understand the request due to invalid syntax or format. Before making another request:<ul><li>Ensure that the API request payload adheres to the expected format.</li><li>Double-check against the [Request Format](#5-request-format) section to ensure accuracy.</li></ul>|
+|500 (Internal Server Error)|This is a catch-all error, indicating unexpected conditions on the server side. Possible steps to troubleshoot include:<ul><li>Review server logs for detailed error messages.</li><li> Ensure the server environment and dependencies are correctly set up.</li><li> If the issue persists, reach out to the technical support or the system administrator for assistance.|
   
 For a deeper dive into HTTP status codes and their meanings, you can explore the [HTTP Status Codes on RESTful API](https://restfulapi.net/http-status-codes/).

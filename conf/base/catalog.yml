@@ -2,80 +2,96 @@
 #
 # Documentation for this file format can be found in "The Data Catalog"
 # Link: https://docs.kedro.org/en/stable/data/data_catalog.html
-# Here you can define all your data sets by using simple YAML syntax.
-#
-# Documentation for this file format can be found in "The Data Catalog"
-# Link: https://docs.kedro.org/en/stable/data/data_catalog.html
 
-
-#Dataset of interest. Not scalable for more outlets with such implementation.
-#Outlet AZ
-AZ_engineered:
+raw_proxy_revenue_data:
   type: pandas.CSVDataSet
-  filepath: data/04_feature_engineering/merged_AZ_West_processed_fe.csv
+  filepath: data/01_raw/proxy_revenue_masked.csv
+
+raw_propensity_data:
+  type: pandas.ExcelDataSet
+  filepath: data/01_raw/consumer propensity to spend.xlsx
+
+raw_climate_data:
+  type: pandas.ExcelDataSet
+  filepath: data/01_raw/SG climate records 2021 - 2022.xlsx
+
+raw_covid_data:
+  type: pandas.ExcelDataSet
+  filepath: data/01_raw/covid capcacity.xlsx
+  load_args:
+    sheet_name: Sheet2
+
+raw_holiday_data:
+  type: pandas.ExcelDataSet
+  filepath: data/01_raw/holiday_df.xlsx
+
+raw_marketing_data:
+  type: pandas.ExcelDataSet
+  filepath: data/01_raw/marketing.xlsx
+  load_args:
+    sheet_name: [Campaign, Promotions, Product Launch]
+
+# preprocessed_transaction:
+dataloader_data:
+  type: PartitionedDataSet
+  path: data/02_data_loading
+  dataset:
+    type: pandas.CSVDataSet
+  load_args:
+    sep: ","
+    encoding: utf-8
+  layer: data_preprocessing
+
+# feature engineering
+engineered_features_list:
+  type: json.JSONDataSet
+  filepath: data/04_feature_engineering/artefacts/added_features_list.json
   save_args:
-    index: "date"
+    indent: 4
 
-AZ_train:
-  type: pandas.CSVDataSet
-  filepath: data/05_data_split/merged_AZ_West_processed_fe_train.csv
-  versioned: True
-AZ_val:
-  type: pandas.CSVDataSet
-  filepath: data/05_data_split/merged_AZ_West_processed_fe_val.csv
-  versioned: True
-AZ_test:
-  type: pandas.CSVDataSet
-  filepath: data/05_data_split/merged_AZ_West_processed_fe_test.csv
-  versioned: True
-
-#Outlet Z
-Z_engineered:
-  type: pandas.CSVDataSet
-  filepath: data/04_feature_engineering/merged_Z_West_processed_fe.csv
+tsfresh_relevant_features:
+  type: json.JSONDataSet
+  filepath: data/04_feature_engineering/artefacts/tsfresh_relevant_features.json
   save_args:
-    index: "date"
-    
-Z_train:
-  type: pandas.CSVDataSet
-  filepath: data/05_data_split/merged_Z_West_processed_fe_train.csv
-  versioned: True
-Z_val:
-  type: pandas.CSVDataSet
-  filepath: data/05_data_split/merged_Z_West_processed_fe_val.csv
-  versioned: True
-Z_test:
-  type: pandas.CSVDataSet
-  filepath: data/05_data_split/merged_Z_West_processed_fe_test.csv
-  versioned: True
+    indent: 2
+
+preprocessed_data:
+  type: PartitionedDataSet
+  path: data/03_data_preprocessing
+  dataset:
+    type: pandas.CSVDataSet
+    load_args:
+      index_col: 0
+      sep: ","
+      encoding: utf-8
+  layer: feature_engineering
+
 # Directories for IO dataset
-# feature_engineering_data:
-#   type: PartitionedDataSet
-#   path: data/04_feature_engineering
-#   dataset: pandas.CSVDataSet
-#   layer: feature_engineering
-
-# data_split:
-#   type: PartitionedDataSet
-#   path: data/05_data_split
-#   dataset: pandas.CSVDataSet
-#   layer: data_split
-
-# # Future subsectioning
-# train_data:
-#   type: PartitionedDataSet
-#   path: data/05_data_split/train
-#   dataset: pandas.CSVDataSet
-#   layer: data_split
-
-test_data:
+feature_engineering_data:
   type: PartitionedDataSet
-  path: data/05_data_split/test
-  dataset: pandas.CSVDataSet
-  layer: data_split
+  path: data/04_feature_engineering
+  dataset:
+    type: pandas.CSVDataSet
+    load_args:
+      sep: ","
+      encoding: utf-8
+      date_format: "%d/%m/%Y"
+  layer: feature_engineering
 
-val_data:
+# DataSplit outputs. Different split approach can use namespace approach
+train_val_test_data_split:
   type: PartitionedDataSet
-  path: data/05_data_split/val
-  dataset: pandas.CSVDataSet
+  path: data/05_data_split
+  dataset:
+    type: pandas.CSVDataSet
+    load_args:
+      sep: ","
+      encoding: utf-8
+      date_format: "%d/%m/%Y"
+    save_args:
+      sep: ","
+      encoding: utf-8
+      index: False
+      date_format: "%d/%m/%Y"
+  filename_suffix: ".csv"
   layer: data_split

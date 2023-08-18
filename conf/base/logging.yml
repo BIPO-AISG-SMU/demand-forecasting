@@ -1,14 +1,11 @@
 version: 1
 
-disable_existing_loggers: False
+disable_existing_loggers: True
 
 # Set your preferred format for logs
 formatters:
   simple:
     format: "%(asctime)s | %(name)s | %(levelname)s | %(message)s"
-    datefmt: "%d/%m/%Y %H:%M"
-  brief:
-    format: "%(levelname)s | %(message)s"
     datefmt: "%d/%m/%Y %H:%M"
 
 handlers:
@@ -32,7 +29,7 @@ handlers:
     class: logging.handlers.RotatingFileHandler
     level: ERROR
     formatter: simple
-    filename: logs/kedro_exec_error.log  #Has to be relative path
+    filename: logs/kedro_exec_error.log #Has to be relative path
     maxBytes: 10485760 # 10MB
     backupCount: 20
     encoding: utf8
@@ -42,7 +39,7 @@ handlers:
     class: logging.handlers.RotatingFileHandler
     level: DEBUG
     formatter: simple
-    filename: logs/kedro_exec_debug.log  #Has to be relative path
+    filename: logs/kedro_exec_debug.log
     maxBytes: 10485760 # 10MB
     backupCount: 20
     encoding: utf8
@@ -51,16 +48,13 @@ handlers:
   rich:
     class: kedro.logging.RichHandler
     rich_tracebacks: True
-    # Advance options for customisation.
-    # See https://docs.kedro.org/en/stable/logging/logging.html#project-side-logging-configuration
-    # tracebacks_show_locals: False
 
 loggers:
   kedro: # Cannot change the name
     level: INFO #DEBUG
     handlers: [rich, info_file_handler, error_file_handler]
-    #handlers: [rich, debug_file_handler, info_file_handler, error_file_handler]
 
+# Root logger. Overwrite to use CRITICAL level as default
 root:
-  handlers: [info_file_handler]
-  
+  level: CRITICAL
+  handlers: [console]
