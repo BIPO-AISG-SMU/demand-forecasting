@@ -15,20 +15,20 @@ This deployment has been tested in a **staging** environment using an on-premise
  - RAM: 2GB
  - User: Non-root user
 
-### 2.2. Installation 
+### 2.2. Installation of binaries and dependencies in OS
 
 The following steps for installation assumes that the VM has internet access. 
-Unpack and extract the zip folder provided. 
+Unpack and extract the zip folder provided in the OS's $HOME folder (named bipo_demand_forecasting). 
+It should be in the directory of `/home/<user>`
 
 ```
-unzip bipo_inference
+unzip bipo_demand_forecasting
 ```
-
 
 #### 2.2.1. Installing from script
 
 **NOTE**
-1. Before installing the necessary binaries, please ensure that the USER variable in apt-install.sh located in bipo_demand_forecasting/scripts/apt-install.sh is set to the correct VM user. Otherwise, wrong ownership will be set to the folders
+1. Before installing the necessary binaries, please edit the 'USER' variable in apt-install.sh script located in `/home/<user>/bipo_demand_forecasting/scripts/apt-install.sh`` is set to the correct VM user. Otherwise, wrong ownership will be set to the folders when executing the command below.
 
 Open a terminal and navigate to your $HOME folder (i.e /home/<username>). Please run the following command
 ```
@@ -122,18 +122,33 @@ All Python library dependencies are install via `requirements.txt` within the pr
 
 ## 3. Preliminary Steps
 
-1. Extract the .zip folder provided and ensure that the name of the extracted directory is `bipo_demand_forecasting`. Do check that the below subdirectories are present as they would be mounted as volume to the Docker container.
+1. In the `bipo_demand_forecasting`.  Do check that the below subdirectories are present as they would be mounted as volume to the Docker container.
 ```
 ├── bipo_demand_forecasting/
     ├── conf/ (Created and to be bind mounted)
-    ├── data/ (Created and to be bind mounted)
-    ├── logs/ (Created and to be bind mounted)
-    ├── models/ (Created and to be bind mounted)
-
+        ├── base/ (all configurations here)
+            └─ ...
+        ├── __init__.py
+        └─ local/ (empty folder)
+            └─ ...
+    ├── data/ (Created with subfolders that are empty in content; to be bind mounted)
+        └─ ...
+    ├── logs/ (Empty folder; to be bind mounted)
+    └─ models/ (Contains model; to be bind mounted)
+        └─ orderedmodel_prob_20230816.pkl (Model file)
 ```
-2. Ensure that the trained model(s) (in `.pkl` format) are placed in the `models` subdirectory prior to mounting the directory to the container.
+2. Do not modify/delete the name of the pkl file as this exact file is referenced in the docker container that is spinned up. Ensure that there is read permissions by typing the following command:
 
+``` bash
+ls -la ~/bipo_demand_forecasting/models/orderedmodel_prob_20230816.pkl
+```
+You should see 'r' in the first column block of output.
+``` bash
+-rwxr-xr-x 1 aisg aisg 16128131 Aug 18 12:57 /home/aisg/bipo_demand_forecasting/models/orderedmodel_prob_20230816.pkl
+```
 ## 4. Getting Started
+
+This assumes that the `apt-install.sh` has been installed via the command in part 2.
 
 ### 4.1. Checking Docker Service
 
