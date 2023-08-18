@@ -67,11 +67,11 @@ The following diagram illustrates how an external system may interact with the D
 
 ### 2.4. Docker image
 
-The Docker image will be provided as a `.tar.gz` archive, named `bipo_inference_initial.tar`.
+The Docker image will be provided as a `.tar` archive, named `100E_BIPO_docker_inference.tar`.
 
 | Path | Description |
 | :- | - |
-| **docker/** | Contains all docker archive files. Containerised image are exported into `.tar.gz` archive files and stored here for loading into AWS ECR.|
+| **docker/** | Contains all docker archive files. Containerised image are exported into `.tar` archive files and stored here for loading into AWS ECR.|
 
 ### 2.5. Trained model file(s)
 
@@ -80,7 +80,7 @@ The trained model file would be stored in an AWS S3 bucket. To ensure successful
 | Path | Description |
 | :- | - |
 | **models/** | Contains all trained models saved in pickle format used in the pipeline, with `.pkl` as extension. |
-|`orderedmodel_20230818.pkl`|Trained model for inferencing. Model supported for initial deployment is *OrderedModel* from the statsmodels library|
+|`orderedmodel_prob_20230816.pkl`|Trained model for inferencing. Model supported for initial deployment is *OrderedModel* from the statsmodels library|
 
 ### 2.6. Scripts
 | Path | Description |
