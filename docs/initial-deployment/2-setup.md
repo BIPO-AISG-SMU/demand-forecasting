@@ -197,7 +197,7 @@ $ sudo usermod -aG docker $USER
 
 ### 4.2. Starting and Stopping Docker Containers
 
-Please refer to [Chapter 4: Model Endpoint](./4-endpoint.md) for more details.
+Please refer to [Chapter 4: Model Endpoint](./4-endpoint.html) for more details.
 
 ### 4.3 Lifting of firewall ports in VM (if needed)
 Please execute the following to allow any incoming connections to port 8080 with the following command. 
