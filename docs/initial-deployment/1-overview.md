@@ -30,7 +30,9 @@ The following diagram illustrates how an external system may interact with the D
     |    └── base/
     |        ├──parameters.yml
     |        ├──logging.yml
+    |        ├──logging_inference.yml
     |        └──constants.yml
+    |        └──catalog.yml
     ├── data/ (Created and to be bind mounted)
     ├── logs/ (Created and to be bind mounted)
     ├── models/ (Created and to be bind mounted)
@@ -43,8 +45,8 @@ The following diagram illustrates how an external system may interact with the D
 | :- | - |
 | **conf/base/** | Contains all `.yml` configuration files. |
 | parameters.yml | Adjustable parameters |
-| logging.yml | Logging configuration |
-| logging_inference.yml | Logging configuration |
+| logging.yml | Logging configuration for kedro |
+| logging_inference.yml | Logging configuration for inferece |
 | constants.yml | Defined constants for use in Python script. Should not be edited. |
 | catalog.yml | Optional |
 
