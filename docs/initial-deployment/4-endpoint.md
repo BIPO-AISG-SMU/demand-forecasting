@@ -6,12 +6,12 @@ This document provides detailed information on how to interact with our model se
 
 Our model serving endpoint is designed to take in input data, feed it into a trained model, and deliver the model predictions in real-time. If you're unfamiliar with REST APIs, consider browsing [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API) or [REST API Tutorial](https://restfulapi.net/) for foundational knowledge. 
 
-## How to Run Endpoint
+## 1. How to Run Endpoint
 
-### 1. Environment Setup
+## 1.1 Environment Setup
 Before running the endpoint, make sure your environment meets all the prerequisites mentioned in the [Environment Setup](2-setup.html) guide.
 
-### 2. Starting the Endpoint
+## 1.2 Starting the Endpoint
 To run the Docker image containing the endpoint, execute the following command. This assumes that your model, data, and configurations are stored in specific directories on your host machine:
 ```bash
    docker run -p 8000:8000 \
@@ -29,7 +29,7 @@ Note: Replace `<your_image_name>` with the name of your Docker image.
 - `--rm`: Automatically removes the container when it exits, keeping your environment clean.
 - `--mount source=...,target=...`: Mounts directories from your host into the container. This is useful to ensure the containerized application has access to necessary files without having to build them into the image.
 
-### 3. Interacting with the API through Swagger UI
+## 1.3. Interacting with the API through Swagger UI
 
 After starting the Docker container, you can easily interact with the API endpoints using the Swagger UI, a powerful tool for visualizing and testing API endpoints.
 
@@ -43,7 +43,7 @@ After starting the Docker container, you can easily interact with the API endpoi
 
 ![Swagger UI Interactive Interface](assets/swaggerUI.png)
 
-### 4. Terminating the Endpoint
+## 1.4. Terminating the Endpoint
 
 - **Foreground Execution**: If the Docker container was started in the foreground, simply press `Ctrl + C` in the terminal to halt it.
 - **Background Execution**: If the container is running in the background, use the following command to stop it:
@@ -53,7 +53,7 @@ docker stop --name bipo_inference:initial
 ```
 Note: Replace `bipo_inference:initial` with the name you used when starting the container.
 
-## Request Format
+## 2. Request Format
 
 To obtain predictions, format your POST request as follows: 
 
@@ -143,7 +143,7 @@ To obtain predictions, format your POST request as follows:
 | `campaign_total_cost` | float       | Aggregate expenditure associated with the marketing campaign.                                                 |
 | `lag_sales`           | List[float] | Sequential list of sales figures from the last 14 days, starting from the previous day up to two weeks prior. |
 
-## Response Format
+## 3. Response Format
 
 The server's response contains:
 
@@ -193,7 +193,7 @@ For the entry on "20/3/2023" with a `cost_centre_code` of 308, the probabilities
   
 Similarly, for "21/3/2023", the highest probability is 0.3284, resulting in a `sales_class_id` of "2" and a `sales_class_name` of "High".
 
-## API Error Codes
+## 4. API Error Codes
 
 When interacting with the API, you may occasionally encounter error responses. To help you navigate these situations, we've provided explanations for some of the common error status codes:
 
