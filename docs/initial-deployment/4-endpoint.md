@@ -181,7 +181,6 @@ The server's response contains:
 | `sales_class_id`    | str              | ID linked to the class with the highest probability from the `probabilities` attribute.                 |
 | `sales_class_name`  | str              | Descriptive name based on `sales_class_id` and the highest probability.                                 |
 | `probabilities`     | Dict[str, float] | Dictionary mapping class IDs to likelihood scores, determining `sales_class_id` and `sales_class_name`. |
-|                     |
 
 ### Mapping of `sales_class_id` to `sales_class_name`: 
 
