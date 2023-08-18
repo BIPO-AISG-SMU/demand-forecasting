@@ -22,7 +22,7 @@ Unpack and extract the zip folder provided in the OS's $HOME folder (named bipo_
 It should be in the directory of `/home/<user>`
 
 ```
-unzip bipo_demand_forecasting
+unzip bipo_demand_forecasting.zip
 ```
 
 #### 2.2.1. Installing from script
@@ -30,7 +30,7 @@ unzip bipo_demand_forecasting
 **NOTE**
 1. Before installing the necessary binaries, please edit the 'USER' variable in apt-install.sh script located in `/home/<user>/bipo_demand_forecasting/scripts/apt-install.sh`` is set to the correct VM user. Otherwise, wrong ownership will be set to the folders when executing the command below.
 
-Open a terminal and navigate to your $HOME folder (i.e /home/<username>). Please run the following command
+Open a terminal and navigate to your $HOME folder (i.e /home/<username>). Please run the following command with elevated privilege:
 ```
 $ sudo bash bipo_demand_forecasting/src/apt-install.sh
 ```
@@ -82,19 +82,10 @@ unzip awscliv2.zip && ./aws/install
 echo "Cleaning up awscliv2.zip folders"
 rm -rf awscliv2.zip*
 
-# Make bipo directory and its subdirectory
-echo "Creating directories for $bipo_dir if it does not exist"
-if ! [ -d $bipo_dir ]
-then
-        mkdir $bipo_dir && cd $bipo_dir
-        echo "Creating conf data logs and docker subdirectory"
-        mkdir conf data logs docker
-        echo "Moving out of directory"
-        cd ..
-else
-        echo "$bipo_dir exists.Creating necessary subfolders if required."
-        cd $bipo_dir && mkdir -p conf data logs docker && cd ..
-fi
+echo "Unzipping $BIPO_DIR in $HOME"
+cd ~
+unzip $BIPO_DIR.zip -d ./$BIPO_DIR
+
 echo "Changing owner:group to $USER with rwxr-xr-x permissions"
 chown -R $USER:$USER $bipo_dir/ && chmod 755 -R $bipo_dir/
 ```
@@ -127,13 +118,21 @@ All Python library dependencies are install via `requirements.txt` within the pr
 ├── bipo_demand_forecasting/
     ├── conf/ (Created and to be bind mounted)
         ├── base/ (all configurations here)
-            └─ ...
+            ├──catalog.yml
+            ├──constants.yml
+            ├──logging_inference.yml
+            ├──logging.yml
+            └─ parameters.yml
         ├── __init__.py
         └─ local/ (empty folder)
             └─ ...
     ├── data/ (Created with subfolders that are empty in content; to be bind mounted)
         └─ ...
     ├── logs/ (Empty folder; to be bind mounted)
+    ├── scripts/ (Scripts for binaries installation and docker run)
+        ├── apt-install.sh
+        └─ docker_run.sh 
+    ├── docker/ (Not for mounting, contains docker image)
     └─ models/ (Contains model; to be bind mounted)
         └─ orderedmodel_prob_20230816.pkl (Model file)
 ```
