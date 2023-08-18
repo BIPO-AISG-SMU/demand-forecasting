@@ -1,29 +1,29 @@
-# BIPO Demand Forecasting module: Environment Setup
+# Environment Setup
 
 ## 1. Overview
 
-This document is intended for users seeking information on the installation and configuration of the BIPO Demand Forecasting Submodule solution.
+This document is intended for users seeking information on the installation and configuration of the BIPO Demand Forecasting Module.
 
 ## 2. Pre-requisites
 
-This deployment has been tested in a STAGING environment using an on-premise server based on the following specifications that mirrors the actual PRODUCTION environment to the best effort possible. We have not tested on setups which differ from what we have and unable to guarantee that the code will run without issues.
+This deployment has been tested in a **staging** environment using an on-premise server based on the following specifications that mirrors the actual/production environment to the best effort possible. We have not tested on set-ups which differ from what we have and unable to guarantee that the code will run without issues.
 
-### 2.1. System specifications
+### 2.1. System Specifications
 
  - OS: Ubuntu 22.04 LTS (Jammy Jellyfish)
  - CPU: 1 vCPU
  - RAM: 2GB
  - User: Non-root user
 
-### 2.2. Installed OS binaries versions 
+### 2.2. OS Binary Installation  
 
-The following binaries are installed (with its dependencies) to facilitate the execution of simple network troubleshooting and docker daemon execution. Installation are done using the help of the apt-install.sh with the following command with superuser rights.
+The following binaries are installed (with its dependencies) to facilitate the execution of basic network troubleshooting and docker daemon execution. Installation is done using `apt-install.sh`, executed with the following command with superuser rights.
 
 ```
 $ bash apt-install.sh
 ```
 
-The following is the script *apt-install.sh*
+The contents of the `apt-install.sh` script are as follows:
 ```
 #!/usr/bin/sh
 set -e
@@ -81,9 +81,9 @@ echo "Changing owner:group to $USER with rwxr-xr-x permissions"
 chown $USER:$USER -R $bipo_dir && chmod 755 -R $bipo_dir 
 ```
 
-**List of installed binaries and versions:**
+#### List of installed binaries and versions
 
-|Binaries|Version|
+|Binary|Version|
 | - | - |
 |net-tools|1.60+git20181103.0eebece-1ubuntu5|
 |curl|7.81.0-1ubuntu1.13|
@@ -97,23 +97,23 @@ chown $USER:$USER -R $bipo_dir && chmod 755 -R $bipo_dir
 |docker-buildx-plugin|0.11.2-1-ubuntu.22.04-jammy|
 |docker-compose-plugin|2.20.2-1-ubuntu.22.04-jammy|
 
+### 2.3. Python Dependencies
 
-### 2.3 Python dependencies
+All Python library dependencies are install via `requirements.txt` within the provided docker container. No dependencies will be installed on the host as the application is containerised.
 
-All python library dependencies are install via requirements.txt in the provided docker container. No dependencies will be installed on the host as the application is already dockerised.
+## 3. Preliminary Steps
 
-## 3. Preliminaries
-
-Please extract the .zip folder provided and ensure that the name of the folder is 'bipo_demand_forecasting'. Do check the subdirectories (conf, data, logs and models) are available as they would be mounted as volume to docker directory.
+1. Extract the .zip folder provided and ensure that the name of the extracted directory is `bipo_demand_forecasting`. Do check that the below subdirectories are present as they would be mounted as volume to the Docker container.
 ```
 ├── bipo_demand_forecasting/
-    ├── conf/ (Created and to be bind mounted)11
+    ├── conf/ (Created and to be bind mounted)
     ├── data/ (Created and to be bind mounted)
     ├── logs/ (Created and to be bind mounted)
     ├── models/ (Created and to be bind mounted)
 
-Ensure that models in .pkl file are placed in models/ directory prior to mounting the directories to the containers.
 ```
+2. Ensure that the trained model(s) (in `.pkl` format) are placed in the `models` subdirectory prior to mounting the directory to the container.
+
 ## 4. Getting Started
 
 ### 4.1. Checking Docker service
