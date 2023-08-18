@@ -9,32 +9,18 @@ Our model serving endpoint is designed to take in input data, feed it into a tra
 
 ## 1. How to Run Endpoint
 
-### 1.1. Environment Setup
-Before running the endpoint, make sure your environment meets all the prerequisites mentioned in the [`Environment Setup`](2-setup.html) guide.
+### 2. Starting the Endpoint
+To run the Docker image containing the endpoint, execute the following command in your home directory. This assumes that your model, data, and configurations are stored in specific directories on your host machine. Note that all path used must be absolute paths.
 
-### 1.2. Starting the Endpoint with Docker
-To deploy the endpoint using Docker, execute the following command. This assumes that your model, data, and configurations are stored in specific directories on your host machine:
 ```bash
-   docker run -p 8000:8000 \
-           --name bipo_inference:initial \
-           --rm \
-           <your_image_name> \
-           --mount source=<bipo_demand_forecasting/conf>,target=/app/conf \
-           --mount source=<bipo_demand_forecasting/data>,target=/app/data \
-           --mount source=<bipo_demand_forecasting/logs>,target=/app/logs \
-           --mount source=<bipo_demand_forecasting/models>,target=/app/models  
+$ bash ~/bipo_demand_forecasting/scripts/docker_run.sh
 ```
-Note: Replace `<your_image_name>` with the name of your Docker image.
-   - `-p 8000:8000`: Binds port 8000 of your host to port 8000 inside the container.
-   - `--name bipo_inference:initial`: Names the container for easier reference.
-   - `--rm`: Automatically removes the container when it exits, keeping your environment clean.
-   - `--mount source=...,target=...`: Mounts directories from your host into the container. This is useful to ensure the containerized application has access to necessary files without having to build them into the image.
 
-### 1.3. Interacting with the API through Swagger UI
+### 3. Interacting with the API through Swagger UI
 
    After starting the Docker container, you can easily interact with the API endpoints using the Swagger UI, a powerful tool for visualizing and testing API endpoints.
 
-1. **Access the Interface**: Open your preferred web browser and navigate to the Swagger UI, typically located at [http://localhost:8000/docs](http://localhost:8000/docs).
+1. **Access the Interface**: Open your preferred web browser and navigate to the Swagger UI, typically located at http://<VM_IP_address>:8000/docs
 2. **Submit Requests**: The interface provides an interactive platform to send requests and view responses. To initiate a request:
     1. Locate the POST `/api/v1/model/predict` endpoint.
     2. Click the `Try it out` button.
@@ -50,7 +36,7 @@ Note: Replace `<your_image_name>` with the name of your Docker image.
 - **Background Execution**: If the container is running in the background, use the following command to stop it:
 
 ```bash
-docker stop --name bipo_inference:initial
+docker stop --name bipo_inference_initial
 ```
 Note: Replace `bipo_inference:initial` with the name you used when starting the container, if different.
 
