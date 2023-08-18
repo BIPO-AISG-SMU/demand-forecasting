@@ -17,11 +17,71 @@ This deployment has been tested in a STAGING environment using an on-premise ser
 
 ### 2.2. Installed OS binaries versions 
 
-The following binaries are installed (with its dependencies) to facilitate the execution of simple network troubleshooting and docker daemon execution. Installation are done via the following command with superuser rights.
+The following binaries are installed (with its dependencies) to facilitate the execution of simple network troubleshooting and docker daemon execution. Installation are done using the help of the apt-install.sh with the following command with superuser rights.
 
 ```
-$ sudo apt-get install
+$ bash apt-install.sh
 ```
+
+The following is the script *apt-install.sh*
+```
+#!/usr/bin/sh
+set -e
+set -x
+# Bash Variables. Bipo main directory and its subdir folder
+bipo_dir=bipo
+USER=aisg
+
+cd "$(dirname "${BASH_SOURCE[0]}")"
+
+# Install necessary binaries for debugging and troubleshooting
+echo "Installing basic binaries such as net-tools, curl, traceroute apt-show-versions"
+apt-get install -y net-tools traceroute apt-show-versions
+
+echo "Setting up installation process for docker engine in Ubuntu..."
+#Update the apt package index and install packages to allow apt to use a repository over HTTPS:
+apt-get install -y ca-certificates curl gnupg 
+
+# Add Docker offical GPG key
+echo "Adding Docker GPG key"
+install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+chmod a+r /etc/apt/keyrings/docker.gpg
+
+# Setup repository
+echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  tee /etc/apt/sources.list.d/docker.list > /dev/null
+  
+# update the package index files on the Ubuntu system
+apt-get update
+
+# Install docker binaries and dependencies
+echo "Installing docker binaries and dependencies..."
+apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+echo "Downloading AWS CLI v2 installer"
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+echo "Unzipping and installing AWS CLI v2 installer"
+unzip awscliv2.zip
+./aws/install
+
+
+# Make bipo directory and its subdirectory
+echo "Creating bipo directory: $bipo_dir/"
+mkdir $bipo_dir && cd $bipo_dir
+mkdir conf data logs docker
+
+echo "Moving out of directory" 
+cd ..
+
+echo "Changing owner:group to $USER with rwxr-xr-x permissions"
+chown $USER:$USER -R $bipo_dir && chmod 755 -R $bipo_dir 
+```
+
+**List of installed binaries and versions:**
 
 |Binaries|Version|
 | - | - |
@@ -36,6 +96,9 @@ $ sudo apt-get install
 |containerd.io|1.6.22-1|
 |docker-buildx-plugin|0.11.2-1-ubuntu.22.04-jammy|
 |docker-compose-plugin|2.20.2-1-ubuntu.22.04-jammy|
+
+Supporting script for insta
+
 
 ### 2.3 Python dependencies
 
