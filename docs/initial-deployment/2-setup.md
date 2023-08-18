@@ -25,7 +25,7 @@ unzip bipo_inference
 ```
 
 
-#### 2.2.1 Installing from script
+#### 2.2.1. Installing from script
 
 **NOTE**
 1. Before installing the necessary binaries, please ensure that the USER variable in apt-install.sh located in bipo_demand_forecasting/scripts/apt-install.sh is set to the correct VM user. Otherwise, wrong ownership will be set to the folders
@@ -99,7 +99,7 @@ echo "Changing owner:group to $USER with rwxr-xr-x permissions"
 chown -R $USER:$USER $bipo_dir/ && chmod 755 -R $bipo_dir/
 ```
 
-#### 2.2.2 List of installed binaries and versions
+#### 2.2.2. List of installed binaries and versions
 Upon installation, you would have the following binaries installed.
 
 |Binary|Version|
