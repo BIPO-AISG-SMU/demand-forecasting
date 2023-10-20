@@ -1,0 +1,28 @@
+# This is a boilerplate parameters config generated for pipeline 'model_training' using Kedro 0.18.11.
+#
+# Documentation for this file format can be found in "Parameters"
+# Link: https://docs.kedro.org/en/0.18.11/kedro_project_setup/configuration.html#parameters
+
+# Refer to https://www.statsmodels.org/dev/generated/statsmodels.miscmodels.ordinal_model.OrderedModel.html on distr, method and maxiter parameters
+
+# https://www.statsmodels.org/dev/generated/statsmodels.miscmodels.ordinal_model.OrderedModel.fit.html
+ordered_model:
+  params: {
+      model_name: "ordered_model", #DO NOT CHANGE
+      distr: "probit", #probit or logit
+      method: "bfgs", #Optimizer to use
+      max_iter: 10, # At least >=1
+    }
+
+#https://github.com/interpretml/interpret/blob/develop/python/interpret-core/interpret/glassbox/_ebm/_ebm.py
+ebm:
+  params: {
+      model_name: "ebm", #DO NOT CHANGE
+      outer_bags: 8, # Must be non-negative integer
+      inner_bags: 0, # Must be non-negative integer
+      learning_rate: 0.01, #Non-negative rate
+      interactions: 0, # Must be non-negative integer
+      max_leaves: 3, # Decision tree max leaves
+      max_bins: 256, # Non-negative
+      min_samples_leaf: 2, #Min samples per leaf required
+    }

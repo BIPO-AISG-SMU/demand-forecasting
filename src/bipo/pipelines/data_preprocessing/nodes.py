@@ -1,264 +1,266 @@
-# """
-# This is a boilerplate pipeline 'data_processing'
-# generated using Kedro 0.18.10
-# """
+"""
+This is a boilerplate pipeline 'data_processing'
+generated using Kedro 0.18.10
+"""
+# Import standard modules
+import numpy as np
+import pandas as pd
+from typing import List, Tuple, Dict, Set, Union, Any
+from datetime import datetime
 
-# # Import standard modules
-# import pandas as pd
-# import numpy as np
-# from typing import Dict
-# import logging
+from kedro.config import ConfigLoader
+from bipo import settings
+from kedro.io import DataSetError
+import logging
 
-# # Import local modules
-# # This will get the active logger during run time
-# import sys
+conf_loader = ConfigLoader(conf_source=settings.CONF_SOURCE)
+const_dict = conf_loader.get("constants*")
 
-# sys.path.append("../../")
-# sys.dont_write_bytecode = True
-
-# from ...utils import get_project_path  # , get_logger
-
-# # Third Party Imports
-# from kedro.config import ConfigLoader
-
-# # initiate to constants.yml and parameters.yml
-# project_path = get_project_path()
-# conf_loader = ConfigLoader(conf_source=project_path / "conf")
-# conf_params = conf_loader["parameters"]["data_preprocessing"]
-# constants = conf_loader.get("constants*")["data_preprocessing"]
-
-# # load configs
-# expected_dtypes = constants["expected_dtypes"]
-# non_negative_exogeneous_columns = constants["non_negative_exogeneous_columns"]
-# targe_variable = conf_loader.get("constants*")["general"]["target_feature"]
-
-# logging = logging.getLogger("kedro")
+logger = logging.getLogger(settings.LOGGER_NAME)
 
 
-# class DataPreprocessing:
-#     """A class for preprocessing data through various checks and handling.
+def outlet_exclusion_list_check(outlet_exclusion_list: List) -> Set:
+    """Function which conducts a type check on input argument outlet_exclusion_list.
 
-#     This includes:
-#     - Checking and handling missing values
-#     - Checking and casting data types
-#     - Rectifying logic errors in sales/transactions
-#     - Ensuring data meets certain constraints
+    Args:
+        outlet_exclusion_list (List): List containing representation outlets/cost centres in either string/numerical representation.
 
-#     """
+    Raises:
+        None
 
-#     def __init__(self) -> None:
-#         self.merged_df = pd.DataFrame()
+    Returns:
+        Set: Set version of input list or a default set reference from constants.yml's 'default_outlets_exclusion_list' parameters config.
+    """
+    # Return default exclusion list if specified outlet_exclusion_list is not of list type.
+    if not isinstance(outlet_exclusion_list, List):
+        outlet_to_exclude_list = set(const_dict["default_outlets_exclusion_list"])
+        logger.error(
+            f"The provided outlet_exclusion_list from parameters.yml does not match expected list type. Using default setting: {outlet_to_exclude_list}"
+        )
+    else:
+        outlet_to_exclude_list = set([str(outlet) for outlet in outlet_exclusion_list])
+    return outlet_to_exclude_list
 
-#     def run_pipeline(self, merged_df: pd.DataFrame) -> pd.DataFrame:
-#         """Runs a series of preprocessing steps on the input DataFrame.
 
-#         Args:
-#             merged_df (pd.DataFrame): Input DataFrame to be preprocessed.
+def const_value_perc_check(perc_value: float) -> float:
+    """Function which conducts a percentage value check by type casting it into a valid float, clipping the value to the range between 0 and 100 (both inclusive). Should float type casting fails, a default value referencing constants.yml is used.
 
-#         Returns:
-#             pd.DataFrame: Processed DataFrame.
-#         """
+    Args:
+        perc_value (float): Floating value of percentage
 
-#         self.merged_df = merged_df.copy()
-#         # Drop unnecessary columns
-#         logging.info("Starting drop unnecessary columns")
-#         self.merged_df.drop(
-#             columns=conf_params["drop_columns"],
-#             axis=1,
-#             inplace=True,
-#         )
-#         logging.info("Removed unnecessary columns done")
+    Raises:
+        None
 
-#         # Replace special characters with NaNs
-#         self.merged_df.replace({"-": np.nan, "?": np.nan, "[]": np.nan}, inplace=True)
+    Returns:
+        float: Clipped input value to between 0 and 100, representing percentage validity
+    """
 
-#         # Checking and handling data types
-#         logging.info("Starting data type checks")
-#         self.check_data_types()
-#         logging.info("Completed data type checks")
+    # Attempt to type cast input to float before clipping it to valid range, 0 and 100
+    try:
+        perc_value_float = float(perc_value)
+        perc_value_float = np.clip(perc_value_float, 0, 100)
 
-#         # Handling missing values
-#         logging.info("Starting missing value checks")
-#         self.check_and_handle_missing_values()
-#         logging.info("Completed missing value checks")
+    except ValueError:
+        perc_value_float = const_dict["default_const_value_perc_threshold"]
+        logger.error(
+            f"Attempting to type cast {perc_value} to integer by failed. Using default values {perc_value_float}"
+        )
+    return perc_value_float
 
-#         # Checking and handling data constraints
-#         logging.info("Starting data constraints checks")
-#         self.check_and_handle_data_constraints()
-#         logging.info("Completed data constraints checks")
 
-#         processed_df = self.merged_df
+def date_validity_check(start_date: str, end_date: str) -> Tuple[str, str]:
+    """Function which checks if the input start and end dates are in correct format as well as its time ordering.
 
-#         return processed_df
+    Args:
+        start_date (str): Date in string following %Y-%m-%d format
+        end_date (str): Date in string following %Y-%m-%d format
 
-#     def check_and_handle_missing_values(self) -> None:
-#         """Checks for missing values in the DataFrame.
+    Raises:
+        None
 
-#         Columns with more than 50% missing values are dropped.
-#         Remaining missing values are imputed using either median (numeric columns)
-#         or mode (non-numeric columns).
+    Returns:
+        Tuple[str, str]: Validated start and end dates.
+    """
+    # Apply reformat
+    try:
+        start_date = datetime.strptime(start_date, "%Y-%m-%d").strftime("%Y-%m-%d")
+        end_date = datetime.strptime(end_date, "%Y-%m-%d").strftime("%Y-%m-%d")
 
-#         Args:
-#             None
+        if start_date > end_date:
+            logger.info("The start date is after the end date, reversing the dates")
+            end_date, start_date = start_date, end_date
 
-#         Raises:
-#             None
+    except ValueError:
+        logger.error(
+            "Invalid format detected, using defaults configurations from constants.yml"
+        )
+        start_date = const_dict["default_start_date"]
+        end_date = const_dict["default_end_date"]
 
-#         Returns:
-#             None
-#         """
+        # Format
+        start_date = datetime.strptime(start_date, "%Y-%m-%d").strftime("%Y-%m-%d")
+        end_date = datetime.strptime(end_date, "%Y-%m-%d").strftime("%Y-%m-%d")
 
-#         total_rows = len(self.merged_df)
+        logger.error(f"Default start date {start_date} and end date {end_date}")
 
-#         # remove target_variable. Do not impute target variable
-#         non_target_columns = self.merged_df.drop(columns=targe_variable, axis=1).columns
+    return start_date, end_date
 
-#         # Iterate through columns to check for missing values
-#         for column in non_target_columns:
-#             missing_values = self.merged_df[column].isnull().sum()
-#             missing_percentage = (missing_values / total_rows) * 100
 
-#             # Drop columns with more than 50% missing values
-#             if missing_percentage > conf_params["missing_percentage_threshold"]:
-#                 logging.info(
-#                     f"Dropping column '{column}' due to high percentage ({missing_percentage:.2f}%) of missing values."
-#                 )
-#                 self.merged_df.drop(columns=column, inplace=True)
+def merge_non_proxy_revenue_data(
+    partitioned_input: Dict[str, pd.DataFrame]
+) -> Union[pd.DataFrame, None]:
+    """Function which merges all data in 02_dataloader/non_revenue_partitions into a single dataframe. These data represents non proxy revenue related datasets.
 
-#             # Impute missing values for columns with less than 50% missing values
-#             elif missing_percentage > 0:
-#                 logging.info(
-#                     f"Column '{column}' has {missing_percentage:.2f}% missing values. Imputing..."
-#                 )
-#                 self.impute_null_data(column)
+    Args:
+        partitioned_input (Dict[str, str]): Kedro IncrementalDataSet Dictionary containing non proxy revenue data.
 
-#         return None
+    Returns:
+        pd.DataFrame: Merged dataframe based on date if input partitioned_input is not empty.
+    """
+    # Instantiate a dummy dataframe
+    merged_df = None
+    try:
+        for partition_id, partition_load_func in partitioned_input.items():
+            logger.info(f"Loading partition: {partition_id}")
+            df = partition_load_func
+            # Set first instance of partition data as base dataframe. Subsequently use it to merge with other incoming partition data
+            if merged_df is None:
+                logger.info(f"Using {partition_id} as base dataframe.")
+                # Conversion of datetime to ensure during pd.merge, merge is made on correct type without causing NaN as values.
+                merged_df = df.copy()
+                continue
 
-#     def impute_null_data(self, column: str) -> None:
-#         """Imputes missing values in the specified column.
+            # For additional files, we need to merge them with outer join, where join is based on index. Joining on index via outer joins, avoids the creation of additional suffixes columns caused by merge.
+            logger.info(f"Preparing merge with partition: {partition_id}")
 
-#         Median is used for numeric columns and mode for non-numeric columns.
+            # To ensure that merge will not result in Nan when done on datetime
 
-#         Args:
-#             column (str): Name of the column to impute.
+            # Merge on common
+            merged_df = pd.concat(
+                [df, merged_df], axis=1, join="outer", ignore_index=False
+            )
+            logger.info(f"Merged partition: {partition_id} to existing dataframe.\n")
 
-#         Raises:
-#             None
+        logger.info(
+            f"Completed merging of non proxy revenue dataframe. Dataframe is of shape {merged_df.shape}\n"
+        )
+    # merged_df will still be none since no partition is available for processing
+    except DataSetError:
+        logger.error("No data is available in the partition. Not merging anything.\n")
 
-#         Returns:
-#             None
-#         """
-#         # Ensure that the column argument is of type str
-#         if not isinstance(column, str):
-#             logging.debug(
-#                 "column argument is not of str type, will be typecasted to str."
-#             )
-#             column = str(column)
+    return merged_df
 
-#         # Check if the column exists in the DataFrame
-#         if column not in self.merged_df.columns:
-#             logging.error(f"Column '{column}' does not exist in the DataFrame.")
-#             return None
 
-#         if np.issubdtype(self.merged_df[column].dtype, np.number):
-#             median_value = self.merged_df[column].median()
-#             self.merged_df[column].fillna(median_value, inplace=True)
-#             logging.info(
-#                 f"Imputed missing values in column '{column}' with median value of {median_value}.{self.merged_df[column].dtype}"
-#             )
-#         else:
-#             mode_value = self.merged_df[column].mode()[0]
-#             self.merged_df[column].fillna(mode_value, inplace=True)
-#             logging.info(
-#                 f"Imputed missing values in column '{column}' with mode value of {mode_value}.{self.merged_df[column].dtype}"
-#             )
+def merge_outlet_and_other_df_feature(
+    outlet_partitioned_input: Dict[str, pd.DataFrame],
+    daily_other_feature_df: pd.DataFrame,
+    params_dict: Dict[str, Any],
+) -> Dict:
+    """Function which merges non-proxy revenue data with individual outlet proxy revenue data
 
-#         return None
+    Args:
+        outlet_partitioned_input (Dict[str, pd.DataFrame]): Kedro IncrementalDataSet dictionary containing individual outlet related features dataframe as values with filename as identifier.
+        daily_other_feature_df (pd.DataFrame): Dataframe comprising of non-proxy revenue related features
+        params_dict (Dict[str, Any]): Dictionary of parameters as referenced from parameters.yml
 
-#     def check_data_types(self) -> None:
-#         """Checks and casts the data types of columns based on the expected data types provided.
+    Raises:
+        None.
 
-#         Args:
-#             None
+    Returns:
+        Dict: Dictionary representing processed outlet partitions. Empty dict if no outlet partitions is provided.
+    """
+    # Instantiate a empty dict for storing processed partition file names as key and corresponding processed dataframe as values
+    outlet_with_features_dict = {}
 
-#         Raises:
-#             Exception: When type casting of dataframe columns is not possible with specified data type.
+    logger.info(
+        "Extracting start_date and end_date for data filtering from parameters.yml"
+    )
+    start_date = str(params_dict["start_date"])
+    end_date = str(params_dict["end_date"])
+    outlet_to_exclude_list = params_dict["outlets_exclusion_list"]
+    zero_val_threshold_perc = params_dict["zero_val_threshold_perc"]
 
-#         Returns:
-#             None
-#         """
+    # Apply data sanity check.
+    start_date, end_date = date_validity_check(start_date, end_date)
 
-#         # Loop through each column in DataFrame
-#         for i, column in enumerate(self.merged_df.columns):
-#             # Log the name of the current column being processed
-#             # logging.info(f"{i+1}. Column: '{column}'.")
+    outlet_to_exclude_set = outlet_exclusion_list_check(outlet_to_exclude_list)
 
-#             # Check if column is in the expected data types dictionary
-#             if column in expected_dtypes.keys():
-#                 expected_dtype = expected_dtypes[column]
-#                 actual_dtype = self.merged_df[column].dtype.name
+    zero_val_threshold_perc = const_value_perc_check(zero_val_threshold_perc)
 
-#                 # Check if the actual data type matches the expected data type and log.
-#                 if actual_dtype != expected_dtype:
-#                     logging.info(
-#                         f"{i+1}.Attempting to fix column '{column}' from {actual_dtype} to the expected {expected_dtype} data type."
-#                     )
+    logger.info(f"Start date: {start_date}")
+    logger.info(f"End date: {end_date}")
 
-#                     # Type Cast the column to the expected data type with errors ignored which means no change
-#                     self.merged_df[column] = self.merged_df[column].astype(
-#                         dtype=expected_dtype, errors="ignore"
-#                     )
-#                     # Log info after successful casting
-#                     logging.info(
-#                         f"{i+1}. Column '{column}' is now of datatype {self.merged_df[column].dtype.name}."
-#                     )
-#                 else:
-#                     # Log that the data type of the column is as expected
-#                     logging.info(f"{i+1}. Column '{column}' has the correct data type.")
-#             else:
-#                 # Log a warning if the column was not found in the expected data types dictionary
-#                 logging.info(
-#                     f"Column '{column}' not found in the config file under expected_dtypes. Leaving the datatype as it is."
-#                 )
+    # Load outlet partition. First, cross check with outlet_to_exclude_list to skip such partitions when it is in the list. Next, upon loading check if the revenue related column of the outlet
+    try:
+        for outlet_partition_id, outlet_partition_load_func in sorted(
+            outlet_partitioned_input.items()
+        ):
+            outlet_partition_info = outlet_partition_id.split("_")[-1]
+            if outlet_partition_info in outlet_to_exclude_set:
+                logger.info(
+                    f"Skipping {outlet_partition_info} as it is to be excluded..\n"
+                )
+                continue
 
-#         return None
+            logger.info(f"Loading {outlet_partition_id}")
+            outlet_df = outlet_partition_load_func
 
-#     def check_and_handle_data_constraints(self) -> None:
-#         """Ensures data in certain columns meets specified constraints.
+            # Check if the proxy revenue counts exceeds defined const_val_threshold_perc. If so, exclude to avoid downstream equal frequency binning approach.
+            revenue_col = const_dict["default_revenue_column"]
+            logger.info(
+                "Checking if instances of specific values exceeds a set threshold, which may cause equal frequency binning issue."
+            )
 
-#         Args:
-#             None
+            if 0 in outlet_df[revenue_col].value_counts(normalize=True):
+                if outlet_df[revenue_col].value_counts(normalize=True)[0] >= (
+                    zero_val_threshold_perc / 100
+                ):
+                    logger.info(
+                        f"{outlet_partition_id} excluded as there exists value(s) which exceeds the defined threshold. Moving to the next.\n"
+                    )
+                    continue
 
-#         Raises:
-#             None
+            # Check if start or end date of outlet data fulfils required dates, else skip
+            # outlet_df.reset_index(inplace=True)
 
-#         Returns:
-#             None
-#         """
-#         # Check if any of the columns have negative values
-#         numeric_columns = self.merged_df.select_dtypes(include=["int", "float"]).columns
-#         negative_columns = self.merged_df[numeric_columns].columns[
-#             (self.merged_df[numeric_columns] < 0).any()
-#         ]
-#         # If there are negative_columns, log it.
-#         if list(negative_columns):
-#             logging.info(
-#                 f"Columns with negative values: '{list(negative_columns)}. Please consider adding columns to non_negative_exogeneous_columns"
-#             )
+            logger.info("Retrieving earliest/latest available dates for outlets")
+            earliest_avail_date = outlet_df.index.min()
+            latest_avail_date = outlet_df.index.max()
+            if earliest_avail_date > start_date or latest_avail_date < end_date:
+                logger.info(
+                    f"Earliest date: {earliest_avail_date}, Latest date: {latest_avail_date}"
+                )
+                logger.info(f"Skipping {outlet_partition_id} due to insufficient data")
+                continue
+            else:
+                # Apply left join for non-proxy revenue on outlet's proxy revenue as the date index of outlet is what we are interested.
+                outlet_df.index = pd.to_datetime(outlet_df.index, format="%Y-%m-%d")
+                daily_other_feature_df.index = pd.to_datetime(
+                    daily_other_feature_df.index, format="%Y-%m-%d"
+                )
+                outlet_df = pd.merge(
+                    outlet_df,
+                    daily_other_feature_df,
+                    how="left",
+                    left_index=True,
+                    right_index=True,
+                )
 
-#         for i, column in enumerate(self.merged_df.columns):
-#             # Ensuring non-negative values
-#             if column in non_negative_exogeneous_columns:
-#                 # Set lower bound of range to 0
-#                 self.merged_df[column] = self.merged_df[column].clip(lower=0)
-#                 logging.info(f"Ensured non-negative values in column '{column}'.")
+                logger.info(
+                    f"After merging features, shape of {outlet_partition_id} is {outlet_df.shape}"
+                )
 
-#             # Ensuring minimum value of 1 for 'propensity_factor' column
-#             elif column == "propensity_factor":
-#                 self.merged_df[column] = self.merged_df[column].clip(lower=1)
-#                 logging.info(f"Ensured minimum value of 1 in column '{column}'.")
+            # Ensure date index format is %Y-%m-%d
+            outlet_df.index = pd.to_datetime(outlet_df.index, format="%Y-%m-%d")
 
-#             # Log that data constraints have been successfully handled.
-#             # logging.info(f" Column {i}: {column} have been successfully handled.")
+            # Update dictionary as output with new partition string
+            new_partition_string = f"{outlet_partition_id}_processed"
+            outlet_with_features_dict[new_partition_string] = outlet_df
+        logger.info(
+            "Completed merging of outlet proxy revenue and external features datasets.\n"
+        )
+        return outlet_with_features_dict
 
-#         return None
+    except DataSetError:
+        logger.error("No data is available in the partition. Not merging anything.\n")
+        return {}

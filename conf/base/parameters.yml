@@ -1,132 +1,203 @@
-# This is a boilerplate parameters config generated for pipeline 'data_split'
-# using Kedro 0.18.10.
+# This is a boilerplate parameters config generated for pipeline using Kedro 0.18.10.
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://docs.kedro.org/en/0.18.10/kedro_project_setup/configuration.html#parameters
-
-inference:
-    lag_sales_date_range: #date formate have to be yyyy-mm-dd (must be 14 days)
-        { "start_date": "2023-03-04", "end_date": "2023-03-17" }
-    ordinal_columns:
-        { "cat_covid_group_size_cap": ["2", "5", "8", "10", "no limit"] }
-    inference_columns_rename_map: { "max_temp": "temp_max" }
-
 general:
-    target_feature: "proxy_revenue"
+    raw_target_feature: "proxy_revenue"
+    target_feature: "binned_proxy_revenue"
+    revenue_number_of_bins: 4
 
-dataloader:
-    # Files required for dataloader module. Change the file name accordingly
-    proxy_revenue_file: "proxy_revenue_masked.csv"
-    propensity_file: "consumer propensity to spend.xlsx"
-    marketing_file: "marketing.xlsx"
-    climate_record_file: "SG climate records 2021 - 2022.xlsx"
-    covid_record_file: "covid capcacity.xlsx"
-    holiday_data_file: "holiday_df.xlsx"
+outlet_column_name: "costcentrecode"
+#number of days for lag sales 
+lookback_period: 14 
 
-    # Specify the target variable
-    target_feature: "ProxyRevenue" # raw name from data
+####### Datapreprocess configurations
+start_date: "2021-01-01"
+end_date: "2022-12-31"
 
-    # When target_variable has more than zero_percentage_threshold, drop cost centre is sound off. 10% of len of df (730 days) = 73 days
-    zero_percentage_threshold: 13
+# Caters to % instances of zero valued causing binning issue. Between 0 and 100
+zero_val_threshold_perc: 2
+# List of costcentre/outlets to exclude from pipeline
+outlets_exclusion_list: []
 
-    # General date range of interest
-    date_range: ["2021-01-01", "2022-12-31"] #set date range for merge_df and marketing_df
-    exclude_cost_centre_code: [] # Remove any cost centre that is not needed.
+# ----------------------------------------------------------------------
+####### Feature Engineering configurations.
+# The following are the columns of the dataframe post split.
 
-    # Parameters to change in Marketing.xlsx
-    days_to_end_campaign: 51 # Inpute number of days for marketing data without a end date. (default is Campaign duration median value: 51.5 days)
-    marketing_sheet_campaign: ["Campaign", "Promotions", "Product Launch"] #sheet of interest. Limited to only "Campaign","Promotions","Product Launch"
-    marketing_sheet_ad: [
-            "TV Ad",
-            "Radio Ad",
-            "Poster Campaign",
-            "Digital ",
-            "Youtube Ad",
-            "Instagram Ad",
-            "Facebook Ad",
-        ] #sheet of interest. Limited to only "TV Ad", "Radio Ad", "Poster Campaign", "Digital ", "Youtube Ad", "Instagram Ad", "Facebook Ad"
+# Date, costcentrecode, manhours, proxyrevenue, location, outlet, type,daily_rainfall_total_mm, highest_30_min_rainfall_mm, highest_60_min_rainfall_mm,highest_120_min_rainfall_mm, mean_temperature_c, maximum_temperature_c,minimum_temperature_c, mean_wind_speed_kmh, max_wind_speed_kmh, factor,group_size_cap, school_holiday, school_holiday_type, public_holiday,public_holiday_type, day, name, tv_ad,radio_ad, instagram_ad,facebook_ad,youtube_ad, poster_campaign, digital
 
-    ## Parameters to change in holiday_df.xlsx
+###### Time agnostic feature engineering section
+# List of columns to be after feature engineering (not including tsfresh, lightweightmmm)
+fe_columns_to_drop_list: [
+    "day",
+    "location",
+    "manhours",
+    "outlet",
+    "highest_30_min_rainfall_mm",
+    "highest_60_min_rainfall_mm",
+    "highest_120_min_rainfall_mm",
+    "min_temperature_c",
+    "mean_temperature_c",
+    "mean_wind_speed_kmh",
+    "max_wind_speed_kmh",
+    "school_holiday_type",
+    "public_holiday_type",
+]
 
-    ## Parameters to change in covid capcacity.xlsx
+# Impute values for marketing columns which no marketing event occurs.
+# Values either a scalar or dict
+fe_mkt_column_name: "name"
 
-    ## Parameters to change in consumer propensity to spend.xlsx
+# Dictionary containing values for imputation related to marketing features excluding marketing campaign.
+mkt_columns_to_impute_dict: {
+    "tv_ad_daily_cost": 0,
+    "radio_ad_daily_cost": 0,
+    "instagram_ad_daily_cost": 0,
+    "facebook_ad_daily_cost": 0,
+    "youtube_ad_daily_cost": 0,
+    "poster_campaign_daily_cost": 0,
+    "digital_daily_cost": 0,
+}
 
-    ## Parameters to change in proxy_revenue_masked.csv
-    revenue_location_rename_mapping: { "Northeast": "East", "Central": "East" }
-    number_of_days: 730 # only keep cost centres with specified number of days
+# -----------------------------------------------------------------------
+###### Time-agnostic features categorsiation. 
 
-    ## SG climate records 2021 - 2022.xlsx
 
-data_preprocessing:
-    # Columns that we do not need
-    drop_columns: ["man_hours", "outlet", "cat_weather_station"]
+# NOTE: Parameters prefixed with 'fe' are columns which would be dropped after relevant encoding/transformation. They are depended by the code for conducting such activity.
 
-    # Threshold for imputing missing values
-    missing_percentage_threshold: 50
+#Possible options: simple_split, expanding_window or sliding_window.
+split_approach_source: "simple_split" 
 
-feature_engineering:
-    # Exogenous variable: directly from input dataset
-    #   exog_feature_nobin: ["is_school_holiday", "is_public_holiday", "cat_day_of_week", "diff_temp"]
-    exog_feature_nobin:
-        ["is_school_holiday", "is_public_holiday", "cat_day_of_week"]
 
-    # Exogeneous variable which max-min is to be calculated. Add a line down under exog_feature_to_difference
-    exog_feature_todiff:
-        temperature: ["temp_min", "temp_max"]
+### Column specific features for feature engineer involving conversion to boolean state based on hard coded condition.
+# Weather related column for use in creating 'is_raining' feature.
+# Officially defined as having “rained” if the total rainfall for that day is 0.2mm or more.
+fe_rainfall_column: "daily_rainfall_total_mm"
 
-    # Exogenous variable: require binning
-    exog_feature_bin: ["rain_day_mm", "wind_mean_kmh"]
-    # Binning setup: rain_day_mm
-    rain_day_mm:
-        bins: [0, 1, 10, 50, 999]
-        labels:
-            [
-                "No precipitation",
-                "Low/Moderate precipitation",
-                "Heavy precipitation",
-                "Extreme precipitation",
-            ]
-    # Binning setup: wind_mean_kmh
-    wind_mean_kmh:
-        bins: [0, 1, 6, 12, 20, 29, 39, 50, 62, 75, 89, 103, 118, 999]
-        labels:
-            [
-                "Calm",
-                "Light Air",
-                "Light Breeze",
-                "Gentle Breeze",
-                "Moderate Breeze",
-                "Fresh Breeze",
-                "Strong Breeze",
-                "Near Gale",
-                "Gale",
-                "Strong Gale",
-                "Storm",
-                "Violent Storm",
-                "Hurricane",
-            ]
+# Holiday related columns to use for generating its equivalent boolean state: # "school_holiday", "public_holiday". A corresponding prefix 'is' will be appended to the specified list of column.
+fe_holiday_column_list: ["school_holiday", "public_holiday"]
 
-    endo:
-        lag_days_list: [9, 14]
-        window_days_list: [7, 8] # Simple moving average
-        num_weeks_list: [1, 2]
-        shift_period: 9
-        bin_approach: "equal frequency" # or mean std (generate_bins func)
-        # bin_labels_list: ["Very Low","Low", "Below Average", "Medium", "Above Average", "High", "Very High", "Exceptional"] # Expand the bin labels to cater for more
-        bin_labels_list: ["Low", "Medium", "High", "Exceptional"] # Expand the bin labels to cater for more
-        tsfresh_entity: "week_sma"
-        tsfresh_num_features: 20
-        tsfresh_days_per_group: 2
-        extract_relevant: True
-        n_significant: 4
-        num_outlets: 3
-        filter_num_days: 365
+# Pandemic related column for generating its equivalent boolean state:
+fe_pandemic_column: "group_size_cap"
 
-outlet_name: ["AZ", "Z"]
-data_split:
-    time_index_split:
-        train:
-            value: 60
-        val:
-            value: 20
+# Columns to be applied differencing. List of list with inner list containing only 2 elements. Example [["minimum_temperature_c","maximum_temperature_c"]]
+columns_to_diff_list: [[]]
+
+# Holiday related columns to use for generating its equivalent boolean state: # "school_holiday", "public_holiday". A corresponding prefix 'is' will be appended to the specified list of column.
+fe_holiday_column_list: ["school_holiday", "public_holiday"]
+# ----------------------------------------------------------------------
+############### Time-dependent feature engineering
+
+### NOTE: Parameters prefixed with 'fe' are columns which would be dropped after relevant encoding/transformation. They are depended by the code for conducting such activity. 
+
+####### Target feature (the feature of interest).
+fe_target_feature_name: "proxyrevenue"
+## Dictionary containing columns to encode as well as the encoded labels
+fe_ordinal_encoding_dict: {} #{"type" : ["carry-out","dine-in"]}
+
+# Columns to encode: Please ensure they column to encode is not included in the columns_to_drop_list, as this would result in error. 
+fe_one_hot_encoding_col_list: ["type"]
+
+## Binning dictionary
+binning_dict: { 
+    "proxyrevenue": ["Low", "Medium", "High", "Exceptional"],
+}
+
+
+## Normalisation
+columns_to_std_norm_list: [] # Define columns to normalise based on above specified column information. Exclude lag features
+include_lags_columns_for_std_norm: True # set to False if all lag feature is not required for normalisation
+normalization_approach: "normalize" # "normalize", "standardize"
+
+# ----------------------------------------------------------------------
+############################## Non time-dependent feature engineering
+### NOTE: Parameters prefixed with 'fe' are columns which would be dropped after relevant encoding/transformation. They are depended by the code for conducting such activity. 
+
+## Lag feature(s) generation
+columns_to_create_lag_features: ["proxyrevenue"] # Columns to create lag
+lag_periods_list: [9, 14] # List of lag periods to generate prior to split. Values should be positive integers
+
+# Sma features
+sma_window_periods_list: [7] # List of window size for aggregation
+
+lag_week_periods_list: [1,2] # Week level equivalent of lag periods list
+# ----------------------------------------------------------------------
+## LightweightMMM related features.
+
+include_lightweightMMM: False  #Config that determines whether pipeline should include lightweightMMM. Either True/False.
+
+# Num of day lags for use in lightweightmmm, must be numeric
+lightweightmmm_num_lags: 7
+# True to normalize adstock values. Otherwise False. 
+lightweightmmm_adstock_normalise: True 
+# If lightweightmmm_optimise_parameters set to False, then use lightweightmmm_params to generate lightweightmmm features. 
+lightweightmmm_optimise_parameters: True
+
+
+# each parameter contains the same length of values as the total marketing channel cost, and the order of the marketing channels is identical to the order of the columns listed in fe_mkt_channel_list below.
+lightweightmmm_params: {
+    "lag_weight": [
+      0.7025092840194702,
+      0.9559807777404785,
+      0.7545639872550964,
+      0.7484495639801025,
+      0.9405289888381958,
+      0.6504644751548767,
+      0.7207008600234985
+    ],
+    "ad_effect_retention_rate": [
+      0.4963219165802002,
+      0.6495261788368225,
+      0.5482161045074463,
+      0.5484575033187866,
+      0.5822694897651672,
+      0.6404658555984497,
+      0.7346216440200806
+    ],
+    "peak_effect_delay": [
+      1.2488423585891724,
+      5.565805435180664,
+      1.9455510377883911,
+      1.8988547325134277,
+      1.8554285764694214,
+      1.6911286115646362,
+      1.8539011478424072
+    ]
+  }
+
+mkt_channel_list: ['tv_ad_daily_cost', 'radio_ad_daily_cost', 'instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost','poster_campaign_daily_cost', 'digital_daily_cost']
+
+# ----------------------------------------------------------------------
+## Tsfresh related features
+include_tsfresh: False #Config that determines whether pipeline should include tsfresh. Either True/False.
+
+run_tsfresh_fe: False # boolean either True or False
+tsfresh_feature_selection: True # boolean either True or False
+
+tsfresh_entity: "week_sma" # either week or week_sma
+tsfresh_num_features: 20 # Numerical
+tsfresh_days_per_group: 7
+tsfresh_target_feature: "binned_proxyrevenue"
+# Specify features to do tsfresh engineering and selection. Can refer to added_features_list.json artefact for added engineered features. 
+tsfresh_features_list: ["proxyrevenue"]
+tsfresh_extract_relevant: True
+tsfresh_n_significant: 4
+tsfresh_num_outlets: 3
+
+filter_num_days: 365
+sma_tsfresh_shift_period: 9
+
+# ----------------------------------------------------------------------
+########## Used for model_preprocessing module
+model: "ordered_model" # Model to use: "ordered_model" or "ebm"
+target_column_for_modeling: "binned_proxyrevenue" #For classification. We will use the binned column of the target column as defined above.
+
+drop_columns_used_for_binning_encoding: True # Either true or false
+training_testing_mode: "training" # Mode of pipeline: training or testing
+fold: 1 # Fold to use
+
+# MLflow Tracking Server
+enable_mlflow: True
+is_remote_mlflow: False
+tracking_uri: "http://10.43.130.112:5005"
+experiment_name_prefix: "bipo" # Example experiment_name: bipo-ebm

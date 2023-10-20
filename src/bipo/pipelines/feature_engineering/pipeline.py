@@ -1,288 +1,225 @@
-"""
-Contains 2 main pipelines 
-1. create_feature_engineering_pipeline
-2. create_feature_selection_pipeline
+from kedro.pipeline import Pipeline, node
+from kedro.pipeline.modular_pipeline import pipeline
 
-One pipeline for each outlet. Individual pipelines are then added into a main Pipeline. 
-"""
-import os
-import pandas as pd
-from kedro.pipeline import Pipeline, node, pipeline
-from kedro.io import DataCatalog
-from .nodes import *
-from bipo.utils import get_input_output_folder, get_project_path
+from bipo import settings
 from kedro.config import ConfigLoader
-import logging
 
-logging = logging.getLogger(__name__)
-# Create an empty data catalog to store input and output filepaths
-data_catalog = DataCatalog()
+# Lightweightmmm processes
+from .lightweightmmm import (
+    extract_mmm_params_for_folds,
+    generate_mmm_features_for_outlets,
+)
 
-# Instantiate config
-project_path = get_project_path()
-conf_loader = ConfigLoader(conf_source=project_path / "conf")
-conf_params = conf_loader["parameters"]
-constants = conf_loader.get("constants*")
-conf_catalog = conf_loader.get("catalog*", "catalog/**")
-catalog = DataCatalog.from_config(conf_catalog)
+# General feature engineering processes
+from .nodes import (
+    generate_lag,
+    apply_feature_encoding_transform,
+    apply_feature_encoding_fit,
+    apply_standard_norm_fit,
+    apply_standard_norm_transform,
+    apply_binning_fit,
+    apply_binning_transform,
+)
 
-# load configs
-SOURCE_DATA_DIR = constants["feature_engineering_data_source_dir"]
-DEST_DATA_DIR = constants["feature_engineering_data_destination_dir"]
-NUM_OUTLETS = conf_params["feature_engineering"]["endo"]["num_outlets"]
+# tsfresh processes
+
+from .tsfresh_node import (
+    run_tsfresh_feature_selection_process,
+    run_tsfresh_feature_engineering_process,
+)
 
 
-def feature_engineering_pipeline(
-    input_df: pd.DataFrame, output_filename: str
-) -> Pipeline:
-    """Create a feature engineering pipeline for each outlet. Performs endogenous, exogenous and tsfresh feature engineering for relevant tsfresh features..
+def create_pipeline(**kwargs) -> Pipeline:
+    conf_loader = ConfigLoader(conf_source=settings.CONF_SOURCE)
+    conf_params = conf_loader["parameters"]
 
-    Args:
-        input_df (pd.DataFrame): Preprocessed dataframe input.
-        output_filename (str): The filename for the output data.
-
-    Returns:
-        Pipeline: The kedro pipeline with the added node.
-    """
-    fe_pipeline = pipeline(
+    pipeline_instance = pipeline(
         [
+            ## Feature Encodings
             node(
-                func=lambda: run_fe_pipeline(input_df),
-                inputs=None,
-                outputs=[
-                    "df_integrated",
-                    "added_exog_feature_list",
-                    "added_endo_feature_list",
-                ],
-            ),
-            # node(
-            #     func=lambda df_integrated, parameters: run_tsfresh_fe_pipeline(
-            #         df_integrated, parameters
-            #     ),
-            #     inputs=["df_integrated", "parameters"],
-            #     outputs="fe_df",
-            #     name="tsfresh_extract_features",
-            # ),
-            # node(
-            #     func=lambda fe_df, catalog=data_catalog: save_data(
-            #         catalog, fe_df, output_filename
-            #     ),
-            #     inputs=[
-            #         "fe_df",
-            #     ],
-            #     outputs=None,
-            #     name="save_fe_data",
-            # ),
-            node(
-                func=lambda df_integrated, catalog=data_catalog: save_data(
-                    catalog, df_integrated, output_filename
-                ),
+                func=apply_feature_encoding_fit,
                 inputs=[
-                    "df_integrated",
+                    "time_agnostic_feature_engineering_training",
+                    "parameters",
                 ],
-                outputs=None,
-                name="save_fe_data",
+                outputs="feature_encoding_dict",
+                name="feature_engr_apply_feature_encoding_fit",
+                tags=["training"],
             ),
-        ]
-    )
-    return fe_pipeline
-
-
-def save_artefact_pipeline() -> Pipeline:
-    """pipeline to save list of endogenous and exogenous engineered features as a artefact in json format.
-
-    Returns:
-        Pipeline: pipeline to save list of engineered features
-    """
-    artefact_pipeline = pipeline(
-        [
             node(
-                func=lambda added_exog_feature_list, added_endo_feature_list: save_artefacts(
-                    added_exog_feature_list, added_endo_feature_list
-                ),
-                inputs=["added_exog_feature_list", "added_endo_feature_list"],
-                outputs=None,
-            )
-        ]
-    )
-    return artefact_pipeline
-
-
-def feature_selection_pipeline(
-    input_df: pd.DataFrame, relevance_table_list: list
-) -> Pipeline:
-    """Saves the top relevant tsfresh features in a json file after performing endogenous and exogenous feature engineering.
-
-    Args:
-        input_df (pd.DataFrame): Preprocessed dataframe input.
-        relevance_table_list (list): list containing relevance tables generated by each outlet.
-
-    Returns:
-        Pipeline: Feature selection pipeline
-    """
-    fs_pipeline = pipeline(
-        [
-            node(
-                func=lambda: run_fe_pipeline(input_df),
-                inputs=None,
-                outputs=[
-                    "df_integrated",
-                    "added_exog_feature_list",
-                    "added_endo_feature_list",
+                func=apply_feature_encoding_transform,
+                inputs=[
+                    "time_agnostic_feature_engineering_training",
+                    "parameters",
+                    "feature_encoding_dict",
                 ],
+                outputs="time_dependent_training_enc",
+                name="feature_engr_apply_feature_encoding_transform_train",
+                tags=["training"],
+            ),
+            node(  # Handles validation set
+                func=apply_feature_encoding_transform,
+                inputs=[
+                    "time_agnostic_feature_engineering_validation",
+                    "parameters",
+                    "feature_encoding_dict",
+                ],
+                outputs="time_dependent_validation_enc",
+                name="feature_engr_apply_feature_encoding_transform_val",
+                tags=["training"],
+            ),
+            ## Binning nodes
+            node(
+                func=apply_binning_fit,
+                inputs=[
+                    "time_dependent_training_enc",
+                    "parameters",
+                ],
+                outputs="binning_encodings_dict",
+                name="feature_engr_apply_binning_fit",
             ),
             node(
-                func=lambda df_integrated, parameters, relevance_table_list=relevance_table_list: run_tsfresh_feature_selection(
-                    relevance_table_list, df_integrated, parameters
-                ),
-                inputs=["df_integrated", "parameters"],
-                outputs="relevance_table_list",
+                func=apply_binning_transform,
+                inputs=[
+                    "time_dependent_training_enc",
+                    "parameters",
+                    "binning_encodings_dict",
+                ],
+                outputs="equal_freq_binning_fit_training",
+                name="feature_engr_apply_binning_transform_training",
             ),
-        ]
+            node(  # Handles validation set
+                func=apply_binning_transform,
+                inputs=[
+                    "time_dependent_validation_enc",
+                    "parameters",
+                    "binning_encodings_dict",
+                ],
+                outputs="equal_freq_binning_fit_validation",
+                name="feature_engr_apply_binning_transform_val",
+            ),
+            ## Normalisation nodes.
+            node(
+                func=apply_standard_norm_fit,
+                inputs=[
+                    "equal_freq_binning_fit_training",
+                    "parameters",
+                ],
+                outputs="std_norm_encoding_dict",
+                name="feature_engr_apply_standard_norm_fit",
+            ),
+            node(
+                func=apply_standard_norm_transform,
+                inputs=[
+                    "equal_freq_binning_fit_training",
+                    "parameters",
+                    "std_norm_encoding_dict",
+                ],
+                outputs="feature_engineering_training",
+                name="feature_engr_apply_standard_norm_transform_training",
+            ),
+            node(
+                func=apply_standard_norm_transform,
+                inputs=[
+                    "equal_freq_binning_fit_validation",
+                    "parameters",
+                    "std_norm_encoding_dict",
+                ],
+                outputs="feature_engineering_validation",
+                name="feature_engr_apply_standard_norm_transform_val",
+            ),
+        ],
+        tags=["cleanup"]
     )
-    return fs_pipeline
 
-
-def save_tsfresh_relevant_features_pipeline():
-    """Saves top tsfresh relevant features
-
-    Returns:
-        Pipeline: pipeline to save tsfresh relevant features
-    """
-    tsfresh_relevant_features_pipeline = pipeline(
+    lightweight_mmm_pipeline = pipeline(
         [
             node(
-                func=lambda relevance_table_list, parameters: save_tsfresh_relevant_features(
-                    relevance_table_list, parameters
-                ),
-                inputs=["relevance_table_list", "parameters"],
-                outputs=None,
-            )
-        ]
-    )
-    return tsfresh_relevant_features_pipeline
-
-
-def create_feature_engineering_pipeline(**kwargs) -> Pipeline:
-    """Performs endogenous, exogenous and tsfresh feature engineering for the preprocessed datasets.
-
-    Main feature engineering pipeline which contains 1 feature engineering pipeline is created for each outlet. A save artefact pipeline is included to save the endogenous and exogenous engineered features.
-
-    Returns:
-        Pipeline: Main feature engineering pipeline.
-    """
-    # Create an empty chain of pipeline
-    main_pipeline = Pipeline([])
-    # Load the input and output folders
-    input_folder, output_folder = get_input_output_folder(
-        SOURCE_DATA_DIR, DEST_DATA_DIR
-    )
-    # Create artefacts subdirectory
-    artefacts_dir = os.path.join(output_folder, "artefacts")
-    os.makedirs(artefacts_dir, exist_ok=True)
-
-    # Terminate program by returning if directory does not exist
-    if not os.path.exists(input_folder):
-        log_string = f"{input_folder} not found. Please check config. Exiting...."
-        logging.error(log_string)
-    else:
-        # List contents in the directory
-        logging.info(f"Processing contents in: {input_folder}")
-        # load partitioned datasets
-        partitioned_input = catalog.load("preprocessed_data")
-        for partition_id, partition_load_func in sorted(partitioned_input.items()):
-            if "merged_" in partition_id:
-                partition_id = partition_id.split("_processed")[0]
-                partition_data = partition_load_func()
-                output_filename = f"{partition_id}_processed_fe"
-                output_file_path = output_folder / (output_filename + ".csv")
-                add_dataset_to_catalog(data_catalog, output_filename, output_file_path)
-                # Add individual pipeline to main Pipeline
-                outlet_pipeline = feature_engineering_pipeline(
-                    partition_data, output_filename
-                )
-
-                # Append the pipeline
-                main_pipeline += pipeline(
-                    outlet_pipeline,
-                    inputs=None,
-                    outputs=None,
-                    namespace=f"{partition_id}",
-                )
-
-        # pipeline to save endo, exo feature engineered list artefact
-        artefact_pipeline = save_artefact_pipeline()
-        main_pipeline += pipeline(
-            artefact_pipeline,
-            inputs=None,
-            outputs=None,
-            namespace=f"{partition_id}",
-        )
-        return main_pipeline
-
-
-def create_feature_selection_pipeline(**kwargs) -> Pipeline:
-    """Performs endogenous and exogenous feature engineering for a small number of outlets specified in the config file. Then extract all possible features with tsfresh, and save the top relevant tsfresh engineered features.
-
-    Main feature selection pipeline which contains 1 feature selection pipeline for each outlet (over a small number of outlets). Also contains a save tsfresh relevant features pipeline.
-
-    Returns:
-        Pipeline: Main feature engineering pipeline.
-    """
-    # Create an empty chain of pipeline
-    main_pipeline = Pipeline([])
-    # Load the input and output folders
-    input_folder, output_folder = get_input_output_folder(
-        SOURCE_DATA_DIR, DEST_DATA_DIR
+                func=extract_mmm_params_for_folds,
+                inputs=[
+                    "feature_engineering_training",
+                    "parameters",
+                ],
+                outputs="lightweightmmm_fitted_params",
+                name="feature_engr_extract_mmm_params_for_folds",
+            ),
+            node(
+                func=generate_mmm_features_for_outlets,
+                inputs=[
+                    "lightweightmmm_fitted_params",
+                    "feature_engineering_training",
+                    "parameters",
+                ],
+                outputs="lightweightmmm_features_training",
+                name="feature_engr_generate_mmm_features_for_outlets_training",
+            ),
+            node(
+                func=generate_mmm_features_for_outlets,
+                inputs=[
+                    "lightweightmmm_fitted_params",
+                    "feature_engineering_validation",
+                    "parameters",
+                ],
+                outputs="lightweightmmm_features_validation",
+                name="feature_engr_generate_mmm_features_for_outlets_val",
+            ),
+        ],
+        tags=["lightweightmmm", "cleanup"],
     )
 
-    # Create artefacts subdirectory
-    artefacts_dir = os.path.join(DEST_DATA_DIR, "artefacts")
-    os.makedirs(artefacts_dir, exist_ok=True)
+    tsfresh_pipeline = pipeline(
+        [
+            node(
+                func=run_tsfresh_feature_selection_process,
+                inputs=[
+                    "feature_engineering_training",
+                    "parameters",
+                ],
+                outputs="tsfresh_fitted_params",
+                name="feature_engr_tsfresh_feature_selection_process",
+            ),
+            node(
+                func=run_tsfresh_feature_engineering_process,
+                inputs=[
+                    "tsfresh_fitted_params",
+                    "feature_engineering_training",
+                    "parameters",
+                ],
+                outputs="tsfresh_features_training",
+                name="feature_engr_run_tsfresh_feature_engineering_process_train",
+            ),
+            node(
+                func=run_tsfresh_feature_engineering_process,
+                inputs=[
+                    "tsfresh_fitted_params",
+                    "feature_engineering_validation",
+                    "parameters",
+                ],
+                outputs="tsfresh_features_validation",
+                name="feature_engr_run_tsfresh_feature_engineering_process_val",
+            ),
+        ],
+        tags=["tsfresh", "cleanup"],
+    )
 
-    # Terminate program by returning if directory does not exist
-    if not os.path.exists(input_folder):
-        log_string = f"{input_folder} not found. Please check config. Exiting...."
-        logging.error(log_string)
+    # lag generation pipeline
+    lag_generation_pipeline = pipeline(
+        [
+            node(
+                func=generate_lag,
+                inputs=["loaded_proxy_revenue_partitioned_data", "parameters"],
+                outputs="lag_features_partitions_dict",
+                name="feature_engr_generate_lag",
+            ),
+        ],
+        tags=["lag_generation"],
+    )
 
-    else:
-        # List out contents in the directory
-        logging.info(f"Processing contents in: {input_folder}")
-        # create empty list to store relevance tables
-        relevance_table_list = []
-        # load partitioned datasets
-        partitioned_input = catalog.load("preprocessed_data")
-        partition_list = []
-        for partition_id, partition_load_func in sorted(partitioned_input.items()):
-            # extract features and save relevant features based on the first N outlets where N = NUM_OUTLETS
-            if len(partition_list) == NUM_OUTLETS:
-                break
-            if "merged_" in partition_id:
-                partition_list.append((partition_id, partition_load_func))
-        for partition_id, partition_load_func in partition_list:
-            partition_id = partition_id.split("_processed")[0]
-            partition_data = partition_load_func()
-            output_filename = f"{partition_id}_processed_fe"
-            output_file_path = output_folder / (output_filename + ".csv")
-            add_dataset_to_catalog(data_catalog, output_filename, output_file_path)
-            # Add individual pipeline to main Pipeline
-            outlet_pipeline = feature_selection_pipeline(
-                partition_data, relevance_table_list
-            )
-            # Append the pipeline
-            main_pipeline += pipeline(
-                outlet_pipeline,
-                inputs=None,
-                outputs=None,
-                namespace=f"{partition_id}",
-            )
+    # Extend pipeline based on configuration of pipeline
+    if conf_params["include_lightweightMMM"]:
+        pipeline_instance = pipeline_instance + lightweight_mmm_pipeline
 
-        # pipeline to save tsfresh relevant features
-        tsfresh_relevant_features_pipeline = save_tsfresh_relevant_features_pipeline()
-        main_pipeline += pipeline(
-            tsfresh_relevant_features_pipeline,
-            inputs=None,
-            outputs=None,
-            namespace=f"{partition_id}",
-        )
-    return main_pipeline
+    if conf_params["include_tsfresh"]:
+        pipeline_instance = pipeline_instance + tsfresh_pipeline
+
+    return pipeline_instance + lag_generation_pipeline

@@ -3,61 +3,435 @@
 # Documentation for this file format can be found in "The Data Catalog"
 # Link: https://docs.kedro.org/en/stable/data/data_catalog.html
 
-raw_proxy_revenue_data:
-  type: pandas.CSVDataSet
-  filepath: data/01_raw/proxy_revenue_masked.csv
+# Default config for Incremental/PartitionedDataset
+catalog_partitioned_default: &catalog_partitioned_default
+  type: IncrementalDataSet
+  path: data/
+  dataset: &pandas_csv_default
+    type: pandas.CSVDataSet
+    load_args:
+      index_col: Date
+      sep: ","
+      encoding: "utf-8"
+    save_args:
+      sep: ","
+      encoding: "utf-8"
+      index: True
+      index_label: "Date"
+      date_format: "%Y-%m-%d"
+  filename_suffix: ".csv"
+  
+########################################################################
 
-raw_propensity_data:
-  type: pandas.ExcelDataSet
-  filepath: data/01_raw/consumer propensity to spend.xlsx
-
-raw_climate_data:
-  type: pandas.ExcelDataSet
-  filepath: data/01_raw/SG climate records 2021 - 2022.xlsx
-
-raw_covid_data:
-  type: pandas.ExcelDataSet
-  filepath: data/01_raw/covid capcacity.xlsx
-  load_args:
-    sheet_name: Sheet2
-
-raw_holiday_data:
-  type: pandas.ExcelDataSet
-  filepath: data/01_raw/holiday_df.xlsx
-
-raw_marketing_data:
-  type: pandas.ExcelDataSet
-  filepath: data/01_raw/marketing.xlsx
-  load_args:
-    sheet_name: [Campaign, Promotions, Product Launch]
-
-# preprocessed_transaction:
-dataloader_data:
-  type: PartitionedDataSet
-  path: data/02_data_loading
+# Catalog for unique daily records under 01_raw. PartitionDataSet is used to support automaticall joining on the requirement that the entries must have 1 date to 1 record
+csv_raw_unique_daily_partitions:
+  type: IncrementalDataSet
+  path: data/01_raw/unique_daily_records/csv
   dataset:
     type: pandas.CSVDataSet
+    load_args:
+      sep: ","
+      encoding: utf-8
+  filename_suffix: ".csv"
+
+xlsx_raw_unique_daily_partitions:
+  type: IncrementalDataSet
+  path: data/01_raw/unique_daily_records/xlsx
+  dataset:
+    type: pandas.ExcelDataSet
+    load_args:
+      engine: openpyxl
+
+########################################################
+# Raw data inputs requiring some restructing before loaded for use.
+# For raw data catalogs, date columns are not specified as load_args for use as index since some data may have multi entries for single dates which could cause errors when loaded, conflicting with the index uniqueness requirement.
+
+## Raw propensity data
+raw_propensity_data:
+  type: pandas.ExcelDataSet
+  filepath: data/01_raw/multi_daily_records/xlsx/consumer_propensity_to_spend.xlsx
+  load_args: &xlsx_defaults
+    engine: openpyxl
+
+loaded_propensity_data:
+  # <<: *pandas_csv_default
+  type: pandas.CSVDataSet
+  save_args:
+    sep: ","
+    encoding: "utf-8"
+    index: True
+    index_label: "Date"
+    date_format: "%Y-%m-%d"
+  filepath: data/02_dataloader/non_revenue_partitions/propensity_restructured.csv
+  layer: loaded_propensity_data
+
+## Marketing data
+raw_marketing_data:
+  type: pandas.ExcelDataSet
+  filepath: data/01_raw/multi_daily_records/xlsx/marketing_cost.xlsx
+  load_args:
+    <<: *xlsx_defaults
+  layer: raw_marketing_data
+
+loaded_marketing_data:
+  # <<: *pandas_csv_default
+  type: pandas.CSVDataSet
+  load_args:
+    index_col: "Date"
+    sep: ","
+    encoding: "utf-8"
+  save_args:
+    sep: ","
+    encoding: "utf-8"
+    index: True
+    index_label: "Date"
+    date_format: "%Y-%m-%d"
+  filepath: data/02_dataloader/non_revenue_partitions/marketing_restructured.csv
+  layer: loaded_marketing_data
+## Proxy Revenue
+raw_proxy_revenue_data:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/multi_daily_records/csv/proxy_revenue_masked.csv
+  layer: raw_proxy_revenue_data
   load_args:
     sep: ","
     encoding: utf-8
-  layer: data_preprocessing
 
-# feature engineering
+loaded_proxy_revenue_partitioned_data:
+  <<: *catalog_partitioned_default
+  path: data/02_dataloader/outlet_proxy_revenues
+  layer: loaded_proxy_revenue_partitioned_data
+  filename_suffix: ".csv"
+  
+
+## Weather data
+raw_weather_data:
+  type: pandas.ExcelDataSet
+  filepath: data/01_raw/multi_daily_records/xlsx/SG_climate_records_2021_2022.xlsx
+  load_args:
+    <<: *xlsx_defaults
+  layer: raw_weather_data
+
+loaded_weather_data:
+  type: pandas.CSVDataSet
+  save_args:
+    sep: ","
+    encoding: "utf-8"
+    index: True
+    index_label: "Date"
+    date_format: "%Y-%m-%d"
+  filepath: data/02_dataloader/non_revenue_partitions/weather_restructured.csv
+  layer: loaded_weather_data
+
+
+##########################################################################
+# Holds merged dataframe from 01_raw/unique_daily_records
+merged_unique_daily:
+  <<: *pandas_csv_default
+  filepath: data/02_dataloader/non_revenue_partitions/merged_unique_daily_records.csv
+  layer: merged_unique_daily_data_records
+
+# Catalog representing all files loaded representing non-proxy revenue related partitions
+loaded_non_proxy_revenue_partitioned_data:
+  type: IncrementalDataSet
+  dataset:
+    type: pandas.CSVDataSet
+    load_args:
+      index_col: Date
+      sep: ","
+      encoding: "utf-8"
+  path: data/02_dataloader/non_revenue_partitions
+  layer: loaded_non_proxy_revenue_partitioned_data
+  filename_suffix: ".csv"
+
+
+###########################################################
+# Catalog to store outlet_based dataframe after merging all data files
+data_preprocessed:
+  <<: *catalog_partitioned_default
+  path: data/03_data_preprocessing/processed
+  layer: data_preprocessed
+
+
+###########################################################
+# Catalog to store data merge/split outputs
+data_merge:
+  <<: *pandas_csv_default
+  filepath: data/04_data_split/data_merged/data_merged.csv
+
+# Data splits
+simple_split.data_split:
+  <<: *catalog_partitioned_default
+  path: data/04_data_split/simple_split
+  layer: simple_split_data_split
+
+sliding_window.data_split:
+  <<: *catalog_partitioned_default
+  path: data/04_data_split/sliding_window
+  layer: sliding_window_data_split
+
+expanding_window.data_split:
+  <<: *catalog_partitioned_default
+  path: data/04_data_split/expanding_window
+  layer: expanding_window_data_split
+
+###########################################################
+# Time agnostic-feature engineering data. Contains only identified data split source
+
+time_agnostic_feature_engineering_training:
+  <<: *catalog_partitioned_default
+  path: data/04a_time_agnostic_feature_engineering/training
+  layer: time_agnostic_feature_engineering_training
+
+time_agnostic_feature_engineering_validation:
+  <<: *catalog_partitioned_default
+  path: data/04a_time_agnostic_feature_engineering/validation
+  layer: time_agnostic_feature_engineering_validation
+
+time_agnostic_feature_engineering_testing:
+  <<: *catalog_partitioned_default
+  path: data/04a_time_agnostic_feature_engineering/testing
+  layer: time_agnostic_feature_engineering_testing
+
+
+###########################################################
+# Non time agnostic feature engineering: Encoding related.  Duplicating similar encodings due to Kedro not allowing the use of single catalog as input and output concurrently.
+
+# training_dict = {'training': {<fold<ID>_outlet_ID>: <dataframe>}}
+# val_dict = {'validation': {<fold<ID>_outlet_ID>: <dataframe>}}
+# e.g training_fold1expanding_window_param_90
+
+feature_engineering:
+  <<: *catalog_partitioned_default
+  path: data/05_feature_engineering
+
 engineered_features_list:
   type: json.JSONDataSet
-  filepath: data/04_feature_engineering/artefacts/added_features_list.json
-  save_args:
-    indent: 4
+  filepath: data/05_feature_engineering/artefacts/added_features_list.json
 
-tsfresh_relevant_features:
+feature_encoding_dict: &feature_encoding
+  type: pickle.PickleDataSet
+  filepath: data/05_feature_engineering/artefacts/feature_encoding.pkl
+  backend: pickle
+  versioned: true
+  load_args:
+    encoding: 'utf-8'
+
+binning_encodings: &equal_width_binning 
+  type: pickle.PickleDataSet
+  filepath: data/05_feature_engineering/artefacts/binning.pkl
+  backend: pickle
+  versioned: true
+  load_args:
+    encoding: 'utf-8'
+
+std_norm_encoding_dict: &std_norm_encoding
+  type: pickle.PickleDataSet
+  filepath: data/05_feature_engineering/artefacts/std_norm.pkl
+  backend: pickle
+  versioned: true
+  load_args:
+    encoding: 'utf-8'
+
+##### Feature engineering output in a dict (used as MemoryDataset). Based on a specific split:
+
+# training_dict = {'training': {<fold<ID>_outlet_ID>: <dataframe>}}
+# val_dict = {'validation': {<fold<ID>_outlet_ID>: <dataframe>}}
+# e.g training_fold1expanding_window_param_90
+
+# Lag feature partitioned dataset
+lag_features_partitions_dict:
+  <<: *catalog_partitioned_default
+  path: data/05_feature_engineering/lag_features
+
+feature_engineering_training:
+  <<: *catalog_partitioned_default
+  path: data/05_feature_engineering/no_tsfresh_lightweightmmm/training
+
+feature_engineering_validation:
+  <<: *catalog_partitioned_default
+  path: data/05_feature_engineering/no_tsfresh_lightweightmmm/validation
+
+feature_engineering_testing:
+  <<: *catalog_partitioned_default
+  path: data/05_feature_engineering/no_tsfresh_lightweightmmm/testing
+
+feature_encoding_dict:
+  type: pickle.PickleDataSet
+  filepath: data/05_feature_engineering/artefacts/feature_encoding.pkl
+  backend: pickle
+  versioned: true
+  load_args:
+    encoding: 'utf-8'
+
+
+### lightweightmmm 
+lightweightmmm_fitted_params:
   type: json.JSONDataSet
-  filepath: data/04_feature_engineering/artefacts/tsfresh_relevant_features.json
-  save_args:
-    indent: 2
+  filepath: data/05_feature_engineering/lightweightmmm_features/artefacts/lightweightmmm_fitted_params.json
 
-preprocessed_data:
-  type: PartitionedDataSet
-  path: data/03_data_preprocessing
+lightweightmmm_features_training:
+  <<: *catalog_partitioned_default
+  path: data/05_feature_engineering/lightweightmmm_features/training
+  layer: lightweightmmm_features_training
+  
+
+lightweightmmm_features_validation:
+  <<: *catalog_partitioned_default
+  path: data/05_feature_engineering/lightweightmmm_features/validation
+  layer: lightweightmmm_features_validation
+  
+
+lightweightmmm_features_testing:
+  <<: *catalog_partitioned_default
+  path: data/05_feature_engineering/lightweightmmm_features/testing
+  layer: lightweightmmm_features_testing
+  
+
+merged_features_training:
+  <<: *catalog_partitioned_default
+  path: data/05_feature_engineering/features_merged/training
+  layer: merged_features_training
+  
+
+merged_features_validation:
+  <<: *catalog_partitioned_default
+  path: data/05_feature_engineering/features_merged/validation
+  layer: merged_features_validation
+  
+
+merged_features_testing:
+  <<: *catalog_partitioned_default
+  path: data/05_feature_engineering/features_merged/testing
+  layer: merged_features_testing
+  
+
+### tsfresh
+tsfresh_fitted_params:
+  type: IncrementalDataSet
+  path: data/05_feature_engineering/tsfresh_features/artefacts/tsfresh_relevant_features
+  dataset: json.JSONDataSet
+  filename_suffix: ".json"
+
+tsfresh_features_training:
+  <<: *catalog_partitioned_default
+  path: data/05_feature_engineering/tsfresh_features/training
+  layer: tsfresh_features_training
+  
+
+tsfresh_features_validation:
+  <<: *catalog_partitioned_default
+  path: data/05_feature_engineering/tsfresh_features/validation
+  layer: tsfresh_features_validation
+  
+
+tsfresh_features_testing:
+  <<: *catalog_partitioned_default
+  path: data/05_feature_engineering/tsfresh_features/testing
+  layer: tsfresh_features_testing
+  
+
+#####################################################
+# Model specific preprocessing
+# OrderedModel.  Define 3 train/val/test
+ordered_model.model_specific_preprocessing_train:
+  <<: *catalog_partitioned_default
+  path: data/06_model_specific_preprocessing/ordered_model/train
+  layer: ordered_model_model_specific_preprocessing_train
+  
+
+ordered_model.model_specific_preprocessing_validation:
+  <<: *catalog_partitioned_default
+  path: data/06_model_specific_preprocessing/ordered_model/validation
+  layer: ordered_model_model_specific_preprocessing_validation
+  
+
+ordered_model.model_specific_preprocessing_test:
+  <<: *catalog_partitioned_default
+  path: data/06_model_specific_preprocessing/ordered_model/test
+  layer: ordered_model_model_specific_preprocessing_test
+  
+
+# EBM. Define 3 train/val/test
+ebm.model_specific_preprocessing_train:
+  <<: *catalog_partitioned_default
+  path: data/06_model_specific_preprocessing/ebm_model/train
+  layer: ebm_model_specific_preprocessing_train
+  
+
+ebm.model_specific_preprocessing_validation:
+  <<: *catalog_partitioned_default
+  path: data/06_model_specific_preprocessing/ebm_model/validation
+  layer: ebm_model_specific_preprocessing_validation
+  
+
+ebm.model_specific_preprocessing_test:
+  <<: *catalog_partitioned_default
+  path: data/06_model_specific_preprocessing/ebm_model/test
+  layer: ebm_model_specific_preprocessing_test
+  
+
+constant_column_params:
+  type: json.JSONDataSet
+  filepath: data/06_model_specific_preprocessing/constants_col.json
+
+####################################################
+# Model training
+ordered_model.model_training_artefact:
+  type: pickle.PickleDataSet
+  filepath: models/ordered_model.pkl #data/07_model_training/ordered_model.pkl
+  backend: pickle
+  versioned: true
+  load_args:
+    encoding: 'utf-8'
+
+ebm.model_training_artefact:
+  type: pickle.PickleDataSet
+  filepath: models/ebm_model.pkl
+  backend: pickle
+  versioned: true
+  load_args:
+    encoding: 'utf-8'
+
+###################################################
+## Evaluation: Training data - for analysis of possible overfit
+ordered_model.model_evaluation_train_result:
+  type: json.JSONDataSet
+  filepath: data/07_model_evaluation/ordered_model_train
+  layer: ordered_model_evaluation_train
+
+ebm.model_evaluation_train_result:
+  type: json.JSONDataSet
+  filepath: data/07_model_evaluation/ebm_model_train
+  layer: ebm_model_evaluation_train
+
+## Evaluation: Val data
+ordered_model.model_evaluation_val_result:
+  type: json.JSONDataSet
+  filepath: data/07_model_evaluation/ordered_model_val
+  layer: ordered_model_evaluation_val
+
+ebm.model_evaluation_val_result:
+  type: json.JSONDataSet
+  filepath: data/07_model_evaluation/ebm_model_val
+  layer: ebm_model_evaluation_val
+
+## Evaluation: Test data
+ordered_model.model_evaluation_test_result:
+  type: json.JSONDataSet
+  filepath: data/07_model_evaluation/ordered_model_test
+  layer: ordered_model_evaluation_test
+
+ebm.model_evaluation_test_result:
+  type: json.JSONDataSet
+  filepath: data/07_model_evaluation/ebm_model_test
+  layer: ebm_model_evaluation_test
+
+###################################################
+# input data for feature engineer
+sliding_window_data: # need test and vali also
+  type: IncrementalDataSet
+  path: data/04_data_split/sliding_window #03_data_preprocessing
   dataset:
     type: pandas.CSVDataSet
     load_args:
@@ -66,32 +440,40 @@ preprocessed_data:
       encoding: utf-8
   layer: feature_engineering
 
-# Directories for IO dataset
-feature_engineering_data:
-  type: PartitionedDataSet
-  path: data/04_feature_engineering
+expanding_window_data: # need test and validation set
+  type: IncrementalDataSet
+  path: data/04_data_split/expanding_window #03_data_preprocessing
   dataset:
     type: pandas.CSVDataSet
     load_args:
+      index_col: 0
       sep: ","
       encoding: utf-8
-      date_format: "%d/%m/%Y"
   layer: feature_engineering
 
-# DataSplit outputs. Different split approach can use namespace approach
-train_val_test_data_split:
-  type: PartitionedDataSet
-  path: data/05_data_split
+simple_split_data: # need test and vali also
+  type: IncrementalDataSet
+  path: data/04_data_split/simple_split #03_data_preprocessing
   dataset:
     type: pandas.CSVDataSet
     load_args:
+      index_col: 0
       sep: ","
       encoding: utf-8
-      date_format: "%d/%m/%Y"
-    save_args:
-      sep: ","
-      encoding: utf-8
-      index: False
-      date_format: "%d/%m/%Y"
-  filename_suffix: ".csv"
-  layer: data_split
+  layer: feature_engineering
+
+# input data for tsfresh relevant feature selection.
+# Pick a single training fold and ensure the time period does not overlap with other test folds to avoid data leakage. E.g for expanding window, take the smallest fold.
+# sliding window
+sliding_window.feature_selection_data:
+  type: pandas.CSVDataSet
+  filepath: data/04_data_split/sliding_window/training_fold1_sliding_window_param_90.csv
+  load_args:
+    index_col: 0
+
+# expanding window
+expanding_window.feature_selection_data:
+  type: pandas.CSVDataSet
+  filepath: data/04_data_split/sliding_window/training_fold1_sliding_window_param_90.csv
+  load_args:
+    index_col: 0

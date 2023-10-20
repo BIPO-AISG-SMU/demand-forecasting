@@ -1,12 +1,25 @@
 from pydantic import BaseSettings, Field
 from typing import List
-import os
 
-# get filepath to data_loader
-current_directory = os.path.dirname(os.path.abspath(__file__))  # current path
-parent_directory = os.path.dirname(os.path.dirname(current_directory))  # src
-model_path = os.path.join(parent_directory, "models", "orderedmodel_prob_20230816.pkl")
-log_conf_path = os.path.join(parent_directory, "conf", "base", "logging_inference.yml")
+from kedro.config import ConfigLoader
+from kedro.framework.project import settings
+# initiate to inference.yml and parameters.yml
+conf_loader = ConfigLoader(conf_source=settings.CONF_SOURCE)
+conf_inference_files = conf_loader.get("inference*")
+conf_params = conf_loader["parameters"]
+
+# output files:
+INTERMEDIATE_OUTPUT_PATH = conf_inference_files["file_paths"][
+    "intermediate_output_path"
+]
+
+# bin list (get from params, but will be changed after refactor)
+TARGET = conf_params["fe_target_feature_name"]
+BIN_LABEL_LIST = conf_params["binning_dict"][TARGET]
+
+
+# path to model weights
+MODEL_PATH = conf_inference_files["file_paths"]["path_to_model"]
 
 
 class Settings(BaseSettings):
@@ -27,23 +40,18 @@ class Settings(BaseSettings):
 
     API_NAME: str = Field(default="BIPO FastAPI", env="API_NAME")
     API_VERSION: str = Field(default="/api/v1", env="API_VERSION")
-    LOGGER_CONFIG_PATH: str = Field(default=log_conf_path, env="LOGGER_CONFIG_PATH")
+    # LOGGER_CONFIG_PATH: str = Field(default=LOG_CONF_PATH, env="LOGGER_CONFIG_PATH")
     PRED_MODEL_UUID: str = Field(default="0.1", env="PRED_MODEL_UUID")
     PRED_MODEL_PATH: str = Field(
-        default=model_path,
+        default=MODEL_PATH,
         env="PRED_MODEL_PATH",
     )
     INTERMEDIATE_OUTPUT_PATH: str = Field(
-        default="../data/10_model_inference_output", env="INTERMEDIATE_OUTPUT_PATH"
+        default=INTERMEDIATE_OUTPUT_PATH, env="INTERMEDIATE_OUTPUT_PATH"
     )
 
     # The class names for sales classes, used in prediction responses as label to each class
-    SALES_CLASS_NAMES: List[str] = [
-        "Low",
-        "Medium",
-        "High",
-        "Exceptional",
-    ]
+    SALES_CLASS_NAMES: List[str] = BIN_LABEL_LIST
 
 
 # Create an instance of the Settings class

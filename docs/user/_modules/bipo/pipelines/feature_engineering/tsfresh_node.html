@@ -1,0 +1,586 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bipo.pipelines.feature_engineering.tsfresh_node &#8212; BIPO Demand Forecasting v1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/bipo/pipelines/feature_engineering/tsfresh_node';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">BIPO Demand Forecasting Module: Project Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-deployment-env-setup.html">Deployment Environment Setup - Inference Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-deployment-env-setup.html">Deployment Environment Setup - Training Module</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Pipeline</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data-pipeline.html">Data Pipeline</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-endpoint.html">Model Serving Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-module.html">Inference Module</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.data_merge.html">bipo.pipelines.data_merge package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.data_preprocessing.html">bipo.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.data_split.html">bipo.pipelines.data_split package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.feature_engineering.html">bipo.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.model_evaluation.html">bipo.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.model_specific_preprocessing.html">bipo.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.model_training.html">bipo.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html">bipo.pipelines.time_agnostic_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for bipo.pipelines.feature_engineering.tsfresh_node</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">kedro.config</span> <span class="kn">import</span> <span class="n">ConfigLoader</span>
+<span class="kn">import</span> <span class="nn">tsfresh</span>
+<span class="kn">from</span> <span class="nn">.tsfresh_main</span> <span class="kn">import</span> <span class="n">TsfreshFe</span>
+<span class="kn">from</span> <span class="nn">bipo</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LOGGER_NAME</span><span class="p">)</span>
+
+<span class="c1"># Instantiate config</span>
+<span class="n">conf_loader</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="p">(</span><span class="n">conf_source</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">CONF_SOURCE</span><span class="p">)</span>
+<span class="n">constants</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;constants*&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># 1st node</span>
+<span class="c1"># feature selection pipeline on single outlet dataframe</span>
+<div class="viewcode-block" id="run_tsfresh_feature_selection_process"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.run_tsfresh_feature_selection_process">[docs]</a><span class="k">def</span> <span class="nf">run_tsfresh_feature_selection_process</span><span class="p">(</span>
+    <span class="n">partitioned_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which executes tsfresh feature selection to select relevant tsfresh features on the dataset as defined by partitioned_input. These relevant features are then stored in a dictionary by fold and outlet.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        partitioned_input (Dict[str, Callable[[], Any]]): partitioned input for training fold outlet dataframe.</span>
+<span class="sd">        params_dict (Dict[str, Any]): Parameters referencing parameters.yml.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict[str, Dict]: Dictionary containing fold-output identifier as key name and a dictionary of relevant tsfresh features as values as values. i.e dictionary of dictionary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Read yml</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Applying tsfresh feature selection&quot;</span><span class="p">)</span>
+
+    <span class="n">target_feature</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span>
+        <span class="s2">&quot;fe_target_feature_name&quot;</span>
+    <span class="p">]</span>  <span class="c1"># Raw target column based on original data which is not processed (i.e binned, etc.)</span>
+
+    <span class="c1"># run on training folds, and output relevant_feature artefact for each fold</span>
+    <span class="c1"># filter outlet by fold</span>
+    <span class="n">fold_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">partitioned_input</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+    <span class="n">fold_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">fold_list</span><span class="p">))</span>
+
+    <span class="c1"># create dictionary to store json</span>
+    <span class="n">artefact_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># iterate over training fold outlet dataframes to prevent data leakage</span>
+    <span class="k">for</span> <span class="n">fold</span> <span class="ow">in</span> <span class="n">fold_list</span><span class="p">:</span>
+        <span class="c1"># filter outlets by fold</span>
+        <span class="n">outlet_fold_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">key</span><span class="p">:</span> <span class="n">partitioned_input</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">partitioned_input</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">fold</span> <span class="ow">in</span> <span class="n">key</span>
+        <span class="p">}</span>
+        <span class="c1"># create list to store relevance tables for each fold</span>
+        <span class="n">relevance_table_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting tsfresh feature selection on </span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2">....&quot;</span><span class="p">)</span>
+
+        <span class="c1"># iterate over outlets in specific fold and generate relevance table</span>
+        <span class="k">for</span> <span class="n">outlet</span> <span class="ow">in</span> <span class="n">outlet_fold_dict</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feature selection on </span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2">, outlet </span><span class="si">{</span><span class="n">outlet</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">outlet_df</span> <span class="o">=</span> <span class="n">outlet_fold_dict</span><span class="p">[</span><span class="n">outlet</span><span class="p">]()</span>
+            <span class="c1"># Get relevant features for tsfresh based on each outlets in a specific fold, referencing parameters.yml</span>
+            <span class="n">tsfresh_features</span> <span class="o">=</span> <span class="n">TsfreshFe</span><span class="p">(</span>
+                <span class="n">df</span><span class="o">=</span><span class="n">outlet_df</span><span class="p">,</span>
+                <span class="n">date_column</span><span class="o">=</span><span class="n">constants</span><span class="p">[</span><span class="s2">&quot;default_date_col&quot;</span><span class="p">],</span>
+                <span class="n">target_feature</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_target_feature&quot;</span><span class="p">],</span>
+                <span class="n">days_per_group</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_days_per_group&quot;</span><span class="p">],</span>
+                <span class="n">bin_labels_list</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;binning_dict&quot;</span><span class="p">][</span><span class="n">target_feature</span><span class="p">],</span>
+                <span class="n">tsfresh_features_list</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_features_list&quot;</span><span class="p">],</span>
+                <span class="n">shift_period</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;sma_tsfresh_shift_period&quot;</span><span class="p">],</span>
+                <span class="n">n_significant</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_n_significant&quot;</span><span class="p">],</span>
+                <span class="n">num_features</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_num_features&quot;</span><span class="p">],</span>
+                <span class="n">relevant_features_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="n">relevance_table</span> <span class="o">=</span> <span class="n">tsfresh_features</span><span class="o">.</span><span class="n">generate_relevance_table</span><span class="p">()</span>
+
+            <span class="c1"># Consolidate outlet based relevance table per fold</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">relevance_table</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Relevance table for </span><span class="si">{</span><span class="n">outlet</span><span class="si">}</span><span class="s2"> has length of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">relevance_table</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="c1"># Append relevance table for each outlet of a specific fold</span>
+                <span class="n">relevance_table_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">relevance_table</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># No relevant features</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;No relevance table for </span><span class="si">{</span><span class="n">outlet</span><span class="si">}</span><span class="s2"> found. Processing next outlet if available.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+        <span class="k">if</span> <span class="n">relevance_table_list</span><span class="p">:</span>
+            <span class="c1"># To store fold based outlet relevant features</span>
+            <span class="n">relevant_features_dict</span> <span class="o">=</span> <span class="n">get_common_outlet_relevant_features</span><span class="p">(</span>
+                <span class="n">relevance_table_list</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">relevant_features_dict</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">relevance_table_list</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No relevant features generated for </span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">relevant_features_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># Save as artefacts dictionary for current fold</span>
+        <span class="n">output_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2">_tsfresh_relevant_features&quot;</span>
+        <span class="n">artefact_dict</span><span class="p">[</span><span class="n">output_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">relevant_features_dict</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Completed feature selection for </span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">artefact_dict</span></div>
+
+
+<span class="c1"># 2nd node</span>
+<div class="viewcode-block" id="run_tsfresh_feature_engineering_process"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.run_tsfresh_feature_engineering_process">[docs]</a><span class="k">def</span> <span class="nf">run_tsfresh_feature_engineering_process</span><span class="p">(</span>
+    <span class="n">partitioned_tsfresh_artefacts_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="n">partitioned_outlet_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which performs tsfresh feature engineering involving tsfresh feature creation for each outlet data in each fold based on learnt tsfresh artefacts and outlet inputs</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        partitioned_tsfresh_artefacts_input (Dict[str, Callable[[], Any]]): partitioned input for tsfresh relevant features json artefacts</span>
+<span class="sd">        partitioned_outlet_input (Dict[str, Callable[[], Any]]): dictionary containing a fold_outlet as keys and outlet dataframes as values. E.g {fold1_outlet_1: outlet_1_df}</span>
+<span class="sd">        params_dict (Dict[str, Any]): Parameters referencing parameters.yml.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict: Dictionary which contains merged training and validation folds (E.g merged fold 1, merged fold 2 ..) as keys, which contain dictionaries of extracted tsfresh features by outlet.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fold_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">partitioned_tsfresh_artefacts_input</span><span class="p">]</span>
+
+    <span class="c1"># Instantiate empty dictionary serving as an output which stores</span>
+    <span class="n">extracted_features_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># iterate over folds</span>
+    <span class="k">for</span> <span class="n">fold</span> <span class="ow">in</span> <span class="n">fold_list</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Start tsfresh feature engineering for </span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># filter input by fold information corresponding fold outlet files</span>
+        <span class="n">outlet_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">outlet</span> <span class="k">for</span> <span class="n">outlet</span> <span class="ow">in</span> <span class="n">partitioned_outlet_input</span> <span class="k">if</span> <span class="n">fold</span> <span class="ow">in</span> <span class="n">outlet</span><span class="p">]</span>
+        <span class="n">outlet_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">outlet</span><span class="p">:</span> <span class="n">partitioned_outlet_input</span><span class="p">[</span><span class="n">outlet</span><span class="p">]()</span> <span class="k">for</span> <span class="n">outlet</span> <span class="ow">in</span> <span class="n">outlet_list</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Extract the correct tsfresh artefact id by fold info and read off the contents as dictionary</span>
+        <span class="n">params_key</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">artefact_fold_id</span>
+            <span class="k">for</span> <span class="n">artefact_fold_id</span> <span class="ow">in</span> <span class="n">partitioned_tsfresh_artefacts_input</span>
+            <span class="k">if</span> <span class="n">fold</span> <span class="ow">in</span> <span class="n">artefact_fold_id</span>
+        <span class="p">]</span>
+        <span class="n">relevant_features_dict</span> <span class="o">=</span> <span class="n">partitioned_tsfresh_artefacts_input</span><span class="p">[</span><span class="n">params_key</span><span class="p">[</span><span class="mi">0</span><span class="p">]]()</span>
+
+        <span class="c1"># Create tsfresh features using relevant_features_dict and oultet_dict through function call &#39;feature_engineering_by_outlet&#39; below</span>
+        <span class="n">outlet_features_dict</span> <span class="o">=</span> <span class="n">feature_engineering_by_outlet</span><span class="p">(</span>
+            <span class="n">relevant_features_dict</span><span class="o">=</span><span class="n">relevant_features_dict</span><span class="p">,</span>
+            <span class="n">outlet_dict</span><span class="o">=</span><span class="n">outlet_dict</span><span class="p">,</span>
+            <span class="n">params_dict</span><span class="o">=</span><span class="n">params_dict</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">extracted_features_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">outlet_features_dict</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Completed tsfresh feature engineering procedure.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">extracted_features_dict</span></div>
+
+
+<div class="viewcode-block" id="feature_engineering_by_outlet"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.feature_engineering_by_outlet">[docs]</a><span class="k">def</span> <span class="nf">feature_engineering_by_outlet</span><span class="p">(</span>
+    <span class="n">relevant_features_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span>
+    <span class="n">outlet_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
+    <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which executes tsfresh feature engineering by outlet, extracting only the relevant features which are unique to each fold.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        relevant_features_dict (Dict[str, Dict]): Dictionary containing the relevant calculated/learned tsfresh features artefacts</span>
+<span class="sd">        outlet_dict (Dict[str, pd.DataFrame]): Dictionary containing outlet  partitions in dataframe identified by its id through a filename from partitioned_dataset.</span>
+<span class="sd">        params_dict (Dict[str, Any]): Parameters referenced from parameters.yml.</span>
+<span class="sd">        extracted_tsfresh_features_outlet_dict: Dict[str, pd.DataFrame]: Dictionary used for storing tsfresh_features_engineered identified by fold and outlet info.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict[str, pd.DataFrame]: Dictionary storing outlet based generated tsfresh features in a dataframe using same outlet information as an identifier.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">target_feature</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;fe_target_feature_name&quot;</span><span class="p">]</span>  <span class="c1"># Raw target column</span>
+
+    <span class="n">extracted_features_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">outlet</span> <span class="ow">in</span> <span class="n">outlet_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Implementing tsfresh feature engineering for outlet </span><span class="si">{</span><span class="n">outlet</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">outlet_df</span> <span class="o">=</span> <span class="n">outlet_dict</span><span class="p">[</span><span class="n">outlet</span><span class="p">]</span>
+        <span class="c1"># Extract relevant features</span>
+        <span class="n">tsfresh_features</span> <span class="o">=</span> <span class="n">TsfreshFe</span><span class="p">(</span>
+            <span class="n">df</span><span class="o">=</span><span class="n">outlet_df</span><span class="p">,</span>
+            <span class="n">date_column</span><span class="o">=</span><span class="n">constants</span><span class="p">[</span><span class="s2">&quot;default_date_col&quot;</span><span class="p">],</span>
+            <span class="n">target_feature</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_target_feature&quot;</span><span class="p">],</span>
+            <span class="n">days_per_group</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_days_per_group&quot;</span><span class="p">],</span>
+            <span class="n">bin_labels_list</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;binning_dict&quot;</span><span class="p">][</span><span class="n">target_feature</span><span class="p">],</span>
+            <span class="n">tsfresh_features_list</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_features_list&quot;</span><span class="p">],</span>
+            <span class="n">shift_period</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;sma_tsfresh_shift_period&quot;</span><span class="p">],</span>
+            <span class="n">n_significant</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_n_significant&quot;</span><span class="p">],</span>
+            <span class="n">num_features</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_num_features&quot;</span><span class="p">],</span>
+            <span class="n">relevant_features_dict</span><span class="o">=</span><span class="n">relevant_features_dict</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">tsfresh_df</span> <span class="o">=</span> <span class="n">tsfresh_features</span><span class="o">.</span><span class="n">extract_features</span><span class="p">()</span>
+        <span class="n">tsfresh_df</span> <span class="o">=</span> <span class="n">tsfresh_features</span><span class="o">.</span><span class="n">process_extracted_tsfresh_features_index</span><span class="p">(</span>
+            <span class="n">df</span><span class="o">=</span><span class="n">tsfresh_df</span>
+        <span class="p">)</span>
+
+        <span class="c1"># drop rows with nan values</span>
+        <span class="n">tsfresh_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># rename tsfresh generated columns by removing characters &quot; &quot; and double underscore. e.g(lag_2_days_proxy_revenue__fft_coefficient__attr_&quot;angle&quot;__coeff_1)</span>
+        <span class="n">tsfresh_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^a-zA-Z0-9_,]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">col</span><span class="p">))</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">tsfresh_df</span><span class="o">.</span><span class="n">columns</span>
+        <span class="p">]</span>
+        <span class="n">tsfresh_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">tsfresh_df</span><span class="o">.</span><span class="n">columns</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Create a custom identifier with outlet info to store tsfresh features.</span>
+        <span class="n">extracted_features_dict</span><span class="p">[</span><span class="n">outlet</span><span class="p">]</span> <span class="o">=</span> <span class="n">tsfresh_df</span>
+    <span class="k">return</span> <span class="n">extracted_features_dict</span></div>
+
+
+<div class="viewcode-block" id="get_common_outlet_relevant_features"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.get_common_outlet_relevant_features">[docs]</a><span class="k">def</span> <span class="nf">get_common_outlet_relevant_features</span><span class="p">(</span>
+    <span class="n">relevance_table_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="kc">None</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which combines multiple outlets&#39; relevance tables</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        relevance_table_list (List[Union[pd.DataFrame, None]]): List of relevance tables in pd.DataFrame.</span>
+<span class="sd">        num_features (int): Number of top relevant features to keep based on derived sorted p-value vector from tsfresh&#39;s Benjamini-Yekutieli procedure.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict[str,float]: Dictionary of relevant features that is in a suitable format for tsfresh extract features.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Relevant features generated for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">relevance_table_list</span><span class="p">)</span><span class="si">}</span><span class="s2"> outlets.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># For case of only single relevance table, take as it is, otherwise use tsfresh combine_relevance_tables</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">relevance_table_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">combined_relevance_table</span> <span class="o">=</span> <span class="n">relevance_table_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">combined_relevance_table</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">tsfresh</span><span class="o">.</span><span class="n">feature_selection</span><span class="o">.</span><span class="n">relevance</span><span class="o">.</span><span class="n">combine_relevance_tables</span><span class="p">(</span>
+                <span class="n">relevance_table_list</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Retrieve values of combined relevance tables</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">combined_relevance_table</span><span class="p">[</span><span class="s2">&quot;feature&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)</span><span class="si">}</span><span class="s2"> relevant features selected after combination.&quot;</span><span class="p">)</span>
+    <span class="n">kind_to_fc_parameters</span> <span class="o">=</span> <span class="n">tsfresh</span><span class="o">.</span><span class="n">feature_extraction</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">from_columns</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">kind_to_fc_parameters</span></div>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By AI Singapore
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, AI Singapore.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

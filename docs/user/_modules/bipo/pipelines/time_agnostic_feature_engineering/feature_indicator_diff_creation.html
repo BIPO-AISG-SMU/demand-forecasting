@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation &mdash; BIPO Demand Forecasting v1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/assets/bipo_docs.css" type="text/css" />
+      <link rel="stylesheet" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/qb1-sphinx-rtd.css" type="text/css" />
+      <link rel="stylesheet" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/theme-overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=0ec76b63"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            BIPO Demand Forecasting
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">BIPO Demand Forecasting Module: Project Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#purpose-of-documentation">Purpose of Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#architecture">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#software-components">Software Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#deployment-architecture">Deployment Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#deployment-package-contents">Deployment Package Contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#data">Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#docker-images">Docker images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#logs">Logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#trained-model-file-s">Trained model file(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#notebooks">Notebooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#scripts">Scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#os-port-usage">OS port usage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-deployment-env-setup.html">Deployment Environment Setup - Inference Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#pre-requisites">Pre-requisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#system-specifications">System Specifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#installation-of-binaries-and-dependencies-in-os">Installation of binaries and dependencies in OS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#installing-from-script">Installing from script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#list-of-installed-binaries-and-versions">List of installed binaries and versions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#python-dependencies">Python Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#preliminary-steps">Preliminary Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#getting-started">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#checking-docker-service">Checking Docker Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#starting-and-stopping-docker-containers">Starting and Stopping Docker Containers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#lifting-of-firewall-ports-in-vm-if-needed">Lifting of firewall ports in VM (if needed)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-deployment-env-setup.html">Deployment Environment Setup - Training Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#pre-requisites">Pre-requisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-deployment-env-setup.html#system-specifications">System Specifications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#installation-of-dependencies-in-windows">Installation of dependencies in Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-deployment-env-setup.html#python-dependencies">Python Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#running-training-pipeline-in-docker-container">Running Training Pipeline in Docker Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#setting-up-mlflow-on-the-local-machine-optional">Setting up MLflow on the Local Machine (Optional)</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Data Pipeline</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../kedro-overview.html">Overview of Kedro (v0.18.11)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#what-is-kedro">What is Kedro?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#elements-of-kedro">Elements of Kedro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#creating-kedro-pipelines">Creating Kedro Pipelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../kedro-overview.html#pipeline-registry">Pipeline Registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../kedro-overview.html#registry-list">Registry List</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#running-specific-pipelines">Running Specific Pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data-pipeline.html">Data Pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-sources">Data Sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#design-architecture">Design Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-loading-validation">1. Data Loading &amp; Validation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#input">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#output">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-preprocessing">2. Data Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id1">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id2">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-merging-splitting">3. Data Merging &amp; Splitting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id3">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id4">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#feature-engineering">4. Feature Engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#feature-inventory">Feature Inventory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#model-specific-preprocessing">5. Model-specific Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id5">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id6">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-pipeline-configuration">Data Pipeline Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#key-parameters-in-the-constants-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#key-parameters-in-the-data-split-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">data_split.yml</span></code> File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#how-to-execute-the-data-pipeline">How to Execute the Data Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#logging">Logging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Model Training</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#pipeline-design">Pipeline Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#design-considerations">Design Considerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#flowchart">Flowchart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#choice-of-models">Choice of Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#training-pipeline-configuration">Training Pipeline Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#model-hyperparameters-in-the-model-training-yml-file">Model Hyperparameters in the <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> File</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#orderedmodel">OrderedModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#explainable-boosting-machine-ebm">Explainable Boosting Machine (EBM)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#model-input-data-definition">Model Input Data Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#how-to-run">How to Run</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#batch-script-docker-container">1. Batch Script (Docker Container)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#what-run-model-training-bat-does">What <code class="docutils literal notranslate"><span class="pre">run_model_training.bat</span></code> does</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#executing-the-script">Executing the script</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#kedro-command">2. Kedro Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#id1">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#id2">Executing the script</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#model-evaluation">Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#file-structure-in-container">File Structure in Container</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-endpoint.html">Model Serving Endpoint</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#how-to-run-endpoint">How to Run Endpoint</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#starting-the-endpoint">1. Starting the Endpoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#interacting-with-the-api-through-swagger-ui">2. Interacting with the API through Swagger UI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#terminating-the-endpoint">3. Terminating the Endpoint</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#request-format">Request Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#optional-fields">Optional Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#response-format">Response Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#mapping-of-sales-class-id-to-sales-class-name">Mapping of <code class="docutils literal notranslate"><span class="pre">sales_class_id</span></code> to <code class="docutils literal notranslate"><span class="pre">sales_class_name</span></code>:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../inference-endpoint.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#api-error-codes">API Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-module.html">Inference Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-module.html#overview">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-module.html#flowchart">Flowchart</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-module.html#pipeline-configuration">Pipeline Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-module.html#file-structure-in-container">File Structure in Container</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">bipo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../bipo.html">bipo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../bipo.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.html">bipo.pipelines package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">BIPO Demand Forecasting</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Script containing all functions handling feature differencing and boolean feature generation.</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">bipo</span> <span class="kn">import</span> <span class="n">settings</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LOGGER_NAME</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="create_min_max_feature_diff"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation.create_min_max_feature_diff">[docs]</a><span class="k">def</span> <span class="nf">create_min_max_feature_diff</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">min_max_column_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which generates columns of differenced paired columns from a input list of list (&#39;min_max_column_list&#39;) on a given dataframe (&#39;df&#39;). Original column pairs specified in min_max_column_list would NOT be dropped.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): Dataframe to processed.</span>
+<span class="sd">        min_max_column_list (List[List]): List of list containing dataframe.paired columns representing the min and max values of a specific feature in such order.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Dataframe with generated differenced features.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Apply validation check on list elements in the input parameters min_max_column_list is of length 2(which signifies the min and max column belonging to a specific feature), as well as if the pairings belong to dataframe columns which is to be processed.</span>
+
+    <span class="n">validated_min_max_column_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">sublist</span>
+        <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">min_max_column_list</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sublist</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">set</span><span class="p">(</span><span class="n">sublist</span><span class="p">)</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)))</span>
+    <span class="p">]</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Create new feature name to represent the max-min value as return value</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+            <span class="o">**</span><span class="p">{</span>
+                <span class="sa">f</span><span class="s2">&quot;diff_</span><span class="si">{</span><span class="n">min_col</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">max_col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="n">max_col</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="n">min_col</span><span class="p">]</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">min_col</span><span class="p">,</span> <span class="n">max_col</span><span class="p">)</span> <span class="ow">in</span> <span class="n">validated_min_max_column_list</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">log_string</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unable to execute numeric operation provided column </span><span class="si">{</span><span class="n">column_name_min</span><span class="si">}</span><span class="s2"> or </span><span class="si">{</span><span class="n">column_name_max</span><span class="si">}</span><span class="s2"> as it not either a float/int column.&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">log_string</span><span class="p">,</span> <span class="n">stack_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="create_is_weekday_feature"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation.create_is_weekday_feature">[docs]</a><span class="k">def</span> <span class="nf">create_is_weekday_feature</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which indicates if a day is either a weekday or weekend by setting it to true if it is a weekday, otherwise false based on a given dataframe index.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): Dataframe to be processed.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Updated dataframe with generated boolean column.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s2">&quot;Creating a new indicator boolean column name &#39;is_weekday&#39; to represent if date is a weekday/weekend&quot;</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">):</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_weekday&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">weekday</span> <span class="o">&lt;</span> <span class="mi">5</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_weekday&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_weekday&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Created a boolean representations with is_weekday.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;The dataframe index is not of datetime format, hence weekeday/weekend informaton cannot be derived. Skipping such process.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="create_is_holiday_feature"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation.create_is_holiday_feature">[docs]</a><span class="k">def</span> <span class="nf">create_is_holiday_feature</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">holiday_type_col_list</span><span class="p">:</span> <span class="n">List</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which indicates if a day is either a weekday or weekend by setting it to true if it is a weekday, otherwise false based on a given dataframe index. Original column used in holiday_type_col_list would not be dropped.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): Dataframe to be processed.</span>
+<span class="sd">        holiday_type_col_list (List): Specified list of holiday columns (public/school holiday) for processing.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Updated dataframe with generated boolean column for holiday feature.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating boolean states for holiday related columns.&quot;</span><span class="p">)</span>
+    <span class="c1"># Check the intersection of provided column list and dataframe columns. This is to ensure only valid columns are to be processed.</span>
+    <span class="n">valid_col_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">holiday_type_col_list</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)))</span>
+
+    <span class="c1"># Generate a list indicating new column names to be constructed representing the boolean equivalent status</span>
+    <span class="n">bool_col_list</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;is_</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">valid_col_list</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">valid_col_list</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing valid identified columns: </span><span class="si">{</span><span class="n">valid_col_list</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">bool_col_list</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">valid_col_list</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">bool_col_list</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">bool_col_list</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Created a boolean representations with </span><span class="si">{</span><span class="n">bool_col_list</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;The provided holiday_column_list parameters did not match any columns in dataframe to be processed. Skipping such processing</span><span class="se">\n</span><span class="s2">.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="create_is_raining_feature"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation.create_is_raining_feature">[docs]</a><span class="k">def</span> <span class="nf">create_is_raining_feature</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">rainfall_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which indicates if a day has rained using &#39;rainfall_col&#39; parameter for a given dataset &#39;df&#39; using conditional evaluation with values &gt; 0.2 or not (as defined by http://www.weather.gov.sg/climate-climate-of-singapore/). The rainfall_col column will not be dropped.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): Dataframe to be processed.</span>
+<span class="sd">        rainfall_col (str): Specified rainfall column to reference when processing dataframe.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Updated dataframe with generated boolean column.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">rainfall_col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating a boolean representation of </span><span class="si">{</span><span class="n">rainfall_col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">is_rainfall_col</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;is_</span><span class="si">{</span><span class="n">rainfall_col</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">is_rainfall_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">rainfall_col</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.2</span>
+
+        <span class="c1"># Convert to int instead of bool</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">is_rainfall_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">is_rainfall_col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Created a boolean representation for </span><span class="si">{</span><span class="n">is_rainfall_col</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unable to create a boolean representation of </span><span class="si">{</span><span class="n">rainfall_col</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="create_is_pandemic_feature"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation.create_is_pandemic_feature">[docs]</a><span class="k">def</span> <span class="nf">create_is_pandemic_feature</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pandemic_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which indicates if there is pandemic restrictions based on input pandemic_col string parameter. The pandemic_col column will not be dropped.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): Dataframe to be processed.</span>
+<span class="sd">        pandemic_col (str): Specified pandemic column in dataframe to reference when processing dataframe.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Updated dataframe with generated boolean column.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">pandemic_col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating a boolean representation of </span><span class="si">{</span><span class="n">pandemic_col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">is_pandemic_col</span> <span class="o">=</span> <span class="s2">&quot;is_pandemic_restrictions&quot;</span>
+
+        <span class="n">df</span><span class="p">[</span><span class="n">is_pandemic_col</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">pandemic_col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Created a boolean representation for </span><span class="si">{</span><span class="n">is_pandemic_col</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unable to create a boolean representation of </span><span class="si">{</span><span class="n">pandemic_col</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, AI Singapore.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

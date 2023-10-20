@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bipo.pipelines.data_preprocessing.nodes &mdash; BIPO Demand Forecasting v1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/assets/bipo_docs.css" type="text/css" />
+      <link rel="stylesheet" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/qb1-sphinx-rtd.css" type="text/css" />
+      <link rel="stylesheet" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/theme-overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=0ec76b63"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            BIPO Demand Forecasting
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">BIPO Demand Forecasting Module: Project Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#purpose-of-documentation">Purpose of Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#architecture">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#software-components">Software Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#deployment-architecture">Deployment Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#deployment-package-contents">Deployment Package Contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#data">Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#docker-images">Docker images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#logs">Logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#trained-model-file-s">Trained model file(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#notebooks">Notebooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#scripts">Scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#os-port-usage">OS port usage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-deployment-env-setup.html">Deployment Environment Setup - Inference Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#pre-requisites">Pre-requisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#system-specifications">System Specifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#installation-of-binaries-and-dependencies-in-os">Installation of binaries and dependencies in OS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#installing-from-script">Installing from script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#list-of-installed-binaries-and-versions">List of installed binaries and versions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#python-dependencies">Python Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#preliminary-steps">Preliminary Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#getting-started">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#checking-docker-service">Checking Docker Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#starting-and-stopping-docker-containers">Starting and Stopping Docker Containers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#lifting-of-firewall-ports-in-vm-if-needed">Lifting of firewall ports in VM (if needed)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-deployment-env-setup.html">Deployment Environment Setup - Training Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#pre-requisites">Pre-requisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-deployment-env-setup.html#system-specifications">System Specifications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#installation-of-dependencies-in-windows">Installation of dependencies in Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-deployment-env-setup.html#python-dependencies">Python Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#running-training-pipeline-in-docker-container">Running Training Pipeline in Docker Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#setting-up-mlflow-on-the-local-machine-optional">Setting up MLflow on the Local Machine (Optional)</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Data Pipeline</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../kedro-overview.html">Overview of Kedro (v0.18.11)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#what-is-kedro">What is Kedro?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#elements-of-kedro">Elements of Kedro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#creating-kedro-pipelines">Creating Kedro Pipelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../kedro-overview.html#pipeline-registry">Pipeline Registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../kedro-overview.html#registry-list">Registry List</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#running-specific-pipelines">Running Specific Pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data-pipeline.html">Data Pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-sources">Data Sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#design-architecture">Design Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-loading-validation">1. Data Loading &amp; Validation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#input">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#output">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-preprocessing">2. Data Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id1">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id2">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-merging-splitting">3. Data Merging &amp; Splitting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id3">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id4">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#feature-engineering">4. Feature Engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#feature-inventory">Feature Inventory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#model-specific-preprocessing">5. Model-specific Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id5">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id6">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-pipeline-configuration">Data Pipeline Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#key-parameters-in-the-constants-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#key-parameters-in-the-data-split-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">data_split.yml</span></code> File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#how-to-execute-the-data-pipeline">How to Execute the Data Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#logging">Logging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Model Training</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#pipeline-design">Pipeline Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#design-considerations">Design Considerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#flowchart">Flowchart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#choice-of-models">Choice of Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#training-pipeline-configuration">Training Pipeline Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#model-hyperparameters-in-the-model-training-yml-file">Model Hyperparameters in the <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> File</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#orderedmodel">OrderedModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#explainable-boosting-machine-ebm">Explainable Boosting Machine (EBM)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#model-input-data-definition">Model Input Data Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#how-to-run">How to Run</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#batch-script-docker-container">1. Batch Script (Docker Container)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#what-run-model-training-bat-does">What <code class="docutils literal notranslate"><span class="pre">run_model_training.bat</span></code> does</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#executing-the-script">Executing the script</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#kedro-command">2. Kedro Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#id1">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#id2">Executing the script</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#model-evaluation">Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#file-structure-in-container">File Structure in Container</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-endpoint.html">Model Serving Endpoint</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#how-to-run-endpoint">How to Run Endpoint</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#starting-the-endpoint">1. Starting the Endpoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#interacting-with-the-api-through-swagger-ui">2. Interacting with the API through Swagger UI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#terminating-the-endpoint">3. Terminating the Endpoint</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#request-format">Request Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#optional-fields">Optional Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#response-format">Response Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#mapping-of-sales-class-id-to-sales-class-name">Mapping of <code class="docutils literal notranslate"><span class="pre">sales_class_id</span></code> to <code class="docutils literal notranslate"><span class="pre">sales_class_name</span></code>:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../inference-endpoint.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#api-error-codes">API Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-module.html">Inference Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-module.html#overview">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-module.html#flowchart">Flowchart</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-module.html#pipeline-configuration">Pipeline Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-module.html#file-structure-in-container">File Structure in Container</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">bipo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../bipo.html">bipo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../bipo.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.html">bipo.pipelines package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">BIPO Demand Forecasting</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">bipo.pipelines.data_preprocessing.nodes</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for bipo.pipelines.data_preprocessing.nodes</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This is a boilerplate pipeline &#39;data_processing&#39;</span>
+<span class="sd">generated using Kedro 0.18.10</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Import standard modules</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="kn">from</span> <span class="nn">kedro.config</span> <span class="kn">import</span> <span class="n">ConfigLoader</span>
+<span class="kn">from</span> <span class="nn">bipo</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">kedro.io</span> <span class="kn">import</span> <span class="n">DataSetError</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">conf_loader</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="p">(</span><span class="n">conf_source</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">CONF_SOURCE</span><span class="p">)</span>
+<span class="n">const_dict</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;constants*&quot;</span><span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LOGGER_NAME</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="outlet_exclusion_list_check"><a class="viewcode-back" href="../../../../bipo.pipelines.data_preprocessing.html#bipo.pipelines.data_preprocessing.nodes.outlet_exclusion_list_check">[docs]</a><span class="k">def</span> <span class="nf">outlet_exclusion_list_check</span><span class="p">(</span><span class="n">outlet_exclusion_list</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which conducts a type check on input argument outlet_exclusion_list.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        outlet_exclusion_list (List): List containing representation outlets/cost centres in either string/numerical representation.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Set: Set version of input list or a default set reference from constants.yml&#39;s &#39;default_outlets_exclusion_list&#39; parameters config.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Return default exclusion list if specified outlet_exclusion_list is not of list type.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">outlet_exclusion_list</span><span class="p">,</span> <span class="n">List</span><span class="p">):</span>
+        <span class="n">outlet_to_exclude_list</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">const_dict</span><span class="p">[</span><span class="s2">&quot;default_outlets_exclusion_list&quot;</span><span class="p">])</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;The provided outlet_exclusion_list from parameters.yml does not match expected list type. Using default setting: </span><span class="si">{</span><span class="n">outlet_to_exclude_list</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">outlet_to_exclude_list</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">outlet</span><span class="p">)</span> <span class="k">for</span> <span class="n">outlet</span> <span class="ow">in</span> <span class="n">outlet_exclusion_list</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">outlet_to_exclude_list</span></div>
+
+
+<div class="viewcode-block" id="const_value_perc_check"><a class="viewcode-back" href="../../../../bipo.pipelines.data_preprocessing.html#bipo.pipelines.data_preprocessing.nodes.const_value_perc_check">[docs]</a><span class="k">def</span> <span class="nf">const_value_perc_check</span><span class="p">(</span><span class="n">perc_value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which conducts a percentage value check by type casting it into a valid float, clipping the value to the range between 0 and 100 (both inclusive). Should float type casting fails, a default value referencing constants.yml is used.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        perc_value (float): Floating value of percentage</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Clipped input value to between 0 and 100, representing percentage validity</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Attempt to type cast input to float before clipping it to valid range, 0 and 100</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">perc_value_float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">perc_value</span><span class="p">)</span>
+        <span class="n">perc_value_float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">perc_value_float</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">perc_value_float</span> <span class="o">=</span> <span class="n">const_dict</span><span class="p">[</span><span class="s2">&quot;default_const_value_perc_threshold&quot;</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Attempting to type cast </span><span class="si">{</span><span class="n">perc_value</span><span class="si">}</span><span class="s2"> to integer by failed. Using default values </span><span class="si">{</span><span class="n">perc_value_float</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">perc_value_float</span></div>
+
+
+<div class="viewcode-block" id="date_validity_check"><a class="viewcode-back" href="../../../../bipo.pipelines.data_preprocessing.html#bipo.pipelines.data_preprocessing.nodes.date_validity_check">[docs]</a><span class="k">def</span> <span class="nf">date_validity_check</span><span class="p">(</span><span class="n">start_date</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">end_date</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which checks if the input start and end dates are in correct format as well as its time ordering.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        start_date (str): Date in string following %Y-%m-%d format</span>
+<span class="sd">        end_date (str): Date in string following %Y-%m-%d format</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[str, str]: Validated start and end dates.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Apply reformat</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">end_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">start_date</span> <span class="o">&gt;</span> <span class="n">end_date</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;The start date is after the end date, reversing the dates&quot;</span><span class="p">)</span>
+            <span class="n">end_date</span><span class="p">,</span> <span class="n">start_date</span> <span class="o">=</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span>
+
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="s2">&quot;Invalid format detected, using defaults configurations from constants.yml&quot;</span>
+        <span class="p">)</span>
+        <span class="n">start_date</span> <span class="o">=</span> <span class="n">const_dict</span><span class="p">[</span><span class="s2">&quot;default_start_date&quot;</span><span class="p">]</span>
+        <span class="n">end_date</span> <span class="o">=</span> <span class="n">const_dict</span><span class="p">[</span><span class="s2">&quot;default_end_date&quot;</span><span class="p">]</span>
+
+        <span class="c1"># Format</span>
+        <span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">end_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Default start date </span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s2"> and end date </span><span class="si">{</span><span class="n">end_date</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span></div>
+
+
+<div class="viewcode-block" id="merge_non_proxy_revenue_data"><a class="viewcode-back" href="../../../../bipo.pipelines.data_preprocessing.html#bipo.pipelines.data_preprocessing.nodes.merge_non_proxy_revenue_data">[docs]</a><span class="k">def</span> <span class="nf">merge_non_proxy_revenue_data</span><span class="p">(</span>
+    <span class="n">partitioned_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which merges all data in 02_dataloader/non_revenue_partitions into a single dataframe. These data represents non proxy revenue related datasets.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        partitioned_input (Dict[str, str]): Kedro IncrementalDataSet Dictionary containing non proxy revenue data.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Merged dataframe based on date if input partitioned_input is not empty.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Instantiate a dummy dataframe</span>
+    <span class="n">merged_df</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">partition_id</span><span class="p">,</span> <span class="n">partition_load_func</span> <span class="ow">in</span> <span class="n">partitioned_input</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading partition: </span><span class="si">{</span><span class="n">partition_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">partition_load_func</span>
+            <span class="c1"># Set first instance of partition data as base dataframe. Subsequently use it to merge with other incoming partition data</span>
+            <span class="k">if</span> <span class="n">merged_df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using </span><span class="si">{</span><span class="n">partition_id</span><span class="si">}</span><span class="s2"> as base dataframe.&quot;</span><span class="p">)</span>
+                <span class="c1"># Conversion of datetime to ensure during pd.merge, merge is made on correct type without causing NaN as values.</span>
+                <span class="n">merged_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># For additional files, we need to merge them with outer join, where join is based on index. Joining on index via outer joins, avoids the creation of additional suffixes columns caused by merge.</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Preparing merge with partition: </span><span class="si">{</span><span class="n">partition_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="c1"># To ensure that merge will not result in Nan when done on datetime</span>
+
+            <span class="c1"># Merge on common</span>
+            <span class="n">merged_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">df</span><span class="p">,</span> <span class="n">merged_df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Merged partition: </span><span class="si">{</span><span class="n">partition_id</span><span class="si">}</span><span class="s2"> to existing dataframe.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Completed merging of non proxy revenue dataframe. Dataframe is of shape </span><span class="si">{</span><span class="n">merged_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="c1"># merged_df will still be none since no partition is available for processing</span>
+    <span class="k">except</span> <span class="n">DataSetError</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No data is available in the partition. Not merging anything.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">merged_df</span></div>
+
+
+<div class="viewcode-block" id="merge_outlet_and_other_df_feature"><a class="viewcode-back" href="../../../../bipo.pipelines.data_preprocessing.html#bipo.pipelines.data_preprocessing.nodes.merge_outlet_and_other_df_feature">[docs]</a><span class="k">def</span> <span class="nf">merge_outlet_and_other_df_feature</span><span class="p">(</span>
+    <span class="n">outlet_partitioned_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
+    <span class="n">daily_other_feature_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which merges non-proxy revenue data with individual outlet proxy revenue data</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        outlet_partitioned_input (Dict[str, pd.DataFrame]): Kedro IncrementalDataSet dictionary containing individual outlet related features dataframe as values with filename as identifier.</span>
+<span class="sd">        daily_other_feature_df (pd.DataFrame): Dataframe comprising of non-proxy revenue related features</span>
+<span class="sd">        params_dict (Dict[str, Any]): Dictionary of parameters as referenced from parameters.yml</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict: Dictionary representing processed outlet partitions. Empty dict if no outlet partitions is provided.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Instantiate a empty dict for storing processed partition file names as key and corresponding processed dataframe as values</span>
+    <span class="n">outlet_with_features_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s2">&quot;Extracting start_date and end_date for data filtering from parameters.yml&quot;</span>
+    <span class="p">)</span>
+    <span class="n">start_date</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;start_date&quot;</span><span class="p">])</span>
+    <span class="n">end_date</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;end_date&quot;</span><span class="p">])</span>
+    <span class="n">outlet_to_exclude_list</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;outlets_exclusion_list&quot;</span><span class="p">]</span>
+    <span class="n">zero_val_threshold_perc</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;zero_val_threshold_perc&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Apply data sanity check.</span>
+    <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span> <span class="o">=</span> <span class="n">date_validity_check</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
+
+    <span class="n">outlet_to_exclude_set</span> <span class="o">=</span> <span class="n">outlet_exclusion_list_check</span><span class="p">(</span><span class="n">outlet_to_exclude_list</span><span class="p">)</span>
+
+    <span class="n">zero_val_threshold_perc</span> <span class="o">=</span> <span class="n">const_value_perc_check</span><span class="p">(</span><span class="n">zero_val_threshold_perc</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Start date: </span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;End date: </span><span class="si">{</span><span class="n">end_date</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Load outlet partition. First, cross check with outlet_to_exclude_list to skip such partitions when it is in the list. Next, upon loading check if the revenue related column of the outlet</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">outlet_partition_id</span><span class="p">,</span> <span class="n">outlet_partition_load_func</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="n">outlet_partitioned_input</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">):</span>
+            <span class="n">outlet_partition_info</span> <span class="o">=</span> <span class="n">outlet_partition_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">outlet_partition_info</span> <span class="ow">in</span> <span class="n">outlet_to_exclude_set</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Skipping </span><span class="si">{</span><span class="n">outlet_partition_info</span><span class="si">}</span><span class="s2"> as it is to be excluded..</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading </span><span class="si">{</span><span class="n">outlet_partition_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">outlet_df</span> <span class="o">=</span> <span class="n">outlet_partition_load_func</span>
+
+            <span class="c1"># Check if the proxy revenue counts exceeds defined const_val_threshold_perc. If so, exclude to avoid downstream equal frequency binning approach.</span>
+            <span class="n">revenue_col</span> <span class="o">=</span> <span class="n">const_dict</span><span class="p">[</span><span class="s2">&quot;default_revenue_column&quot;</span><span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Checking if instances of specific values exceeds a set threshold, which may cause equal frequency binning issue.&quot;</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="n">outlet_df</span><span class="p">[</span><span class="n">revenue_col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">outlet_df</span><span class="p">[</span><span class="n">revenue_col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="p">(</span>
+                    <span class="n">zero_val_threshold_perc</span> <span class="o">/</span> <span class="mi">100</span>
+                <span class="p">):</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">outlet_partition_id</span><span class="si">}</span><span class="s2"> excluded as there exists value(s) which exceeds the defined threshold. Moving to the next.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+                    <span class="k">continue</span>
+
+            <span class="c1"># Check if start or end date of outlet data fulfils required dates, else skip</span>
+            <span class="c1"># outlet_df.reset_index(inplace=True)</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Retrieving earliest/latest available dates for outlets&quot;</span><span class="p">)</span>
+            <span class="n">earliest_avail_date</span> <span class="o">=</span> <span class="n">outlet_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+            <span class="n">latest_avail_date</span> <span class="o">=</span> <span class="n">outlet_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">earliest_avail_date</span> <span class="o">&gt;</span> <span class="n">start_date</span> <span class="ow">or</span> <span class="n">latest_avail_date</span> <span class="o">&lt;</span> <span class="n">end_date</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Earliest date: </span><span class="si">{</span><span class="n">earliest_avail_date</span><span class="si">}</span><span class="s2">, Latest date: </span><span class="si">{</span><span class="n">latest_avail_date</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Skipping </span><span class="si">{</span><span class="n">outlet_partition_id</span><span class="si">}</span><span class="s2"> due to insufficient data&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Apply left join for non-proxy revenue on outlet&#39;s proxy revenue as the date index of outlet is what we are interested.</span>
+                <span class="n">outlet_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">outlet_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">daily_other_feature_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+                    <span class="n">daily_other_feature_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="n">outlet_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+                    <span class="n">outlet_df</span><span class="p">,</span>
+                    <span class="n">daily_other_feature_df</span><span class="p">,</span>
+                    <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
+                    <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;After merging features, shape of </span><span class="si">{</span><span class="n">outlet_partition_id</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">outlet_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Ensure date index format is %Y-%m-%d</span>
+            <span class="n">outlet_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">outlet_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Update dictionary as output with new partition string</span>
+            <span class="n">new_partition_string</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">outlet_partition_id</span><span class="si">}</span><span class="s2">_processed&quot;</span>
+            <span class="n">outlet_with_features_dict</span><span class="p">[</span><span class="n">new_partition_string</span><span class="p">]</span> <span class="o">=</span> <span class="n">outlet_df</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Completed merging of outlet proxy revenue and external features datasets.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">outlet_with_features_dict</span>
+
+    <span class="k">except</span> <span class="n">DataSetError</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No data is available in the partition. Not merging anything.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{}</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, AI Singapore.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

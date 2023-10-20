@@ -1,0 +1,583 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bipo.pipelines.feature_engineering.tsfresh_main &#8212; BIPO Demand Forecasting v1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/bipo/pipelines/feature_engineering/tsfresh_main';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">BIPO Demand Forecasting Module: Project Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-deployment-env-setup.html">Deployment Environment Setup - Inference Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-deployment-env-setup.html">Deployment Environment Setup - Training Module</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Pipeline</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data-pipeline.html">Data Pipeline</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-endpoint.html">Model Serving Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-module.html">Inference Module</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.data_merge.html">bipo.pipelines.data_merge package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.data_preprocessing.html">bipo.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.data_split.html">bipo.pipelines.data_split package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.feature_engineering.html">bipo.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.model_evaluation.html">bipo.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.model_specific_preprocessing.html">bipo.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.model_training.html">bipo.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html">bipo.pipelines.time_agnostic_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for bipo.pipelines.feature_engineering.tsfresh_main</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">tsfresh</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">bipo</span> <span class="kn">import</span> <span class="n">settings</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LOGGER_NAME</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="TsfreshFe"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe">[docs]</a><span class="k">class</span> <span class="nc">TsfreshFe</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Auto feature engineering with tsfresh library. Engineer features for numerical features only.</span>
+<span class="sd">    - extract_features can either feature engineer all possible features or only relevant features which are predefined in a json file.</span>
+<span class="sd">    - Filter only the most important engineered features and save them into a json file so that the time taken for feature engineering can be reduced, since only relevant features are engineered.</span>
+
+<span class="sd">    The full list of possible engineered features can be found at https://tsfresh.readthedocs.io/en/latest/text/list_of_features.html.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+        <span class="n">date_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">target_feature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">days_per_group</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">bin_labels_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="n">tsfresh_features_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="n">shift_period</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">n_significant</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">num_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">relevant_features_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize with dataframe after endo and exo feature engineering.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            df (pd.DataFrame): dataframe containing engineered endo and exo features.</span>
+<span class="sd">            date_column (str): Date feature name</span>
+<span class="sd">            target_feature (str): target feature name</span>
+<span class="sd">            days_per_group (int): window size for feature engineering.</span>
+<span class="sd">            bin_labels_list (list): list of the bin labels</span>
+<span class="sd">            tsfresh_features_list (list): list of features to perform tsfresh feature engineering on</span>
+<span class="sd">            shift_period (int): Number of days to shift dataframe which is equal to the earliest lagged number of days for inference (difference between last inference date and last provided lagged date)</span>
+<span class="sd">            n_significant (int): number of classes for which features should be statistically significant predictors to be regarded as relevant.</span>
+<span class="sd">            num_features (int): number of top relevant features to keep.</span>
+<span class="sd">            relevant_features_dict (dict): dictionary of relevant features. Defaults to None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">date_column</span> <span class="o">=</span> <span class="n">date_column</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_feature</span> <span class="o">=</span> <span class="n">target_feature</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">days_per_group</span> <span class="o">=</span> <span class="n">days_per_group</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bin_labels_list</span> <span class="o">=</span> <span class="n">bin_labels_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tsfresh_features_list</span> <span class="o">=</span> <span class="n">tsfresh_features_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shift_period</span> <span class="o">=</span> <span class="n">shift_period</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_significant</span> <span class="o">=</span> <span class="n">n_significant</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span> <span class="o">=</span> <span class="n">num_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relevant_features_dict</span> <span class="o">=</span> <span class="n">relevant_features_dict</span>
+
+<div class="viewcode-block" id="TsfreshFe.extract_features"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe.extract_features">[docs]</a>    <span class="k">def</span> <span class="nf">extract_features</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Auto feature engineering using tsfresh library.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: dataframe with features generated using tsfresh</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># check if days_per_group will result in a group with only 1 row of values. If so then days_per_group is increased by 1, as a minimum of 2 rows in each group are required for extracting features.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">days_per_group</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">days_per_group</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">tsfresh_parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relevant_features_dict</span>
+        <span class="c1"># tsfresh_parameters = None</span>
+        <span class="c1"># Drop rows based on a column subset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tsfresh_features_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Datapoints after rows with null are dropped: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># filter for selected numerical columns</span>
+        <span class="n">numeric_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tsfresh_features_list</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="c1"># Create a new column for tsfresh.utilities.dataframe_functions.roll_time_series to reference a column that contains no nulls</span>
+        <span class="n">numeric_df</span><span class="p">[</span><span class="s2">&quot;idx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># reset index and create date column from index</span>
+        <span class="n">numeric_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Creates sub windows of the time series. It rolls the (sorted) data frames for each kind and each id separately in the “time” domain. Refer https://tsfresh.readthedocs.io/en/latest/api/tsfresh.utilities.html. For each rolling step, a new id is created by the scheme ({id}, {shift}), here id is the former id of the column and shift is the amount of “time” shift. Note that this creates NEW ID.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_id_df</span> <span class="o">=</span> <span class="n">tsfresh</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">dataframe_functions</span><span class="o">.</span><span class="n">roll_time_series</span><span class="p">(</span>
+            <span class="n">numeric_df</span><span class="p">,</span>
+            <span class="n">column_id</span><span class="o">=</span><span class="s2">&quot;idx&quot;</span><span class="p">,</span>
+            <span class="n">column_sort</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">date_column</span><span class="p">,</span>
+            <span class="n">max_timeshift</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">days_per_group</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">min_timeshift</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">days_per_group</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># drop date column if not extract_features function cannot work.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_id_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">date_column</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># ensure column_id is str type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_id_df</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_id_df</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+        <span class="c1"># extract features</span>
+        <span class="n">extracted_features_df</span> <span class="o">=</span> <span class="n">tsfresh</span><span class="o">.</span><span class="n">extract_features</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generate_id_df</span><span class="p">,</span>
+            <span class="n">column_id</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">,</span>
+            <span class="n">kind_to_fc_parameters</span><span class="o">=</span><span class="n">tsfresh_parameters</span><span class="p">,</span>
+            <span class="c1"># n_jobs=2,</span>
+        <span class="p">)</span>
+        <span class="c1"># shift dataframe by shift_period to match inference period</span>
+        <span class="n">extracted_features_df</span> <span class="o">=</span> <span class="n">extracted_features_df</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">periods</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shift_period</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">extracted_features_df</span></div>
+
+<div class="viewcode-block" id="TsfreshFe.process_extracted_tsfresh_features_index"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe.process_extracted_tsfresh_features_index">[docs]</a>    <span class="k">def</span> <span class="nf">process_extracted_tsfresh_features_index</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Function which reformats index of output extracted_features_df due to new id creation as a result of tsfresh feature generation.</span>
+
+<span class="sd">        Example, (1, &#39; 2021-02-07&#39;) index which is returned during tsfresh feature generation is to be converted into 2021-02-07 datetime type instead.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            df (pd.DataFrame): Dataframe containing extracted features.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: processed dataframe of engineered features that have been mapped to their respective datetime indexes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[ ()</span><span class="se">\&quot;</span><span class="s2">\&#39;]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="p">)</span>
+
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Set index name to provided date_column name.</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">date_column</span>
+        <span class="k">return</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="TsfreshFe.generate_relevance_table"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe.generate_relevance_table">[docs]</a>    <span class="k">def</span> <span class="nf">generate_relevance_table</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a feature relevance table for feature selection. This will speed up the time for feature engineering as only the most important features are engineered.</span>
+<span class="sd">        For every feature the influence on the target is evaluated by univariate tests and the p-Value is calculated. Afterwards the Benjamini Hochberg procedure which is a multiple testing procedure decides which features to keep and which to cut off (solely based on the p-values). Benjamini Hochberg procedure decreases the false discovery rate, as sometimes small p-values (less than 5%) happen by chance, which could lead to incorrect rejection of the true null hypotheses.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">           None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: relevance table</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">extracted_features_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_features</span><span class="p">()</span>
+        <span class="c1"># Reformat index of output extracted_features_df due to new id creation which returns (1, &#39; 2021-02-07&#39;) a string as example). This is done by removing non-alphanumeric strings (except for - &amp; ,) before splitting and subsequently extract last entry separated by ,</span>
+        <span class="n">extracted_features_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_extracted_tsfresh_features_index</span><span class="p">(</span>
+            <span class="n">df</span><span class="o">=</span><span class="n">extracted_features_df</span>
+        <span class="p">)</span>
+
+        <span class="n">extracted_features_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+            <span class="n">extracted_features_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Drop rows/columns with all nulls</span>
+        <span class="n">extracted_features_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">extracted_features_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># drop columns with duplicate columns</span>
+        <span class="n">extracted_features_drop_duplicates</span> <span class="o">=</span> <span class="n">extracted_features_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+            <span class="p">:,</span> <span class="o">~</span><span class="n">extracted_features_df</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="c1"># drop columns with any nulls as relevance table generation does not accept features with nan.</span>
+        <span class="n">extracted_features_drop_duplicates</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Extract target feature column</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target_feature</span><span class="p">]</span>
+        <span class="c1"># convert index to datetime to match index of extracted_features_dropna</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">y</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">extracted_features_drop_duplicates</span><span class="o">.</span><span class="n">index</span><span class="p">)]</span>
+
+        <span class="c1"># extracted_features_dropna.reset_index(drop=True, inplace=True)</span>
+        <span class="c1"># check that all target labels are available for feature selection</span>
+        <span class="n">symm_diff</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bin_labels_list</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">symm_diff</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Target feature labels from data and specified binned_labels_list are not equivalent. Symmetric difference: </span><span class="si">{</span><span class="n">symm_diff</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Apply string to value mapping for y values to ensure correct processing of calculate_relevance_table</span>
+        <span class="c1"># y = y.map(lambda y: self.bin_labels_list.index(y))</span>
+        <span class="n">relevance_table_df</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">tsfresh</span><span class="o">.</span><span class="n">feature_selection</span><span class="o">.</span><span class="n">relevance</span><span class="o">.</span><span class="n">calculate_relevance_table</span><span class="p">(</span>
+                <span class="n">extracted_features_drop_duplicates</span><span class="p">,</span>
+                <span class="n">y</span><span class="p">,</span>
+                <span class="n">ml_task</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
+                <span class="n">multiclass</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">n_significant</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_significant</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="c1"># The dataframe relevant column indicate bool true/false on derived tssfresh features. If all are false the sum which is 0 means none of the derived features should be considered.</span>
+        <span class="k">if</span> <span class="n">relevance_table_df</span><span class="p">[</span><span class="s2">&quot;relevant&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No relevant feature(s) found.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Extract feature which are relevant as identified by &#39;relevant&#39; column</span>
+        <span class="n">relevance_feat_table_df</span> <span class="o">=</span> <span class="n">relevance_table_df</span><span class="p">[</span>
+            <span class="n">relevance_table_df</span><span class="p">[</span><span class="s2">&quot;relevant&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span>
+        <span class="p">]</span>
+
+        <span class="c1"># get the mean of all p_value prefixed column names and average them out across all target classes. No columns dropped as this is used by  tsfresh.feature_selection.relevance.combine_relevance_tables in tsfresh_node.py which is the caller of this function as well.</span>
+        <span class="n">p_value_col_list</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">relevance_feat_table_df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;p_value_&quot;</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">relevance_feat_table_df</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">relevance_feat_table_df</span><span class="p">[</span>
+            <span class="n">p_value_col_list</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">relevance_feat_table_df</span></div>
+
+<div class="viewcode-block" id="TsfreshFe.combine_relevance_table"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe.combine_relevance_table">[docs]</a>    <span class="k">def</span> <span class="nf">combine_relevance_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">relevance_table_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get common features among all the relevance tables, aggregate the p-values by getting the lowest p-values amongst all the relevance tables. Assumes the relevance_table_list has 1 single entry</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            relevance_table_list (list): list of relevance tables</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: a single combined relevance table</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">relevance_table_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">combined_table_df</span> <span class="o">=</span> <span class="n">relevance_table_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># combine relevance tables</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">relevance_table_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">combined_table_df</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">tsfresh</span><span class="o">.</span><span class="n">feature_selection</span><span class="o">.</span><span class="n">relevance</span><span class="o">.</span><span class="n">combine_relevance_tables</span><span class="p">(</span>
+                    <span class="n">relevance_table_list</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;List of relevance tables provided is empty&quot;</span><span class="p">)</span>
+        <span class="n">combined_table_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;p_value&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">combined_table_df</span> <span class="o">=</span> <span class="n">combined_table_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of relevant features: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">combined_table_df</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">combined_table_df</span></div></div>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By AI Singapore
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, AI Singapore.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bipo.pipelines.data_split.nodes &mdash; BIPO Demand Forecasting v1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/assets/bipo_docs.css" type="text/css" />
+      <link rel="stylesheet" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/qb1-sphinx-rtd.css" type="text/css" />
+      <link rel="stylesheet" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/theme-overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=0ec76b63"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            BIPO Demand Forecasting
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">BIPO Demand Forecasting Module: Project Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#purpose-of-documentation">Purpose of Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#architecture">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#software-components">Software Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#deployment-architecture">Deployment Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#deployment-package-contents">Deployment Package Contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#data">Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#docker-images">Docker images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#logs">Logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#trained-model-file-s">Trained model file(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#notebooks">Notebooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#scripts">Scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#os-port-usage">OS port usage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-deployment-env-setup.html">Deployment Environment Setup - Inference Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#pre-requisites">Pre-requisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#system-specifications">System Specifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#installation-of-binaries-and-dependencies-in-os">Installation of binaries and dependencies in OS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#installing-from-script">Installing from script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#list-of-installed-binaries-and-versions">List of installed binaries and versions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#python-dependencies">Python Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#preliminary-steps">Preliminary Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#getting-started">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#checking-docker-service">Checking Docker Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#starting-and-stopping-docker-containers">Starting and Stopping Docker Containers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#lifting-of-firewall-ports-in-vm-if-needed">Lifting of firewall ports in VM (if needed)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-deployment-env-setup.html">Deployment Environment Setup - Training Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#pre-requisites">Pre-requisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-deployment-env-setup.html#system-specifications">System Specifications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#installation-of-dependencies-in-windows">Installation of dependencies in Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-deployment-env-setup.html#python-dependencies">Python Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#running-training-pipeline-in-docker-container">Running Training Pipeline in Docker Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#setting-up-mlflow-on-the-local-machine-optional">Setting up MLflow on the Local Machine (Optional)</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Data Pipeline</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../kedro-overview.html">Overview of Kedro (v0.18.11)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#what-is-kedro">What is Kedro?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#elements-of-kedro">Elements of Kedro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#creating-kedro-pipelines">Creating Kedro Pipelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../kedro-overview.html#pipeline-registry">Pipeline Registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../kedro-overview.html#registry-list">Registry List</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#running-specific-pipelines">Running Specific Pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data-pipeline.html">Data Pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-sources">Data Sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#design-architecture">Design Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-loading-validation">1. Data Loading &amp; Validation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#input">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#output">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-preprocessing">2. Data Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id1">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id2">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-merging-splitting">3. Data Merging &amp; Splitting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id3">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id4">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#feature-engineering">4. Feature Engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#feature-inventory">Feature Inventory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#model-specific-preprocessing">5. Model-specific Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id5">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id6">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-pipeline-configuration">Data Pipeline Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#key-parameters-in-the-constants-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#key-parameters-in-the-data-split-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">data_split.yml</span></code> File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#how-to-execute-the-data-pipeline">How to Execute the Data Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#logging">Logging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Model Training</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#pipeline-design">Pipeline Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#design-considerations">Design Considerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#flowchart">Flowchart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#choice-of-models">Choice of Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#training-pipeline-configuration">Training Pipeline Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#model-hyperparameters-in-the-model-training-yml-file">Model Hyperparameters in the <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> File</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#orderedmodel">OrderedModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#explainable-boosting-machine-ebm">Explainable Boosting Machine (EBM)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#model-input-data-definition">Model Input Data Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#how-to-run">How to Run</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#batch-script-docker-container">1. Batch Script (Docker Container)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#what-run-model-training-bat-does">What <code class="docutils literal notranslate"><span class="pre">run_model_training.bat</span></code> does</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#executing-the-script">Executing the script</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#kedro-command">2. Kedro Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#id1">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#id2">Executing the script</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#model-evaluation">Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#file-structure-in-container">File Structure in Container</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-endpoint.html">Model Serving Endpoint</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#how-to-run-endpoint">How to Run Endpoint</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#starting-the-endpoint">1. Starting the Endpoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#interacting-with-the-api-through-swagger-ui">2. Interacting with the API through Swagger UI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#terminating-the-endpoint">3. Terminating the Endpoint</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#request-format">Request Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#optional-fields">Optional Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#response-format">Response Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#mapping-of-sales-class-id-to-sales-class-name">Mapping of <code class="docutils literal notranslate"><span class="pre">sales_class_id</span></code> to <code class="docutils literal notranslate"><span class="pre">sales_class_name</span></code>:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../inference-endpoint.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#api-error-codes">API Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-module.html">Inference Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-module.html#overview">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-module.html#flowchart">Flowchart</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-module.html#pipeline-configuration">Pipeline Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-module.html#file-structure-in-container">File Structure in Container</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">bipo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../bipo.html">bipo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../bipo.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.html">bipo.pipelines package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">BIPO Demand Forecasting</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">bipo.pipelines.data_split.nodes</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for bipo.pipelines.data_split.nodes</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This is a boilerplate pipeline &#39;data_split&#39;</span>
+<span class="sd">generated using Kedro 0.18.10</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">kedro.config</span> <span class="kn">import</span> <span class="n">ConfigLoader</span>
+<span class="kn">from</span> <span class="nn">bipo</span> <span class="kn">import</span> <span class="n">settings</span>
+
+<span class="c1"># This will get the active logger during run time</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LOGGER_NAME</span><span class="p">)</span>
+<span class="n">conf_loader</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="p">(</span><span class="n">conf_source</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">CONF_SOURCE</span><span class="p">)</span>
+<span class="n">data_split_constants</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;constants*&quot;</span><span class="p">)[</span><span class="s2">&quot;data_split&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="handle_invalid_folds_split_approach"><a class="viewcode-back" href="../../../../bipo.pipelines.data_split.html#bipo.pipelines.data_split.nodes.handle_invalid_folds_split_approach">[docs]</a><span class="k">def</span> <span class="nf">handle_invalid_folds_split_approach</span><span class="p">(</span>
+    <span class="n">folds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">split_approach</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper function that checks for validity of input parameters involving folds and split approach.</span>
+
+<span class="sd">    Fold value would be set to defaults 3 if negative values are detected for expanding/sliding window split; otherwise defaults to 1 with simple split approach being used instead.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        folds (int): Fold info provided.</span>
+<span class="sd">        split_approach (str): Split approach name info provided.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple containing the following:</span>
+<span class="sd">        - folds (int): Updated folds if applicable.</span>
+<span class="sd">        - split_approach (str): Updated split approach if applicable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Checking for validness of provided fold information&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">folds</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">split_approach</span> <span class="o">==</span> <span class="s2">&quot;expanding_window&quot;</span> <span class="ow">or</span> <span class="n">split_approach</span> <span class="o">==</span> <span class="s2">&quot;sliding_window&quot;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Detected invalid folds. Setting to 3 as default for split approach: </span><span class="si">{</span><span class="n">split_approach</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="n">folds</span> <span class="o">=</span> <span class="n">data_split_constants</span><span class="p">[</span><span class="s2">&quot;window_split_fold_default&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Detected invalid folds. Setting to </span><span class="si">{</span><span class="n">data_split_constants</span><span class="p">[</span><span class="s1">&#39;data_split_option_default&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> and using </span><span class="si">{</span><span class="n">data_split_constants</span><span class="p">[</span><span class="s1">&#39;simple_split_fold_default&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> split approach.&quot;</span>
+            <span class="p">)</span>
+            <span class="n">folds</span> <span class="o">=</span> <span class="n">data_split_constants</span><span class="p">[</span><span class="s2">&quot;simple_split_fold_default&quot;</span><span class="p">]</span>
+            <span class="n">split_approach</span> <span class="o">=</span> <span class="n">data_split_constants</span><span class="p">[</span><span class="s2">&quot;data_split_option_default&quot;</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">folds</span><span class="p">,</span> <span class="n">split_approach</span></div>
+
+
+<div class="viewcode-block" id="handle_invalid_days_for_split"><a class="viewcode-back" href="../../../../bipo.pipelines.data_split.html#bipo.pipelines.data_split.nodes.handle_invalid_days_for_split">[docs]</a><span class="k">def</span> <span class="nf">handle_invalid_days_for_split</span><span class="p">(</span>
+    <span class="n">training_days</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">validation_days</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">testing_days</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper function that checks for validity of input parameters involving training_days, validation_days and testing_days.</span>
+
+<span class="sd">    If either of them are negative. A default would be set for the respective arguments through this function.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        training_days (int): Training days info provided.</span>
+<span class="sd">        validation_days (int): Validation days info provided.</span>
+<span class="sd">        testing_days (int): Testing days info provided.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple containing the following:</span>
+<span class="sd">        - training_days (int): Updated training days if applicable.</span>
+<span class="sd">        - validation_days (int): Updated validation days if applicable.</span>
+<span class="sd">        - testing_days (int): Updated testing days if applicable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">training_days</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="p">(</span><span class="n">training_days</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="p">(</span><span class="n">training_days</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="n">training_days</span> <span class="o">=</span> <span class="n">data_split_constants</span><span class="p">[</span><span class="s2">&quot;training_days_default&quot;</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid training days overridden to </span><span class="si">{</span><span class="n">training_days</span><span class="si">}</span><span class="s2"> days.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">validation_days</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="p">(</span><span class="n">validation_days</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="p">(</span><span class="n">validation_days</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="n">validation_days</span> <span class="o">=</span> <span class="n">data_split_constants</span><span class="p">[</span><span class="s2">&quot;validation_days_default&quot;</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid validation days overridden to </span><span class="si">{</span><span class="n">validation_days</span><span class="si">}</span><span class="s2"> days.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">training_days</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="p">(</span><span class="n">testing_days</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="p">(</span><span class="n">testing_days</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="n">testing_days</span> <span class="o">=</span> <span class="n">data_split_constants</span><span class="p">[</span><span class="s2">&quot;testing_days_default&quot;</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid testing days overridden to </span><span class="si">{</span><span class="n">testing_days</span><span class="si">}</span><span class="s2"> days.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">training_days</span><span class="p">,</span> <span class="n">validation_days</span><span class="p">,</span> <span class="n">testing_days</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="validate_split_params"><a class="viewcode-back" href="../../../../bipo.pipelines.data_split.html#bipo.pipelines.data_split.nodes.validate_split_params">[docs]</a><span class="k">def</span> <span class="nf">validate_split_params</span><span class="p">(</span>
+    <span class="n">data_split_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function that extracts split-related parameters from provided data_split_params parameters and checks the validity of inputs. Any invalid inputs would be overwritten by functions which references constants.yml for overwrite values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data_split_params (Dict[str, Any]): Dictionary containing data split parameters involving training, testing and validation days information.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[int, int, int, int, str] containing validated parameters:</span>
+<span class="sd">        - training_days,</span>
+<span class="sd">        - validation_days,</span>
+<span class="sd">        - testing_days,</span>
+<span class="sd">        - folds,</span>
+<span class="sd">        - split_approach</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Get split approach, train, testing and val days from config</span>
+        <span class="n">training_days</span> <span class="o">=</span> <span class="n">data_split_params</span><span class="p">[</span><span class="s2">&quot;training_days&quot;</span><span class="p">]</span>
+        <span class="n">testing_days</span> <span class="o">=</span> <span class="n">data_split_params</span><span class="p">[</span><span class="s2">&quot;testing_days&quot;</span><span class="p">]</span>
+        <span class="n">validation_days</span> <span class="o">=</span> <span class="n">data_split_params</span><span class="p">[</span><span class="s2">&quot;validation_days&quot;</span><span class="p">]</span>
+        <span class="n">split_approach</span> <span class="o">=</span> <span class="n">data_split_params</span><span class="p">[</span><span class="s2">&quot;split_approach&quot;</span><span class="p">]</span>
+        <span class="n">folds</span> <span class="o">=</span> <span class="n">data_split_params</span><span class="p">[</span><span class="s2">&quot;folds&quot;</span><span class="p">]</span>
+
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="s2">&quot;Error in reading required parameters to calculate necessary split parameters. Applying default values.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Logic check for parameters involving training, testing,validation, window_sliding_stride and window_expansion_days using function call</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Conducting logic check on split parameters.&quot;</span><span class="p">)</span>
+    <span class="p">(</span>
+        <span class="n">training_days</span><span class="p">,</span>
+        <span class="n">validation_days</span><span class="p">,</span>
+        <span class="n">testing_days</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">handle_invalid_days_for_split</span><span class="p">(</span>
+        <span class="n">training_days</span><span class="p">,</span>
+        <span class="n">validation_days</span><span class="p">,</span>
+        <span class="n">testing_days</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># logic check for fold sand split_approach using function call.</span>
+    <span class="n">folds</span><span class="p">,</span> <span class="n">split_approach</span> <span class="o">=</span> <span class="n">handle_invalid_folds_split_approach</span><span class="p">(</span><span class="n">folds</span><span class="p">,</span> <span class="n">split_approach</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Completed logic check on split parameters.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">training_days</span><span class="p">,</span> <span class="n">validation_days</span><span class="p">,</span> <span class="n">testing_days</span><span class="p">,</span> <span class="n">folds</span><span class="p">,</span> <span class="n">split_approach</span></div>
+
+
+<div class="viewcode-block" id="prepare_for_split"><a class="viewcode-back" href="../../../../bipo.pipelines.data_split.html#bipo.pipelines.data_split.nodes.prepare_for_split">[docs]</a><span class="k">def</span> <span class="nf">prepare_for_split</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">data_split_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
+    <span class="c1"># Get time period and duration related information</span>
+    <span class="n">date_col</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;constants*&quot;</span><span class="p">)[</span><span class="s2">&quot;default_date_col&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Ensure that date is in index of dataframe before further processing</span>
+    <span class="k">if</span> <span class="n">date_col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Converting date column into datetime format and setting as index&quot;</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">date_col</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Set index as datetime</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Extract the earliest/latest availability date &amp; duration from data</span>
+    <span class="n">earliest_date</span><span class="p">,</span> <span class="n">latest_date</span><span class="p">,</span> <span class="n">total_duration</span> <span class="o">=</span> <span class="n">get_date_info</span><span class="p">(</span><span class="n">df_index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Data information - Earliest date: </span><span class="si">{</span><span class="n">earliest_date</span><span class="si">}</span><span class="s2">, Latest date: </span><span class="si">{</span><span class="n">latest_date</span><span class="si">}</span><span class="s2">, Duration: </span><span class="si">{</span><span class="n">total_duration</span><span class="si">}</span><span class="s2"> days&quot;</span>
+    <span class="p">)</span>
+    <span class="c1"># Validate split params with function call</span>
+    <span class="p">(</span>
+        <span class="n">training_days</span><span class="p">,</span>
+        <span class="n">validation_days</span><span class="p">,</span>
+        <span class="n">testing_days</span><span class="p">,</span>
+        <span class="n">folds</span><span class="p">,</span>
+        <span class="n">split_approach</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">validate_split_params</span><span class="p">(</span><span class="n">data_split_params</span><span class="o">=</span><span class="n">data_split_params</span><span class="p">)</span>
+
+    <span class="c1"># Assign earliest date as the start_date as a start. Used in the for loop generation below.</span>
+    <span class="n">start_date</span> <span class="o">=</span> <span class="n">earliest_date</span>
+    
+    <span class="c1"># Define a list to store parameters related to folds which would be an entry in the returned dictionary</span>
+    <span class="n">training_days_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">start_date_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Apply checks on window_expansion and window_sliding days as extracted from parameters/data_split.yml. For simple split, these parameters are set to 0</span>
+    <span class="n">window_expansion_days</span> <span class="o">=</span> <span class="n">data_split_params</span><span class="p">[</span><span class="s2">&quot;window_expansion_days&quot;</span><span class="p">]</span>
+    <span class="n">window_sliding_stride_days</span> <span class="o">=</span> <span class="n">data_split_params</span><span class="p">[</span><span class="s2">&quot;window_sliding_stride_days&quot;</span><span class="p">]</span>
+    <span class="n">window_expansion_days</span><span class="p">,</span> <span class="n">window_sliding_stride_days</span> <span class="o">=</span> <span class="n">check_window_parameters</span><span class="p">(</span>
+        <span class="n">window_expansion_days</span><span class="p">,</span> <span class="n">window_sliding_stride_days</span><span class="p">,</span> <span class="n">split_approach</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Use a common window variable to store window_expansion_days and window_sliding_stride_days since they are mutually exclusive for each split approach. This is used as an output parameter of the existing function</span>
+    <span class="k">if</span> <span class="n">split_approach</span> <span class="o">==</span> <span class="s2">&quot;expanding_window&quot;</span><span class="p">:</span>
+        <span class="c1"># Assign to common window variable</span>
+        <span class="n">window_param_days</span> <span class="o">=</span> <span class="n">window_expansion_days</span>
+    <span class="k">elif</span> <span class="n">split_approach</span> <span class="o">==</span> <span class="s2">&quot;sliding_window&quot;</span><span class="p">:</span>
+        <span class="c1"># Assign to common window variable</span>
+        <span class="n">window_param_days</span> <span class="o">=</span> <span class="n">window_sliding_stride_days</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">window_param_days</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Simple split case</span>
+
+    <span class="c1"># Loop through the number of folds requested and derive the necessary time periods</span>
+    <span class="k">for</span> <span class="n">fold</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">folds</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing </span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2"> using </span><span class="si">{</span><span class="n">split_approach</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Expanding window case</span>
+        <span class="k">if</span> <span class="n">split_approach</span> <span class="o">==</span> <span class="s2">&quot;expanding_window&quot;</span><span class="p">:</span>
+            <span class="c1"># First fold do not include any &#39;exapnsion&#39;</span>
+            <span class="k">if</span> <span class="n">fold</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">training_days</span> <span class="o">+=</span> <span class="n">window_param_days</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Days for training data based on fold #</span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">training_days</span><span class="si">}</span><span class="s2"> days for </span><span class="si">{</span><span class="n">split_approach</span><span class="si">}</span><span class="s2"> approach.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Sliding window case</span>
+        <span class="k">elif</span> <span class="n">split_approach</span> <span class="o">==</span> <span class="s2">&quot;sliding_window&quot;</span><span class="p">:</span>
+            <span class="n">start_date</span> <span class="o">=</span> <span class="n">earliest_date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">window_param_days</span> <span class="o">*</span> <span class="p">(</span><span class="n">fold</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;days&quot;</span>
+            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Start date based on fold #</span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="n">split_approach</span><span class="si">}</span><span class="s2"> approach.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Calculate total days needed for each fold. This is ensure folds to be generated are not truncated in the process.</span>
+        <span class="n">total_days_required</span> <span class="o">=</span> <span class="n">training_days</span> <span class="o">+</span> <span class="n">testing_days</span> <span class="o">+</span> <span class="n">validation_days</span>
+
+        <span class="c1"># Check if required fold end date exceeds latest date from data. If so, terminate the loop process to guarantee proper fold duration.</span>
+        <span class="n">fold_end_date</span> <span class="o">=</span> <span class="n">start_date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">total_days_required</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;days&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">fold_end_date</span> <span class="o">&gt;</span> <span class="n">latest_date</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Required end date </span><span class="si">{</span><span class="n">fold_end_date</span><span class="si">}</span><span class="s2"> exceeds </span><span class="si">{</span><span class="n">latest_date</span><span class="si">}</span><span class="s2"> available from data. Current fold up to required #</span><span class="si">{</span><span class="n">folds</span><span class="si">}</span><span class="s2"> folds would not be implemented.&quot;</span>
+            <span class="p">)</span>
+            <span class="c1"># Update total applicable folds</span>
+            <span class="n">folds</span> <span class="o">=</span> <span class="n">fold</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The start date for model training under fold #</span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2">: is </span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s2">, training days is: </span><span class="si">{</span><span class="n">training_days</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="n">training_days_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">training_days</span><span class="p">)</span>
+            <span class="n">start_date_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start_date</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of folds applicable: </span><span class="si">{</span><span class="n">folds</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Define split parameters dict as return</span>
+    <span class="n">split_params_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;dataframe&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">,</span>
+        <span class="s2">&quot;start_date_list&quot;</span><span class="p">:</span> <span class="n">start_date_list</span><span class="p">,</span>
+        <span class="s2">&quot;latest_date&quot;</span><span class="p">:</span> <span class="n">latest_date</span><span class="p">,</span>
+        <span class="s2">&quot;training_days_list&quot;</span><span class="p">:</span> <span class="n">training_days_list</span><span class="p">,</span>
+        <span class="s2">&quot;testing_days&quot;</span><span class="p">:</span> <span class="n">testing_days</span><span class="p">,</span>
+        <span class="s2">&quot;validation_days&quot;</span><span class="p">:</span> <span class="n">validation_days</span><span class="p">,</span>
+        <span class="s2">&quot;split_approach&quot;</span><span class="p">:</span> <span class="n">split_approach</span><span class="p">,</span>
+        <span class="s2">&quot;window_param_days&quot;</span><span class="p">:</span> <span class="n">window_param_days</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">split_params_dict</span></div>
+
+
+<div class="viewcode-block" id="do_time_based_data_split"><a class="viewcode-back" href="../../../../bipo.pipelines.data_split.html#bipo.pipelines.data_split.nodes.do_time_based_data_split">[docs]</a><span class="k">def</span> <span class="nf">do_time_based_data_split</span><span class="p">(</span>
+    <span class="n">split_params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function that implements a time-based data split using split_params_dict.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        split_params_dict: Dictionary containing key-value information pertaining to split_params.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict[str, pd.DataFrame] continaining the following if input is not empty:</span>
+<span class="sd">        - train_dict: Dictionary containing file name and pd.DataFrame representing the training dataset</span>
+<span class="sd">        - val_dict : Dictionary containing file name and validation dataset</span>
+<span class="sd">        - test_dict : Dictionary containing file name and testing dataset dataframe</span>
+<span class="sd">        </span>
+<span class="sd">        Otherwise empty dict.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Return if input is empty as that indicates the split approach in prev step is invalid.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">split_params_dict</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Skipping time-based data splitting as necessary split parameters are not found.&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="c1"># Unpack the dictionary values</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Preparing data for split from dictionary input&quot;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">split_params_dict</span><span class="p">[</span><span class="s2">&quot;dataframe&quot;</span><span class="p">]</span>
+    <span class="n">split_approach</span> <span class="o">=</span> <span class="n">split_params_dict</span><span class="p">[</span><span class="s2">&quot;split_approach&quot;</span><span class="p">]</span>
+    <span class="n">start_date_list</span> <span class="o">=</span> <span class="n">split_params_dict</span><span class="p">[</span><span class="s2">&quot;start_date_list&quot;</span><span class="p">]</span>
+    <span class="n">latest_date</span> <span class="o">=</span> <span class="n">split_params_dict</span><span class="p">[</span><span class="s2">&quot;latest_date&quot;</span><span class="p">]</span>
+    <span class="n">training_days_list</span> <span class="o">=</span> <span class="n">split_params_dict</span><span class="p">[</span><span class="s2">&quot;training_days_list&quot;</span><span class="p">]</span>
+    <span class="n">testing_days</span> <span class="o">=</span> <span class="n">split_params_dict</span><span class="p">[</span><span class="s2">&quot;testing_days&quot;</span><span class="p">]</span>
+    <span class="n">validation_days</span> <span class="o">=</span> <span class="n">split_params_dict</span><span class="p">[</span><span class="s2">&quot;validation_days&quot;</span><span class="p">]</span>
+    <span class="n">window_param_days</span> <span class="o">=</span> <span class="n">split_params_dict</span><span class="p">[</span><span class="s2">&quot;window_param_days&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Train,val,test Dictionary used as return under Kedro framework with empty key-values</span>
+    <span class="n">train_val_test_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting training_days_list: </span><span class="si">{</span><span class="n">training_days_list</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting start_date_list: </span><span class="si">{</span><span class="n">start_date_list</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Loop through all training days</span>
+    <span class="k">for</span> <span class="n">nth_fold</span><span class="p">,</span> <span class="p">(</span><span class="n">training_days</span><span class="p">,</span> <span class="n">start_date</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+        <span class="nb">zip</span><span class="p">(</span><span class="n">training_days_list</span><span class="p">,</span> <span class="n">start_date_list</span><span class="p">),</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">):</span>
+        <span class="c1"># Define empty dataframes with existing columns name</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing fold #</span><span class="si">{</span><span class="n">nth_fold</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">train_date_end</span> <span class="o">=</span> <span class="n">start_date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">training_days</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;days&quot;</span><span class="p">)</span>
+        <span class="n">val_date_start</span> <span class="o">=</span> <span class="n">train_date_end</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;days&quot;</span><span class="p">)</span>
+        <span class="n">val_date_end</span> <span class="o">=</span> <span class="n">val_date_start</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">validation_days</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;days&quot;</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Extract dates between </span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">train_date_end</span><span class="si">}</span><span class="s2"> for fold #</span><span class="si">{</span><span class="n">nth_fold</span><span class="si">}</span><span class="s2"> training dataset which is </span><span class="si">{</span><span class="n">training_days</span><span class="si">}</span><span class="s2"> days&quot;</span>
+        <span class="p">)</span>
+        <span class="n">train_engineered_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_date</span><span class="p">:</span><span class="n">train_date_end</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training dataset shape: </span><span class="si">{</span><span class="n">train_engineered_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Update dictionary</span>
+        <span class="n">train_val_test_dict</span><span class="p">[</span>
+            <span class="sa">f</span><span class="s2">&quot;training_fold</span><span class="si">{</span><span class="n">nth_fold</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">split_approach</span><span class="si">}</span><span class="s2">_param_</span><span class="si">{</span><span class="n">window_param_days</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="n">train_engineered_df</span>
+
+        <span class="c1"># For the case when validation dataset is needed, we update accordingly. As a result, this affects when the test dates</span>
+        <span class="k">if</span> <span class="n">validation_days</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Start validation date after the end of validation date</span>
+            <span class="n">val_date_start</span> <span class="o">=</span> <span class="n">train_date_end</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;days&quot;</span><span class="p">)</span>
+            <span class="n">val_date_end</span> <span class="o">=</span> <span class="n">val_date_start</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span>
+                <span class="n">validation_days</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;days&quot;</span>
+            <span class="p">)</span>
+            <span class="c1"># Start test date after the end of validation date</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Extract dates between </span><span class="si">{</span><span class="n">val_date_start</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">val_date_end</span><span class="si">}</span><span class="s2"> for validation dataset which is </span><span class="si">{</span><span class="n">validation_days</span><span class="si">}</span><span class="s2"> days&quot;</span>
+            <span class="p">)</span>
+            <span class="n">val_engineered_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">val_date_start</span><span class="p">:</span><span class="n">val_date_end</span><span class="p">,</span> <span class="p">:]</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Validation dataset shape: </span><span class="si">{</span><span class="n">val_engineered_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="n">train_val_test_dict</span><span class="p">[</span>
+                <span class="sa">f</span><span class="s2">&quot;validation_fold</span><span class="si">{</span><span class="n">nth_fold</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">split_approach</span><span class="si">}</span><span class="s2">_param_</span><span class="si">{</span><span class="n">window_param_days</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">]</span> <span class="o">=</span> <span class="n">val_engineered_df</span>
+
+            <span class="n">test_date_start</span> <span class="o">=</span> <span class="n">val_date_end</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;days&quot;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Start test date after the end of training date</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Not extracting any data for validation case&quot;</span><span class="p">)</span>
+            <span class="n">test_date_start</span> <span class="o">=</span> <span class="n">train_date_end</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;days&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Test case</span>
+        <span class="n">test_date_end</span> <span class="o">=</span> <span class="n">test_date_start</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">testing_days</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;days&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Filter if date end is date start for testing set</span>
+        <span class="k">if</span> <span class="n">test_date_end</span> <span class="o">&gt;</span> <span class="n">test_date_start</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Extract dates between </span><span class="si">{</span><span class="n">test_date_start</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">test_date_end</span><span class="si">}</span><span class="s2"> for testing dataset which is </span><span class="si">{</span><span class="n">testing_days</span><span class="si">}</span><span class="s2"> days.</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="n">test_engineered_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_date_start</span><span class="p">:</span><span class="n">test_date_end</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Testing dataset shape: </span><span class="si">{</span><span class="n">test_engineered_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">train_val_test_dict</span><span class="p">[</span>
+                <span class="sa">f</span><span class="s2">&quot;testing_fold</span><span class="si">{</span><span class="n">nth_fold</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">split_approach</span><span class="si">}</span><span class="s2">_param_</span><span class="si">{</span><span class="n">window_param_days</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">]</span> <span class="o">=</span> <span class="n">test_engineered_df</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Not extracting any data for testing case</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Return all 3 dataframe in a key value pair as part of PartitionedDataSet</span>
+    <span class="k">return</span> <span class="n">train_val_test_dict</span></div>
+
+
+<div class="viewcode-block" id="get_date_info"><a class="viewcode-back" href="../../../../bipo.pipelines.data_split.html#bipo.pipelines.data_split.nodes.get_date_info">[docs]</a><span class="k">def</span> <span class="nf">get_date_info</span><span class="p">(</span><span class="n">df_index</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">datetime</span><span class="p">,</span> <span class="n">datetime</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function that retrieves the earliest, latest date and total duration between the 2 dates (inclusive).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_index (pd.Index): DataFrame Index to process.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[datetime, datetime, int]:</span>
+<span class="sd">        - earliest_date: earliest availability date</span>
+<span class="sd">        - latest_date: latest availability date</span>
+<span class="sd">        - duration: Total days between earliest and latest date (both inclusive)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Get a list of unique dates and extract earliest/latest date</span>
+    <span class="n">unique_dates_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">df_index</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+    <span class="n">earliest_date</span> <span class="o">=</span> <span class="n">unique_dates_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">latest_date</span> <span class="o">=</span> <span class="n">unique_dates_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">total_duration</span> <span class="o">=</span> <span class="p">(</span><span class="n">latest_date</span> <span class="o">-</span> <span class="n">earliest_date</span><span class="p">)</span><span class="o">.</span><span class="n">days</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">earliest_date</span><span class="p">,</span> <span class="n">latest_date</span><span class="p">,</span> <span class="n">total_duration</span></div>
+
+
+<div class="viewcode-block" id="check_window_parameters"><a class="viewcode-back" href="../../../../bipo.pipelines.data_split.html#bipo.pipelines.data_split.nodes.check_window_parameters">[docs]</a><span class="k">def</span> <span class="nf">check_window_parameters</span><span class="p">(</span>
+    <span class="n">window_expansion_days</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">window_sliding_stride_days</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">split_approach</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function that implements checks on window-related parameters involved in time-based splits and rectifies using default values specified in constants.yml or fixed constants depending on the split_approach.</span>
+
+<span class="sd">    Example: The window_expansion_days is only applicable for expanding_window split approach and not window_sliding_stride_days. Any values set for the latter would be zeroed. Similarly applies for the case of sliding_window split approach.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        window_expansion_days (int): Input for expanding window&#39;s expansion days.</span>
+<span class="sd">        window_sliding_stride_days (int): Input for sliding window&#39;s sliding stride days.</span>
+<span class="sd">        split_approach (str): String representation of split_approach.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[int, int] containing corrected/defaulted window_expansion_days, window_sliding_stride_days</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">split_approach</span> <span class="o">==</span> <span class="s2">&quot;expanding_window&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">window_expansion_days</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="p">(</span><span class="n">window_expansion_days</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="ow">not</span> <span class="n">window_expansion_days</span>
+        <span class="p">):</span>
+            <span class="n">window_expansion_days</span> <span class="o">=</span> <span class="n">data_split_constants</span><span class="p">[</span>
+                <span class="s2">&quot;window_expansion_days_default&quot;</span>
+            <span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Overriding to default </span><span class="si">{</span><span class="n">window_expansion_days</span><span class="si">}</span><span class="s2"> days due to invalid window expansion days input&quot;</span>
+            <span class="p">)</span>
+        <span class="n">window_sliding_stride_days</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="n">split_approach</span> <span class="o">==</span> <span class="s2">&quot;sliding_window&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">window_sliding_stride_days</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="p">(</span><span class="n">window_sliding_stride_days</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="ow">not</span> <span class="n">window_sliding_stride_days</span>
+        <span class="p">):</span>
+            <span class="n">window_sliding_stride_days</span> <span class="o">=</span> <span class="n">data_split_constants</span><span class="p">[</span>
+                <span class="s2">&quot;window_sliding_stride_days_default&quot;</span>
+            <span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Detected invalid window_sliding_stride_days days. Overriding to default </span><span class="si">{</span><span class="n">window_sliding_stride_days</span><span class="si">}</span><span class="s2"> days.&quot;</span>
+            <span class="p">)</span>
+        <span class="n">window_expansion_days</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">return</span> <span class="n">window_expansion_days</span><span class="p">,</span> <span class="n">window_sliding_stride_days</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, AI Singapore.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

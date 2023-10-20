@@ -2,41 +2,60 @@
 This is a boilerplate pipeline 'data_split'
 generated using Kedro 0.18.10
 """
-import sys
-from pathlib import Path
+# Adjusted for namespace
+from kedro.pipeline import Pipeline, node
+from kedro.pipeline.modular_pipeline import pipeline
+from .nodes import (
+    do_time_based_data_split,
+    prepare_for_split,
+)
 
-sys.path.append("../../")
-sys.dont_write_bytecode = True
-
-from kedro.pipeline import Pipeline, node, pipeline
-from .nodes import load_concat_outlet_feature_engineered_data, do_train_val_test_split
-
-# Recursively scan directories (config paths) contained in conf_source for configuration files with a yaml, yml, json, ini, pickle, xml or properties extension, load them, and return them in the form of a config dictionary.
-from kedro.config import ConfigLoader
-from kedro.framework.session import KedroSession
-from kedro.framework.project import settings
-
-# This will set the log_modifier to create logs based on module affected
 
 def create_pipeline(**kwargs) -> Pipeline:
-    # Instantiate empty Pipeline to chain all Pipelines
-    return pipeline(
+    # New pipeline for data split to add all subpipelines
+    pipeline_instance = pipeline(
         [
             node(
-                func=load_concat_outlet_feature_engineered_data,
-                inputs="feature_engineering_data",
-                outputs="concat_outlet_dataset",  # MemoryDataSet
-                name="load_featureengineered_training_data",
+                func=prepare_for_split,  # In nodes.py
+                inputs=["data_merge", "params:data_split_params"],
+                outputs="split_params_dict",
+                name="data_split_prepare_for_split",
             ),
             node(
-                func=do_train_val_test_split,  # In nodes.py
-                inputs={
-                    "df": "concat_outlet_dataset",  # Gets the output of previous MemoryDataset
-                    "config_dict": "params:data_split",  # Reads parameters.yml's data_split key
-                },
-                outputs="train_val_test_data_split",
-                # outputs=["training_data", "validation_data", "testing_data"],
-                name="split_data",
+                func=do_time_based_data_split,  # In nodes.py
+                inputs="split_params_dict",
+                outputs="data_split",
+                name="data_split_do_time_based_data_split",
             ),
-        ]
+        ],
     )
+
+    # Instantiate multiple instances of pipelines with static structure, but dynamic inputs/outputs/parameters. Inputs/outputs required if not managed by namespace
+    simple_split_pipeline = pipeline(
+        pipe=pipeline_instance,
+        inputs=["data_merge"],
+        parameters={
+            "params:data_split_params": "params:simple_split",
+        },  # namespace mapped to data_split.yml namespace declaration
+        namespace="simple_split",
+    )
+
+    expanding_window_pipeline = pipeline(
+        pipe=pipeline_instance,
+        inputs=["data_merge"],
+        parameters={
+            "params:data_split_params": "params:expanding_window",
+        },  # namespace mapped to data_split.yml namespace declaration
+        namespace="expanding_window",
+    )
+
+    sliding_window_pipeline = pipeline(
+        pipe=pipeline_instance,
+        inputs=["data_merge"],
+        parameters={
+            "params:data_split_params": "params:sliding_window",
+        },  # namespace mapped to data_split.yml namespace declaration
+        namespace="sliding_window",
+    )
+
+    return sliding_window_pipeline + expanding_window_pipeline + simple_split_pipeline

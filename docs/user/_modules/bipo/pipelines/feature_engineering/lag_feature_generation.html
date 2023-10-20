@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bipo.pipelines.feature_engineering.lag_feature_generation &mdash; BIPO Demand Forecasting v1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/assets/bipo_docs.css" type="text/css" />
+      <link rel="stylesheet" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/qb1-sphinx-rtd.css" type="text/css" />
+      <link rel="stylesheet" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/theme-overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=0ec76b63"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            BIPO Demand Forecasting
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">BIPO Demand Forecasting Module: Project Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#purpose-of-documentation">Purpose of Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#architecture">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#software-components">Software Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#deployment-architecture">Deployment Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#deployment-package-contents">Deployment Package Contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#data">Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#docker-images">Docker images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#logs">Logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#trained-model-file-s">Trained model file(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#notebooks">Notebooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#scripts">Scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#os-port-usage">OS port usage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-deployment-env-setup.html">Deployment Environment Setup - Inference Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#pre-requisites">Pre-requisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#system-specifications">System Specifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#installation-of-binaries-and-dependencies-in-os">Installation of binaries and dependencies in OS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#installing-from-script">Installing from script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#list-of-installed-binaries-and-versions">List of installed binaries and versions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#python-dependencies">Python Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#preliminary-steps">Preliminary Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#getting-started">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#checking-docker-service">Checking Docker Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#starting-and-stopping-docker-containers">Starting and Stopping Docker Containers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#lifting-of-firewall-ports-in-vm-if-needed">Lifting of firewall ports in VM (if needed)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-deployment-env-setup.html">Deployment Environment Setup - Training Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#pre-requisites">Pre-requisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-deployment-env-setup.html#system-specifications">System Specifications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#installation-of-dependencies-in-windows">Installation of dependencies in Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-deployment-env-setup.html#python-dependencies">Python Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#running-training-pipeline-in-docker-container">Running Training Pipeline in Docker Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#setting-up-mlflow-on-the-local-machine-optional">Setting up MLflow on the Local Machine (Optional)</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Data Pipeline</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../kedro-overview.html">Overview of Kedro (v0.18.11)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#what-is-kedro">What is Kedro?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#elements-of-kedro">Elements of Kedro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#creating-kedro-pipelines">Creating Kedro Pipelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../kedro-overview.html#pipeline-registry">Pipeline Registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../kedro-overview.html#registry-list">Registry List</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#running-specific-pipelines">Running Specific Pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data-pipeline.html">Data Pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-sources">Data Sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#design-architecture">Design Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-loading-validation">1. Data Loading &amp; Validation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#input">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#output">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-preprocessing">2. Data Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id1">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id2">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-merging-splitting">3. Data Merging &amp; Splitting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id3">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id4">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#feature-engineering">4. Feature Engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#feature-inventory">Feature Inventory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#model-specific-preprocessing">5. Model-specific Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id5">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id6">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-pipeline-configuration">Data Pipeline Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#key-parameters-in-the-constants-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#key-parameters-in-the-data-split-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">data_split.yml</span></code> File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#how-to-execute-the-data-pipeline">How to Execute the Data Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#logging">Logging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Model Training</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#pipeline-design">Pipeline Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#design-considerations">Design Considerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#flowchart">Flowchart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#choice-of-models">Choice of Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#training-pipeline-configuration">Training Pipeline Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#model-hyperparameters-in-the-model-training-yml-file">Model Hyperparameters in the <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> File</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#orderedmodel">OrderedModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#explainable-boosting-machine-ebm">Explainable Boosting Machine (EBM)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#model-input-data-definition">Model Input Data Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#how-to-run">How to Run</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#batch-script-docker-container">1. Batch Script (Docker Container)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#what-run-model-training-bat-does">What <code class="docutils literal notranslate"><span class="pre">run_model_training.bat</span></code> does</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#executing-the-script">Executing the script</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#kedro-command">2. Kedro Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#id1">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#id2">Executing the script</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#model-evaluation">Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#file-structure-in-container">File Structure in Container</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-endpoint.html">Model Serving Endpoint</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#how-to-run-endpoint">How to Run Endpoint</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#starting-the-endpoint">1. Starting the Endpoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#interacting-with-the-api-through-swagger-ui">2. Interacting with the API through Swagger UI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#terminating-the-endpoint">3. Terminating the Endpoint</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#request-format">Request Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#optional-fields">Optional Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#response-format">Response Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#mapping-of-sales-class-id-to-sales-class-name">Mapping of <code class="docutils literal notranslate"><span class="pre">sales_class_id</span></code> to <code class="docutils literal notranslate"><span class="pre">sales_class_name</span></code>:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../inference-endpoint.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#api-error-codes">API Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-module.html">Inference Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-module.html#overview">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-module.html#flowchart">Flowchart</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-module.html#pipeline-configuration">Pipeline Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-module.html#file-structure-in-container">File Structure in Container</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">bipo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../bipo.html">bipo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../bipo.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.html">bipo.pipelines package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">BIPO Demand Forecasting</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">bipo.pipelines.feature_engineering.lag_feature_generation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for bipo.pipelines.feature_engineering.lag_feature_generation</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Script that caters for lag feature generations as part of feature engineering module.</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">bipo</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LOGGER_NAME</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="create_simple_lags"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lag_feature_generation.create_simple_lags">[docs]</a><span class="k">def</span> <span class="nf">create_simple_lags</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">lag_periods_list</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which generates simple lag based on a list of defined lag periods. It assumes the dataframe contains all columns required for lag feature generation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): Time-indexed dataframe to be processed.</span>
+<span class="sd">        lag_periods_list (list): List of lags to generated.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Dataframe containing derived lagged values of all dataframe features.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Applying simple lags&quot;</span><span class="p">)</span>
+
+        <span class="n">default_df_col</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+        <span class="c1"># Create multiple lag features based on provided column</span>
+        <span class="n">lag_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+            <span class="o">**</span><span class="p">{</span>
+                <span class="sa">f</span><span class="s2">&quot;lag_</span><span class="si">{</span><span class="n">lag</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">lag</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">lag</span> <span class="ow">in</span> <span class="n">lag_periods_list</span>
+                <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Lag values: </span><span class="si">{</span><span class="n">lag_periods_list</span><span class="si">}</span><span class="s2"> generated. Dropping rows with entire nulls and retaining only generated columns&quot;</span>
+        <span class="p">)</span>
+        <span class="c1"># Drop the columns initially provided</span>
+        <span class="n">lag_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">default_df_col</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">lag_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generated lag features dataframe of shape </span><span class="si">{</span><span class="n">lag_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">lag_df</span>
+
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="s2">&quot;Unable to calculate simple lag due to invalid values in the columns to be processed.&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="create_sma_lags"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lag_feature_generation.create_sma_lags">[docs]</a><span class="k">def</span> <span class="nf">create_sma_lags</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">shift_period</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sma_window_period_list</span><span class="p">:</span> <span class="n">List</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a dataframe containing generated lagged simple (equal weighted)moving average parameterised by both &#39;shift_period&#39; (lags to make) &amp; &#39;sma_window_period_list&#39;(window duration which moving average is to be calculated) of a dataframe instance of a class</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): DataFrame containing columns which simple moving average needs to be generated.</span>
+<span class="sd">        shift_period (int): Number of days to shift dataframe which is equal to the earliest lagged number of days for inference (difference between last inference date and last provided lagged date).</span>
+<span class="sd">        sma_window_period_list (list): Size of window used for calculating simple moving average.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Dataframe containing derived lagged simple moving average of all dataframe features.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">default_df_col</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Calculating simple moving average over specified periods (rowwise) of </span><span class="si">{</span><span class="n">sma_window_period_list</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sma_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+            <span class="o">**</span><span class="p">{</span>
+                <span class="sa">f</span><span class="s2">&quot;lag_</span><span class="si">{</span><span class="n">shift_period</span><span class="si">}</span><span class="s2">_sma_</span><span class="si">{</span><span class="n">window</span><span class="si">}</span><span class="s2">_days_</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span>
+                    <span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">,</span> <span class="n">win_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
+                <span class="p">)</span>
+                <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">periods</span><span class="o">=</span><span class="n">shift_period</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">window</span> <span class="ow">in</span> <span class="n">sma_window_period_list</span>
+                <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Simple moving average calculation completed.Applying shift of </span><span class="si">{</span><span class="n">shift_period</span><span class="si">}</span><span class="s2"> periods&quot;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Drop original column used for simple moving average sales generation</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Completed simple moving average calculation.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Drop the columns initially provided</span>
+        <span class="n">sma_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">default_df_col</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">sma_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sma_df</span>
+
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="s2">&quot;Unable to calculate simple moving average due to invalid values.&quot;</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="create_lag_weekly_avg_sales"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lag_feature_generation.create_lag_weekly_avg_sales">[docs]</a><span class="k">def</span> <span class="nf">create_lag_weekly_avg_sales</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">shift_period</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_weeks_list</span><span class="p">:</span> <span class="nb">list</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which constructs a groupings on a given dataset and derives the average values of the grouping determined by num_weeks_list before applying shift/lags to the generated values</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.Dataframe): Dataframe to be processed with datetime as index.</span>
+<span class="sd">        shift_period (int): Number of days to shift dataframe which is equal to the earliest lagged number of days for inference (difference between last inference date and last provided lagged date).</span>
+<span class="sd">        num_weeks_list (list): List of week values required for lag values generations.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: dataframe with the moving average of weekly sales</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating data groups starting from earliest date available.&quot;</span><span class="p">)</span>
+    <span class="n">new_group_column_name</span> <span class="o">=</span> <span class="s2">&quot;group&quot;</span>
+    <span class="n">default_df_col</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="c1"># Update dataframe with a new column containing grouped information.</span>
+    <span class="c1"># This is to facilitate grouped average sales based on fixed  days grouped feature generation and would not be tracked as part of feature engineering</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">generate_data_groups</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">new_column_name</span><span class="o">=</span><span class="n">new_group_column_name</span><span class="p">)</span>
+
+    <span class="c1"># Create a base dataframe using date index and group information from input dataframe. This is to facilitate subsequent merge with the dataframe weekly lag aggregated means below. Index will be date based</span>
+    <span class="n">date_group_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="n">new_group_column_name</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># Apply a groupby based on generated groups and get the mean value based on column of interest which is sales. Note that this results in group column as index</span>
+    <span class="n">time_grouped_avg_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">new_group_column_name</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Generated mean aggregated numerical columns based on groupings which represents a continuous time periods with </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">.&quot;</span>
+    <span class="p">)</span>
+    <span class="c1"># Apply rolling mean over the time period groups (fixed at 7 days) and apply a unit period equivalent based on time period groupings (now measured as a week equivalent). I.e. shift down each group aggregated average by 1 week if compared with daily data.</span>
+    <span class="n">weekly_rolling_mean_df</span> <span class="o">=</span> <span class="n">time_grouped_avg_df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="o">**</span><span class="p">{</span>
+            <span class="sa">f</span><span class="s2">&quot;lag_mean_</span><span class="si">{</span><span class="n">num_week</span><span class="si">}</span><span class="s2">_week_</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">time_grouped_avg_df</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span>
+                <span class="n">window</span><span class="o">=</span><span class="n">num_week</span>
+            <span class="p">)</span>
+            <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+            <span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">num_week</span> <span class="ow">in</span> <span class="n">num_weeks_list</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="o">!=</span> <span class="n">new_group_column_name</span>  <span class="c1"># Due to the existence of grouping</span>
+        <span class="p">}</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Merging weekly rolling mean with created base df&quot;</span><span class="p">)</span>
+    <span class="c1"># Set join above dataframe with</span>
+
+    <span class="n">date_index_name</span> <span class="o">=</span> <span class="n">date_group_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">weekly_average_merge_df</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">date_group_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">weekly_rolling_mean_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="n">new_group_column_name</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">date_index_name</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Set dataframe index as datetime</span>
+    <span class="n">weekly_average_merge_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="n">weekly_average_merge_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Shift the dataframe to match the inference period, where the period to shift is the difference between shift_period and the number of days per group ie. 7 for weekly.</span>
+    <span class="n">period</span> <span class="o">=</span> <span class="n">shift_period</span> <span class="o">-</span> <span class="mi">7</span>
+    <span class="n">weekly_average_merge_df</span> <span class="o">=</span> <span class="n">weekly_average_merge_df</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">period</span><span class="p">)</span>
+
+    <span class="n">default_df_col</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_group_column_name</span><span class="p">)</span>
+    <span class="n">weekly_average_merge_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">default_df_col</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">weekly_average_merge_df</span></div>
+
+
+<div class="viewcode-block" id="generate_data_groups"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lag_feature_generation.generate_data_groups">[docs]</a><span class="k">def</span> <span class="nf">generate_data_groups</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">new_column_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper function called by lag_avg_weekly_sales to generate group information for each date entry of the dataframe, starting from earlist entry. A additional column based on input new_column_name representing group number is added to the original dataframe.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): pd.DataFrame to be processed.</span>
+<span class="sd">        new_column_name (str): Column name to use for generating group info.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Subset dataframe containing added group column. None if non-dataframe is passed or KeyError is encountered.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Retrieving first index of dataframe...&quot;</span><span class="p">)</span>
+    <span class="n">start_index</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;First index retrieved is: </span><span class="si">{</span><span class="n">start_index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Create filtered subset dataframe based on start index</span>
+    <span class="n">subset_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_index</span><span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># Assign group label. Doing an integer division would ensure consecutive blocks of data are grouped as single unit.</span>
+    <span class="n">subset_df</span><span class="p">[</span><span class="n">new_column_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">subset_df</span><span class="p">))</span> <span class="o">//</span> <span class="mi">7</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Generated data groups via helper function.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">subset_df</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, AI Singapore.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

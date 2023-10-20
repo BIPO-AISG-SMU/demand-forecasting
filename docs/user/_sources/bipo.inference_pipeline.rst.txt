@@ -1,0 +1,42 @@
+bipo.inference\_pipeline package
+================================
+
+.. automodule:: bipo.inference_pipeline
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+bipo.inference\_pipeline.data\_preprocessing module
+---------------------------------------------------
+
+.. automodule:: bipo.inference_pipeline.data_preprocessing
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+bipo.inference\_pipeline.feature\_engineering module
+----------------------------------------------------
+
+.. automodule:: bipo.inference_pipeline.feature_engineering
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+bipo.inference\_pipeline.inference\_pipeline module
+---------------------------------------------------
+
+.. automodule:: bipo.inference_pipeline.inference_pipeline
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+bipo.inference\_pipeline.model\_specific\_fe module
+---------------------------------------------------
+
+.. automodule:: bipo.inference_pipeline.model_specific_fe
+   :members:
+   :undoc-members:
+   :show-inheritance:

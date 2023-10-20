@@ -4,11 +4,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from bipo_fastapi.config import SETTINGS
 from bipo_fastapi.v1.routers import model
-from bipo_fastapi.logs import setup_logging
 
 # Set up logging
-setup_logging(logging_config_path=SETTINGS.LOGGER_CONFIG_PATH)
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger("kedro")
 LOGGER.info("Setting up logging configuration.")
 
 # FastAPI application setup

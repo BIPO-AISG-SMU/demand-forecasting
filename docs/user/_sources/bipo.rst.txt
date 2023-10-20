@@ -1,0 +1,37 @@
+﻿bipo
+====
+
+.. automodule:: bipo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   bipo.hooks
+   bipo.pipelines
+   bipo.bipo_fastapi
+   bipo.tests
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

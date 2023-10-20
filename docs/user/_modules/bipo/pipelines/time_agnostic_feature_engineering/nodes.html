@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bipo.pipelines.time_agnostic_feature_engineering.nodes &mdash; BIPO Demand Forecasting v1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/assets/bipo_docs.css" type="text/css" />
+      <link rel="stylesheet" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/qb1-sphinx-rtd.css" type="text/css" />
+      <link rel="stylesheet" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/theme-overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=0ec76b63"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            BIPO Demand Forecasting
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">BIPO Demand Forecasting Module: Project Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#purpose-of-documentation">Purpose of Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#architecture">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#software-components">Software Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#deployment-architecture">Deployment Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#deployment-package-contents">Deployment Package Contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#data">Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#docker-images">Docker images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#logs">Logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#trained-model-file-s">Trained model file(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#notebooks">Notebooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#scripts">Scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../overview.html#os-port-usage">OS port usage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-deployment-env-setup.html">Deployment Environment Setup - Inference Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#pre-requisites">Pre-requisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#system-specifications">System Specifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#installation-of-binaries-and-dependencies-in-os">Installation of binaries and dependencies in OS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#installing-from-script">Installing from script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#list-of-installed-binaries-and-versions">List of installed binaries and versions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#python-dependencies">Python Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#preliminary-steps">Preliminary Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#getting-started">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#checking-docker-service">Checking Docker Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#starting-and-stopping-docker-containers">Starting and Stopping Docker Containers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-deployment-env-setup.html#lifting-of-firewall-ports-in-vm-if-needed">Lifting of firewall ports in VM (if needed)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-deployment-env-setup.html">Deployment Environment Setup - Training Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#pre-requisites">Pre-requisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-deployment-env-setup.html#system-specifications">System Specifications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#installation-of-dependencies-in-windows">Installation of dependencies in Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-deployment-env-setup.html#python-dependencies">Python Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#running-training-pipeline-in-docker-container">Running Training Pipeline in Docker Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-deployment-env-setup.html#setting-up-mlflow-on-the-local-machine-optional">Setting up MLflow on the Local Machine (Optional)</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Data Pipeline</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../kedro-overview.html">Overview of Kedro (v0.18.11)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#what-is-kedro">What is Kedro?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#elements-of-kedro">Elements of Kedro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#creating-kedro-pipelines">Creating Kedro Pipelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../kedro-overview.html#pipeline-registry">Pipeline Registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../kedro-overview.html#registry-list">Registry List</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../kedro-overview.html#running-specific-pipelines">Running Specific Pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data-pipeline.html">Data Pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-sources">Data Sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#design-architecture">Design Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-loading-validation">1. Data Loading &amp; Validation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#input">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#output">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-preprocessing">2. Data Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id1">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id2">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-merging-splitting">3. Data Merging &amp; Splitting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id3">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id4">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#feature-engineering">4. Feature Engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#feature-inventory">Feature Inventory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#model-specific-preprocessing">5. Model-specific Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id5">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#id6">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#data-pipeline-configuration">Data Pipeline Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#key-parameters-in-the-constants-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#key-parameters-in-the-data-split-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">data_split.yml</span></code> File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../data-pipeline.html#how-to-execute-the-data-pipeline">How to Execute the Data Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../data-pipeline.html#logging">Logging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Model Training</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#pipeline-design">Pipeline Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#design-considerations">Design Considerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#flowchart">Flowchart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#choice-of-models">Choice of Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#training-pipeline-configuration">Training Pipeline Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#model-hyperparameters-in-the-model-training-yml-file">Model Hyperparameters in the <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> File</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#orderedmodel">OrderedModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#explainable-boosting-machine-ebm">Explainable Boosting Machine (EBM)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#model-input-data-definition">Model Input Data Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#how-to-run">How to Run</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#batch-script-docker-container">1. Batch Script (Docker Container)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#what-run-model-training-bat-does">What <code class="docutils literal notranslate"><span class="pre">run_model_training.bat</span></code> does</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#executing-the-script">Executing the script</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../training-pipeline.html#kedro-command">2. Kedro Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#id1">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../training-pipeline.html#id2">Executing the script</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#model-evaluation">Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../training-pipeline.html#file-structure-in-container">File Structure in Container</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-endpoint.html">Model Serving Endpoint</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#how-to-run-endpoint">How to Run Endpoint</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#starting-the-endpoint">1. Starting the Endpoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#interacting-with-the-api-through-swagger-ui">2. Interacting with the API through Swagger UI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#terminating-the-endpoint">3. Terminating the Endpoint</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#request-format">Request Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#optional-fields">Optional Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#response-format">Response Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-endpoint.html#mapping-of-sales-class-id-to-sales-class-name">Mapping of <code class="docutils literal notranslate"><span class="pre">sales_class_id</span></code> to <code class="docutils literal notranslate"><span class="pre">sales_class_name</span></code>:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../inference-endpoint.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-endpoint.html#api-error-codes">API Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-module.html">Inference Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-module.html#overview">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../inference-module.html#flowchart">Flowchart</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-module.html#pipeline-configuration">Pipeline Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../inference-module.html#file-structure-in-container">File Structure in Container</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">bipo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../bipo.html">bipo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../bipo.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.html">bipo.pipelines package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">BIPO Demand Forecasting</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">bipo.pipelines.time_agnostic_feature_engineering.nodes</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for bipo.pipelines.time_agnostic_feature_engineering.nodes</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This is a boilerplate pipeline &#39;pre_feature_engineering&#39;</span>
+<span class="sd">generated using Kedro 0.18.10</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">kedro.config</span> <span class="kn">import</span> <span class="n">ConfigLoader</span>
+<span class="kn">from</span> <span class="nn">bipo</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">kedro.config</span> <span class="kn">import</span> <span class="n">ConfigLoader</span>
+<span class="kn">from</span> <span class="nn">.feature_indicator_diff_creation</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">create_min_max_feature_diff</span><span class="p">,</span>
+    <span class="n">create_is_weekday_feature</span><span class="p">,</span>
+    <span class="n">create_is_holiday_feature</span><span class="p">,</span>
+    <span class="n">create_is_raining_feature</span><span class="p">,</span>
+    <span class="n">create_is_pandemic_feature</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">bipo.utils</span> <span class="kn">import</span> <span class="n">get_project_path</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LOGGER_NAME</span><span class="p">)</span>
+<span class="n">conf_loader</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="p">(</span><span class="n">conf_source</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">CONF_SOURCE</span><span class="p">)</span>
+<span class="n">conf_const</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;constants*&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="create_bool_feature_and_differencing"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.create_bool_feature_and_differencing">[docs]</a><span class="k">def</span> <span class="nf">create_bool_feature_and_differencing</span><span class="p">(</span>
+    <span class="n">partitioned_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which drops a validated list of columns which is obtained by comparing between provided columns_to_drop_list against the dataframe columns information,</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        partitioned_input (Dict[str, pd.DataFrame]): Kedro MemoryDataSet dictionary containing outlet features dataframe to be processed.</span>
+<span class="sd">        params_dict (Dict[str, Any]): Dictionary containing parameters referenced from parameters.yml</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict: Dictionary containing partition names of files and data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Extract parameters of interest.</span>
+    <span class="n">pandemic_column</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;fe_pandemic_column&quot;</span><span class="p">]</span>
+    <span class="n">holiday_column_list</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;fe_holiday_column_list&quot;</span><span class="p">]</span>
+    <span class="n">rainfall_column</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;fe_rainfall_column&quot;</span><span class="p">]</span>
+    <span class="n">min_max_feature_list</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;columns_to_diff_list&quot;</span><span class="p">]</span>
+    <span class="n">mkt_column</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;fe_mkt_column_name&quot;</span><span class="p">]</span>
+
+    <span class="n">partition_output_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">partition_id</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">partitioned_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating weekday indicator feature.&quot;</span><span class="p">)</span>
+
+        <span class="n">df</span> <span class="o">=</span> <span class="n">create_is_weekday_feature</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">min_max_feature_list</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Generating differencing features using supplied min,max columns.&quot;</span>
+            <span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">create_min_max_feature_diff</span><span class="p">(</span>
+                <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">min_max_column_list</span><span class="o">=</span><span class="n">min_max_feature_list</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">holiday_column_list</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating holiday indicator feature.&quot;</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">create_is_holiday_feature</span><span class="p">(</span>
+                <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">holiday_type_col_list</span><span class="o">=</span><span class="n">holiday_column_list</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">rainfall_column</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating rainfall indicator feature.&quot;</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">create_is_raining_feature</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">rainfall_col</span><span class="o">=</span><span class="n">rainfall_column</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">pandemic_column</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating pandemic indicator feature.&quot;</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">create_is_pandemic_feature</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pandemic_col</span><span class="o">=</span><span class="n">pandemic_column</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Completed necessary feature indicator/differencing features&quot;</span><span class="p">)</span>
+        <span class="n">partition_output_dict</span><span class="p">[</span><span class="n">partition_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="k">return</span> <span class="n">partition_output_dict</span></div>
+
+
+<div class="viewcode-block" id="create_mkt_campaign_counts_start_end"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.create_mkt_campaign_counts_start_end">[docs]</a><span class="k">def</span> <span class="nf">create_mkt_campaign_counts_start_end</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which generates new boolean indicators for days which new marketing campaigns occur, as well as the the final day of the existing campaign and the number of active campaign ongoing.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): Marketing dataframe to be processed.</span>
+<span class="sd">        params_dict (Dict[str, Any]): Dictionary containing parameters referenced from parameters.yml.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple containing:</span>
+<span class="sd">        - pd.DataFrame: Updated marketing dataframe with generated boolean column.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mkt_campaign_col</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;fe_mkt_column_name&quot;</span><span class="p">]</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing marketing campaign name column: </span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># New column name identifiers</span>
+    <span class="n">mkt_count_col_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2">_counts&quot;</span>
+    <span class="n">mkt_start</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;is_</span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2">_start&quot;</span>
+    <span class="n">mkt_end</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;is_</span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2">_end&quot;</span>
+
+    <span class="c1"># Get date period of interest</span>
+    <span class="n">start_date</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;start_date&quot;</span><span class="p">]</span>
+    <span class="n">end_date</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;end_date&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Get date column from constants.yml</span>
+    <span class="n">default_date_col</span> <span class="o">=</span> <span class="n">conf_const</span><span class="p">[</span><span class="s2">&quot;default_date_col&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Convert new datetimeindex to dataframe. Drop excess column when converting datetime index to dataframe</span>
+    <span class="n">new_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span>
+        <span class="n">start</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
+        <span class="n">end</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
+        <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;D&quot;</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">default_date_col</span><span class="p">)</span>
+
+    <span class="c1"># Ensure index is converted to datetime</span>
+    <span class="n">new_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">new_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Use new_df as a base for df to be joined to based on index, which is time</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">new_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mkt_campaign_col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="c1"># Fill null with None before deriving number of campaigns as listed in the form of [Campaign1,Campaign2].Splitting a string without &#39;,&#39; results in itself.</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">mkt_count_col_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">mkt_campaign_col</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;None&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))</span> <span class="k">if</span> <span class="n">x</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Compare number of ongoing campaigns of between the day and the day before to identify if there is an increase in length which signifies new campaign</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">mkt_start</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mkt_count_col_name</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="c1"># Due to differencing, we need to impute first entry. Set to 0 (false) by assuming that an event is unlikely to start on the first entry of the data.</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">mkt_start</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mkt_start</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Compare number of ongoing campaigns of between the day and the day before to identify if there is an decrease in length which signifies new campaign.</span>
+
+        <span class="n">df</span><span class="p">[</span><span class="n">mkt_end</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mkt_count_col_name</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">mkt_end</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mkt_end</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="c1"># Due to differencing effect for ending of campaign,we need to shift the values up since calculation is applied on later index instead of previous time index. This results in last entry having null. Set to 0 (false) by assuming that an event is unlikely to end on the last entry of the data.</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">mkt_end</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mkt_end</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Created a indicator features related to start/end for </span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Assume marketing counts, start and end of campaigns indicator are 0 if wrong column is referenced.</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Unable to create a boolean indicator for start/end of a marketing event based on given column: </span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2"> as it does not exist.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">mkt_count_col_name</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">mkt_start</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">mkt_end</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[[</span><span class="n">mkt_count_col_name</span><span class="p">,</span> <span class="n">mkt_start</span><span class="p">,</span> <span class="n">mkt_end</span><span class="p">]]</span></div>
+
+
+<div class="viewcode-block" id="drop_columns"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.drop_columns">[docs]</a><span class="k">def</span> <span class="nf">drop_columns</span><span class="p">(</span>
+    <span class="n">partitioned_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which drops a validated list of columns which is obtained by comparing between provided columns_to_drop_list against the dataframe columns information. This is the first function that is called as part of time_agnostic_feature_engineering module process.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        partitioned_input (Dict[str,  pd.DataFrame]): Kedro MemoryDataSet dictionary containing outlet features dataframe to be processed.</span>
+<span class="sd">        params_dict (Dict[str, Any]): Dictionary containing parameters referenced from parameters.yml</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict[str, pd.DataFrame]: Dictionary containing partition names of files and data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Otherwise, identify what are the columns that resides in the dataframe through set intesection with dataframe column</span>
+    <span class="n">col_to_drop_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;fe_columns_to_drop_list&quot;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">col_to_drop_set</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No columns specified to drop. Skipping dropping process.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="n">load_func</span> <span class="k">for</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">load_func</span><span class="p">)</span> <span class="ow">in</span> <span class="n">partitioned_input</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+    <span class="n">partition_output_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">partition_id</span><span class="p">,</span> <span class="n">partition_load_df</span> <span class="ow">in</span> <span class="n">partitioned_input</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">partition_load_df</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Attempting to drop specified columns from dataframe.&quot;</span><span class="p">)</span>
+        <span class="c1"># Case when columns to drop is empty</span>
+
+        <span class="n">df_columns_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+        <span class="n">valid_columns_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">col_to_drop_set</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">df_columns_set</span><span class="p">))</span>
+
+        <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">valid_columns_list</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dropped validated columns </span><span class="si">{</span><span class="n">valid_columns_list</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">partition_output_dict</span><span class="p">[</span><span class="n">partition_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="k">return</span> <span class="n">partition_output_dict</span></div>
+
+
+<div class="viewcode-block" id="merge_fold_partitions_and_gen_mkt_data"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.merge_fold_partitions_and_gen_mkt_data">[docs]</a><span class="k">def</span> <span class="nf">merge_fold_partitions_and_gen_mkt_data</span><span class="p">(</span>
+    <span class="n">partitioned_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">gen_mkt_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which left joins existing fold partitions and generated marketing dataframe features if exist. Otherwise, return the input partitioned_dict parameter.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        partitioned_input (Dict[str, pd.DataFrame]): Kedro IncrementalDataSet dictionary containing individual outlet related features dataframe as values with filename as identifier.</span>
+<span class="sd">        gen_mkt_df (pd.DataFrame): Pandas dataframe containing corrected marketing dataframe</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict[str, pd.DataFrame]: Dictionary containing updated partitions data with unchanged paritioned ids.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">gen_mkt_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">partition_id</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">partitioned_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Joining marketing data to existing dataframe folds.&quot;</span><span class="p">)</span>
+
+            <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="n">gen_mkt_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">gen_mkt_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">gen_mkt_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">partitioned_dict</span><span class="p">[</span><span class="n">partition_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
+
+    <span class="k">return</span> <span class="n">partitioned_dict</span></div>
+
+
+<div class="viewcode-block" id="no_mkt_days_imputation"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.no_mkt_days_imputation">[docs]</a><span class="k">def</span> <span class="nf">no_mkt_days_imputation</span><span class="p">(</span>
+    <span class="n">partitioned_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which imputes a defined value imputation for days where no marketing related activities exist.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        partitioned_input (Dict[str, pd.DataFrame]): Kedro MemoryDataSet dictionary containing keys with input partition names of files and dataframe with raw marketing columns.</span>
+<span class="sd">        params_dict (Dict[str, Any]): Dictionary containing parameters referenced from parameters.yml</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict[str, pd.DataFrame]: Dictionary containing keys with input partition names of files and dataframe with marketing cost related columns imputed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">impute_dict</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;mkt_columns_to_impute_dict&quot;</span><span class="p">]</span>
+    <span class="c1"># Case when impute dict is not provided</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">impute_dict</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Imputation dict provided is empty. Skipping this process.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="n">load_func</span> <span class="k">for</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">load_func</span><span class="p">)</span> <span class="ow">in</span> <span class="n">partitioned_input</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+    <span class="n">mkt_column_name</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;fe_mkt_column_name&quot;</span><span class="p">]</span>
+    <span class="n">partition_output_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># Impute if dictionary is not empty.</span>
+    <span class="k">for</span> <span class="n">partition_id</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">partitioned_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Imputing features based on provided imputation dictionary: </span><span class="si">{</span><span class="n">impute_dict</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Impute cost values</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">impute_dict</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="c1"># Drop original mkt column, assuming it still exists</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">mkt_column_name</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">partition_output_dict</span><span class="p">[</span><span class="n">partition_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
+
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">&quot;Unable to impute with the provided keys into the dataframe. Some features might not be imputed.</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">partition_output_dict</span></div>
+
+
+<div class="viewcode-block" id="segregate_outlet_based_train_val_test_folds"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.segregate_outlet_based_train_val_test_folds">[docs]</a><span class="k">def</span> <span class="nf">segregate_outlet_based_train_val_test_folds</span><span class="p">(</span>
+    <span class="n">partitioned_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which takes in partitioned_dict containing respective folds of training/validation/testing consolidated outlets and segregates them by retraining/validation/testing subfolders followed by outlet.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        partitioned_input (Dict[str, pd.DataFrame]): Kedro MemoryDataSet dictionary containing fold-based consolidated outlets.</span>
+<span class="sd">        params_dict (Dict[str, Any]): Dictionary containing parameters referenced from parameters.yml.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Dict, Dict, Dict]: Tuple of dictionary representing training and validation and testing dictionaries respectively, which is tied to Kedro Partitiondataset type</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Set empty dictionary to store train/val/test dictionaries.</span>
+    <span class="n">training_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">validation_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">testing_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Identify the column representing outlet information</span>
+    <span class="n">outlet_column_name</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;outlet_column_name&quot;</span><span class="p">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s2">&quot;Extracting relevant split and reorganising them into folders based on their file prefixes&quot;</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">partition_id</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">partitioned_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="n">outlet_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">outlet_column_name</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">temp_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">outlet</span> <span class="ow">in</span> <span class="n">outlet_list</span><span class="p">:</span>
+            <span class="n">outlet_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">outlet_column_name</span><span class="p">]</span> <span class="o">==</span> <span class="n">outlet</span><span class="p">]</span>
+            <span class="n">new_partition_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">partition_id</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">outlet</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">temp_dict</span><span class="p">[</span><span class="n">new_partition_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">outlet_df</span>
+
+        <span class="c1"># Training fold assignment</span>
+        <span class="k">if</span> <span class="n">partition_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;training&quot;</span><span class="p">):</span>
+            <span class="n">training_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">temp_dict</span><span class="p">)</span>
+
+        <span class="c1"># Validation fold assignment</span>
+        <span class="k">elif</span> <span class="n">partition_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;validation&quot;</span><span class="p">):</span>
+            <span class="n">validation_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">temp_dict</span><span class="p">)</span>
+
+        <span class="c1"># Testing fold assignment</span>
+        <span class="k">elif</span> <span class="n">partition_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;testing&quot;</span><span class="p">):</span>
+            <span class="n">testing_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">temp_dict</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Skipping </span><span class="si">{</span><span class="n">partition_id</span><span class="si">}</span><span class="s2"> as it contains unrecognisable prefix for assignment.&quot;</span>
+            <span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="n">outlet_groupby_df</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">groupby_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">groupby_df</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">outlet_column_name</span><span class="p">])</span>
+        <span class="p">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Segregation by partition prefix completed.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">training_dict</span><span class="p">,</span>
+        <span class="n">validation_dict</span><span class="p">,</span>
+        <span class="n">testing_dict</span><span class="p">,</span>
+    <span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, AI Singapore.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

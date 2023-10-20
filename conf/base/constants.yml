@@ -1,8 +1,26 @@
-# This is a boilerplate parameters config generated for pipeline 'data_loader'
-# using Kedro 0.18.10.
-#
-# Documentation for this file format can be found in "Parameters"
-# Link: https://docs.kedro.org/en/0.18.10/kedro_project_setup/configuration.html#parameters
+# This yml file is used primary for default configurations settings (fallback when parameters set in parameters.yml are invalid) and data schema related settings involving the key data features name which are used for processing related activities. They should only be changed in circumstances where data values or feature names has changed.
+
+
+# Used for dataloader
+default_date_col: "Date" #Assume date col name for all input dataset
+default_propensity_factor_column: "Factor"
+default_mkt_channels_column: "Mode"
+default_mkt_cost_column: "Total Cost"
+default_mkt_name_column: "Name"
+default_mkt_date_start_end_columns: ["Date Start", "Date End"]
+default_outlet_column: "CostCentreCode"
+columns_to_construct_date:
+    weather_data: ["Year", "Month", "Day"]
+    marketing_data: ["Date Start", "Date End"]
+
+# Used for data preprocessing
+default_start_date: "2021-01-01" 
+default_end_date: "2022-12-31"
+default_revenue_column: "proxyrevenue" # Target column (lowercase due to dataloader column renaming)
+default_const_value_perc_threshold: 0
+default_outlets_exclusion_list: []
+
+marketing_channel_list: ['tv_ad_daily_cost', 'radio_ad_daily_cost', 'instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost','poster_campaign_daily_cost', 'digital_daily_cost']
 
 # Fixed parameters
 inference:
@@ -67,29 +85,17 @@ inference:
 
 general:
     target_feature: "proxy_revenue" # refer to dataloader new_column_names
+
 dataloader:
-    data_source_dir: ["data", "01_raw"] #"../../data/01_raw/"
-    data_destination_dir: ["data", "02_data_loading"] #"../../data/02_data_loading/"
-    encodingtype: ["utf-8", "utf-8-sig"]
-    logging_dir: ["logs", "data_loader"] #"../../logs/data_loader"
-    marketing_file: "marketing.xlsx"
-    marketing_sheets:
-        [
-            "Campaign",
-            "Promotions",
-            "Product Launch",
-            "TV Ad",
-            "Radio Ad",
-            "Poster Campaign",
-            "Digital ",
-            "Youtube Ad",
-            "Instagram Ad",
-            "Facebook Ad",
-        ]
-    campaign_sheet: "Campaign"
+
+
+    # columns_to_drop:
+    #     weather_data: ["year", "month", "day", "station", "direction"] # Used for constructing date
+    #     holiday_data: ["school holiday type", "public holiday type"]
+
 
     expected_columns:
-        proxy revenue:
+        proxy_revenue_data:
             [
                 "CostCentreCode",
                 "Date",
@@ -99,142 +105,10 @@ dataloader:
                 "Outlet",
                 "Type",
             ]
-        propensity: ["Location", "Factor"]
-        campaign:
-            [
-                "Name",
-                "Date Start",
-                "Date End",
-                "Prizes",
-                "TV Ads",
-                "Radio Ads",
-                "Influencers",
-                "Facebook Ads",
-                "Instagram Ads",
-                "Youtube Ads",
-                "Poster Campaigns",
-                "Digital Banners",
-                "Promotions",
-                "Product Launch",
-            ]
-        promotions:
-            [
-                "ID",
-                "Start Date",
-                "End Date",
-                "Name of Item",
-                "Mode ",
-                "Usual Price",
-                "Selling Price",
-                "List of Individual Items",
-                "Description",
-            ]
-        product launch:
-            [
-                "ID",
-                "Start Date",
-                "End Date",
-                "Name",
-                "Dine in Price (PPP)",
-                "Dine in Price (Reg)",
-                "Dine in Price (Large)",
-                "Delivery (PPP)",
-                "Delivery Price (Reg)",
-                "Delivery (Large)",
-                "Takeaway (PPP)",
-                "Takeaway (Reg)",
-                "Takeaway (Large)",
-                "Add On Prices",
-                "Description",
-            ]
-        tv ad:
-            [
-                "ID",
-                "Start Date",
-                "End Date ",
-                "Viewership",
-                "Number of ad slots",
-                "Name",
-                "Description",
-                "Cost",
-                "Intensity",
-                "Frequency",
-                "Unnamed: 10",
-            ]
-        radio ad:
-            [
-                "ID",
-                "Start Date",
-                "End Date",
-                "Listenership",
-                "Number of ad slots",
-                "Name(s)",
-                "Description",
-                "Cost",
-                "Intensity",
-                "Frequency",
-            ]
-        poster campaign:
-            [
-                "ID",
-                "Start Date",
-                "End Date",
-                "Expected Footfall",
-                "Number of posters",
-                "Cost",
-                "Description",
-            ]
-        digital:
-            [
-                "ID",
-                "Start Date",
-                "End Date",
-                "Reach",
-                "Click Rate",
-                "Daily Impressions",
-                "Cost",
-                "Description",
-            ]
-        youtube ad:
-            [
-                "ID",
-                "Start Date",
-                "End Date",
-                "Reach",
-                "Click Rate",
-                "Daily Impressions",
-                "Cost",
-                "Intensity",
-                "Frequency",
-                "Description",
-            ]
-        instagram ad:
-            [
-                "ID",
-                "Start Date",
-                "End Date",
-                "Reach",
-                "Click Rate",
-                "Daily Impressions",
-                "Cost",
-                "Intensity",
-                "Frequency",
-                "Description",
-            ]
-        facebook ad:
-            [
-                "ID",
-                "Start Date",
-                "End Date",
-                "Reach",
-                "Click Rate",
-                "Daily Impressions",
-                "Cost",
-                "Intensity",
-                "Frequency",
-                "Description",
-            ]
-        climate:
+        propensity_data: ["Location", "Factor"]
+        marketing_data: ["Name", "Date Start", "Date End", "Mode" ,"Total Cost"]
+
+        weather_data:
             [
                 "DIRECTION",
                 "Station",
@@ -251,8 +125,8 @@ dataloader:
                 "Mean Wind Speed (km/h)",
                 "Max Wind Speed (km/h)",
             ]
-        covid_record: ["Group size Cap "]
-        holiday:
+        covid_capacity_data: ["Group size Cap "]
+        holiday_data:
             [
                 "Date",
                 "School Holiday",
@@ -270,7 +144,6 @@ dataloader:
                 "outlet",
                 "type",
                 "propensity_factor",
-                "cat_weather_station",
                 "rain_day_mm",
                 "rain_high_30min_mm",
                 "rain_high_60min_mm",
@@ -284,23 +157,6 @@ dataloader:
                 "is_school_holiday",
                 "is_public_holiday",
                 "cat_day_of_week",
-                "cat_mkt_tv_ad",
-                "tv_ad_cost",
-                "cat_mkt_radio_ad",
-                "radio_ad_cost",
-                "cat_mkt_poster_campaign",
-                "poster_campaign_cost",
-                "cat_mkt_digital",
-                "digital_cost",
-                "cat_mkt_youtube_ad",
-                "youtube_ad_cost",
-                "cat_mkt_instagram_ad",
-                "instagram_ad_cost",
-                "cat_mkt_facebook_ad",
-                "facebook_ad_cost",
-                "cat_mkt_campaign",
-                "cat_mkt_promotions",
-                "cat_mkt_product_launch",
             ]
         inference: [
                 "location",
@@ -315,205 +171,9 @@ dataloader:
                 "campaign_end_date",
                 "campaign_total_costs",
                 "lag_sales",
-            ] #max_temp
-
-    new_column_names:
-        proxy revenue:
-            [
-                "cost_centre_code",
-                "date",
-                "man_hours",
-                "proxy_revenue",
-                "location",
-                "outlet",
-                "type",
             ]
-        propensity: ["Location", "propensity_factor"]
-        campaign:
-            [
-                "cat_mkt_campaign",
-                "Date Start",
-                "Date End",
-                "Prizes",
-                "TV Ads",
-                "Radio Ads",
-                "Influencers",
-                "Facebook Ads",
-                "Instagram Ads",
-                "Youtube Ads",
-                "Poster Campaigns",
-                "Digital Banners",
-                "Promotions",
-                "Product Launch",
-            ]
-        promotions:
-            [
-                "cat_mkt_promotions",
-                "Start Date",
-                "End Date",
-                "Name of Item",
-                "Mode ",
-                "Usual Price",
-                "Selling Price",
-                "List of Individual Items",
-                "Description",
-            ]
-        product launch:
-            [
-                "cat_mkt_product_launch",
-                "Start Date",
-                "End Date",
-                "Name",
-                "Dine in Price (PPP)",
-                "Dine in Price (Reg)",
-                "Dine in Price (Large)",
-                "Delivery (PPP)",
-                "Delivery Price (Reg)",
-                "Delivery (Large)",
-                "Takeaway (PPP)",
-                "Takeaway (Reg)",
-                "Takeaway (Large)",
-                "Add On Prices",
-                "Description",
-            ]
-        tv ad:
-            [
-                "cat_mkt_tv_ad",
-                "Start Date",
-                "End Date ",
-                "Viewership",
-                "Number of ad slots",
-                "Name",
-                "Description",
-                "Cost",
-                "Intensity",
-                "Frequency",
-                "Unnamed: 10",
-            ]
-        radio ad:
-            [
-                "cat_mkt_radio_ad",
-                "Start Date",
-                "End Date",
-                "Listenership",
-                "Number of ad slots",
-                "Name(s)",
-                "Description",
-                "Cost",
-                "Intensity",
-                "Frequency",
-            ]
-        poster campaign:
-            [
-                "cat_mkt_poster_campaign",
-                "Start Date",
-                "End Date",
-                "Expected Footfall",
-                "Number of posters",
-                "Cost",
-                "Description",
-            ]
-        digital:
-            [
-                "cat_mkt_digital",
-                "Start Date",
-                "End Date",
-                "Reach",
-                "Click Rate",
-                "Daily Impressions",
-                "Cost",
-                "Description",
-            ]
-        youtube ad:
-            [
-                "cat_mkt_youtube_ad",
-                "Start Date",
-                "End Date",
-                "Reach",
-                "Click Rate",
-                "Daily Impressions",
-                "Cost",
-                "Intensity",
-                "Frequency",
-                "Description",
-            ]
-        instagram ad:
-            [
-                "cat_mkt_instagram_ad",
-                "Start Date",
-                "End Date",
-                "Reach",
-                "Click Rate",
-                "Daily Impressions",
-                "Cost",
-                "Intensity",
-                "Frequency",
-                "Description",
-            ]
-        facebook ad:
-            [
-                "cat_mkt_facebook_ad",
-                "Start Date",
-                "End Date",
-                "Reach",
-                "Click Rate",
-                "Daily Impressions",
-                "Cost",
-                "Intensity",
-                "Frequency",
-                "Description",
-            ]
-        climate:
-            [
-                "DIRECTION",
-                "cat_weather_station",
-                "Year",
-                "Month",
-                "Day",
-                "rain_day_mm",
-                "rain_high_30min_mm",
-                "rain_high_60min_mm",
-                "rain_high_120min_mm",
-                "temp_mean",
-                "temp_max",
-                "temp_min",
-                "wind_mean_kmh",
-                "wind_max_kmh",
-            ]
-        covid_record: ["cat_covid_group_size_cap"]
-        holiday:
-            [
-                "Date",
-                "is_school_holiday",
-                "School Holiday Type",
-                "is_public_holiday",
-                "Public Holiday Type",
-                "cat_day_of_week",
-            ]
-
-    marketing_columns:
-        # Raw marketing columns for each sheets (linked to marketing_sheet)
-        # Do not change index 0 and 1. Change only index 2 (for categrical features)and index 3 (for numerical features).
-        # list with only 3 variable can only take 3 variable
-        # list with only 34 variable can only take 4 variable
-        Campaign: ["Date Start", "Date End", "Name"]
-        Promotions: ["Start Date", "End Date", "ID"]
-        Product Launch: ["Start Date", "End Date", "ID"]
-
-        TV Ad: ["Start Date", "End Date", "ID", "Cost"]
-        Radio Ad: ["Start Date", "End Date", "ID", "Cost"]
-        Poster Campaign: ["Start Date", "End Date", "ID", "Cost"]
-        Digital: ["Start Date", "End Date", "ID", "Cost"]
-        Youtube Ad: ["Start Date", "End Date", "ID", "Cost"]
-        Instagram Ad: ["Start Date", "End Date", "ID", "Cost"]
-        Facebook Ad: ["Start Date", "End Date", "ID", "Cost"]
-        Influencer Engagement: ["Start Date", "End Date", "ID", "Cost"]
 
 data_preprocessing:
-    # Folder Structure (move to data_loader_validation.yml
-    preprocessing_data_source_dir: "data/02_data_loading"
-    preprocessing_data_destination_dir: "data/03_data_preprocessing"
-
     # Features that must have non-negative values
     non_negative_exogeneous_columns:
         [
@@ -528,13 +188,7 @@ data_preprocessing:
             "wind_max_kmh",
             "proxy_revenue",
             "man_hours",
-            "tv_ad_cost",
-            "radio_ad_cost",
-            "poster_campaign_cost",
-            "digital_cost",
-            "youtube_ad_cost",
-            "instagram_ad_cost",
-            "facebook_ad_cost",
+            "total_cost"
         ]
     # Features and its expected data types
     expected_dtypes:
@@ -545,7 +199,6 @@ data_preprocessing:
         outlet: object
         type: object
         propensity_factor: float64
-        cat_weather_station: object
         rain_day_mm: float64
         rain_high_30min_mm: float64
         rain_high_60min_mm: float64
@@ -559,64 +212,59 @@ data_preprocessing:
         is_school_holiday: bool
         is_public_holiday: bool
         cat_day_of_week: object
-        cat_mkt_tv_ad: object
-        tv_ad_cost: float64
-        cat_mkt_radio_ad: object
-        radio_ad_cost: float64
-        cat_mkt_poster_campaign: object
-        poster_campaign_cost: float64
-        cat_mkt_digital: object
-        digital_cost: float64
-        cat_mkt_youtube_ad: object
-        youtube_ad_cost: float64
-        cat_mkt_instagram_ad: object
-        instagram_ad_cost: float64
-        cat_mkt_facebook_ad: object
-        facebook_ad_cost: float64
-        cat_mkt_campaign: object
-        cat_mkt_promotions: object
-        cat_mkt_product_launch: object
+        # marketing dtypes
+        campaign_name: str
+        date_start: object
+        date_end: object
+        mode: str
+        total_cost: float64
 
-# feature engineering
-feature_engineering_data_source_dir: "data/03_data_preprocessing"
-feature_engineering_data_destination_dir: "data/04_feature_engineering"
-feature_engineering_drop_column_list: [
-        "cost_centre_code",
-        "rain_day_mm",
-        "rain_high_30min_mm",
-        "rain_high_60min_mm",
-        "rain_high_120min_mm",
-        "temp_mean",
-        "temp_min",
-        "wind_mean_kmh",
-        "wind_max_kmh",
-        "tv_ad_cost",
-        "radio_ad_cost",
-        "poster_campaign_cost",
-        "digital_cost",
-        "youtube_ad_cost",
-        "instagram_ad_cost",
-        "facebook_ad_cost",
-        "proxy_revenue",
-        "cat_day_of_week",
-        "cat_mkt_campaign",
-        "cat_mkt_promotions",
-        "cat_mkt_product_launch",
-        "cat_mkt_tv_ad",
-        # "cat_mkt_tv_ad_start",
-        # "cat_mkt_tv_ad_end",
-        "cat_mkt_radio_ad",
-        # "cat_mkt_radio_ad_start",
-        # "cat_mkt_radio_ad_end",
-        "cat_mkt_poster_campaign",
-        # "cat_mkt_poster_campaign_start",
-        # "cat_mkt_poster_campaign_end",
-        "cat_mkt_digital",
-        # "cat_mkt_digital_start",
-        # "cat_mkt_digital_end",
-        "cat_mkt_youtube_ad",
-        "cat_mkt_instagram_ad",
-        "cat_mkt_facebook_ad",
-    ]
-rain_threshold: 0.2
-rainfall_column: "rain_day_mm"
+# Generate marketing columns.
+default_marketing_channel_list: ['tv_ad_daily_cost', 'radio_ad_daily_cost', 'instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost','poster_campaign_daily_cost', 'digital_daily_cost']
+
+default_lightweightmmm_num_lags: 7
+
+# Default configurations for train/val/test days in case of misconfiguration
+data_split:
+    training_days_default: 365
+    validation_days_default: 0
+    testing_days_default: 14
+    window_sliding_stride_days_default: 90
+    window_expansion_days_default: 90
+    simple_split_fold_default: 1 # Defaults if simple_split chosen but invalid fold stated
+    window_split_fold_default: 3 # Defaults if sliding/expanding_window chosen but invalid fold stated
+    data_split_option_default: "simple_split" #Fallback defaults
+    data_split_option_list: ["simple_split", "expanding_window", "sliding_window"]
+    data_split_fold_default: 1
+
+# Defaults for model_specific_preprocessing module and validity values
+modeling:
+    training_testing_mode_default: "training"
+    valid_training_testing_modes: ["training","testing"]
+    model_name_default: "ebm"
+    valid_model_name: ["ordered_model", "ebm"]
+    ebm:
+        outer_bags: 10
+        inner_bags:  0
+        learning_rate: 0.01
+        interactions: 0
+        max_leaves: 3
+        min_samples_leaf: 2
+        max_bins: 256
+
+    ordered_model:
+        const_col_artefacts_path: "data/06_model_specific_preprocessing/ordered_model.pkl"
+        distr: "probit"
+        method: "bfgs"
+        max_iter: 2
+
+inference:
+    marketing_filepath: "data/08_model_inference_output/inference_mkt_data/inference_mkt_data.csv"
+    lag_sales_filepath: "data/08_model_inference_output/inference_lag_sales_data/inference_lag_sales_data.csv"
+    outlet_filepath: "data/08_model_inference_output/inference_outlet_data/inference_outlet_data.csv"
+    lag_sales_partition_filepath: "data/08_model_inference_output/inference_lag_sales_data"
+    # artefacts 
+    tsfresh_relevant_features_filepath: "data/05_feature_engineering/tsfresh_features/tsfresh_relevant_features"
+    lightweightmmm_params_filepath: "data/05_feature_engineering/lightweightmmm_features/artefacts"
+    std_norm_filepath: "data/08_model_inference_output/std_norm_artefact"
+    encoding_filepath: "data/08_model_inference_output/encoding_artefact"

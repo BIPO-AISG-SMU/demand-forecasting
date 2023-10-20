@@ -5,7 +5,7 @@ from bipo_fastapi.config import SETTINGS
 from bipo_fastapi.deps import PRED_MODEL
 from bipo_fastapi.schemas import SalesAttributes, SalesPrediction, SalesPredictions
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger("kedro")
 router = APIRouter()
 
 
@@ -46,7 +46,11 @@ def predict_sales(request: SalesAttributes, response: Response):
     # Validate the sales request data
     LOGGER.info("API request received.")
 
-    if not request.sales_attributes:
+    if (
+        not request.outlet_attributes
+        and not request.lag_sales_attributes
+        and not request.mkt_attributes
+    ):
         error_msg = "Invalid API request data provided."
         LOGGER.error(error_msg)
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error_msg)
