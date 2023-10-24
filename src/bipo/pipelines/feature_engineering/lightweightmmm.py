@@ -328,3 +328,57 @@ def get_fitted_parameters(
     params_dict["ad_effect_retention_rate"] = ad_effect_retention_rate.tolist()
     params_dict["peak_effect_delay"] = peak_effect_delay.tolist()
     return params_dict
+
+
+
+def merge_mmm_features_with_fold_outlets(
+    partitioned_outlet_input: Dict[str, pd.DataFrame],
+    partitioned_mmm_input: Dict[str, pd.DataFrame],
+) -> Dict[str, pd.DataFrame]:
+    """Function which left merges a fold-based generated LightweightMMM features to each outlet based on common time-index. This is on the assumption that LightweightMMM features are applicable across all-outlets regardless of outlet types.
+
+    Args:
+        partitioned_outlet_input (Dict[str, pd.DataFrame]): Dataframe partitioned by outlets from Kedro PartitionedDataSet.
+        partitioned_mmm_input (Dict[str, pd.DataFrame]): Generated fold-based LightweightMMM features dataframe partitioned by folds.
+
+    Raises:
+        None.
+
+    Returns:
+        Dict[str, pd.DataFrame]: Dictionary containing merged dataframes involving both lightweightMMM features and input outlet dataframe features. Otherwise, returns partitioned_outlet_input with dataframe lazy loading function.
+
+    """
+    if not partitioned_mmm_input:
+        logger.info(
+            "No lightweightMMM features to merge, skipping merging of such features to outlet dataframes.\n"
+        )
+        return partitioned_outlet_input
+    merged_partitioned_dict = {}
+    # Catch cases when partitioned_mmm_input is empty
+    logger.info("Merging lightweightmmm features with fold outlets...")
+    for partitioned_id, partitioned_df in partitioned_outlet_input.items():
+        # Retrieve fold information from partitioned_outlet_input
+        fold_info = partitioned_id.split("_")[1]
+
+        outlet_fold_df = partitioned_df
+
+        outlet_fold_df.index = pd.to_datetime(outlet_fold_df.index, format="%Y-%m-%d")
+
+        # Load the corresponding fold in lightweightmmm partitions
+        mmm_fold_df = partitioned_mmm_input[fold_info]
+        mmm_fold_df.index = pd.to_datetime(mmm_fold_df.index, format="%Y-%m-%d")
+
+        outlet_fold_mmm_df = outlet_fold_df.merge(
+            mmm_fold_df,
+            how="left",
+            left_index=True,
+            right_index=True,
+            suffixes=("", "_y"),
+        )
+
+        # Drop excess columns with _y suffix due to emrge
+        col_with_y_suffix = [col for col in outlet_fold_mmm_df if col.endswith("_y")]
+        outlet_fold_mmm_df.drop(columns=col_with_y_suffix, inplace=True)
+        merged_partitioned_dict[partitioned_id] = outlet_fold_mmm_df
+    logger.info("Completed LightweightMMM features merged with folds.\n")
+    return merged_partitioned_dict

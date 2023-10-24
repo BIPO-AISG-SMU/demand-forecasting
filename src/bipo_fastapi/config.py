@@ -31,7 +31,6 @@ class Settings(BaseSettings):
     Attributes:
         API_NAME (str): The name of the API, default is "BIPO FastAPI".
         API_VERSION (str): The version of the API, default is "/api/v1".
-        LOGGER_CONFIG_PATH (str): The path to the logging configuration file.
         PRED_MODEL_UUID (str): The UUID of the prediction model.
         PRED_MODEL_PATH (str): The path to the prediction model file.
         INTERMEDIATE_OUTPUT_PATH (str): The path to output intermediate files.
@@ -40,7 +39,6 @@ class Settings(BaseSettings):
 
     API_NAME: str = Field(default="BIPO FastAPI", env="API_NAME")
     API_VERSION: str = Field(default="/api/v1", env="API_VERSION")
-    # LOGGER_CONFIG_PATH: str = Field(default=LOG_CONF_PATH, env="LOGGER_CONFIG_PATH")
     PRED_MODEL_UUID: str = Field(default="0.1", env="PRED_MODEL_UUID")
     PRED_MODEL_PATH: str = Field(
         default=MODEL_PATH,

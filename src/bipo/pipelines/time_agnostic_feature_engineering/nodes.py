@@ -1,14 +1,9 @@
-"""
-This is a boilerplate pipeline 'pre_feature_engineering'
-generated using Kedro 0.18.10
-"""
 import pandas as pd
-from typing import Union, List, Tuple, Dict, Any
+from typing import List, Tuple, Dict, Any
 from datetime import datetime
 from kedro.config import ConfigLoader
 from bipo import settings
 import logging
-from kedro.config import ConfigLoader
 from .feature_indicator_diff_creation import (
     create_min_max_feature_diff,
     create_is_weekday_feature,
@@ -16,8 +11,6 @@ from .feature_indicator_diff_creation import (
     create_is_raining_feature,
     create_is_pandemic_feature,
 )
-from bipo.utils import get_project_path
-
 logger = logging.getLogger(settings.LOGGER_NAME)
 conf_loader = ConfigLoader(conf_source=settings.CONF_SOURCE)
 conf_const = conf_loader.get("constants*")
@@ -29,7 +22,7 @@ def create_bool_feature_and_differencing(
     """Function which drops a validated list of columns which is obtained by comparing between provided columns_to_drop_list against the dataframe columns information,
 
     Args:
-        partitioned_input (Dict[str, pd.DataFrame]): Kedro MemoryDataSet dictionary containing outlet features dataframe to be processed.
+        partitioned_input (Dict[str, pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values.
         params_dict (Dict[str, Any]): Dictionary containing parameters referenced from parameters.yml
     Returns:
         Dict: Dictionary containing partition names of files and data.
@@ -159,7 +152,7 @@ def drop_columns(
     """Function which drops a validated list of columns which is obtained by comparing between provided columns_to_drop_list against the dataframe columns information. This is the first function that is called as part of time_agnostic_feature_engineering module process.
 
     Args:
-        partitioned_input (Dict[str,  pd.DataFrame]): Kedro MemoryDataSet dictionary containing outlet features dataframe to be processed.
+        partitioned_input (Dict[str,  pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values.
         params_dict (Dict[str, Any]): Dictionary containing parameters referenced from parameters.yml
 
     Raises:
@@ -198,7 +191,7 @@ def merge_fold_partitions_and_gen_mkt_data(
     """Function which left joins existing fold partitions and generated marketing dataframe features if exist. Otherwise, return the input partitioned_dict parameter.
 
     Args:
-        partitioned_input (Dict[str, pd.DataFrame]): Kedro IncrementalDataSet dictionary containing individual outlet related features dataframe as values with filename as identifier.
+        partitioned_input (Dict[str, pd.DataFrame]):  A dictionary with partition ids as keys and dataframe as values.
         gen_mkt_df (pd.DataFrame): Pandas dataframe containing corrected marketing dataframe
 
     Raises:
@@ -224,11 +217,11 @@ def merge_fold_partitions_and_gen_mkt_data(
 def no_mkt_days_imputation(
     partitioned_dict: Dict[str, pd.DataFrame], params_dict: Dict[str, Any]
 ) -> Dict[str, pd.DataFrame]:
-    """Function which imputes a defined value imputation for days where no marketing related activities exist.
+    """Function which imputes dataframes from partitioned_dict with an imputation dictionary referenced from params_dict input for days where no marketing related activities exist.
 
     Args:
-        partitioned_input (Dict[str, pd.DataFrame]): Kedro MemoryDataSet dictionary containing keys with input partition names of files and dataframe with raw marketing columns.
-        params_dict (Dict[str, Any]): Dictionary containing parameters referenced from parameters.yml
+        partitioned_input (Dict[str, pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values.
+        params_dict (Dict[str, Any]): Dictionary referencing values from parameters.yml
 
     Raises:
         None
@@ -253,8 +246,6 @@ def no_mkt_days_imputation(
             # Impute cost values
             df.fillna(impute_dict, inplace=True)
 
-            # Drop original mkt column, assuming it still exists
-            df.drop(columns=mkt_column_name, inplace=True)
             partition_output_dict[partition_id] = df
 
         except KeyError:
@@ -268,11 +259,11 @@ def no_mkt_days_imputation(
 def segregate_outlet_based_train_val_test_folds(
     partitioned_dict: Dict[str, pd.DataFrame], params_dict: Dict[str, Any]
 ) -> Tuple[Dict, Dict, Dict]:
-    """Function which takes in partitioned_dict containing respective folds of training/validation/testing consolidated outlets and segregates them by retraining/validation/testing subfolders followed by outlet.
+    """Function which takes in partitioned_dict containing respective folds of training/validation/testing consolidated outlets and segregates them by training/validation/testing subfolders followed by further segregation in terms of outlet info.
 
     Args:
-        partitioned_input (Dict[str, pd.DataFrame]): Kedro MemoryDataSet dictionary containing fold-based consolidated outlets.
-        params_dict (Dict[str, Any]): Dictionary containing parameters referenced from parameters.yml.
+        partitioned_input (Dict[str, pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values.
+        params_dict (Dict[str, Any]): Dictionary referencing values from parameters.yml
 
     Raises:
         None

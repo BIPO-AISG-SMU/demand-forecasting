@@ -30,6 +30,7 @@
    :caption: Model Training
 
    training-pipeline.md
+   experiment-tracking.md
 
 .. toctree::
    :maxdepth: 2

@@ -1,13 +1,13 @@
 from kedro.pipeline import Pipeline, node, pipeline
 import logging
 from kedro.config import ConfigLoader
-from kedro.framework.project import settings
+from bipo import settings
 
 # import required nodes from training pipeline
 from bipo.pipelines.data_loader.nodes import load_and_structure_marketing_data
 from bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation import create_is_weekday_feature
 from bipo.pipelines.feature_engineering.nodes import generate_lag
-from bipo.pipelines.feature_engineering.encoding import one_hot_encoding_transform
+from bipo.pipelines.feature_engineering.encoding import one_hot_encoding_transform, ordinal_encoding_transform
 from bipo.pipelines.feature_engineering.standardize_normalize import standard_norm_transform
 from bipo_fastapi.nodes import *
 from bipo.pipelines.feature_engineering.tsfresh_node import feature_engineering_by_outlet
@@ -18,7 +18,7 @@ from bipo.pipelines.time_agnostic_feature_engineering.nodes import (
     create_mkt_campaign_counts_start_end,
 )
 
-LOGGER = logging.getLogger("kedro")
+LOGGER = logging.getLogger(settings.LOGGER_NAME)
 conf_loader = ConfigLoader(conf_source=settings.CONF_SOURCE)
 conf_params = conf_loader["parameters"]
 conf_const = conf_loader.get("constants*")
@@ -204,35 +204,72 @@ def create_encoding_standardize_normalize_pipeline()->Pipeline:
     Returns:
         Pipeline: encoding + standardization/normalization pipeline
     """
-    encoding_standardize_normalize_pipeline = Pipeline(
+    # check if there is ordinal encoding and return corresponding pipeline
+    ordinal_encoding_dict = conf_params["fe_ordinal_encoding_dict"]
+    if ordinal_encoding_dict:
+        return Pipeline(
         [   
             node(
-            func=lambda merged_df, encoding_artefact,cost_centre_code: one_hot_encoding_transform(df=merged_df,ohe_column_list=conf_params["fe_one_hot_encoding_col_list"],ohe_encoding_dict=encoding_artefact,fold=conf_inference["artefact_fold"],outlet=cost_centre_code),
-                inputs=["merged_df","encoding_artefact","cost_centre_code"],
+            func=one_hot_encoding_transform,
+                inputs=["merged_df","ohe_artefact"],
                 outputs="one_hot_encoded_df",
                 name="one_hot_encoding_transform",
                 tags="inference"
             ),
-        node(
-            func=lambda one_hot_encoded_df,std_norm_artefact, cost_centre_code:standard_norm_transform(df=one_hot_encoded_df,col_to_std_or_norm_list=conf_params["fe_columns_to_std_norm_list"],std_norm_encoding_dict=std_norm_artefact,option=conf_params["normalization_approach"],fold=conf_inference["artefact_fold"],outlet=cost_centre_code),
-                inputs=["one_hot_encoded_df","std_norm_artefact","cost_centre_code"],
-                outputs="std_norm_df",
-                name="standard_norm_transform",
+            node(
+            func=ordinal_encoding_transform,
+                inputs=["one_hot_encoded_df","ordinal_encoding_artefact"],
+                outputs="ordinal_encoded_df",
+                name="ordinal_encoding_transform",
                 tags="inference"
             ),
         node(
+            func=standard_norm_transform,
+            inputs=["ordinal_encoded_df","std_norm_artefact"],
+            outputs="std_norm_df",
+            name="standard_norm_transform",
+            # tags="inference"
+            ),
+        node(
                 func=process_final_merged_df,
-                inputs="std_norm_df",
+                inputs="ordinal_encoded_df",
                 outputs="processed_final_merged_df",
                 name="process_final_merged_df_with_mmm",
                 tags="inference"
             ),
         ])
-    return encoding_standardize_normalize_pipeline.only_nodes_with_tags("inference")
+    else:
+        return Pipeline(
+        [   
+        node(
+            func=one_hot_encoding_transform,
+                inputs=["merged_df","ohe_artefact"],
+                outputs="one_hot_encoded_df",
+                name="one_hot_encoding_transform",
+                tags="inference"
+            ),
+        node(
+            func=standard_norm_transform,
+            inputs=["one_hot_encoded_df","std_norm_artefact"],
+            outputs="std_norm_df",
+            name="standard_norm_transform",
+            tags="inference"
+            ),
+        node(
+                func=process_final_merged_df,
+                inputs="one_hot_encoded_df",
+                outputs="processed_final_merged_df",
+                name="process_final_merged_df_with_mmm",
+                tags="inference"
+            ),
+        ])
 
 # merge all pipelines into 1 main pipeline
-
-inference_pipeline = [create_marketing_pipeline(), create_lag_sales_pipeline(),create_outlet_pipeline(),create_merge_pipeline_outputs(),create_encoding_standardize_normalize_pipeline()]
+inference_pipeline = [
+    create_marketing_pipeline(), 
+    create_lag_sales_pipeline(),
+    create_outlet_pipeline(),
+    create_merge_pipeline_outputs(),create_encoding_standardize_normalize_pipeline()]
 main_pipeline = pipeline([])
 for individual_pipeline in inference_pipeline:
     main_pipeline += pipeline(

@@ -18,7 +18,7 @@ WARNING: Please do not put access credentials in the base configuration folder.
 
 ## Instructions
 
-
+Refer to documentation for more information on the purpose of each file.
 
 
 ## Need help?

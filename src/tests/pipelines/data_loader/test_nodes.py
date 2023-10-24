@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import pytest
 from bipo.utils import get_project_path
 from kedro.config import ConfigLoader
@@ -18,9 +19,8 @@ from bipo.pipelines.data_loader.nodes import (
     load_and_structure_marketing_data,
     load_and_structure_propensity_data,
     load_and_structure_weather_data,
-    rename_columns_and_index_date,
-    merge_df,
-    np,
+    rename_merge_unique_csv_xlsx_df_col_index,
+    merge_unique_csv_xlsx_df,
     rename_columns,
 )
 
@@ -58,7 +58,7 @@ def test_rename_columns():
 
 
 ######### Test `merge_df` assume outer join ##############
-def test_merge_df():  # data from unique_daily_records (holiday, covid data)
+def test_merge_unique_csv_xlsx_df():  # data from unique_daily_records (holiday, covid data)
     sample_df_to_merge = pd.DataFrame(
         {
             "date": ["2021-01-01", "2021-01-02"],
@@ -78,7 +78,7 @@ def test_merge_df():  # data from unique_daily_records (holiday, covid data)
     )
 
     # Call the function to be tested
-    combine_df = merge_df(sample_df_to_merge, sample_base_df)
+    combine_df = merge_unique_csv_xlsx_df(sample_df_to_merge, sample_base_df)
 
     # Check for expected columns in output result of the merge operation
     assert all(col in combine_df.columns for col in ["Value1", "Value2", "Value3"])
@@ -87,10 +87,12 @@ def test_merge_df():  # data from unique_daily_records (holiday, covid data)
     assert combine_df.shape == (3, 4)
 
     # Check output shape if expected index in not in df
-    assert merge_df(sample_df_to_merge_wrong_id, sample_base_df).shape == (4, 5)
+    assert merge_unique_csv_xlsx_df(
+        sample_df_to_merge_wrong_id, sample_base_df
+    ).shape == (4, 5)
 
 
-def test_rename_columns_and_index_date():  # any data. This function is called after merge_df.
+def test_rename_merge_unique_csv_xlsx_df_col_index():  # any data. This function is called after merge_df.
     sample_df = pd.DataFrame(
         {
             "Date": ["2021-01-01", "2021-01-02"],
@@ -101,13 +103,13 @@ def test_rename_columns_and_index_date():  # any data. This function is called a
     sample_df["Date"] = pd.to_datetime(sample_df["Date"])
     # Check when the date column is already in lowercase and present (if- statement)
     df1 = sample_df.copy()
-    result_df1 = rename_columns_and_index_date(df1)
+    result_df1 = rename_merge_unique_csv_xlsx_df_col_index(df1)
     assert result_df1.index.name == "Date"
 
     # Check when the date column is missing, return None
     df2 = sample_df.copy()
     df2.drop(labels="Date", axis=1, inplace=True)
-    result_df2 = rename_columns_and_index_date(df2)
+    result_df2 = rename_merge_unique_csv_xlsx_df_col_index(df2)
     assert result_df2.index.name == None
 
     # Check when neither the original nor renamed date-related column is present (else-statement)
@@ -264,6 +266,7 @@ def test_load_and_structure_marketing_data():  # data from marketing
     marketing_df["Date Start"] = pd.to_datetime(marketing_df["Date Start"])
 
     df = load_and_structure_marketing_data(marketing_df)
+
     # Check if there is 7 days
     assert len(df.index) == 7
 
@@ -274,7 +277,7 @@ def test_load_and_structure_marketing_data():  # data from marketing
     assert len(df.loc["2021-01-03", "name"]) == 2
 
     # Check if there are more than 1 campaign, "facebook_ad" will be sum of 2 campaign daily cost 2400.0
-    assert df.loc["2021-01-03", "facebook_ad"] == 2400.0
+    assert df.loc["2021-01-03", "facebook_ad_daily_cost"] == 2400.0
 
     # Check if campaign 2 is removed. Not in "name"
     for i in df.index:
@@ -283,13 +286,13 @@ def test_load_and_structure_marketing_data():  # data from marketing
 
     # Check final output df is datatype (numeric) for daily cost columns
     assert df["name"].dtype == list
-    assert df["tv_ad"].dtype == float
-    assert df["radio_ad"].dtype == float
-    assert df["instagram_ad"].dtype == float
-    assert df["facebook_ad"].dtype == float
-    assert df["youtube_ad"].dtype == float
-    assert df["poster_campaign"].dtype == float
-    assert df["digital"].dtype == float
+    assert df["tv_ad_daily_cost"].dtype == float
+    assert df["radio_ad_daily_cost"].dtype == float
+    assert df["instagram_ad_daily_cost"].dtype == float
+    assert df["facebook_ad_daily_cost"].dtype == float
+    assert df["youtube_ad_daily_cost"].dtype == float
+    assert df["poster_campaign_daily_cost"].dtype == float
+    assert df["digital_daily_cost"].dtype == float
 
     # Check if error is raise when mkt columns are missing
     with pytest.raises(KeyError):

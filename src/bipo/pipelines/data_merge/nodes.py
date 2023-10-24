@@ -1,14 +1,8 @@
-"""
-This is a boilerplate pipeline 'data_merge'
-generated using Kedro 0.18.11
-"""
 import pandas as pd
-import numpy as np
 from typing import Dict
 from datetime import datetime
 from kedro.config import ConfigLoader
 from bipo import settings
-import os
 import logging
 
 logger = logging.getLogger(settings.LOGGER_NAME)
@@ -25,10 +19,10 @@ def concat_outlet_preprocessed_data(
     """Function that loads and concatenates all outlet datafiles in partitioned_input into one single dataframe.
 
     Args:
-        partitioned_input (Dict[str, pd.DataFrame]): Kedro IncrementalDataSet dictionary containing individual outlet related features dataframe as values with filename as identifier.
+        partitioned_input (Dict[str, pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values.
 
     Raises:
-        None
+        None.
 
     Returns:
         pd.DataFrame: Dataframe representing outlet.
@@ -59,5 +53,5 @@ def concat_outlet_preprocessed_data(
         merged_outlet_df.set_index(DEFAULT_DATE_COL, inplace=True)
     else:
         merged_outlet_df.sort_index(inplace=True)
-    logger.info(f"Merged data is of shape: {merged_outlet_df.shape}\n")
+    logger.info(f"Merged data is of shape: {merged_outlet_df.shape}.\n")
     return merged_outlet_df

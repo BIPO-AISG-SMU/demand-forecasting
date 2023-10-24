@@ -1,7 +1,3 @@
-"""
-This is a boilerplate pipeline 'model_evaluation'
-generated using Kedro 0.18.11
-"""
 import mlflow
 import pandas as pd
 import numpy as np
@@ -32,8 +28,8 @@ def load_data_fold(
     """Function which loads data from a Kedro partitioned input
 
     Args:
-        partitioned_input (Dict[str, pd.DataFrame]): Kedro IncrementalDataSet dictionary containing fold-based consolidated outlet features with suffixes _X (predictor features) and _y (predicted features).
-        params_dict (Dict[str, Any]): Dictionary containing parameters referenced parameters.yml.
+        partitioned_input (Dict[str, pd.DataFrame]): Kedro IncrementalDataSet dictionary containing fold-based consolidated outlet features with suffixes '_X' (predictor features) and '_y' (predicted features).
+        params_dict (Dict[str, Any]): Dictionary referencing parameters.yml.
 
     Returns:
         Tuple[pd.DataFrame, pd.DataFrame] containing:
@@ -71,7 +67,7 @@ def predict(
     params_dict: Dict[str, Any],
     estimator: Union[OrderedModel, ExplainableBoostingClassifier],
 ) -> np.ndarray:
-    """Function that loads a provided model and conducts prediction on a test dataset. As the model can be either orderedmodel or explanable boosting machine (ebm), necessary prediction process are governed by a conditional based on params_dict.
+    """Function that loads a provided model and conducts prediction on a test dataset. As the model can be either orderedmodel or explanable boosting machine (ebm), necessary prediction process are governed by a conditional based on params_dict input.
 
     Args:
         X_df (pd.DataFrame): Dataframe containing predictor features.
@@ -115,8 +111,6 @@ def predict(
 
         # Take the highest probability class
         y_pred = y_pred_prob.argmax(1)
-        # replace predicted y ordinal values with target categories (e.g "Low", "Medium", "High", "Very High")
-        # logger.info(f"Predicted probability {y_pred}")
 
     target_mapping = {index: value for index, value in enumerate(bin_labels_list)}
     y_bin_labels = [*map(target_mapping.get, y_pred)]
@@ -129,7 +123,7 @@ def predict(
 def evaluate(
     y_pred: pd.Series, y_actual: pd.DataFrame, params_dict: Dict[str, Any]
 ) -> Dict[str, float]:
-    """This function utilises precision, recall and accuracy metrics for evaluating model prediction against ground truth.
+    """This function utilises precision, recall and accuracy metrics for evaluating model prediction against ground truth. Metrics are logged to MLFlow if such configuration is enabled.
 
     Args:
         y_pred (pd.DataFrame): Dataframe containing predicted outputs.
@@ -137,7 +131,7 @@ def evaluate(
         params_dict (Dict): Dictionary referencing parameters.yml.
 
     Raises:
-        None
+        None.
 
     Returns:
         Dict[str, float]: Dictionary containing evaluation matrix involving precision, recall and accuracy.

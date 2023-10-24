@@ -3,20 +3,21 @@ This is a boilerplate pipeline 'model_training'
 generated using Kedro 0.18.11
 """
 import mlflow
+import os
 import requests
 from datetime import datetime
 import pandas as pd
 import numpy as np
-import pickle
 import logging
 from statsmodels.miscmodels.ordinal_model import OrderedModel
 from interpret.glassbox import ExplainableBoostingClassifier
-from typing import Union, Dict, Tuple, Optional, Any
+from typing import Union, Dict, Any
 from kedro.config import ConfigLoader
 from bipo import settings
 
 conf_loader = ConfigLoader(conf_source=settings.CONF_SOURCE)
 conf_constants = conf_loader.get("constants*")
+conf_params = conf_loader["parameters"]
 logger = logging.getLogger(settings.LOGGER_NAME)
 
 
@@ -25,18 +26,18 @@ def train_model(
     params_dict: Dict[str, Any],
     model_namespace_params_dict: Dict[str, Any],
 ) -> Union[ExplainableBoostingClassifier, OrderedModel]:
-    """Function that trains a model on a specified data fold defined by parameters.yml from a Kedro IncrementalDataSet contaning various data features identified by suffix X representing predictor features and suffix y representing predicted feature.
+    """Function that trains a model on a specified data fold defined by parameters.yml from a Kedro IncrementalDataSet contaning various data features identified by suffix '_X' representing predictor features and suffix '_y' representing predicted feature.
 
     Args:
-        partitioned_input (Dict[str, pd.DataFrame]):  Kedro IncrementalDataSet Dictionary containing fold-based training dataset containing features and target variables identified with suffixes _X and _y.
-        params_dict (Dict): Dictionary referencing values from parameters.yml
-        model_params_dict (Dict): Dictionary referencing values from parameters/model_training.yml
+        partitioned_input (Dict[str, pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values.
+        params_dict (Dict[str, Any]): Dictionary referencing parameters.yml.
+        model_namespace_params_dict (Dict[str, Any]): Dictionary referencing values from parameters/model_training.yml
 
     Raises:
-        None
+        None.
 
     Returns:
-        Either ExplainableBoostingClassifier or OrderedModel: Classes representing fitted model.
+        Union[ExplainableBoostingClassifier, OrderedModel]: Either ExplainableBoostingClassifier or OrderedModel: Classes representing fitted model.
     """
 
     # Get parameters from dictionary. Contains filepath to reference as part
@@ -63,21 +64,22 @@ def train_model(
     binned_target_mapping = {
         value: index for index, value in enumerate(bin_labels_list)
     }
-
+    logger.info(f"Defined binning mapping: {binned_target_mapping}")
     # Construct path using template (based on file name in data/models_specific_preprocessing)
     for partition_id, partition_df in partitioned_input.items():
         if X_train_df.empty or y_train_df.empty:
             if fold in partition_id and split_approach in partition_id:
                 if partition_id.endswith("_X"):
-                    X_train_df = partition_df
+                    X_train_df = partition_df.copy()
                 elif partition_id.endswith("_y"):
-                    y_train_df = partition_df
+                    y_train_df = partition_df.copy()
+
+                    # Convert y values to numeric
                     y_train_df = y_train_df[target_column_for_modeling].map(
                         binned_target_mapping, na_action=None
                     )
         else:
-            # Terminate loop when both X and y are empty
-            logger.info("Generated necessary X(features) and y(target) dataframe.")
+            # Terminate loop when both X and y are not empty
             break
 
     # Load X,y data
@@ -184,9 +186,69 @@ def train_model(
     return trained_model
 
 
+def explain_ebm(
+    model: ExplainableBoostingClassifier,
+    partitioned_input: Dict[str, pd.DataFrame] = None,
+):
+    """provides explainability of the ebm model and saves the plotly figure/static image locally. Can either output a png or html file which is configurable by the output_type parameter, where if it is png, a static png file is the output, and if it is html, a html file will be returned. This function is used in the training pipeline.
+
+    1) global: feature importance for the training dataset. Term importances are the mean absolute contribution (score) each term (feature or interaction) makes to predictions averaged across the training dataset. Contributions are weighted by the number of samples in each bin, and by the sample weights (if any)
+    2) feature: contribution score to predictions made by the model of the specified feature
+
+    Args:
+        model (ExplainableBoostingClassifier): ebm model weights
+        partitioned_input (Dict[str, pd.DataFrame]):  Kedro IncrementalDataSet Dictionary containing fold-based training dataset containing features and target variables identified with suffixes _X and _y.
+
+    Returns:
+        plotly.graph_objs: plotly figure. Also saves the plotly figure/static image locally
+    """
+    # load config
+    output_type = conf_params["output_type"]
+    feature_list = conf_params["feature_to_explain_list"]
+    output_filepath = conf_constants["modeling"]["explainability_filepath"]
+    fold = str(conf_params["fold"])
+    split_approach = str(conf_params["split_approach_source"])
+
+    # make directory
+    if not os.path.exists(output_filepath):
+        os.makedirs(output_filepath)
+    # global feature importance
+    global_ebm_explanation = model.explain_global()
+    global_plotly_fig = global_ebm_explanation.visualize()
+    if output_type == "png":
+        global_plotly_fig.write_image(
+            f"{output_filepath}/global_feature_importance.png"
+        )
+    elif output_type == "html":
+        global_plotly_fig.write_html(
+            f"{output_filepath}/global_feature_importance.html"
+        )
+    else:
+        logger.error("Invalid value for output_type. Accepts either png or html")
+
+    # detailed individual feature importance
+    for partition_id, partition_df in partitioned_input.items():
+        if fold in partition_id and split_approach in partition_id:
+            if partition_id.endswith("_X"):
+                X_train_df = partition_df
+                break
+    for feature in feature_list:
+        # get column index of feature
+        feature_index = X_train_df.columns.get_loc(feature)
+        ebm_explanation = model.explain_global()
+        plotly_fig = ebm_explanation.visualize(feature_index)
+        if output_type == "png":
+            plotly_fig.write_image(f"{output_filepath}/{feature}_importance.png")
+        elif output_type == "html":
+            plotly_fig.write_html(f"{output_filepath}/{feature}_importance.html")
+        else:
+            logger.error("Invalid value for output_type. Accepts either png or html")
+    return True
+
+
 def mlflow_tracking(
     params_dict: Dict[str, Any], model_params_dict: Dict[str, Any]
-) -> Optional:
+) -> bool:
     """
     Track model training using MLflow and log relevant parameters.
 
@@ -195,7 +257,7 @@ def mlflow_tracking(
         model_params_dict (Dict[str, Any]): Dictionary referencing values from parameters/model_training.yml
 
     Returns:
-        True for recognized model; False for unrecognized model name.
+        bool: True for recognized model; False for unrecognized model name.
     """
     logger.info(f"Enabled MLflow tracking")
     # Generate a unique run_name for MLflow tracking
@@ -244,15 +306,17 @@ def mlflow_tracking(
 
 
 def setup_remote_mlflow(remote_uri: str, experiment_name: str) -> None:
-    """
-    Set up remote MLflow tracking URI and experiment.
+    """Function which set up remote MLflow tracking URI and experiment.
 
     Args:
         remote_uri (str): The desired remote MLflow tracking URI.
         experiment_name (str): The base name for the experiment.
 
+    Raises:
+        None.
+
     Returns:
-        return False if the URI is unavailable for any reason
+        bool: False if the URI is unavailable for any reason
     """
     logger.info(f"Enabled remote MLflow tracking server")
     try:

@@ -1,7 +1,3 @@
-"""
-This is a boilerplate pipeline 'model_training'
-generated using Kedro 0.18.11
-"""
 from .nodes import train_model
 
 from kedro.pipeline import Pipeline, node
@@ -11,11 +7,12 @@ from kedro.framework.session import KedroSession
 from bipo import settings
 
 conf_loader = ConfigLoader(conf_source=settings.CONF_SOURCE)
+conf_params = conf_loader["parameters"]
 conf_constants = conf_loader.get("constants*")
 
 
 def create_pipeline(**kwargs) -> Pipeline:
-    model = conf_loader["parameters"]["model"] # Name of model
+    model = conf_loader["parameters"]["model"]  # Name of model
     valid_model_list = conf_constants["modeling"]["valid_model_name"]
 
     # Override invalid model name
@@ -34,9 +31,26 @@ def create_pipeline(**kwargs) -> Pipeline:
                 ],
                 outputs="model_training_artefact",
                 name="model_train_train_model",
+                tags="model_training",
+            ),
+            node(
+                func=explain_ebm,  # In nodes.py
+                inputs=[
+                    "model_training_artefact",
+                    "model_specific_preprocessing_train",
+                ],
+                outputs=None,
+                name="explain_ebm",
+                tags="enable_explainability",
             ),
         ],
     )
+    if conf_params["model"] == "ebm" and conf_params["enable_explainability"]:
+        pipeline_instance = pipeline_instance.only_nodes_with_tags(
+            "model_training", "enable_explainability"
+        )
+    else:
+        pipeline_instance = pipeline_instance.only_nodes_with_tags("model_training")
 
     train_model_pipeline = pipeline(
         pipe=pipeline_instance,

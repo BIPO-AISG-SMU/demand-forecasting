@@ -1,7 +1,3 @@
-"""
-This is a boilerplate pipeline 'model_evaluation'
-generated using Kedro 0.18.11
-"""
 from .nodes import load_data_fold, predict, evaluate
 
 from kedro.pipeline import Pipeline, node

@@ -1,5 +1,5 @@
 # Script that caters for lag feature generations as part of feature engineering module.
-from typing import List
+from typing import List, Dict
 import pandas as pd
 import logging
 import numpy as np
@@ -97,9 +97,7 @@ def create_sma_lags(
         return sma_df
 
     except ValueError:
-        logger.error(
-            "Unable to calculate simple moving average due to invalid values."
-        )
+        logger.error("Unable to calculate simple moving average due to invalid values.")
 
         return None
 
@@ -203,3 +201,75 @@ def generate_data_groups(
     subset_df[new_column_name] = np.arange(len(subset_df)) // 7 + 1
     logger.debug("Generated data groups via helper function.")
     return subset_df
+
+
+def merge_fold_and_generated_lag(
+    fold_based_outlet_partitioned_data: Dict[str, pd.DataFrame],
+    generated_lags_dict: Dict[str, pd.DataFrame],
+) -> Dict[str, pd.DataFrame]:
+    """Function which merges a dictionary containing calculated outlet lagged values into a dictionary containing fold based outlet partitioned dataframe.
+
+    Args:
+        fold_based_outlet_partitioned_data (Dict[str, pd.DataFrame): Dictionary containing fold based outlet partitioned dataframes which are distinguished by fold and outlet information in the dictionary key.
+        generated_lags_dict (Dict[str, pd.DataFrame): PartitionedDataset dictionary containing outlet-based lagged features stored as Kedro PartitionedDataSet that is accessible via its lazy loading function.
+
+    Returns:
+        Dict[str, pd.DataFrame]: Dictionary containing updated dataframe with lagged features if applicable. Else return same as input.
+    """
+
+    # Loop through the dictionary and join the outlet dataframe with lag values with the fold-based outlet dataframes to create an updated dataframe with lagged features.
+    if not generated_lags_dict:
+        logger.info(
+            "No lag features to merge, skipping merging of such features to outlet dataframes.\n"
+        )
+        return fold_based_outlet_partitioned_data
+
+    for (
+        fold_based_outlet_id,
+        fold_based_outlet_df,
+    ) in fold_based_outlet_partitioned_data.items():
+        # Fold based id is of the form eg. training_fold1_expanding_window_param_90_305
+        outlet_info = fold_based_outlet_id.split("_")[-1]
+
+        if isinstance(fold_based_outlet_df, pd.DataFrame):
+            fold_based_outlet_df = fold_based_outlet_df
+        else:
+            fold_based_outlet_df = fold_based_outlet_df()
+
+        fold_based_outlet_df.index = pd.to_datetime(
+            fold_based_outlet_df.index, format="%Y-%m-%d"
+        )
+
+        # Assume lag features dataframe filename are prefix with lag_
+        generated_lag_df = generated_lags_dict[f"lag_{outlet_info}"]
+
+        generated_lag_df.index = pd.to_datetime(
+            generated_lag_df.index, format="%Y-%m-%d"
+        )
+        df = fold_based_outlet_df.merge(
+            generated_lag_df,
+            how="left",
+            left_index=True,
+            right_index=True,
+            suffixes=("", "_y"),
+        )
+
+        # Drop excess column with suffixes _y as defined during merge
+        columns_with_y_suffixes = [col for col in df.columns if col.endswith("_)y")]
+        df.drop(columns=columns_with_y_suffixes, inplace=True)
+
+        # Update lag col list at first instance. This is consistent across folds and outlets since the difference only lies in the time index, with all features the same.
+        lag_col_list = [col for col in df.columns if col.startswith("lag_")]
+
+        # Drop rows which are impacted by nans
+        df.dropna(subset=lag_col_list, inplace=True, axis=0)
+
+        logger.info(
+            f"Successfully merged {fold_based_outlet_id} with shape: {df.shape}"
+        )
+        fold_based_outlet_partitioned_data[fold_based_outlet_id] = df
+
+    logger.info(
+        "Finished merging of lag features with main data folds. Returning generated lag features.\n"
+    )
+    return fold_based_outlet_partitioned_data

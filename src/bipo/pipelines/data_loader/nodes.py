@@ -1,7 +1,3 @@
-"""
-This is a boilerplate pipeline 'data_loader'
-generated using Kedro 0.18.10
-"""
 import pandas as pd
 from typing import Dict, Union
 
@@ -9,7 +5,6 @@ from kedro.io import DataSetError, DataCatalog
 from kedro.config import ConfigLoader
 
 from bipo import settings
-
 import logging
 import re
 from dateutil import parser
@@ -24,18 +19,18 @@ DEFAULT_DATE_COL = const_dict["default_date_col"]
 def merge_unique_daily_partitions(
     partitioned_input: Dict[str, pd.DataFrame]
 ) -> Union[None, pd.DataFrame]:
-    """Function which merges all data partitions (dataframes) from unique_daily_records subfolder on a date column (as reference from the global variable) with an instantiated dataframe containing a column containing date values which covers the date period of interest.
+    """Function which merges all data partitions (dataframes) from 'unique_daily_records' subfolder on a date column (as reference from the global variable) with an instantiated dataframe containing a column containing date values which covers the date period of interest.
 
-    This is supported through the call of merge_unique_csv_xlsx_df function.
+    This function also calls merge_unique_csv_xlsx_df function.
 
     Args:
-        partitioned_input (Dict[str, pd.DataFrame]): Dictionary containing file name of csv/xlsx and the pointer to its loading function as per Kedro PartitionedDataset definiton.
+        partitioned_input (Dict[str, pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values.
 
     Raises:
-        DataSetError: When no data is available for loading in Kedro PartitionDataSet.
+        None.
 
     Returns:
-        pd.DataFrame: Merged dataframe if no exception. Else None when DataSetError is encountered.
+        pd.DataFrame: Merged dataframe if no exception. Else None is returned when no partitioned data files are available.
     """
 
     # Create an new dataframe representing the date period of interest. This would be used for merging with other dataframes in data partitions
@@ -65,7 +60,7 @@ def merge_unique_daily_partitions(
             combine_df = df.copy()
             continue
 
-        # Do merge if there is more than 1 file in the partition, otherwise left as it is.
+        # Execute merging when is more than 1 file in the partition, otherwise left as it is.
         logger.info(f"Attempting to merge {partition_id}")
 
         # Check if the date column appears in incoming dataframe and existing dataframe
@@ -80,7 +75,6 @@ def merge_unique_daily_partitions(
     return combine_df
 
 
-
 def merge_unique_csv_xlsx_df(
     df_to_merge: pd.DataFrame, base_df: pd.DataFrame
 ) -> pd.DataFrame:
@@ -91,7 +85,7 @@ def merge_unique_csv_xlsx_df(
         base_df (pd.DataFrame): DataFrame representing a dataset containing mixture of datasets column which is to be merged onto.
 
     Raises:
-        None
+        None.
 
     Returns:
         pd.DataFrame: Merged dataframe.
@@ -115,13 +109,13 @@ def merge_unique_csv_xlsx_df(
 
 
 def rename_merge_unique_csv_xlsx_df_col_index(df: pd.DataFrame) -> pd.DataFrame:
-    """This function renames all columns and set the renamed date related column as index.
+    """This function renames all columns of merged csv and xlsx data, and set the renamed date related column as dataframe index.
 
     Args:
         df: Dataframe to be processed.
 
     Raises:
-        None
+        None.
 
     Returns:
         pd.DataFrame: Merged dataframe.
@@ -294,9 +288,7 @@ def load_and_structure_marketing_data(df: pd.DataFrame) -> pd.DataFrame:
             inplace=True,
         )
 
-        logger.info(
-            f"Renamed marketing columns: {df.columns} with shape {df.shape}\n."
-        )
+        logger.info(f"Renamed marketing columns: {df.columns} with shape {df.shape}\n.")
         return df
 
     except KeyError:
@@ -379,5 +371,5 @@ def rename_columns(string: str) -> str:
         new_string = string.lower().strip().replace(" ", "_")
         return re.sub(r"[^a-zA-Z0-9_]", "", new_string)
     else:
-        logger.info("Encountered other type, not processing")
+        logger.info("Encountered other type, not processing.\n")
         return string

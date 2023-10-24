@@ -1,4 +1,3 @@
-# Script containing all functions handling feature differencing and boolean feature generation.
 from typing import List
 import pandas as pd
 import logging
@@ -20,7 +19,7 @@ def create_min_max_feature_diff(
         None.
 
     Returns:
-        pd.DataFrame: Dataframe with generated differenced features.
+        pd.DataFrame: Dataframe with generated differenced values features.
     """
 
     # Apply validation check on list elements in the input parameters min_max_column_list is of length 2(which signifies the min and max column belonging to a specific feature), as well as if the pairings belong to dataframe columns which is to be processed.
@@ -57,7 +56,7 @@ def create_is_weekday_feature(df: pd.DataFrame) -> pd.DataFrame:
         None.
 
     Returns:
-        pd.DataFrame: Updated dataframe with generated boolean column.
+        pd.DataFrame: Updated dataframe with generated boolean representation column.
     """
     logger.info(
         "Creating a new indicator boolean column name 'is_weekday' to represent if date is a weekday/weekend"
@@ -85,10 +84,10 @@ def create_is_holiday_feature(
         holiday_type_col_list (List): Specified list of holiday columns (public/school holiday) for processing.
 
     Raises:
-        None
+        None.
 
     Returns:
-        pd.DataFrame: Updated dataframe with generated boolean column for holiday feature.
+        pd.DataFrame: Updated dataframe with generated boolean representation column for holiday feature.
     """
     logger.info("Generating boolean states for holiday related columns.")
     # Check the intersection of provided column list and dataframe columns. This is to ensure only valid columns are to be processed.
@@ -122,7 +121,7 @@ def create_is_raining_feature(df: pd.DataFrame, rainfall_col: str) -> pd.DataFra
         None
 
     Returns:
-        pd.DataFrame: Updated dataframe with generated boolean column.
+        pd.DataFrame: Updated dataframe with generated boolean representation column.
     """
     if rainfall_col in df.columns:
         logger.info(f"Creating a boolean representation of {rainfall_col}")
@@ -151,15 +150,19 @@ def create_is_pandemic_feature(df: pd.DataFrame, pandemic_col: str) -> pd.DataFr
         None
 
     Returns:
-        pd.DataFrame: Updated dataframe with generated boolean column.
+        pd.DataFrame: Updated dataframe with generated boolean representation column.
     """
     if pandemic_col in df.columns:
         logger.info(f"Creating a boolean representation of {pandemic_col}")
+
+        # New column name
         is_pandemic_col = "is_pandemic_restrictions"
 
-        df[is_pandemic_col] = (
-            pd.to_numeric(df[pandemic_col], errors="coerce").fillna(0).astype(int)
+        # If value is 'no limit', map such value to 0, otherwise 1 .
+        df[is_pandemic_col] = df[pandemic_col].map(
+            lambda x: 0 if x == "no limit" else 1
         )
+
         logger.info(f"Created a boolean representation for {is_pandemic_col}.\n")
     else:
         logger.info(f"Unable to create a boolean representation of {pandemic_col}.\n")

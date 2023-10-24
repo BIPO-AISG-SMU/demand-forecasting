@@ -5,9 +5,9 @@ from kedro.io import DataCatalog, PartitionedDataset
 from kedro_datasets.json import JSONDataSet 
 from kedro_datasets.pickle import PickleDataSet
 from kedro_datasets.pandas import CSVDataSet
-from kedro.framework.project import settings
+from bipo import settings
 import logging
-LOGGER = logging.getLogger("kedro")
+LOGGER = logging.getLogger(settings.LOGGER_NAME)
 # instantiate config
 conf_loader = ConfigLoader(conf_source=settings.CONF_SOURCE)
 conf_inference = conf_loader.get("inference*")
@@ -56,8 +56,28 @@ def load_data_catalog()->DataCatalog:
     # partition dataset
     lightweightmmm_params =  load_artefact(conf_const["inference"]["lightweightmmm_params_filepath"])[conf_inference["artefact_fold"]]
     tsfresh_relevant_features = load_artefact(conf_const["inference"]["tsfresh_relevant_features_filepath"])
+
+    # load specific fold encoding artefact 
     std_norm_artefact = load_artefact(conf_const["inference"]["std_norm_filepath"])
+    std_norm_key = f'{conf_inference["artefact_fold"]}_{cost_centre_code}_standardize'
+    if std_norm_key in std_norm_artefact.keys():
+        std_norm_artefact = std_norm_artefact[std_norm_key]
+    else:
+        std_norm_key = f'{conf_inference["artefact_fold"]}_{cost_centre_code}_normalize'
+        std_norm_artefact = std_norm_artefact[std_norm_key]
+    
+    # encoding 
     encoding_artefact = load_artefact(conf_const["inference"]["encoding_filepath"])
+    ohe_key = f'{conf_inference["artefact_fold"]}_ohe'
+    ordinal_encoding_key = f'{conf_inference["artefact_fold"]}_ord'
+    ohe_artefact = {}
+    if ohe_key in encoding_artefact.keys():
+        ohe_artefact = encoding_artefact[ohe_key]
+    ordinal_encoding_artefact = {}
+    if ordinal_encoding_key in encoding_artefact.keys():
+        ordinal_encoding_artefact = encoding_artefact[ohe_key]
+
+
     # populate data catalog
     catalog = DataCatalog()
     catalog.add_feed_dict(
@@ -68,7 +88,8 @@ def load_data_catalog()->DataCatalog:
             "outlet_df": outlet_df,
             "lightweightmmm_params": lightweightmmm_params,
             "std_norm_artefact": std_norm_artefact,
-            "encoding_artefact": encoding_artefact,
+            "ohe_artefact": ohe_artefact,
+            "ordinal_encoding_artefact": ordinal_encoding_artefact,
             "tsfresh_relevant_features": tsfresh_relevant_features,
             "cost_centre_code": cost_centre_code
         },

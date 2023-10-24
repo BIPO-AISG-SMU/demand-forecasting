@@ -1,8 +1,3 @@
-"""
-This is a boilerplate pipeline 'data_processing'
-generated using Kedro 0.18.10
-"""
-# Import standard modules
 import numpy as np
 import pandas as pd
 from typing import List, Tuple, Dict, Set, Union, Any
@@ -26,10 +21,10 @@ def outlet_exclusion_list_check(outlet_exclusion_list: List) -> Set:
         outlet_exclusion_list (List): List containing representation outlets/cost centres in either string/numerical representation.
 
     Raises:
-        None
+        None.
 
     Returns:
-        Set: Set version of input list or a default set reference from constants.yml's 'default_outlets_exclusion_list' parameters config.
+        Set: Python set of input list or a default set reference from constants.yml's 'default_outlets_exclusion_list' parameters config.
     """
     # Return default exclusion list if specified outlet_exclusion_list is not of list type.
     if not isinstance(outlet_exclusion_list, List):
@@ -43,16 +38,16 @@ def outlet_exclusion_list_check(outlet_exclusion_list: List) -> Set:
 
 
 def const_value_perc_check(perc_value: float) -> float:
-    """Function which conducts a percentage value check by type casting it into a valid float, clipping the value to the range between 0 and 100 (both inclusive). Should float type casting fails, a default value referencing constants.yml is used.
+    """Function which conducts a percentage value check by type casting it into a valid float, clipping the value to the range between 0 and 100 (both values inclusive). Should float type casting fails, a default value referencing constants.yml is used.
 
     Args:
-        perc_value (float): Floating value of percentage
+        perc_value (float): Floating value of percentage.
 
     Raises:
-        None
+        None.
 
     Returns:
-        float: Clipped input value to between 0 and 100, representing percentage validity
+        float: Clipped input value to between 0 and 100, representing percentage validity.
     """
 
     # Attempt to type cast input to float before clipping it to valid range, 0 and 100
@@ -69,11 +64,11 @@ def const_value_perc_check(perc_value: float) -> float:
 
 
 def date_validity_check(start_date: str, end_date: str) -> Tuple[str, str]:
-    """Function which checks if the input start and end dates are in correct format as well as its time ordering.
+    """Function which checks if the input start and end dates are in the correct format of '%Y-%m-%d' as well as its time ordering.
 
     Args:
-        start_date (str): Date in string following %Y-%m-%d format
-        end_date (str): Date in string following %Y-%m-%d format
+        start_date (str): Date in string following '%Y-%m-%d' format
+        end_date (str): Date in string following '%Y-%m-%d' format
 
     Raises:
         None
@@ -109,10 +104,10 @@ def date_validity_check(start_date: str, end_date: str) -> Tuple[str, str]:
 def merge_non_proxy_revenue_data(
     partitioned_input: Dict[str, pd.DataFrame]
 ) -> Union[pd.DataFrame, None]:
-    """Function which merges all data in 02_dataloader/non_revenue_partitions into a single dataframe. These data represents non proxy revenue related datasets.
+    """Function which merges all data in '02_dataloader/non_revenue_partition' into a single dataframe. These data represents non proxy revenue related datasets.
 
     Args:
-        partitioned_input (Dict[str, str]): Kedro IncrementalDataSet Dictionary containing non proxy revenue data.
+        partitioned_input (Dict[str, pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values.
 
     Returns:
         pd.DataFrame: Merged dataframe based on date if input partitioned_input is not empty.
@@ -139,10 +134,10 @@ def merge_non_proxy_revenue_data(
             merged_df = pd.concat(
                 [df, merged_df], axis=1, join="outer", ignore_index=False
             )
-            logger.info(f"Merged partition: {partition_id} to existing dataframe.\n")
+            logger.info(f"Merged partition: {partition_id} to existing dataframe.")
 
         logger.info(
-            f"Completed merging of non proxy revenue dataframe. Dataframe is of shape {merged_df.shape}\n"
+            f"Completed merging of non proxy revenue dataframe. Dataframe is of shape {merged_df.shape}.\n"
         )
     # merged_df will still be none since no partition is available for processing
     except DataSetError:
@@ -155,25 +150,29 @@ def merge_outlet_and_other_df_feature(
     outlet_partitioned_input: Dict[str, pd.DataFrame],
     daily_other_feature_df: pd.DataFrame,
     params_dict: Dict[str, Any],
-) -> Dict:
-    """Function which merges non-proxy revenue data with individual outlet proxy revenue data
+) -> Dict[str, pd.DataFrame]:
+    """Function which merges non-proxy revenue data with individual outlet proxy revenue data located in '02_dataloader' folder.
 
     Args:
-        outlet_partitioned_input (Dict[str, pd.DataFrame]): Kedro IncrementalDataSet dictionary containing individual outlet related features dataframe as values with filename as identifier.
-        daily_other_feature_df (pd.DataFrame): Dataframe comprising of non-proxy revenue related features
-        params_dict (Dict[str, Any]): Dictionary of parameters as referenced from parameters.yml
+        outlet_partitioned_input (Dict[str, pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values.
+        daily_other_feature_df (pd.DataFrame): Dataframe comprising of non-proxy revenue related features.
+        params_dict (Dict[str, Any]): Dictionary referencing parameters.yml.
 
     Raises:
         None.
 
     Returns:
-        Dict: Dictionary representing processed outlet partitions. Empty dict if no outlet partitions is provided.
+        Dict[str, pd.DataFrame]: Dictionary representing processed outlet partitions if applicable.
     """
+    # Check emptyness of daily_other_feature_df. Return as per outlet_partitioned_input if there is no other daily feature dataframe to merge.
+    if daily_other_feature_df.empty:
+        return outlet_partitioned_input
+
     # Instantiate a empty dict for storing processed partition file names as key and corresponding processed dataframe as values
     outlet_with_features_dict = {}
 
     logger.info(
-        "Extracting start_date and end_date for data filtering from parameters.yml"
+        "Extracting start_date and end_date for data filtering from parameters.yml."
     )
     start_date = str(params_dict["start_date"])
     end_date = str(params_dict["end_date"])
@@ -191,76 +190,67 @@ def merge_outlet_and_other_df_feature(
     logger.info(f"End date: {end_date}")
 
     # Load outlet partition. First, cross check with outlet_to_exclude_list to skip such partitions when it is in the list. Next, upon loading check if the revenue related column of the outlet
-    try:
-        for outlet_partition_id, outlet_partition_load_func in sorted(
-            outlet_partitioned_input.items()
-        ):
-            outlet_partition_info = outlet_partition_id.split("_")[-1]
-            if outlet_partition_info in outlet_to_exclude_set:
+
+    for outlet_partition_id, outlet_partition_load_func in sorted(
+        outlet_partitioned_input.items()
+    ):
+        outlet_partition_info = outlet_partition_id.split("_")[-1]
+        if outlet_partition_info in outlet_to_exclude_set:
+            logger.info(f"Skipping {outlet_partition_info} as it is to be excluded..\n")
+            continue
+
+        logger.info(f"Loading {outlet_partition_id}")
+        outlet_df = outlet_partition_load_func
+
+        # Check if the proxy revenue counts exceeds defined const_val_threshold_perc. If so, exclude to avoid downstream equal frequency binning approach.
+        revenue_col = const_dict["default_revenue_column"]
+        logger.info(
+            "Checking if instances of specific values exceeds a set threshold, which may cause equal frequency binning issue."
+        )
+
+        if 0 in outlet_df[revenue_col].value_counts(normalize=True):
+            if outlet_df[revenue_col].value_counts(normalize=True)[0] >= (
+                zero_val_threshold_perc / 100
+            ):
                 logger.info(
-                    f"Skipping {outlet_partition_info} as it is to be excluded..\n"
+                    f"{outlet_partition_id} excluded as there exists value(s) which exceeds the defined threshold. Moving to the next.\n"
                 )
                 continue
 
-            logger.info(f"Loading {outlet_partition_id}")
-            outlet_df = outlet_partition_load_func
-
-            # Check if the proxy revenue counts exceeds defined const_val_threshold_perc. If so, exclude to avoid downstream equal frequency binning approach.
-            revenue_col = const_dict["default_revenue_column"]
+        logger.info("Retrieving earliest/latest available dates for outlets")
+        earliest_avail_date = outlet_df.index.min()
+        latest_avail_date = outlet_df.index.max()
+        if earliest_avail_date > start_date or latest_avail_date < end_date:
             logger.info(
-                "Checking if instances of specific values exceeds a set threshold, which may cause equal frequency binning issue."
+                f"Earliest date: {earliest_avail_date}, Latest date: {latest_avail_date}"
+            )
+            logger.info(f"Skipping {outlet_partition_id} due to insufficient data")
+            continue
+        else:
+            # Apply left join for non-proxy revenue on outlet's proxy revenue as the date index of outlet is what we are interested.
+            outlet_df.index = pd.to_datetime(outlet_df.index, format="%Y-%m-%d")
+            daily_other_feature_df.index = pd.to_datetime(
+                daily_other_feature_df.index, format="%Y-%m-%d"
+            )
+            outlet_df = pd.merge(
+                outlet_df,
+                daily_other_feature_df,
+                how="left",
+                left_index=True,
+                right_index=True,
             )
 
-            if 0 in outlet_df[revenue_col].value_counts(normalize=True):
-                if outlet_df[revenue_col].value_counts(normalize=True)[0] >= (
-                    zero_val_threshold_perc / 100
-                ):
-                    logger.info(
-                        f"{outlet_partition_id} excluded as there exists value(s) which exceeds the defined threshold. Moving to the next.\n"
-                    )
-                    continue
+            logger.info(
+                f"After merging features, shape of {outlet_partition_id} is {outlet_df.shape}."
+            )
 
-            # Check if start or end date of outlet data fulfils required dates, else skip
-            # outlet_df.reset_index(inplace=True)
+        # Ensure date index format is %Y-%m-%d
+        outlet_df.index = pd.to_datetime(outlet_df.index, format="%Y-%m-%d")
 
-            logger.info("Retrieving earliest/latest available dates for outlets")
-            earliest_avail_date = outlet_df.index.min()
-            latest_avail_date = outlet_df.index.max()
-            if earliest_avail_date > start_date or latest_avail_date < end_date:
-                logger.info(
-                    f"Earliest date: {earliest_avail_date}, Latest date: {latest_avail_date}"
-                )
-                logger.info(f"Skipping {outlet_partition_id} due to insufficient data")
-                continue
-            else:
-                # Apply left join for non-proxy revenue on outlet's proxy revenue as the date index of outlet is what we are interested.
-                outlet_df.index = pd.to_datetime(outlet_df.index, format="%Y-%m-%d")
-                daily_other_feature_df.index = pd.to_datetime(
-                    daily_other_feature_df.index, format="%Y-%m-%d"
-                )
-                outlet_df = pd.merge(
-                    outlet_df,
-                    daily_other_feature_df,
-                    how="left",
-                    left_index=True,
-                    right_index=True,
-                )
-
-                logger.info(
-                    f"After merging features, shape of {outlet_partition_id} is {outlet_df.shape}"
-                )
-
-            # Ensure date index format is %Y-%m-%d
-            outlet_df.index = pd.to_datetime(outlet_df.index, format="%Y-%m-%d")
-
-            # Update dictionary as output with new partition string
-            new_partition_string = f"{outlet_partition_id}_processed"
-            outlet_with_features_dict[new_partition_string] = outlet_df
-        logger.info(
-            "Completed merging of outlet proxy revenue and external features datasets.\n"
-        )
-        return outlet_with_features_dict
-
-    except DataSetError:
-        logger.error("No data is available in the partition. Not merging anything.\n")
-        return {}
+        # Update dictionary as output with new partition string
+        new_partition_string = f"{outlet_partition_id}_processed"
+        outlet_with_features_dict[new_partition_string] = outlet_df
+    logger.info(
+        "Completed merging of outlet proxy revenue and external features datasets.\n"
+    )
+    return outlet_with_features_dict

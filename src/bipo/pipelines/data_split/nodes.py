@@ -1,10 +1,5 @@
-"""
-This is a boilerplate pipeline 'data_split'
-generated using Kedro 0.18.10
-"""
-
 import pandas as pd
-from typing import Union, List, Tuple, Dict, Any
+from typing import List, Tuple, Dict, Any
 from datetime import datetime
 import logging
 from kedro.config import ConfigLoader
@@ -17,14 +12,14 @@ data_split_constants = conf_loader.get("constants*")["data_split"]
 
 
 def handle_invalid_folds_split_approach(
-    folds: int, split_approach: str
+    fold: int, split_approach: str
 ) -> Tuple[int, str]:
     """Helper function that checks for validity of input parameters involving folds and split approach.
 
-    Fold value would be set to defaults 3 if negative values are detected for expanding/sliding window split; otherwise defaults to 1 with simple split approach being used instead.
+    Fold value would be set to default values based on settings defined in base/constants.yml if invalid values are detected for various splits; otherwise defaults to 1 with simple split approach being used instead.
 
     Args:
-        folds (int): Fold info provided.
+        fold (int): Fold info provided.
         split_approach (str): Split approach name info provided.
 
     Raises:
@@ -36,20 +31,20 @@ def handle_invalid_folds_split_approach(
         - split_approach (str): Updated split approach if applicable.
     """
     logger.info("Checking for validness of provided fold information")
-    if folds < 1:
+    if fold < 1 or not isinstance(fold, int):
         if split_approach == "expanding_window" or split_approach == "sliding_window":
             logger.info(
                 f"Detected invalid folds. Setting to 3 as default for split approach: {split_approach}"
             )
-            folds = data_split_constants["window_split_fold_default"]
+            fold = data_split_constants["window_split_fold_default"]
         else:
             logger.info(
                 f"Detected invalid folds. Setting to {data_split_constants['data_split_option_default']} and using {data_split_constants['simple_split_fold_default']} split approach."
             )
-            folds = data_split_constants["simple_split_fold_default"]
+            fold = data_split_constants["simple_split_fold_default"]
             split_approach = data_split_constants["data_split_option_default"]
 
-    return folds, split_approach
+    return fold, split_approach
 
 
 def handle_invalid_days_for_split(
@@ -92,7 +87,7 @@ def handle_invalid_days_for_split(
         logger.error(f"Invalid validation days overridden to {validation_days} days.")
 
     if (
-        not isinstance(training_days, int)
+        not isinstance(testing_days, int)
         or (testing_days < 0)
         or (testing_days is None)
     ):
@@ -155,7 +150,27 @@ def validate_split_params(
     return training_days, validation_days, testing_days, folds, split_approach
 
 
-def prepare_for_split(df: pd.DataFrame, data_split_params: Dict[str, Any]):
+def prepare_for_split(df: pd.DataFrame, data_split_params: Dict[str, Any]) -> Dict:
+    """Function that constructs a dataframe consolidating input dataframe and data split parameters for further split processing handled by other functions.
+
+    Args:
+        df (pd.DataFrame): Dataframe to be processed for split.
+        data_split_params (Dict[str, Any]): Dictionary containing validated data split parameters involving training, testing and validation days information.
+
+    Raises:
+        None.
+
+    Returns:
+        Dict[str, Any]: Dictionary containing keys and values as the key name implies:
+        - "dataframe",
+        - "start_date_list": start_date_list,
+        - "latest_date": latest_date,
+        - "training_days_list": training_days_list,
+        - "testing_days": testing_days,
+        - "validation_days": validation_days,
+        - "split_approach": split_approach,
+        - "window_param_days": window_param_days,
+    """
     # Get time period and duration related information
     date_col = conf_loader.get("constants*")["default_date_col"]
 
@@ -184,7 +199,7 @@ def prepare_for_split(df: pd.DataFrame, data_split_params: Dict[str, Any]):
 
     # Assign earliest date as the start_date as a start. Used in the for loop generation below.
     start_date = earliest_date
-    
+
     # Define a list to store parameters related to folds which would be an entry in the returned dictionary
     training_days_list = []
     start_date_list = []
@@ -270,7 +285,7 @@ def do_time_based_data_split(
     """Function that implements a time-based data split using split_params_dict.
 
     Args:
-        split_params_dict: Dictionary containing key-value information pertaining to split_params.
+        split_params_dict (Dict[str, Any]): Dictionary containing key-value information pertaining to data split parameters configured in parameters/data_split.yml or applied defaults (if necessary).
 
     Raises:
         None.
@@ -280,7 +295,7 @@ def do_time_based_data_split(
         - train_dict: Dictionary containing file name and pd.DataFrame representing the training dataset
         - val_dict : Dictionary containing file name and validation dataset
         - test_dict : Dictionary containing file name and testing dataset dataframe
-        
+
         Otherwise empty dict.
     """
 
@@ -372,17 +387,17 @@ def do_time_based_data_split(
                 f"testing_fold{nth_fold}_{split_approach}_param_{window_param_days}"
             ] = test_engineered_df
         else:
-            logger.info("Not extracting any data for testing case\n")
+            logger.info("Not extracting any data for testing case.\n")
 
     # Return all 3 dataframe in a key value pair as part of PartitionedDataSet
     return train_val_test_dict
 
 
 def get_date_info(df_index: pd.Index) -> Tuple[datetime, datetime, int]:
-    """Function that retrieves the earliest, latest date and total duration between the 2 dates (inclusive).
+    """Function that retrieves the earliest, latest date and total duration between the 2 dates (both inclusive).
 
     Args:
-        df_index (pd.Index): DataFrame Index to process.
+        df_index (pd.Index): DataFrame index to process.
 
     Raises:
         None.
@@ -421,7 +436,7 @@ def check_window_parameters(
         None.
 
     Returns:
-        Tuple[int, int] containing corrected/defaulted window_expansion_days, window_sliding_stride_days
+        Tuple[int, int]: Tuple containing containing corrected/defaulted window_expansion_days, window_sliding_stride_days
     """
     if split_approach == "expanding_window":
         if (

@@ -83,142 +83,6 @@ inference:
             "lag_1_week_mean_weekly_proxy_revenue",
         ]
 
-general:
-    target_feature: "proxy_revenue" # refer to dataloader new_column_names
-
-dataloader:
-
-
-    # columns_to_drop:
-    #     weather_data: ["year", "month", "day", "station", "direction"] # Used for constructing date
-    #     holiday_data: ["school holiday type", "public holiday type"]
-
-
-    expected_columns:
-        proxy_revenue_data:
-            [
-                "CostCentreCode",
-                "Date",
-                "ManHours",
-                "ProxyRevenue",
-                "Location",
-                "Outlet",
-                "Type",
-            ]
-        propensity_data: ["Location", "Factor"]
-        marketing_data: ["Name", "Date Start", "Date End", "Mode" ,"Total Cost"]
-
-        weather_data:
-            [
-                "DIRECTION",
-                "Station",
-                "Year",
-                "Month",
-                "Day",
-                "Daily Rainfall Total (mm)",
-                "Highest 30 min Rainfall (mm)",
-                "Highest 60 min Rainfall (mm)",
-                "Highest 120 min Rainfall (mm)",
-                "Mean Temperature (°C)",
-                "Maximum Temperature (°C)",
-                "Minimum Temperature (°C)",
-                "Mean Wind Speed (km/h)",
-                "Max Wind Speed (km/h)",
-            ]
-        covid_capacity_data: ["Group size Cap "]
-        holiday_data:
-            [
-                "Date",
-                "School Holiday",
-                "School Holiday Type",
-                "Public Holiday",
-                "Public Holiday Type",
-                "Day",
-            ]
-        merged_df:
-            [
-                "cost_centre_code",
-                "man_hours",
-                "proxy_revenue",
-                "location",
-                "outlet",
-                "type",
-                "propensity_factor",
-                "rain_day_mm",
-                "rain_high_30min_mm",
-                "rain_high_60min_mm",
-                "rain_high_120min_mm",
-                "temp_mean",
-                "temp_max",
-                "temp_min",
-                "wind_mean_kmh",
-                "wind_max_kmh",
-                "cat_covid_group_size_cap",
-                "is_school_holiday",
-                "is_public_holiday",
-                "cat_day_of_week",
-            ]
-        inference: [
-                "location",
-                "type",
-                "propensity_factor",
-                "is_raining",
-                "max_temp",
-                "is_public_holiday",
-                "is_school_holiday",
-                "campaign_name",
-                "campaign_start_date",
-                "campaign_end_date",
-                "campaign_total_costs",
-                "lag_sales",
-            ]
-
-data_preprocessing:
-    # Features that must have non-negative values
-    non_negative_exogeneous_columns:
-        [
-            "rain_day_mm",
-            "rain_high_30min_mm",
-            "rain_high_60min_mm",
-            "rain_high_120min_mm",
-            "temp_mean",
-            "temp_max",
-            "temp_min",
-            "wind_mean_kmh",
-            "wind_max_kmh",
-            "proxy_revenue",
-            "man_hours",
-            "total_cost"
-        ]
-    # Features and its expected data types
-    expected_dtypes:
-        cost_centre_code: int64
-        man_hours: float64
-        proxy_revenue: float64
-        location: object
-        outlet: object
-        type: object
-        propensity_factor: float64
-        rain_day_mm: float64
-        rain_high_30min_mm: float64
-        rain_high_60min_mm: float64
-        rain_high_120min_mm: float64
-        temp_mean: float64
-        temp_max: float64
-        temp_min: float64
-        wind_mean_kmh: float64
-        wind_max_kmh: float64
-        cat_covid_group_size_cap: object
-        is_school_holiday: bool
-        is_public_holiday: bool
-        cat_day_of_week: object
-        # marketing dtypes
-        campaign_name: str
-        date_start: object
-        date_end: object
-        mode: str
-        total_cost: float64
-
 # Generate marketing columns.
 default_marketing_channel_list: ['tv_ad_daily_cost', 'radio_ad_daily_cost', 'instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost','poster_campaign_daily_cost', 'digital_daily_cost']
 
@@ -257,8 +121,12 @@ modeling:
         distr: "probit"
         method: "bfgs"
         max_iter: 2
+    explainability_filepath: "models/ebm_explanation/"
 
 inference:
+    lag_sales_filename: "inference_lag_sales_data"
+    marketing_filename: "inference_mkt_data"
+    outlet_filename: "inference_outlet_data"
     marketing_filepath: "data/08_model_inference_output/inference_mkt_data/inference_mkt_data.csv"
     lag_sales_filepath: "data/08_model_inference_output/inference_lag_sales_data/inference_lag_sales_data.csv"
     outlet_filepath: "data/08_model_inference_output/inference_outlet_data/inference_outlet_data.csv"
@@ -268,3 +136,4 @@ inference:
     lightweightmmm_params_filepath: "data/05_feature_engineering/lightweightmmm_features/artefacts"
     std_norm_filepath: "data/08_model_inference_output/std_norm_artefact"
     encoding_filepath: "data/08_model_inference_output/encoding_artefact"
+    ebm_explain_filepath: "data/08_model_inference_output/ebm_explanation"

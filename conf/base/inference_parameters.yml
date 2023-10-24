@@ -56,3 +56,4 @@ ordinal_columns:
 # inference_columns_rename_map: { "max_temp": "temp_max", }
 inference_columns_rename_map: {"propensity_factor": "factor"}
 artefact_fold: "fold1" # best fold from training. E.g fold1 or fold2 etc 
+enable_explainability: True

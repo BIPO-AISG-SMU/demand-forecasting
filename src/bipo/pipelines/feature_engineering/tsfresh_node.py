@@ -1,6 +1,6 @@
 import pandas as pd
 import re
-from typing import Dict, Callable, Union, Any, List
+from typing import Dict, Union, Any, List
 from kedro.config import ConfigLoader
 import tsfresh
 from .tsfresh_main import TsfreshFe
@@ -17,12 +17,12 @@ constants = conf_loader.get("constants*")
 # 1st node
 # feature selection pipeline on single outlet dataframe
 def run_tsfresh_feature_selection_process(
-    partitioned_input: Dict[str, Callable[[], Any]], params_dict: Dict[str, Any]
+    partitioned_input: Dict[str, pd.DataFrame], params_dict: Dict[str, Any]
 ) -> Dict[str, Dict]:
     """Function which executes tsfresh feature selection to select relevant tsfresh features on the dataset as defined by partitioned_input. These relevant features are then stored in a dictionary by fold and outlet.
 
     Args:
-        partitioned_input (Dict[str, Callable[[], Any]]): partitioned input for training fold outlet dataframe.
+        partitioned_input (Dict[str,pd.DataFrame]): partitioned input for training fold outlet dataframe.
         params_dict (Dict[str, Any]): Parameters referencing parameters.yml.
 
     Returns:
@@ -57,7 +57,7 @@ def run_tsfresh_feature_selection_process(
         # iterate over outlets in specific fold and generate relevance table
         for outlet in outlet_fold_dict:
             logger.info(f"Feature selection on {fold}, outlet {outlet}")
-            outlet_df = outlet_fold_dict[outlet]()
+            outlet_df = outlet_fold_dict[outlet]
             # Get relevant features for tsfresh based on each outlets in a specific fold, referencing parameters.yml
             tsfresh_features = TsfreshFe(
                 df=outlet_df,
@@ -104,15 +104,15 @@ def run_tsfresh_feature_selection_process(
 
 # 2nd node
 def run_tsfresh_feature_engineering_process(
-    partitioned_tsfresh_artefacts_input: Dict[str, Callable[[], Any]],
-    partitioned_outlet_input: Dict[str, Callable[[], Any]],
+    partitioned_tsfresh_artefacts_input: Dict[str, pd.DataFrame],
+    partitioned_outlet_input: Dict[str, pd.DataFrame],
     params_dict: Dict[str, Any],
 ) -> Dict:
     """Function which performs tsfresh feature engineering involving tsfresh feature creation for each outlet data in each fold based on learnt tsfresh artefacts and outlet inputs
 
     Args:
-        partitioned_tsfresh_artefacts_input (Dict[str, Callable[[], Any]]): partitioned input for tsfresh relevant features json artefacts
-        partitioned_outlet_input (Dict[str, Callable[[], Any]]): dictionary containing a fold_outlet as keys and outlet dataframes as values. E.g {fold1_outlet_1: outlet_1_df}
+        partitioned_tsfresh_artefacts_input (Dict[str, pd.DataFrame]): partitioned input for tsfresh relevant features json artefacts
+        partitioned_outlet_input (Dict[str, pd.DataFrame): dictionary containing a fold_outlet as keys and outlet dataframes as values. E.g {fold1_outlet_1: outlet_1_df}
         params_dict (Dict[str, Any]): Parameters referencing parameters.yml.
 
     Returns:
@@ -128,7 +128,7 @@ def run_tsfresh_feature_engineering_process(
         # filter input by fold information corresponding fold outlet files
         outlet_list = [outlet for outlet in partitioned_outlet_input if fold in outlet]
         outlet_dict = {
-            outlet: partitioned_outlet_input[outlet]() for outlet in outlet_list
+            outlet: partitioned_outlet_input[outlet] for outlet in outlet_list
         }
 
         # Extract the correct tsfresh artefact id by fold info and read off the contents as dictionary
@@ -137,7 +137,7 @@ def run_tsfresh_feature_engineering_process(
             for artefact_fold_id in partitioned_tsfresh_artefacts_input
             if fold in artefact_fold_id
         ]
-        relevant_features_dict = partitioned_tsfresh_artefacts_input[params_key[0]]()
+        relevant_features_dict = partitioned_tsfresh_artefacts_input[params_key[0]]
 
         # Create tsfresh features using relevant_features_dict and oultet_dict through function call 'feature_engineering_by_outlet' below
         outlet_features_dict = feature_engineering_by_outlet(
@@ -159,7 +159,7 @@ def feature_engineering_by_outlet(
 
     Args:
         relevant_features_dict (Dict[str, Dict]): Dictionary containing the relevant calculated/learned tsfresh features artefacts
-        outlet_dict (Dict[str, pd.DataFrame]): Dictionary containing outlet  partitions in dataframe identified by its id through a filename from partitioned_dataset.
+        outlet_dict (Dict[str, pd.DataFrame]): Kedro MemoryDataSet dictionary partitioned by outlets loaded in memory containing individual outlet dataframes.
         params_dict (Dict[str, Any]): Parameters referenced from parameters.yml.
         extracted_tsfresh_features_outlet_dict: Dict[str, pd.DataFrame]: Dictionary used for storing tsfresh_features_engineered identified by fold and outlet info.
 
@@ -215,7 +215,7 @@ def get_common_outlet_relevant_features(
         num_features (int): Number of top relevant features to keep based on derived sorted p-value vector from tsfresh's Benjamini-Yekutieli procedure.
 
     Returns:
-        Dict[str,float]: Dictionary of relevant features that is in a suitable format for tsfresh extract features.
+        Dict[str, float]: Dictionary of relevant features that is in a suitable format for tsfresh extract features.
     """
     logger.info(f"Relevant features generated for {len(relevance_table_list)} outlets.")
 
@@ -235,3 +235,54 @@ def get_common_outlet_relevant_features(
     kind_to_fc_parameters = tsfresh.feature_extraction.settings.from_columns(features)
 
     return kind_to_fc_parameters
+
+
+def merge_tsfresh_features_with_outlets(
+    partitioned_outlet_input: Dict[str, pd.DataFrame],
+    partitioned_tsfresh_input: Dict[str, pd.DataFrame],
+) -> Dict[str, pd.DataFrame]:
+    """Function which left merges a outlet-based generated tsfresh features to each outlet based on common time-index. As the id used for both partitioned inputs are the same, joining can be simply made by using one of the id retreived from either of the inputs and doing a direct referencing from both dictionary keys.
+
+    Args:
+        partitioned_outlet_input: Dict[str, pd.DataFrame]: Kedro MemoryDataSet dictionary partitioned by outlets loaded in memory containing outlet dataframes.
+        partitioned_mmm_input: Dict[str, pd.DataFrame]: Kedro IncrementalDataset of dataframe representing fold-based outlets.
+
+    Raises:
+        None.
+
+    Returns:
+        Union[Dict[str, pd.DataFrame], Dict[str, pd.DataFrame]: Dictionary containing merged dataframes involving both tsfresh features and input outlet dataframe features. Otherwise, returns partitioned_outlet_input with dataframe lazy loading function.
+    """
+    if not partitioned_tsfresh_input:
+        logger.info(
+            "No tsfresh features to merge, skipping merging of such features to outlet dataframes.\n"
+        )
+        return partitioned_outlet_input
+    logger.info("Merging tsfresh features with fold outlets...")
+    merged_partitioned_dict = {}
+    for partitioned_id, partitioned_df in partitioned_outlet_input.items():
+        outlet_fold_df = partitioned_df
+
+        outlet_fold_df.index = pd.to_datetime(outlet_fold_df.index, format="%Y-%m-%d")
+
+        # Load the corresponding fold in lightweightmmm partitions
+        tsfresh_fold_df = partitioned_tsfresh_input[partitioned_id]
+        tsfresh_fold_df.index = pd.to_datetime(tsfresh_fold_df.index, format="%Y-%m-%d")
+
+        outlet_fold_tsfresh_df = outlet_fold_df.merge(
+            tsfresh_fold_df,
+            how="left",
+            left_index=True,
+            right_index=True,
+            suffixes=("", "_y"),
+        )
+
+        # Drop excess columns with _y suffix due to emrge
+        col_with_y_suffix = [
+            col for col in outlet_fold_tsfresh_df if col.endswith("_y")
+        ]
+        outlet_fold_tsfresh_df.drop(columns=col_with_y_suffix, inplace=True)
+
+        merged_partitioned_dict[partitioned_id] = outlet_fold_tsfresh_df
+    logger.info("Completed Tsfresh features merged with folds.\n")
+    return merged_partitioned_dict

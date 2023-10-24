@@ -1,17 +1,17 @@
 import pandas as pd
+import numpy as np
 from datetime import date, timedelta
 from typing import Dict
-
 # Create a logger for this module
 from bipo_fastapi.custom_dataset import CustomCSVDataSet
 from kedro_datasets.pandas import CSVDataSet
 from kedro.io import DataCatalog
 from kedro.io import IncrementalDataset
 from kedro.config import ConfigLoader
-from kedro.framework.project import settings
+from bipo import settings
 import logging
 
-LOGGER = logging.getLogger("kedro")
+LOGGER = logging.getLogger(settings.LOGGER_NAME)
 conf_loader = ConfigLoader(conf_source=settings.CONF_SOURCE)
 conf_params = conf_loader["parameters"]
 conf_const = conf_loader.get("constants*")
@@ -143,17 +143,17 @@ def save_partition_dataset(df: pd.DataFrame, partition_filepath: str)->pd.DataFr
         bool: True. This function only returns True to faciliate unit test. The main purpose of this function is to save the memorydataset locally as a csv file.
     """
     # rename Date column to date
-    df.index.names = ["date"]
-    base_filename = partition_filepath.split("10_model_inference_output/")[-1]
+    df.index.names = [conf_const["default_date_col"]]
+    # base_filename = partition_filepath.split("10_model_inference_output/")[-1]
 
     # save as csv file
     output = CSVDataSet(
-        filepath=f"{partition_filepath}/{base_filename}.csv",
-        load_args={"index_col": "Date"},
-        save_args={"index": True, "index_label": "Date", "date_format": "%Y-%m-%d"},
+        filepath=f"{partition_filepath}/{conf_const['inference']['lag_sales_filename']}.csv",
+        load_args={"index_col": conf_const["default_date_col"]},
+        save_args={"index": True, "index_label": conf_const["default_date_col"], "date_format": "%Y-%m-%d"},
     )
-    io = DataCatalog(data_sets={base_filename: output})
-    io.save(base_filename, df)
+    io = DataCatalog(data_sets={conf_const["inference"]['lag_sales_filename']: output})
+    io.save(conf_const["inference"]['lag_sales_filename'], df)
     # load as incremental dataset
     partition_df = IncrementalDataset(
         path=partition_filepath,
@@ -186,7 +186,7 @@ def process_marketing_df(df:pd.DataFrame,base_df:pd.DataFrame)->pd.DataFrame:
     Returns:
         pd.DataFrame: final processed marketing dataframe
     """
-    df.index.names = ["Date"]
+    df.index.names = [conf_const["default_date_col"]]
     return df.join(base_df) 
 
 def merge_generated_features_to_main(generated_features_df:pd.DataFrame,main_df:pd.DataFrame)->pd.DataFrame:

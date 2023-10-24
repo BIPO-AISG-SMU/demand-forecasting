@@ -2,10 +2,6 @@
 from typing import Union, List, Tuple, Dict
 import pandas as pd
 import numpy as np
-import sys
-import os
-import json
-import pickle
 
 from kedro.config import ConfigLoader
 from sklearn.preprocessing import Normalizer, StandardScaler
@@ -15,6 +11,7 @@ import logging
 # This will get the active logger during run time
 logger = logging.getLogger(settings.LOGGER_NAME)
 conf_loader = ConfigLoader(settings.CONF_SOURCE)
+
 
 def standard_norm_fit(
     df: pd.DataFrame,
@@ -58,21 +55,13 @@ def standard_norm_fit(
 
 
 def standard_norm_transform(
-    df: pd.DataFrame,
-    col_to_std_or_norm_list: List,
-    std_norm_encoding_dict: Dict,
-    option: str,
-    fold: str,
-    outlet: str,
+    df: pd.DataFrame, std_norm_object: Union[Normalizer, StandardScaler]
 ) -> pd.DataFrame:
-    """Function which applies learned sklearn standardscaler/normalizer parameters learned from a dictionary that contains fold and outlet informations' standard scaling parameters. It assumes that the col_to_std_or_norm_list contains columns which can be found in dataframe columns.
+    """Function which utilises sklearn learned standardscaler/normalizer object 'std_norm_object' containing list of features for value transformation which can be found in dataframe columns assuming same dataframe is used.
 
     Args:
-        df (pd.DataFrame): Dataframe to process.
-        col_to_std_or_norm_list (List): List of dataframe columns which standardization is to be applied.
-        std_norm_encoding_dict (Dict): Dictionary that contains fold and outlet informations' standardization/normalisation parameters.
-        fold (str): fold information which the dataframe represents.
-        outlet (str): outlet information which the dataframe represents.
+        df (pd.DataFrame): Dataframe to process for standardisation/normalisation.
+        std_norm_object (Union[Normalizer, StandardScaler]): Learned sklearn Normalizer or StandardScaler object.
 
     Raises:
         None.
@@ -80,17 +69,13 @@ def standard_norm_transform(
     Returns:
         pd.DataFrame: Updated dataframe with normalized values in features selected.
     """
-    if option.lower() != "standardize":
-        # automatically override to normalize to ensure proper key referencing.
-        option = "normalize"
+    feature_names_list = std_norm_object.feature_names_in_
 
-    std_norm = std_norm_encoding_dict[f"{fold}_{outlet}_{option}"]
-
-    std_norm_features = std_norm.transform(df[col_to_std_or_norm_list])
+    std_norm_features = std_norm_object.transform(df[feature_names_list])
 
     # Update dataframe for standardised/normalized features inplace
     std_normed_df = pd.DataFrame(
-        std_norm_features, columns=col_to_std_or_norm_list, index=df.index
+        std_norm_features, columns=feature_names_list, index=df.index
     )
 
     df.update(std_normed_df)

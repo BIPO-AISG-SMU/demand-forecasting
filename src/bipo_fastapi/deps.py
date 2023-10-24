@@ -5,16 +5,21 @@ import pickle
 from typing import List, Union
 from kedro.io import PartitionedDataset
 from kedro_datasets.pandas import CSVDataSet
+from bipo import settings
+from kedro.config import ConfigLoader
 from bipo_fastapi.hooks import hook_manager
 # from bipo_fastapi.load_data_catalog import catalog
 from bipo_fastapi.load_data_catalog import load_data_catalog
 # Create a logger for this module
 from bipo_fastapi.config import SETTINGS
 import logging
-
-LOGGER = logging.getLogger("kedro")
+conf_loader = ConfigLoader(conf_source=settings.CONF_SOURCE)
+conf_const = conf_loader.get("constants*")
+conf_inference = conf_loader.get("inference*")
+LOGGER = logging.getLogger(settings.LOGGER_NAME)
 
 from bipo_fastapi.schemas import SalesAttributes, SalesPredictions, SalesPrediction
+from bipo_fastapi.common import explain_ebm_inference
 
 # from bipo.inference_pipeline.inference_pipeline import run_pipeline
 # import pipeline object from kedro_pipeline_test
@@ -116,9 +121,9 @@ class PredictionModel:
 
         # save intermediate csv files 
         LOGGER.info(f"Saving model input data.")
-        output_intermediate_file(outlet_df, "inference_outlet_data")
-        output_intermediate_file(lag_sales_df, "inference_lag_sales_data")
-        output_intermediate_file(mkt_df, "inference_mkt_data")
+        output_intermediate_file(outlet_df, conf_const["inference"]["outlet_filename"])
+        output_intermediate_file(lag_sales_df, conf_const["inference"]["lag_sales_filename"])
+        output_intermediate_file(mkt_df, conf_const["inference"]["marketing_filename"])
 
         # get date for inference (use model_input_df)
         dates = outlet_df. iloc[:,0]
@@ -144,7 +149,7 @@ class PredictionModel:
             dates, cost_centre_codes = self.transform_attributes(
                 sales_attrs
             )
-            # load data catalog after saving request as csv files 
+            # load data catalog after saving request as csv files
             catalog = load_data_catalog()
             # load model_input_data from kedro run pipeline
             runner = SequentialRunner()
@@ -160,6 +165,9 @@ class PredictionModel:
                 predictions = self.model.predict_proba(
                 model_input_data
                 )
+                # ebm model explainability
+                if conf_inference["enable_explainability"]:
+                    explain_ebm_inference(model=self.model,model_input_df =model_input_data,pred_y_list=predictions,date_list=dates)
             # orderedmodel
             elif "ordered" in SETTINGS.PRED_MODEL_PATH:
                 predictions = self.model.model.predict(

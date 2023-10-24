@@ -66,8 +66,8 @@ mkt_columns_to_impute_dict: {
 # NOTE: Parameters prefixed with 'fe' are columns which would be dropped after relevant encoding/transformation. They are depended by the code for conducting such activity.
 
 #Possible options: simple_split, expanding_window or sliding_window.
-split_approach_source: "simple_split" 
-
+split_approach_source: "expanding_window" 
+fold: 1  #Fold to use
 
 ### Column specific features for feature engineer involving conversion to boolean state based on hard coded condition.
 # Weather related column for use in creating 'is_raining' feature.
@@ -189,15 +189,19 @@ sma_tsfresh_shift_period: 9
 
 # ----------------------------------------------------------------------
 ########## Used for model_preprocessing module
-model: "ordered_model" # Model to use: "ordered_model" or "ebm"
+model: "ebm" # Model to use: "ordered_model" or "ebm"
 target_column_for_modeling: "binned_proxyrevenue" #For classification. We will use the binned column of the target column as defined above.
 
 drop_columns_used_for_binning_encoding: True # Either true or false
 training_testing_mode: "training" # Mode of pipeline: training or testing
-fold: 1 # Fold to use
 
 # MLflow Tracking Server
 enable_mlflow: True
 is_remote_mlflow: False
 tracking_uri: "http://10.43.130.112:5005"
 experiment_name_prefix: "bipo" # Example experiment_name: bipo-ebm
+
+# ebm model explainability
+enable_explainability: True
+output_type: "html" # png or html
+feature_to_explain_list: ["factor","is_weekday"] # any feature name, or empty

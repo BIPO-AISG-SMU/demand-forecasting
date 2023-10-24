@@ -125,7 +125,7 @@ def mock_non_revenue_diff_dates():
 
 def test_merge_non_proxy_revenue_data_single_dataframe(mock_non_revenue_diff_dates):
     # Test merging non-proxy revenue data from a single DataFrame
-    partitioned_input = {"partition_1": lambda: mock_non_revenue_diff_dates}
+    partitioned_input = {"partition_1": mock_non_revenue_diff_dates}
     merged_df = merge_non_proxy_revenue_data(partitioned_input)
     pd.testing.assert_frame_equal(merged_df, mock_non_revenue_diff_dates)
 
@@ -135,8 +135,8 @@ def test_merge_non_proxy_revenue_data_multiple_dataframes(
 ):
     # Test merging non-proxy revenue data from multiple DataFrames
     partitioned_input = {
-        "mock_non_revenue": lambda: mock_non_revenue,
-        "mock_non_revenue_diff_columns": lambda: mock_non_revenue_diff_columns,
+        "mock_non_revenue": mock_non_revenue,
+        "mock_non_revenue_diff_columns": mock_non_revenue_diff_columns,
     }
     merged_df = merge_non_proxy_revenue_data(partitioned_input)
 
@@ -154,8 +154,8 @@ def test_merge_non_proxy_revenue_data_multiple_dataframes_diff_dates(
 ):
     # Test merging non-proxy revenue data from DataFrames with differing dates
     partitioned_input = {
-        "mock_non_revenue_diff_columns": lambda: mock_non_revenue_diff_columns,
-        "mock_non_revenue_diff_dates": lambda: mock_non_revenue_diff_dates,
+        "mock_non_revenue_diff_columns": mock_non_revenue_diff_columns,
+        "mock_non_revenue_diff_dates": mock_non_revenue_diff_dates,
     }
     merged_df = merge_non_proxy_revenue_data(partitioned_input)
 
@@ -180,7 +180,7 @@ def mock_revenue_partitioned():
     )
     df.set_index(df["Date"], inplace=True)
 
-    outlet_partitioned = {"outlet_1": lambda: df}
+    outlet_partitioned = {"outlet_1": df}
     return outlet_partitioned
 
 
@@ -207,7 +207,7 @@ def test_merge_outlet_and_other_df_feature_zero_value_threshold(
     mock_revenue_partitioned, mock_non_revenue
 ):
     # Test for checking exclusion based on zero value threshold
-    mock_revenue_partitioned["outlet_1"]()["proxyrevenue"] = 0
+    mock_revenue_partitioned["outlet_1"]["proxyrevenue"] = 0
     result = merge_outlet_and_other_df_feature(
         mock_revenue_partitioned, mock_non_revenue, PARAMS_DICT
     )

@@ -1,16 +1,19 @@
 # Overview of Kedro (v0.18.11)
 
 ## What is Kedro?
-Kedro is an open-source Python framework for creating reproducible, maintainable, and modular data science code. It borrows concepts from software engineering best practices and applies them to machine learning code. More information on Kedro is available at their [documentation page](https://kedro.readthedocs.io/en/stable/).
+
+Kedro is an open-source Python framework for creating reproducible, maintainable, and modular data science code. It borrows concepts from software engineering best practices and applies them to machine learning code. More information on Kedro is available in its [documentation](https://kedro.readthedocs.io/en/stable/).
 
 ## Elements of Kedro
+
+Although Kedro has numerous feature and functionalities, not all of them are used in this project. The key elements utilised in the context of the Demand Forecasting module are:
+
 - [Project Template](https://docs.kedro.org/en/stable/kedro_project_setup/starters.html)
   - Inspired by [cookie-cutter data science](https://drivendata.github.io/cookiecutter-data-science/) template
   - Built-in support for Python logging, pytest for unit tests and Sphinx for documentation
 - [Data Catalog](https://docs.kedro.org/en/stable/data/index.html)
 - [Nodes and Pipelines](https://docs.kedro.org/en/stable/nodes_and_pipelines/index.html)
   - Constructs which enable a data-centric workflow
-- [Kedro-Viz](https://docs.kedro.org/en/stable/visualisation/index.html)
 - Experiment Tracking
   - Paired with [MLFlow](https://mlflow.org/)
   - Visualization within Kedro-Viz
