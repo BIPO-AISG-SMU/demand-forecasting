@@ -136,7 +136,7 @@
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="overview.html">BIPO Demand Forecasting Module: Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Project Overview</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
 <ul class="nav bd-sidenav">
@@ -151,6 +151,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -175,6 +176,17 @@
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html">bipo.pipelines.model_specific_preprocessing package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.model_training.html">bipo.pipelines.model_training package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.time_agnostic_feature_engineering.html">bipo.pipelines.time_agnostic_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -345,6 +357,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lag_feature_generation.create_simple_lags"><code class="docutils literal notranslate"><span class="pre">create_simple_lags()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lag_feature_generation.create_sma_lags"><code class="docutils literal notranslate"><span class="pre">create_sma_lags()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lag_feature_generation.generate_data_groups"><code class="docutils literal notranslate"><span class="pre">generate_data_groups()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lag_feature_generation.merge_fold_and_generated_lag"><code class="docutils literal notranslate"><span class="pre">merge_fold_and_generated_lag()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-bipo.pipelines.feature_engineering.lightweightmmm">bipo.pipelines.feature_engineering.lightweightmmm module</a><ul class="nav section-nav flex-column">
@@ -352,6 +365,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features"><code class="docutils literal notranslate"><span class="pre">generate_mmm_features()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features_for_outlets"><code class="docutils literal notranslate"><span class="pre">generate_mmm_features_for_outlets()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.get_fitted_parameters"><code class="docutils literal notranslate"><span class="pre">get_fitted_parameters()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.merge_mmm_features_with_fold_outlets"><code class="docutils literal notranslate"><span class="pre">merge_mmm_features_with_fold_outlets()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.process_mmm_df"><code class="docutils literal notranslate"><span class="pre">process_mmm_df()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.validate_lags"><code class="docutils literal notranslate"><span class="pre">validate_lags()</span></code></a></li>
 </ul>
@@ -363,6 +377,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.nodes.apply_feature_encoding_transform"><code class="docutils literal notranslate"><span class="pre">apply_feature_encoding_transform()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.nodes.apply_standard_norm_fit"><code class="docutils literal notranslate"><span class="pre">apply_standard_norm_fit()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.nodes.apply_standard_norm_transform"><code class="docutils literal notranslate"><span class="pre">apply_standard_norm_transform()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.nodes.concat_same_folds_of_outlet_data"><code class="docutils literal notranslate"><span class="pre">concat_same_folds_of_outlet_data()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.nodes.generate_lag"><code class="docutils literal notranslate"><span class="pre">generate_lag()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.nodes.merge_fold_and_generated_lag"><code class="docutils literal notranslate"><span class="pre">merge_fold_and_generated_lag()</span></code></a></li>
 </ul>
@@ -389,6 +404,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-bipo.pipelines.feature_engineering.tsfresh_node">bipo.pipelines.feature_engineering.tsfresh_node module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.tsfresh_node.feature_engineering_by_outlet"><code class="docutils literal notranslate"><span class="pre">feature_engineering_by_outlet()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.tsfresh_node.get_common_outlet_relevant_features"><code class="docutils literal notranslate"><span class="pre">get_common_outlet_relevant_features()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.tsfresh_node.merge_tsfresh_features_with_outlets"><code class="docutils literal notranslate"><span class="pre">merge_tsfresh_features_with_outlets()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.tsfresh_node.run_tsfresh_feature_engineering_process"><code class="docutils literal notranslate"><span class="pre">run_tsfresh_feature_engineering_process()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.tsfresh_node.run_tsfresh_feature_selection_process"><code class="docutils literal notranslate"><span class="pre">run_tsfresh_feature_selection_process()</span></code></a></li>
 </ul>
@@ -426,21 +442,24 @@ generated using Kedro 0.18.10</p>
 <li><p><strong>fold</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – input string for saving window splits artifacts. Same as partition_id in pipelines.py</p></li>
 <li><p><strong>outlet</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – to assign the values to each outlets.</p></li>
 <li><p><strong>training_testing_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Mode of operating affecting normalization process.</p></li>
-<li><p><strong>binning_encoding_dict</strong> (<em>Dict</em>) – Dictionary to store learned binning parameters.</p></li>
+<li><p><strong>binning_encoding_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>List</em><em>]</em>) – Dictionary to store learned binning parameters in a list identified by fold and outlet.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Updated dictionary with learned binning parameters.</p>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>None.</strong> – </p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Updated dictionary with learned binning parameters.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.binning.equal_freq_binning_transform">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.binning.</span></span><span class="sig-name descname"><span class="pre">equal_freq_binning_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_column_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_labels_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outlet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binning_encoding_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/binning.html#equal_freq_binning_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.binning.equal_freq_binning_transform" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.binning.</span></span><span class="sig-name descname"><span class="pre">equal_freq_binning_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_column_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_labels_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_edges_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/binning.html#equal_freq_binning_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.binning.equal_freq_binning_transform" title="Permalink to this definition">#</a></dt>
 <dd><p>Function that creates equal frequency binning on a specified column of interest with learned binning parameters using pandas qcut method to divide the data evenly into each bin.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -448,17 +467,18 @@ generated using Kedro 0.18.10</p>
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Dataframe to be processed.</p></li>
 <li><p><strong>bin_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – String representing column to be binned.</p></li>
 <li><p><strong>bin_labels_list</strong> (<em>List</em>) – List of bin labels to use when binning.</p></li>
-<li><p><strong>fold</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – input string for saving window splits artifacts. Same as partition_id in pipelines.py</p></li>
-<li><p><strong>outlet</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – to assign the values to each outlets.</p></li>
 <li><p><strong>training_testing_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Mode of operating affecting normalization process.</p></li>
-<li><p><strong>binning_encoding_dict</strong> (<em>Dict</em>) – Dictionary to store learned binning parameters.</p></li>
+<li><p><strong>bin_edges_list</strong> (<em>List</em>) – List of fitted binning parameters identified by fold and outlet.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dataframe with created binned features.</p>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>None.</strong> – </p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dataframe with created binned features.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -468,7 +488,7 @@ generated using Kedro 0.18.10</p>
 <span id="bipo-pipelines-feature-engineering-encoding-module"></span><h2>bipo.pipelines.feature_engineering.encoding module<a class="headerlink" href="#module-bipo.pipelines.feature_engineering.encoding" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.encoding.one_hot_encoding_fit">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.encoding.</span></span><span class="sig-name descname"><span class="pre">one_hot_encoding_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohe_column_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohe_encoding_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outlet</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/encoding.html#one_hot_encoding_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.encoding.one_hot_encoding_fit" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.encoding.</span></span><span class="sig-name descname"><span class="pre">one_hot_encoding_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohe_column_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohe_encoding_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/encoding.html#one_hot_encoding_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.encoding.one_hot_encoding_fit" title="Permalink to this definition">#</a></dt>
 <dd><p>Function which only implements ordinal encoding transformation based on a encoding dictionary containing encodings for respective fold/outlet dataframe.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -477,7 +497,6 @@ generated using Kedro 0.18.10</p>
 <li><p><strong>ohe_column_list</strong> (<em>List</em>) – List of columns to be one hot encoded.</p></li>
 <li><p><strong>ohe_encoding_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>OneHotEncoder</em><em>]</em>) – Loaded object in dictionary by Kedro containing learned one-hot encoding using ‘&lt;fold&gt;_&lt;outlet&gt;’ as key and encoding information as value.</p></li>
 <li><p><strong>fold</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Fold information which dataframe is processed.</p></li>
-<li><p><strong>outlet</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Outlet information which dataframe is processed.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -494,13 +513,12 @@ generated using Kedro 0.18.10</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.encoding.one_hot_encoding_transform">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.encoding.</span></span><span class="sig-name descname"><span class="pre">one_hot_encoding_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohe_column_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohe_encoder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/encoding.html#one_hot_encoding_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.encoding.one_hot_encoding_transform" title="Permalink to this definition">#</a></dt>
-<dd><p>Function which applies retrieves one-hot-encoding on a provided dictionary of one-hot-encodings based on fold/outlet information and applies a transform onto dataframe. This is based on the assumption that all columns provided exists in the dataframe.</p>
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.encoding.</span></span><span class="sig-name descname"><span class="pre">one_hot_encoding_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohe_encoder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/encoding.html#one_hot_encoding_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.encoding.one_hot_encoding_transform" title="Permalink to this definition">#</a></dt>
+<dd><p>Function which applies retrieves one-hot-encoding on a provided dictionary of one-hot-encodings based on fold-based concatenated outlet dataframe and applies a transform. This is based on the assumption that all columns provided exists in the dataframe.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Dataframe to be processed.</p></li>
-<li><p><strong>ohe_column_list</strong> (<em>List</em>) – List of columns to be one-hot encoded.</p></li>
 <li><p><strong>ohe_encoder</strong> (<em>OneHotEncoder</em>) – Fitted sklearn OneHotEncoder.</p></li>
 </ul>
 </dd>
@@ -518,7 +536,7 @@ generated using Kedro 0.18.10</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.encoding.ordinal_encoding_fit">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.encoding.</span></span><span class="sig-name descname"><span class="pre">ordinal_encoding_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordinal_columns_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordinal_encoding_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outlet</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/encoding.html#ordinal_encoding_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.encoding.ordinal_encoding_fit" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.encoding.</span></span><span class="sig-name descname"><span class="pre">ordinal_encoding_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordinal_columns_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordinal_encoding_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/encoding.html#ordinal_encoding_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.encoding.ordinal_encoding_fit" title="Permalink to this definition">#</a></dt>
 <dd><p>Function which only implements ordinal encoding fitting to generate parameters for transform. Assumes the ordinal_columns_dict contains ordinal columns which are found in dataframe to be processed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -527,7 +545,6 @@ generated using Kedro 0.18.10</p>
 <li><p><strong>ordinal_columns_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>List</em><em>]</em>) – Dict containing keys indicating columns to be ordinal encoded and its correspondign ordinal encoding categories in a list.</p></li>
 <li><p><strong>ordinal_encoding_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>OrdinalEncoder</em><em>]</em>) – Loaded object in dictionary by Kedro containing ordinal encoding by &lt;fold&gt;_&lt;outlet&gt; as key and encoding information as value.</p></li>
 <li><p><strong>fold</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Fold information which dataframe is processed.</p></li>
-<li><p><strong>outlet</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Outlet information which dataframe is processed.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -544,13 +561,12 @@ generated using Kedro 0.18.10</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.encoding.ordinal_encoding_transform">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.encoding.</span></span><span class="sig-name descname"><span class="pre">ordinal_encoding_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordinal_columns_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordinal_encoder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/encoding.html#ordinal_encoding_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.encoding.ordinal_encoding_transform" title="Permalink to this definition">#</a></dt>
-<dd><p>Function which only implements ordinal encoding transformation based on an encoding dictionary containing encodings for respective fold/outlet dataframe.</p>
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.encoding.</span></span><span class="sig-name descname"><span class="pre">ordinal_encoding_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordinal_encoder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/encoding.html#ordinal_encoding_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.encoding.ordinal_encoding_transform" title="Permalink to this definition">#</a></dt>
+<dd><p>Function which only implements ordinal encoding transformation based on an encoding dictionary containing encodings for respective fold-based concatenated outlet dataframe.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – DataFrame to be processed.</p></li>
-<li><p><strong>ordinal_columns_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>List</em><em>]</em>) – Dict containing keys indicating columns to be ordinal encoded and its corresponding ordinal encoding categories in a list.</p></li>
 <li><p><strong>ordinal_encoder</strong> (<em>OrdinalEncoder</em>) – Fitted sklearn OrdinalEncoder.</p></li>
 </ul>
 </dd>
@@ -663,6 +679,26 @@ generated using Kedro 0.18.10</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.lag_feature_generation.merge_fold_and_generated_lag">
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.lag_feature_generation.</span></span><span class="sig-name descname"><span class="pre">merge_fold_and_generated_lag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fold_based_outlet_partitioned_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generated_lags_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/lag_feature_generation.html#merge_fold_and_generated_lag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.lag_feature_generation.merge_fold_and_generated_lag" title="Permalink to this definition">#</a></dt>
+<dd><p>Function which merges a dictionary containing calculated outlet lagged values into a dictionary containing fold based outlet partitioned dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fold_based_outlet_partitioned_data</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em>) – Dictionary containing fold based outlet partitioned dataframes which are distinguished by fold and outlet information in the dictionary key.</p></li>
+<li><p><strong>generated_lags_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em>) – PartitionedDataset dictionary containing outlet-based lagged features stored as Kedro PartitionedDataSet that is accessible via its lazy loading function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary containing updated dataframe with lagged features if applicable. Else return same as input.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, pd.DataFrame]</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-bipo.pipelines.feature_engineering.lightweightmmm">
 <span id="bipo-pipelines-feature-engineering-lightweightmmm-module"></span><h2>bipo.pipelines.feature_engineering.lightweightmmm module<a class="headerlink" href="#module-bipo.pipelines.feature_engineering.lightweightmmm" title="Permalink to this heading">#</a></h2>
@@ -757,6 +793,29 @@ generated using Kedro 0.18.10</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.lightweightmmm.merge_mmm_features_with_fold_outlets">
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.lightweightmmm.</span></span><span class="sig-name descname"><span class="pre">merge_mmm_features_with_fold_outlets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitioned_outlet_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partitioned_mmm_input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/lightweightmmm.html#merge_mmm_features_with_fold_outlets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.lightweightmmm.merge_mmm_features_with_fold_outlets" title="Permalink to this definition">#</a></dt>
+<dd><p>Function which left merges a fold-based generated LightweightMMM features to each outlet based on common time-index. This is on the assumption that LightweightMMM features are applicable across all-outlets regardless of outlet types.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>partitioned_outlet_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Dataframe partitioned by outlets from Kedro PartitionedDataSet.</p></li>
+<li><p><strong>partitioned_mmm_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Generated fold-based LightweightMMM features dataframe partitioned by folds.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>None.</strong> – </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing merged dataframes involving both lightweightMMM features and input outlet dataframe features. Otherwise, returns partitioned_outlet_input with dataframe lazy loading function.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, pd.DataFrame]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.lightweightmmm.process_mmm_df">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.lightweightmmm.</span></span><span class="sig-name descname"><span class="pre">process_mmm_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marketing_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mmm_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/lightweightmmm.html#process_mmm_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.lightweightmmm.process_mmm_df" title="Permalink to this definition">#</a></dt>
 <dd><p>process mmm dataframes which include adstock and carryover. Previous day’s adstock/carryover values are added to the current day’s daily cost to get the final daily cost which takes into account adstock/carryover effects.</p>
@@ -796,7 +855,6 @@ generated using Kedro 0.18.10</p>
 </section>
 <section id="module-bipo.pipelines.feature_engineering.nodes">
 <span id="bipo-pipelines-feature-engineering-nodes-module"></span><h2>bipo.pipelines.feature_engineering.nodes module<a class="headerlink" href="#module-bipo.pipelines.feature_engineering.nodes" title="Permalink to this heading">#</a></h2>
-<p>Contains functions that will be used as nodes in pipelines in pipeline.py</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.nodes.apply_binning_fit">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.nodes.</span></span><span class="sig-name descname"><span class="pre">apply_binning_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitions_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/nodes.html#apply_binning_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.nodes.apply_binning_fit" title="Permalink to this definition">#</a></dt>
@@ -804,8 +862,8 @@ generated using Kedro 0.18.10</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>partitions_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Dictionary containing file represented by fold based partitions of a selected data split source as defined in Kedro framework.</p></li>
-<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing key-values from parameters.yml</p></li>
+<li><p><strong>partitions_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – A dictionary with partition ids as keys and dataframe as values.</p></li>
+<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing parameters.yml.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -828,12 +886,12 @@ generated using Kedro 0.18.10</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>partitions_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Dictionary containing file represented by fold based partitions of a selected data split source as defined in Kedro framework.</p></li>
-<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing key-values from parameters.yml</p></li>
+<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing key-values from parameters.yml.</p></li>
 <li><p><strong>binning_encoding_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary containing new/updated encoding parameters.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>None</strong> – </p>
+<dd class="field-even"><p><strong>None.</strong> – </p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dictionary containing new/updated dataframe with unchanged key as per input.</p>
@@ -851,15 +909,15 @@ generated using Kedro 0.18.10</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>partitions_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Dictionary containing file represented by fold based partitions of a selected data split source as defined in Kedro framework.</p></li>
-<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing key-values from parameters.yml</p></li>
+<li><p><strong>partitions_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – A dictionary with partition ids as keys and dataframe as values.</p></li>
+<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing parameters.yml.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>None</strong> – </p>
+<dd class="field-even"><p><strong>None.</strong> – </p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary containing new/updated encoding parameters encompassing sklearn onehotencoder and ordinalencoder. Other encodings can be included if they are implemented in this function.</p>
+<dd class="field-odd"><p>Dictionary containing new/updated encoding parameters encompassing sklearn OrdinalEncoder and OneHotEncoder. Other encodings can be included if they are implemented in this function.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, Any]</p>
@@ -870,23 +928,23 @@ generated using Kedro 0.18.10</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.nodes.apply_feature_encoding_transform">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.nodes.</span></span><span class="sig-name descname"><span class="pre">apply_feature_encoding_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitions_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_encoding_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/nodes.html#apply_feature_encoding_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.nodes.apply_feature_encoding_transform" title="Permalink to this definition">#</a></dt>
-<dd><p>This function applies necessary encoding transform which includes one-hot encoding and categorical encoding. Can be extended to include encoding functions if defined under apply_feature_encoding_fit function.</p>
+<dd><p>This function applies necessary encoding transform which includes both one-hot encoding and categorical encoding. Can be extended to include encoding functions if defined under apply_feature_encoding_fit function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>partitions_dict</strong> (<em>Dict</em>) – Kedro IncrementalDataSet dictionary containing individual outlet related features dataframe as values with filename as identifier</p></li>
-<li><p><strong>params_dict</strong> (<em>Dict</em>) – Dictionary referencing key-values from parameters.yml.</p></li>
-<li><p><strong>feature_encoding_dict</strong> (<em>Dict</em>) – Dictionary containing new/updated encoding parameters which will be used for applying necessary transforms.</p></li>
+<li><p><strong>partitions_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – A dictionary with partition ids as keys and dataframe as values.</p></li>
+<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing parameters.yml.</p></li>
+<li><p><strong>feature_encoding_dict</strong> (<em>Union</em><em>[</em><em>OrdinalEncoder</em><em>, </em><em>OneHotEncoder</em><em>]</em>) – Dictionary containing new/updated encoding parameters which will be used for applying necessary transforms.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>None</strong> – </p>
+<dd class="field-even"><p><strong>None.</strong> – </p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary containing new/updated encoding parameters.</p>
+<dd class="field-odd"><p>Dataframe with encoded features.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, Any]</p>
+<dd class="field-even"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -894,16 +952,16 @@ generated using Kedro 0.18.10</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.nodes.apply_standard_norm_fit">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.nodes.</span></span><span class="sig-name descname"><span class="pre">apply_standard_norm_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitions_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/nodes.html#apply_standard_norm_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.nodes.apply_standard_norm_fit" title="Permalink to this definition">#</a></dt>
-<dd><p>This function applies preferred standardise/normalisation as configured in parameters.yml.</p>
+<dd><p>This function applies required standardise/normalisation fitting as configured in parameters.yml on dataframe partitions representing outlet datasets and saves them into a dictionary containing learned parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>partitions_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Dictionary containing file represented by fold based partitions of a selected data split source as defined in Kedro framework.</p></li>
-<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing key-values from parameters.yml</p></li>
+<li><p><strong>partitions_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – A dictionary with partition ids as keys and dataframe as values.</p></li>
+<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing parameters.yml.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>None</strong> – </p>
+<dd class="field-even"><p><strong>None.</strong> – </p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dictionary containing standardisation/normalisation parameters.</p>
@@ -921,13 +979,13 @@ generated using Kedro 0.18.10</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>partitions_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Dictionary containing file represented by fold based partitions of a selected data split source as defined in Kedro framework.</p></li>
-<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing key-values from parameters.yml</p></li>
-<li><p><strong>std_norm_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary containing new/updated encoding parameters.</p></li>
+<li><p><strong>partitions_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – A dictionary with partition ids as keys and dataframe as values.</p></li>
+<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing parameters.yml.</p></li>
+<li><p><strong>std_norm_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary containing new/updated sklearn StandardScaler/Normalizer parameters.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>None</strong> – </p>
+<dd class="field-even"><p><strong>None.</strong> – </p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dictionary containing new/updated dataframe with unchanged key as per input.</p>
@@ -939,18 +997,38 @@ generated using Kedro 0.18.10</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.nodes.concat_same_folds_of_outlet_data">
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.nodes.</span></span><span class="sig-name descname"><span class="pre">concat_same_folds_of_outlet_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitioned_input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/nodes.html#concat_same_folds_of_outlet_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.nodes.concat_same_folds_of_outlet_data" title="Permalink to this definition">#</a></dt>
+<dd><p>Function that loads and concatenates vertically all outlet data belonging to the same fold together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>partitioned_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Kedro IncrementalDataSet dictionary containing individual outlet related features dataframe as values with filename using outlet as identifier.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing concatenated fold-based outlet data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, pd.DataFrame]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.nodes.generate_lag">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.nodes.</span></span><span class="sig-name descname"><span class="pre">generate_lag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_preprocessed_outlet_partitions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/nodes.html#generate_lag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.nodes.generate_lag" title="Permalink to this definition">#</a></dt>
-<dd><p>Creates a dataframe containing generated lag values based on column_name variable representing dataframe column name according to input lag_days_list from a dataframe instance of a class</p>
+<dd><p>Creates a dataframe containing generated lag values based on column_name variable representing dataframe column name according to params_dict containing lag related parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data_preprocessed_outlet_partitions</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Kedro IncrementalDataSet dictionary containing individual outlet related features dataframe as values with filename as identifier.</p></li>
+<li><p><strong>data_preprocessed_outlet_partitions</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – A dictionary with partition ids as keys and dataframe as values.</p></li>
 <li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary of parameters as referenced from parameters.yml.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>None</strong> – </p>
+<dd class="field-even"><p><strong>None.</strong> – </p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dictionary containing generated dataframe with only lag columns, prefix by ‘id’ as an identifier.</p>
@@ -964,19 +1042,22 @@ generated using Kedro 0.18.10</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.nodes.merge_fold_and_generated_lag">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.nodes.</span></span><span class="sig-name descname"><span class="pre">merge_fold_and_generated_lag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fold_based_outlet_partitioned_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generated_lags_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/nodes.html#merge_fold_and_generated_lag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.nodes.merge_fold_and_generated_lag" title="Permalink to this definition">#</a></dt>
-<dd><p>Function which merges a dictionary containing calculated outlet lagged values into a dictionary containing fold based outlet partitioned dataframe.</p>
+<dd><p>Function which merges a dictionary containing calculated outlet lagged values into a dictionary containing fold-based outlet partitioned dataframe via left merge (left dataframe referring to fold-based outlet partitioned dataframe).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fold_based_outlet_partitioned_data</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em>) – Kedro IncrementalDataSet dictionary containing individual outlet related features dataframe as values with filename as identifier.</p></li>
-<li><p><strong>generated_lags_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Kedro IncrementalDataSet dictionary containing outlet-based dataframe comprising of lagged features as values which are identified by its corresponding key in the dictionary.</p></li>
+<li><p><strong>fold_based_outlet_partitioned_data</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em>) – A dictionary with partition ids as keys and dataframe as values.</p></li>
+<li><p><strong>generated_lags_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – A dictionary with partition ids as keys and dataframe as values.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary containing updated dataframe with lagged features if applicable. Else, return fold_based_outlet_partitioned_data.</p>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>None.</strong> – </p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, pd.DataFrame]</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing updated dataframe with lagged features if applicable. Else, return fold_based_outlet_partitioned_data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, pd.DataFrame]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1025,16 +1106,13 @@ generated using Kedro 0.18.10</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.standardize_normalize.standard_norm_transform">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.standardize_normalize.</span></span><span class="sig-name descname"><span class="pre">standard_norm_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_to_std_or_norm_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_norm_encoding_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outlet</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/standardize_normalize.html#standard_norm_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.standardize_normalize.standard_norm_transform" title="Permalink to this definition">#</a></dt>
-<dd><p>Function which applies learned sklearn standardscaler/normalizer parameters learned from a dictionary that contains fold and outlet informations’ standard scaling parameters. It assumes that the col_to_std_or_norm_list contains columns which can be found in dataframe columns.</p>
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.standardize_normalize.</span></span><span class="sig-name descname"><span class="pre">standard_norm_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_norm_object</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/standardize_normalize.html#standard_norm_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.standardize_normalize.standard_norm_transform" title="Permalink to this definition">#</a></dt>
+<dd><p>Function which utilises sklearn learned standardscaler/normalizer object ‘std_norm_object’ containing list of features for value transformation which can be found in dataframe columns assuming same dataframe is used.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Dataframe to process.</p></li>
-<li><p><strong>col_to_std_or_norm_list</strong> (<em>List</em>) – List of dataframe columns which standardization is to be applied.</p></li>
-<li><p><strong>std_norm_encoding_dict</strong> (<em>Dict</em>) – Dictionary that contains fold and outlet informations’ standardization/normalisation parameters.</p></li>
-<li><p><strong>fold</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – fold information which the dataframe represents.</p></li>
-<li><p><strong>outlet</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – outlet information which the dataframe represents.</p></li>
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Dataframe to process for standardisation/normalisation.</p></li>
+<li><p><strong>std_norm_object</strong> (<em>Union</em><em>[</em><em>Normalizer</em><em>, </em><em>StandardScaler</em><em>]</em>) – Learned sklearn Normalizer or StandardScaler object.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -1143,7 +1221,7 @@ For every feature the influence on the target is evaluated by univariate tests a
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>relevant_features_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Dict</em><em>]</em>) – Dictionary containing the relevant calculated/learned tsfresh features artefacts</p></li>
-<li><p><strong>outlet_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Dictionary containing outlet  partitions in dataframe identified by its id through a filename from partitioned_dataset.</p></li>
+<li><p><strong>outlet_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Kedro MemoryDataSet dictionary partitioned by outlets loaded in memory containing individual outlet dataframes.</p></li>
 <li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Parameters referenced from parameters.yml.</p></li>
 <li><p><strong>extracted_tsfresh_features_outlet_dict</strong> – Dict[str, pd.DataFrame]: Dictionary used for storing tsfresh_features_engineered identified by fold and outlet info.</p></li>
 </ul>
@@ -1172,7 +1250,30 @@ For every feature the influence on the target is evaluated by univariate tests a
 <dd class="field-even"><p>Dictionary of relevant features that is in a suitable format for tsfresh extract features.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>,<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a>]</p>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.tsfresh_node.merge_tsfresh_features_with_outlets">
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.tsfresh_node.</span></span><span class="sig-name descname"><span class="pre">merge_tsfresh_features_with_outlets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitioned_outlet_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partitioned_tsfresh_input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/tsfresh_node.html#merge_tsfresh_features_with_outlets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.tsfresh_node.merge_tsfresh_features_with_outlets" title="Permalink to this definition">#</a></dt>
+<dd><p>Function which left merges a outlet-based generated tsfresh features to each outlet based on common time-index. As the id used for both partitioned inputs are the same, joining can be simply made by using one of the id retreived from either of the inputs and doing a direct referencing from both dictionary keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>partitioned_outlet_input</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>]) – Dict[str, pd.DataFrame]: Kedro MemoryDataSet dictionary partitioned by outlets loaded in memory containing outlet dataframes.</p></li>
+<li><p><strong>partitioned_mmm_input</strong> – Dict[str, pd.DataFrame]: Kedro IncrementalDataset of dataframe representing fold-based outlets.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>None.</strong> – </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing merged dataframes involving both tsfresh features and input outlet dataframe features. Otherwise, returns partitioned_outlet_input with dataframe lazy loading function.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Union[Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, pd.DataFrame], Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, pd.DataFrame]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1184,8 +1285,8 @@ For every feature the influence on the target is evaluated by univariate tests a
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>partitioned_tsfresh_artefacts_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – partitioned input for tsfresh relevant features json artefacts</p></li>
-<li><p><strong>partitioned_outlet_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – dictionary containing a fold_outlet as keys and outlet dataframes as values. E.g {fold1_outlet_1: outlet_1_df}</p></li>
+<li><p><strong>partitioned_tsfresh_artefacts_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – partitioned input for tsfresh relevant features json artefacts</p></li>
+<li><p><strong>partitioned_outlet_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em>) – dictionary containing a fold_outlet as keys and outlet dataframes as values. E.g {fold1_outlet_1: outlet_1_df}</p></li>
 <li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Parameters referencing parameters.yml.</p></li>
 </ul>
 </dd>
@@ -1205,7 +1306,7 @@ For every feature the influence on the target is evaluated by univariate tests a
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>partitioned_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – partitioned input for training fold outlet dataframe.</p></li>
+<li><p><strong>partitioned_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>,</em><em>pd.DataFrame</em><em>]</em>) – partitioned input for training fold outlet dataframe.</p></li>
 <li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Parameters referencing parameters.yml.</p></li>
 </ul>
 </dd>
@@ -1283,6 +1384,7 @@ For every feature the influence on the target is evaluated by univariate tests a
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lag_feature_generation.create_simple_lags"><code class="docutils literal notranslate"><span class="pre">create_simple_lags()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lag_feature_generation.create_sma_lags"><code class="docutils literal notranslate"><span class="pre">create_sma_lags()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lag_feature_generation.generate_data_groups"><code class="docutils literal notranslate"><span class="pre">generate_data_groups()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lag_feature_generation.merge_fold_and_generated_lag"><code class="docutils literal notranslate"><span class="pre">merge_fold_and_generated_lag()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-bipo.pipelines.feature_engineering.lightweightmmm">bipo.pipelines.feature_engineering.lightweightmmm module</a><ul class="nav section-nav flex-column">
@@ -1290,6 +1392,7 @@ For every feature the influence on the target is evaluated by univariate tests a
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features"><code class="docutils literal notranslate"><span class="pre">generate_mmm_features()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features_for_outlets"><code class="docutils literal notranslate"><span class="pre">generate_mmm_features_for_outlets()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.get_fitted_parameters"><code class="docutils literal notranslate"><span class="pre">get_fitted_parameters()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.merge_mmm_features_with_fold_outlets"><code class="docutils literal notranslate"><span class="pre">merge_mmm_features_with_fold_outlets()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.process_mmm_df"><code class="docutils literal notranslate"><span class="pre">process_mmm_df()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.validate_lags"><code class="docutils literal notranslate"><span class="pre">validate_lags()</span></code></a></li>
 </ul>
@@ -1301,6 +1404,7 @@ For every feature the influence on the target is evaluated by univariate tests a
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.nodes.apply_feature_encoding_transform"><code class="docutils literal notranslate"><span class="pre">apply_feature_encoding_transform()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.nodes.apply_standard_norm_fit"><code class="docutils literal notranslate"><span class="pre">apply_standard_norm_fit()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.nodes.apply_standard_norm_transform"><code class="docutils literal notranslate"><span class="pre">apply_standard_norm_transform()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.nodes.concat_same_folds_of_outlet_data"><code class="docutils literal notranslate"><span class="pre">concat_same_folds_of_outlet_data()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.nodes.generate_lag"><code class="docutils literal notranslate"><span class="pre">generate_lag()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.nodes.merge_fold_and_generated_lag"><code class="docutils literal notranslate"><span class="pre">merge_fold_and_generated_lag()</span></code></a></li>
 </ul>
@@ -1327,6 +1431,7 @@ For every feature the influence on the target is evaluated by univariate tests a
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-bipo.pipelines.feature_engineering.tsfresh_node">bipo.pipelines.feature_engineering.tsfresh_node module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.tsfresh_node.feature_engineering_by_outlet"><code class="docutils literal notranslate"><span class="pre">feature_engineering_by_outlet()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.tsfresh_node.get_common_outlet_relevant_features"><code class="docutils literal notranslate"><span class="pre">get_common_outlet_relevant_features()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.tsfresh_node.merge_tsfresh_features_with_outlets"><code class="docutils literal notranslate"><span class="pre">merge_tsfresh_features_with_outlets()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.tsfresh_node.run_tsfresh_feature_engineering_process"><code class="docutils literal notranslate"><span class="pre">run_tsfresh_feature_engineering_process()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.tsfresh_node.run_tsfresh_feature_selection_process"><code class="docutils literal notranslate"><span class="pre">run_tsfresh_feature_selection_process()</span></code></a></li>
 </ul>

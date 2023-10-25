@@ -1,4 +1,4 @@
-# BIPO Demand Forecasting Module: Project Overview
+# Project Overview
 
 ## Purpose of Documentation
 
@@ -88,6 +88,8 @@ The files above have been configured with the default recommended parameters to 
 | **docker/** | Contains all Docker archive files. Containerised image are exported into `.tar` archive files and stored here for loading into AWS ECR.| |
 | `100E_BIPO_docker_inference.tar` | Docker image archive containing model serving API and inference submodule. | 18/08/2023 (initial deployment) |
 | `100E_BIPO_docker_training.tar` | Docker image archive containing model training submodule. | 19/10/2023 (final deployment) |
+| `bipo-model-training-cpu.Dockerfile` | Dockerfile used to build the Docker image in `100E_BIPO_docker_training.tar` | 19/10/2023 (final deployment) |
+| `bipo-model-serving.Dockerfile` | Dockerfile used to build the Docker image in `100E_BIPO_docker_inference.tar` | 19/10/2023 (final deployment) |
 
 ### Logs
 

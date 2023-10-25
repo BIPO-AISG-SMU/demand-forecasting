@@ -1,0 +1,710 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tests.pipelines.data_loader.test_nodes &#8212; BIPO Demand Forecasting v1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/tests/pipelines/data_loader/test_nodes';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">Project Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-deployment-env-setup.html">Deployment Environment Setup - Inference Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-deployment-env-setup.html">Deployment Environment Setup - Training Module</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Pipeline</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data-pipeline.html">Data Pipeline</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../experiment-tracking.html">Experiment Tracking</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-endpoint.html">Model Serving Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../inference-module.html">Inference Module</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.data_merge.html">bipo.pipelines.data_merge package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.data_preprocessing.html">bipo.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.data_split.html">bipo.pipelines.data_split package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.feature_engineering.html">bipo.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.model_evaluation.html">bipo.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.model_specific_preprocessing.html">bipo.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.model_training.html">bipo.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html">bipo.pipelines.time_agnostic_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../bipo_fastapi.html">bipo_fastapi package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for tests.pipelines.data_loader.test_nodes</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">from</span> <span class="nn">bipo.utils</span> <span class="kn">import</span> <span class="n">get_project_path</span>
+<span class="kn">from</span> <span class="nn">kedro.config</span> <span class="kn">import</span> <span class="n">ConfigLoader</span>
+<span class="kn">from</span> <span class="nn">kedro.framework.project</span> <span class="kn">import</span> <span class="n">settings</span>
+
+<span class="n">project_path</span> <span class="o">=</span> <span class="n">get_project_path</span><span class="p">()</span>
+<span class="c1"># conf_loader = ConfigLoader(conf_source=project_path / &quot;conf&quot;)</span>
+<span class="c1"># conf_loader = ConfigLoader(conf_source=settings.PROJECT_PATH / settings.CONF_SOURCE)</span>
+<span class="c1"># const_dict = conf_loader.get(&quot;constants*&quot;)</span>
+
+<span class="c1"># DEFAULT CONSTANTS</span>
+<span class="c1"># DEFAULT_DATE_COL = const_dict[&quot;default_date_col&quot;]</span>
+
+<span class="c1"># import dataloader node</span>
+<span class="kn">from</span> <span class="nn">bipo.pipelines.data_loader.nodes</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">load_and_partition_proxy_revenue_data</span><span class="p">,</span>
+    <span class="n">load_and_structure_marketing_data</span><span class="p">,</span>
+    <span class="n">load_and_structure_propensity_data</span><span class="p">,</span>
+    <span class="n">load_and_structure_weather_data</span><span class="p">,</span>
+    <span class="n">rename_merge_unique_csv_xlsx_df_col_index</span><span class="p">,</span>
+    <span class="n">merge_unique_csv_xlsx_df</span><span class="p">,</span>
+    <span class="n">rename_columns</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1">######### Add Fixtures Here ##################</span>
+<span class="c1"># example dataset</span>
+<span class="c1"># create or read a multi_daily_records or unique_daily_records file</span>
+
+
+<span class="c1"># @pytest.fixture</span>
+<span class="c1"># def empty_dataset():</span>
+<span class="c1">#     return pd.DataFrame()  # empty dataframe</span>
+
+
+<span class="c1">######### Test `rename_columns` ##############</span>
+<div class="viewcode-block" id="test_rename_columns"><a class="viewcode-back" href="../../../../tests.pipelines.data_loader.html#tests.pipelines.data_loader.test_nodes.test_rename_columns">[docs]</a><span class="k">def</span> <span class="nf">test_rename_columns</span><span class="p">():</span>
+    <span class="c1"># Test with a string that contains spaces and non-alphanumeric characters</span>
+    <span class="n">input_string</span> <span class="o">=</span> <span class="s2">&quot; Date #$Q(&quot;</span>
+    <span class="n">expected_output</span> <span class="o">=</span> <span class="s2">&quot;date_q&quot;</span>
+    <span class="k">assert</span> <span class="n">rename_columns</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected_output</span>
+
+    <span class="c1"># Test with a string that contains leading and trailing spaces</span>
+    <span class="n">input_string</span> <span class="o">=</span> <span class="s2">&quot;  Leading and Trailing Spaces &quot;</span>  <span class="c1"># will error if there is a &quot;_&quot; at the end of string</span>
+    <span class="n">expected_output</span> <span class="o">=</span> <span class="s2">&quot;leading_and_trailing_spaces&quot;</span>
+    <span class="k">assert</span> <span class="n">rename_columns</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected_output</span>
+
+    <span class="c1"># Test with an empty string (should return &quot;&quot;)</span>
+    <span class="n">input_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">expected_output</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">rename_columns</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected_output</span>
+
+    <span class="c1"># Test with None (should return None)</span>
+    <span class="n">input_string</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">expected_output</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">assert</span> <span class="n">rename_columns</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected_output</span></div>
+
+
+<span class="c1">######### Test `merge_df` assume outer join ##############</span>
+<div class="viewcode-block" id="test_merge_unique_csv_xlsx_df"><a class="viewcode-back" href="../../../../tests.pipelines.data_loader.html#tests.pipelines.data_loader.test_nodes.test_merge_unique_csv_xlsx_df">[docs]</a><span class="k">def</span> <span class="nf">test_merge_unique_csv_xlsx_df</span><span class="p">():</span>  <span class="c1"># data from unique_daily_records (holiday, covid data)</span>
+    <span class="n">sample_df_to_merge</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-01-02&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Value1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+            <span class="s2">&quot;Value2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">sample_df_to_merge_wrong_id</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;wrong_id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-01-02&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Value1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+            <span class="s2">&quot;Value2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">sample_base_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span><span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-01-03&quot;</span><span class="p">],</span> <span class="s2">&quot;Value3&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">]}</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Call the function to be tested</span>
+    <span class="n">combine_df</span> <span class="o">=</span> <span class="n">merge_unique_csv_xlsx_df</span><span class="p">(</span><span class="n">sample_df_to_merge</span><span class="p">,</span> <span class="n">sample_base_df</span><span class="p">)</span>
+
+    <span class="c1"># Check for expected columns in output result of the merge operation</span>
+    <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">col</span> <span class="ow">in</span> <span class="n">combine_df</span><span class="o">.</span><span class="n">columns</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Value1&quot;</span><span class="p">,</span> <span class="s2">&quot;Value2&quot;</span><span class="p">,</span> <span class="s2">&quot;Value3&quot;</span><span class="p">])</span>
+
+    <span class="c1"># Check for expected shape in output result of the merge operation</span>
+    <span class="k">assert</span> <span class="n">combine_df</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="c1"># Check output shape if expected index in not in df</span>
+    <span class="k">assert</span> <span class="n">merge_unique_csv_xlsx_df</span><span class="p">(</span>
+        <span class="n">sample_df_to_merge_wrong_id</span><span class="p">,</span> <span class="n">sample_base_df</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="test_rename_merge_unique_csv_xlsx_df_col_index"><a class="viewcode-back" href="../../../../tests.pipelines.data_loader.html#tests.pipelines.data_loader.test_nodes.test_rename_merge_unique_csv_xlsx_df_col_index">[docs]</a><span class="k">def</span> <span class="nf">test_rename_merge_unique_csv_xlsx_df_col_index</span><span class="p">():</span>  <span class="c1"># any data. This function is called after merge_df.</span>
+    <span class="n">sample_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;Date&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-01-02&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Value1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+            <span class="s2">&quot;Value2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">sample_df</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">sample_df</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">])</span>
+    <span class="c1"># Check when the date column is already in lowercase and present (if- statement)</span>
+    <span class="n">df1</span> <span class="o">=</span> <span class="n">sample_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">result_df1</span> <span class="o">=</span> <span class="n">rename_merge_unique_csv_xlsx_df_col_index</span><span class="p">(</span><span class="n">df1</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">result_df1</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;Date&quot;</span>
+
+    <span class="c1"># Check when the date column is missing, return None</span>
+    <span class="n">df2</span> <span class="o">=</span> <span class="n">sample_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df2</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="s2">&quot;Date&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">result_df2</span> <span class="o">=</span> <span class="n">rename_merge_unique_csv_xlsx_df_col_index</span><span class="p">(</span><span class="n">df2</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">result_df2</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="kc">None</span></div>
+
+    <span class="c1"># Check when neither the original nor renamed date-related column is present (else-statement)</span>
+    <span class="c1"># df3 = sample_df.copy()</span>
+    <span class="c1"># df3.drop(columns=[&quot;date&quot;], inplace=True)</span>
+    <span class="c1"># result_df3 = lowercase_set_date_on_partitions(df3)</span>
+    <span class="c1"># assert result_df3.index.name is None</span>
+
+
+<div class="viewcode-block" id="test_load_and_partition_proxy_revenue_data"><a class="viewcode-back" href="../../../../tests.pipelines.data_loader.html#tests.pipelines.data_loader.test_nodes.test_load_and_partition_proxy_revenue_data">[docs]</a><span class="k">def</span> <span class="nf">test_load_and_partition_proxy_revenue_data</span><span class="p">():</span>  <span class="c1"># data from proxy reveune</span>
+    <span class="n">sample_proxy_reveune_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;CostCentreCode&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">201</span><span class="p">,</span> <span class="mi">202</span><span class="p">],</span>
+            <span class="s2">&quot;Date&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2022-01-02&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;ManHours&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">31.2</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">],</span>
+            <span class="s2">&quot;ProxyRevenue&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1000.0</span><span class="p">,</span> <span class="mf">2000.0</span><span class="p">],</span>
+            <span class="s2">&quot;Location&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;West&quot;</span><span class="p">,</span> <span class="s2">&quot;East&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Outlet&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;West-1&quot;</span><span class="p">,</span> <span class="s2">&quot;East-1&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;carry-out&quot;</span><span class="p">,</span> <span class="s2">&quot;dine-in&quot;</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">missing_costcentre_proxy_reveune_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;MissingCostCentreCode&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">201</span><span class="p">,</span> <span class="mi">202</span><span class="p">],</span>
+            <span class="s2">&quot;Date&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2022-01-02&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;ManHours&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">31.2</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">],</span>
+            <span class="s2">&quot;ProxyRevenue&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1000.0</span><span class="p">,</span> <span class="mf">2000.0</span><span class="p">],</span>
+            <span class="s2">&quot;Location&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;West&quot;</span><span class="p">,</span> <span class="s2">&quot;East&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Outlet&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;West-1&quot;</span><span class="p">,</span> <span class="s2">&quot;East-1&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;carry-out&quot;</span><span class="p">,</span> <span class="s2">&quot;dine-in&quot;</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">outlet_part_dict</span> <span class="o">=</span> <span class="n">load_and_partition_proxy_revenue_data</span><span class="p">(</span><span class="n">sample_proxy_reveune_df</span><span class="p">)</span>
+    <span class="c1"># check if outlet_part_dict is a dict</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">outlet_part_dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+    <span class="c1"># check if cost centre 201 and 202 is in the outlet dict</span>
+    <span class="c1"># assert any(key in [201, 202] for key in outlet_part_dict.keys())</span>
+    <span class="k">assert</span> <span class="s2">&quot;proxy_revenue_201&quot;</span> <span class="ow">and</span> <span class="s2">&quot;proxy_revenue_202&quot;</span> <span class="ow">in</span> <span class="n">outlet_part_dict</span>
+
+    <span class="c1"># check if the number of columns is expected</span>
+    <span class="n">proxy_revenue_201_df</span> <span class="o">=</span> <span class="n">outlet_part_dict</span><span class="p">[</span><span class="s2">&quot;proxy_revenue_201&quot;</span><span class="p">]</span>
+    <span class="n">given_columns</span> <span class="o">=</span> <span class="n">proxy_revenue_201_df</span><span class="o">.</span><span class="n">columns</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">given_columns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span>
+
+    <span class="c1"># check if datatype of each column (numeric and string)</span>
+    <span class="c1"># given_columns = outlet_part_dict[&quot;proxy_revenue_201&quot;].columns</span>
+    <span class="k">assert</span> <span class="n">proxy_revenue_201_df</span><span class="p">[</span><span class="s2">&quot;costcentrecode&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">int</span>
+    <span class="k">assert</span> <span class="n">proxy_revenue_201_df</span><span class="p">[</span><span class="s2">&quot;manhours&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="k">assert</span> <span class="n">proxy_revenue_201_df</span><span class="p">[</span><span class="s2">&quot;proxyrevenue&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="k">assert</span> <span class="n">proxy_revenue_201_df</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">object</span>
+    <span class="k">assert</span> <span class="n">proxy_revenue_201_df</span><span class="p">[</span><span class="s2">&quot;outlet&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">object</span>
+    <span class="k">assert</span> <span class="n">proxy_revenue_201_df</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">object</span>
+
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">):</span>
+        <span class="n">load_and_partition_proxy_revenue_data</span><span class="p">(</span><span class="n">missing_costcentre_proxy_reveune_df</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="test_load_and_structure_propensity_data"><a class="viewcode-back" href="../../../../tests.pipelines.data_loader.html#tests.pipelines.data_loader.test_nodes.test_load_and_structure_propensity_data">[docs]</a><span class="k">def</span> <span class="nf">test_load_and_structure_propensity_data</span><span class="p">():</span>  <span class="c1"># data from propensity</span>
+    <span class="n">sample_propensity_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;Date&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;2022-01-02&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;Location&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;North&quot;</span><span class="p">,</span> <span class="s2">&quot;South&quot;</span><span class="p">,</span> <span class="s2">&quot;West&quot;</span><span class="p">,</span> <span class="s2">&quot;East&quot;</span><span class="p">,</span> <span class="s2">&quot;North&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Factor&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="c1"># Generate function output</span>
+    <span class="n">groupby_df</span> <span class="o">=</span> <span class="n">load_and_structure_propensity_data</span><span class="p">(</span><span class="n">sample_propensity_df</span><span class="p">)</span>
+
+    <span class="c1"># Check if Factor is mean value</span>
+    <span class="k">assert</span> <span class="n">groupby_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;factor&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">1.3125</span>
+
+    <span class="c1"># Check if the shape is as expected</span>
+    <span class="k">assert</span> <span class="n">groupby_df</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 2 date row, 1 mean factor column</span>
+
+    <span class="c1"># check if datatype of each column (numeric)</span>
+    <span class="k">assert</span> <span class="n">groupby_df</span><span class="p">[</span><span class="s2">&quot;factor&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+
+    <span class="c1"># Check if error is raise when &quot;Factor&quot; is missing</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">):</span>
+        <span class="n">sample_propensity_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">&quot;Factor&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">load_and_structure_propensity_data</span><span class="p">(</span><span class="n">sample_propensity_df</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="test_load_and_structure_marketing_data"><a class="viewcode-back" href="../../../../tests.pipelines.data_loader.html#tests.pipelines.data_loader.test_nodes.test_load_and_structure_marketing_data">[docs]</a><span class="k">def</span> <span class="nf">test_load_and_structure_marketing_data</span><span class="p">():</span>  <span class="c1"># data from marketing</span>
+    <span class="c1"># all sample df has a date range of 7 days</span>
+    <span class="n">sample_campaign1_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;campaign1&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">7</span><span class="p">,</span>
+            <span class="s2">&quot;Date Start&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">7</span><span class="p">,</span>
+            <span class="s2">&quot;Date End&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;2021-01-07&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">7</span><span class="p">,</span>
+            <span class="s2">&quot;Mode&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;TV Ad&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Radio Ad&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Instagram Ad&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Facebook Ad&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Youtube Ad&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Poster Campaign&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Digital&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;Total Cost&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">9000</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">7000</span><span class="p">,</span> <span class="mi">6000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="c1"># This df will be dropped in the function</span>
+    <span class="n">sample_campaign2_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;campaign2&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">7</span><span class="p">,</span>
+            <span class="s2">&quot;Date Start&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">7</span><span class="p">,</span>
+            <span class="s2">&quot;Date End&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;2021-01-07&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">7</span><span class="p">,</span>
+            <span class="s2">&quot;Mode&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;TV Ad&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Radio Ad&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Instagram Ad&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Facebook Ad&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Youtube Ad&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Poster Campaign&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Digital&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;Total Cost&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="c1"># This df will be merged with df3 in the function</span>
+    <span class="n">sample_campaign3_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;campaign3&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">7</span><span class="p">,</span>
+            <span class="s2">&quot;Date Start&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;2021-01-03&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">7</span><span class="p">,</span>
+            <span class="s2">&quot;Date End&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;2021-01-07&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">7</span><span class="p">,</span>
+            <span class="s2">&quot;Mode&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;TV Ad&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Radio Ad&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Instagram Ad&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Facebook Ad&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Youtube Ad&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Poster Campaign&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Digital&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;Total Cost&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">9000</span><span class="p">,</span> <span class="mi">8000</span><span class="p">,</span> <span class="mi">7000</span><span class="p">,</span> <span class="mi">6000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">4000</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="c1"># merge all campaign</span>
+    <span class="n">marketing_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">sample_campaign1_df</span><span class="p">,</span> <span class="n">sample_campaign2_df</span><span class="p">,</span> <span class="n">sample_campaign3_df</span><span class="p">],</span>
+        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">join</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">marketing_df</span><span class="p">[</span><span class="s2">&quot;Date End&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">marketing_df</span><span class="p">[</span><span class="s2">&quot;Date End&quot;</span><span class="p">])</span>
+    <span class="n">marketing_df</span><span class="p">[</span><span class="s2">&quot;Date Start&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">marketing_df</span><span class="p">[</span><span class="s2">&quot;Date Start&quot;</span><span class="p">])</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">load_and_structure_marketing_data</span><span class="p">(</span><span class="n">marketing_df</span><span class="p">)</span>
+
+    <span class="c1"># Check if there is 7 days</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span>
+
+    <span class="c1"># Check if there is no NaN values</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span>
+
+    <span class="c1"># Check if there are more than 1 campaign, &quot;name&quot; will have a list with 2 values</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2021-01-03&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">2</span>
+
+    <span class="c1"># Check if there are more than 1 campaign, &quot;facebook_ad&quot; will be sum of 2 campaign daily cost 2400.0</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2021-01-03&quot;</span><span class="p">,</span> <span class="s2">&quot;facebook_ad_daily_cost&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">2400.0</span>
+
+    <span class="c1"># Check if campaign 2 is removed. Not in &quot;name&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;campaign2&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">]:</span>
+            <span class="k">assert</span> <span class="kc">True</span>  <span class="c1"># Assert that the condition is True</span>
+
+    <span class="c1"># Check final output df is datatype (numeric) for daily cost columns</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">list</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;tv_ad_daily_cost&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;radio_ad_daily_cost&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;instagram_ad_daily_cost&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;facebook_ad_daily_cost&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;youtube_ad_daily_cost&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;poster_campaign_daily_cost&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;digital_daily_cost&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+
+    <span class="c1"># Check if error is raise when mkt columns are missing</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">):</span>
+        <span class="n">marketing_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">&quot;Date Start&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">load_and_structure_marketing_data</span><span class="p">(</span><span class="n">marketing_df</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="test_load_and_structure_weather_data"><a class="viewcode-back" href="../../../../tests.pipelines.data_loader.html#tests.pipelines.data_loader.test_nodes.test_load_and_structure_weather_data">[docs]</a><span class="k">def</span> <span class="nf">test_load_and_structure_weather_data</span><span class="p">():</span>  <span class="c1"># data from weather</span>
+    <span class="c1"># all sample df has a date range of 7 days</span>
+    <span class="n">sample_weather_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;DIRECTION&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;North&quot;</span><span class="p">,</span> <span class="s2">&quot;South&quot;</span><span class="p">,</span> <span class="s2">&quot;East&quot;</span><span class="p">,</span> <span class="s2">&quot;West&quot;</span><span class="p">,</span> <span class="s2">&quot;North&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Station&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;Admiralty&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Marina Barrage&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Changi&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Jurong (West)&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Admiralty&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;Year&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">2021</span><span class="p">,</span> <span class="mi">2021</span><span class="p">,</span> <span class="mi">2021</span><span class="p">,</span> <span class="mi">2022</span><span class="p">],</span>
+            <span class="s2">&quot;Month&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="s2">&quot;Day&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="s2">&quot;Daily Rainfall Total (mm)&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">10.2</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">7.8</span><span class="p">,</span> <span class="mf">12.3</span><span class="p">],</span>
+            <span class="s2">&quot;Highest 30 min Rainfall (mm)&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.2</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">,</span> <span class="mf">4.6</span><span class="p">],</span>
+            <span class="s2">&quot;Highest 60 min Rainfall (mm)&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">5.7</span><span class="p">,</span> <span class="mf">4.3</span><span class="p">,</span> <span class="mf">7.8</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">],</span>
+            <span class="s2">&quot;Highest 120 min Rainfall (mm)&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">8.9</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">10.3</span><span class="p">,</span> <span class="mf">5.6</span><span class="p">,</span> <span class="mf">9.4</span><span class="p">],</span>
+            <span class="s2">&quot;Mean Temperature (°C)&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">28.1</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">,</span> <span class="mf">26.8</span><span class="p">,</span> <span class="mf">27.3</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">],</span>
+            <span class="s2">&quot;Maximum Temperature (°C)&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">32.4</span><span class="p">,</span> <span class="mf">33.8</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">,</span> <span class="mf">31.2</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">],</span>
+            <span class="s2">&quot;Minimum Temperature (°C)&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">24.2</span><span class="p">,</span> <span class="mf">25.6</span><span class="p">,</span> <span class="mf">23.6</span><span class="p">,</span> <span class="mf">24.8</span><span class="p">,</span> <span class="mf">26.7</span><span class="p">],</span>
+            <span class="s2">&quot;Mean Wind Speed (km/h)&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">12.1</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">,</span> <span class="mf">14.3</span><span class="p">,</span> <span class="mf">11.8</span><span class="p">,</span> <span class="mf">13.2</span><span class="p">],</span>
+            <span class="s2">&quot;Max Wind Speed (km/h)&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">18.7</span><span class="p">,</span> <span class="mf">17.2</span><span class="p">,</span> <span class="mf">20.4</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="c1"># Check if the output is mean</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">load_and_structure_weather_data</span><span class="p">(</span><span class="n">sample_weather_df</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;highest_120_min_rainfall_mm&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">8.0</span>
+
+    <span class="c1"># Check final output df is datatype (numeric) for weather columns</span>
+    <span class="c1"># these 2 columns contains NaN</span>
+    <span class="c1"># assert df[&quot;direction&quot;].dtype == float</span>
+    <span class="c1"># assert df[&quot;station&quot;].dtype == float</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;daily_rainfall_total_mm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;highest_30_min_rainfall_mm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;highest_120_min_rainfall_mm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;mean_temperature_c&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;maximum_temperature_c&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;minimum_temperature_c&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;mean_wind_speed_kmh&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;max_wind_speed_kmh&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+
+    <span class="c1"># Check if error is raise when mkt columns are missing</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">):</span>
+        <span class="n">sample_weather_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">&quot;Year&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">load_and_structure_weather_data</span><span class="p">(</span><span class="n">sample_weather_df</span><span class="p">)</span></div>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By AI Singapore
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, AI Singapore.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

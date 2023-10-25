@@ -136,7 +136,7 @@
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="overview.html">BIPO Demand Forecasting Module: Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Project Overview</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
 <ul class="nav bd-sidenav">
@@ -151,6 +151,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -175,6 +176,17 @@
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html">bipo.pipelines.model_specific_preprocessing package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.model_training.html">bipo.pipelines.model_training package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.time_agnostic_feature_engineering.html">bipo.pipelines.time_agnostic_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -373,8 +385,6 @@ generated using Kedro 0.18.10</p>
 </section>
 <section id="module-bipo.pipelines.data_split.nodes">
 <span id="bipo-pipelines-data-split-nodes-module"></span><h2>bipo.pipelines.data_split.nodes module<a class="headerlink" href="#module-bipo.pipelines.data_split.nodes" title="Permalink to this heading">#</a></h2>
-<p>This is a boilerplate pipeline ‘data_split’
-generated using Kedro 0.18.10</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.data_split.nodes.check_window_parameters">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.data_split.nodes.</span></span><span class="sig-name descname"><span class="pre">check_window_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window_expansion_days</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_sliding_stride_days</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_approach</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/data_split/nodes.html#check_window_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.data_split.nodes.check_window_parameters" title="Permalink to this definition">#</a></dt>
@@ -391,11 +401,11 @@ generated using Kedro 0.18.10</p>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>None.</strong> – </p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple containing containing corrected/defaulted window_expansion_days, window_sliding_stride_days</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Tuple[int, int] containing corrected/defaulted window_expansion_days, window_sliding_stride_days</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -406,7 +416,7 @@ generated using Kedro 0.18.10</p>
 <dd><p>Function that implements a time-based data split using split_params_dict.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>split_params_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – Dictionary containing key-value information pertaining to split_params.</p>
+<dd class="field-odd"><p><strong>split_params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary containing key-value information pertaining to data split parameters configured in parameters/data_split.yml or applied defaults (if necessary).</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>None.</strong> – </p>
@@ -429,10 +439,10 @@ generated using Kedro 0.18.10</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.data_split.nodes.get_date_info">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.data_split.nodes.</span></span><span class="sig-name descname"><span class="pre">get_date_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/data_split/nodes.html#get_date_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.data_split.nodes.get_date_info" title="Permalink to this definition">#</a></dt>
-<dd><p>Function that retrieves the earliest, latest date and total duration between the 2 dates (inclusive).</p>
+<dd><p>Function that retrieves the earliest, latest date and total duration between the 2 dates (both inclusive).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>df_index</strong> (<em>pd.Index</em>) – DataFrame Index to process.</p>
+<dd class="field-odd"><p><strong>df_index</strong> (<em>pd.Index</em>) – DataFrame index to process.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>None.</strong> – </p>
@@ -483,13 +493,13 @@ generated using Kedro 0.18.10</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.data_split.nodes.handle_invalid_folds_split_approach">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.data_split.nodes.</span></span><span class="sig-name descname"><span class="pre">handle_invalid_folds_split_approach</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_approach</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/data_split/nodes.html#handle_invalid_folds_split_approach"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.data_split.nodes.handle_invalid_folds_split_approach" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.data_split.nodes.</span></span><span class="sig-name descname"><span class="pre">handle_invalid_folds_split_approach</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_approach</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/data_split/nodes.html#handle_invalid_folds_split_approach"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.data_split.nodes.handle_invalid_folds_split_approach" title="Permalink to this definition">#</a></dt>
 <dd><p>Helper function that checks for validity of input parameters involving folds and split approach.</p>
-<p>Fold value would be set to defaults 3 if negative values are detected for expanding/sliding window split; otherwise defaults to 1 with simple split approach being used instead.</p>
+<p>Fold value would be set to default values based on settings defined in base/constants.yml if invalid values are detected for various splits; otherwise defaults to 1 with simple split approach being used instead.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>folds</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Fold info provided.</p></li>
+<li><p><strong>fold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Fold info provided.</p></li>
 <li><p><strong>split_approach</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Split approach name info provided.</p></li>
 </ul>
 </dd>
@@ -512,7 +522,33 @@ generated using Kedro 0.18.10</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.data_split.nodes.prepare_for_split">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.data_split.nodes.</span></span><span class="sig-name descname"><span class="pre">prepare_for_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_split_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/data_split/nodes.html#prepare_for_split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.data_split.nodes.prepare_for_split" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Function that constructs a dataframe consolidating input dataframe and data split parameters for further split processing handled by other functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Dataframe to be processed for split.</p></li>
+<li><p><strong>data_split_params</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary containing validated data split parameters involving training, testing and validation days information.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>None.</strong> – </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing keys and values as the key name implies:
+- “dataframe”,
+- “start_date_list”: start_date_list,
+- “latest_date”: latest_date,
+- “training_days_list”: training_days_list,
+- “testing_days”: testing_days,
+- “validation_days”: validation_days,
+- “split_approach”: split_approach,
+- “window_param_days”: window_param_days,</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, Any]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.data_split.nodes.validate_split_params">
@@ -544,8 +580,6 @@ generated using Kedro 0.18.10</p>
 </section>
 <section id="module-bipo.pipelines.data_split.pipeline">
 <span id="bipo-pipelines-data-split-pipeline-module"></span><h2>bipo.pipelines.data_split.pipeline module<a class="headerlink" href="#module-bipo.pipelines.data_split.pipeline" title="Permalink to this heading">#</a></h2>
-<p>This is a boilerplate pipeline ‘data_split’
-generated using Kedro 0.18.10</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.data_split.pipeline.create_pipeline">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.data_split.pipeline.</span></span><span class="sig-name descname"><span class="pre">create_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/data_split/pipeline.html#create_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.data_split.pipeline.create_pipeline" title="Permalink to this definition">#</a></dt>

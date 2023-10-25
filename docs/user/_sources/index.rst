@@ -30,6 +30,7 @@
    :caption: Model Training
 
    training-pipeline.md
+   experiment-tracking.md
 
 .. toctree::
    :maxdepth: 2
@@ -45,7 +46,7 @@
    faq.md
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
    :caption: API Reference
 
    modules

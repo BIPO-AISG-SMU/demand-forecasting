@@ -1,0 +1,26 @@
+tests.pipelines.data\_loader package
+====================================
+
+.. automodule:: tests.pipelines.data_loader
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+tests.pipelines.data\_loader.test\_nodes module
+-----------------------------------------------
+
+.. automodule:: tests.pipelines.data_loader.test_nodes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tests.pipelines.data\_loader.test\_pipeline module
+--------------------------------------------------
+
+.. automodule:: tests.pipelines.data_loader.test_pipeline
+   :members:
+   :undoc-members:
+   :show-inheritance:

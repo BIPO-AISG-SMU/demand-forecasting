@@ -1,0 +1,659 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bipo_fastapi.deps &#8212; BIPO Demand Forecasting v1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/bipo_fastapi/deps';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Project Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../inference-deployment-env-setup.html">Deployment Environment Setup - Inference Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../training-deployment-env-setup.html">Deployment Environment Setup - Training Module</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Pipeline</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data-pipeline.html">Data Pipeline</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../training-pipeline.html">Training Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../experiment-tracking.html">Experiment Tracking</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../inference-endpoint.html">Model Serving Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../inference-module.html">Inference Module</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.data_merge.html">bipo.pipelines.data_merge package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.data_preprocessing.html">bipo.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.data_split.html">bipo.pipelines.data_split package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.feature_engineering.html">bipo.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.model_evaluation.html">bipo.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.model_specific_preprocessing.html">bipo.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.model_training.html">bipo.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.time_agnostic_feature_engineering.html">bipo.pipelines.time_agnostic_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../bipo_fastapi.html">bipo_fastapi package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for bipo_fastapi.deps</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">kedro.io</span> <span class="kn">import</span> <span class="n">PartitionedDataset</span>
+<span class="kn">from</span> <span class="nn">kedro_datasets.pandas</span> <span class="kn">import</span> <span class="n">CSVDataSet</span>
+<span class="kn">from</span> <span class="nn">bipo</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">kedro.config</span> <span class="kn">import</span> <span class="n">ConfigLoader</span>
+<span class="kn">from</span> <span class="nn">bipo_fastapi.hooks</span> <span class="kn">import</span> <span class="n">hook_manager</span>
+<span class="c1"># from bipo_fastapi.load_data_catalog import catalog</span>
+<span class="kn">from</span> <span class="nn">bipo_fastapi.load_data_catalog</span> <span class="kn">import</span> <span class="n">load_data_catalog</span>
+<span class="c1"># Create a logger for this module</span>
+<span class="kn">from</span> <span class="nn">bipo_fastapi.config</span> <span class="kn">import</span> <span class="n">SETTINGS</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">conf_loader</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="p">(</span><span class="n">conf_source</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">CONF_SOURCE</span><span class="p">)</span>
+<span class="n">conf_const</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;constants*&quot;</span><span class="p">)</span>
+<span class="n">conf_inference</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;inference*&quot;</span><span class="p">)</span>
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LOGGER_NAME</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">bipo_fastapi.schemas</span> <span class="kn">import</span> <span class="n">SalesAttributes</span><span class="p">,</span> <span class="n">SalesPredictions</span><span class="p">,</span> <span class="n">SalesPrediction</span>
+<span class="kn">from</span> <span class="nn">bipo_fastapi.common</span> <span class="kn">import</span> <span class="n">explain_ebm_inference</span>
+
+<span class="c1"># from bipo.inference_pipeline.inference_pipeline import run_pipeline</span>
+<span class="c1"># import pipeline object from kedro_pipeline_test</span>
+<span class="kn">from</span> <span class="nn">bipo_fastapi.pipeline</span> <span class="kn">import</span> <span class="n">main_pipeline</span>
+<span class="kn">from</span> <span class="nn">kedro.runner.sequential_runner</span> <span class="kn">import</span> <span class="n">SequentialRunner</span>
+
+
+<div class="viewcode-block" id="PredictionModel"><a class="viewcode-back" href="../../bipo_fastapi.html#bipo_fastapi.deps.PredictionModel">[docs]</a><span class="k">class</span> <span class="nc">PredictionModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class is used for making predictions with a trained model.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        model : The trained model.</span>
+<span class="sd">        class_names (List[str]) : The names of the sales classes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">class_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">class_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Both model and class_names need to be provided&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span> <span class="o">=</span> <span class="n">class_names</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Initialized PredictionModel: </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2"> and class_names: </span><span class="si">{</span><span class="n">class_names</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="PredictionModel.transform_attributes"><a class="viewcode-back" href="../../bipo_fastapi.html#bipo_fastapi.deps.PredictionModel.transform_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">transform_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sales_attrs</span><span class="p">:</span> <span class="n">SalesAttributes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts outlet_attributes, mkt_attributes and lag_sales_attributes into DataFrames.</span>
+<span class="sd">        Note that mkt_attributes can accept mulitple campaign inputs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sales_attrs (SalesAttributes) : An instance of the SalesAttributes class.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            DataFrames representation of dates_cost_centre and sales_attrs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># try:</span>
+        <span class="n">outlet_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">sales_attrs</span><span class="o">.</span><span class="n">outlet_attributes</span><span class="p">]</span>
+        <span class="n">lag_sales_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">sales_attrs</span><span class="o">.</span><span class="n">lag_sales_attributes</span><span class="p">]</span>
+        <span class="n">mkt_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">sales_attrs</span><span class="o">.</span><span class="n">mkt_attributes</span><span class="p">]</span>
+
+        <span class="c1"># checks if the length of all the given input has the same length as the date input.</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Checking if the length of all the given input has the same length as the date input.&quot;</span>
+        <span class="p">)</span>
+        <span class="c1"># get the date length from the dict and use as reference.</span>
+        <span class="n">reference_inference_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">outlet_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">reference_lag_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">lag_sales_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">lst</span> <span class="ow">in</span> <span class="n">outlet_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="o">!=</span> <span class="n">reference_inference_length</span><span class="p">:</span>
+                <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span><span class="si">}</span><span class="s2"> inputs. Fields must have the same length as </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">outlet_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">reference_inference_length</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">lst</span> <span class="ow">in</span> <span class="n">lag_sales_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="o">!=</span> <span class="n">reference_lag_length</span><span class="p">:</span>
+                <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span><span class="si">}</span><span class="s2"> inputs. Fields must have the same length as </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">lag_sales_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">reference_lag_length</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+        <span class="c1"># convert the request inputs into dataframe</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># sales_data and lag_sales_data should only have 1 input. If more input is given, error will be raise</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">outlet_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">lag_sales_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Converting outlet_attributes and lag_sales_attributes request data into DataFrame&quot;</span>
+                <span class="p">)</span>
+                <span class="n">outlet_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">outlet_data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">lag_sales_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">lag_sales_data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Sales_attributes have </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">outlet_data</span><span class="p">)</span><span class="si">}</span><span class="s2"> request inputs and lag_sales_attributes have </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">lag_sales_data</span><span class="p">)</span><span class="si">}</span><span class="s2"> request inputs. Both data should only have 1 request input.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Only mkt_date can have mulitple keys / dataframes</span>
+        <span class="c1"># If the mkt request field is left empty, by default a empty mkt df will be generated.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mkt_data</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mkt_attributes have </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mkt_data</span><span class="p">)</span><span class="si">}</span><span class="s2"> request inputs&quot;</span><span class="p">)</span>
+            <span class="n">mkt_df_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mkt_data</span><span class="p">)):</span>
+                <span class="n">mkt_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mkt_data</span><span class="p">[</span><span class="n">num</span><span class="p">])</span>
+                <span class="n">mkt_df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mkt_df</span><span class="p">)</span>
+
+            <span class="c1"># Concat the mkt df by rows</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Converting Mkt_attributes request data into DataFrame&quot;</span><span class="p">)</span>
+            <span class="n">mkt_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">mkt_df_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;No ongoing marketing camapign. Creating a mock mkt dataframe for model input&quot;</span>
+            <span class="p">)</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;campaign_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                <span class="s2">&quot;campaign_start_date&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                <span class="s2">&quot;campaign_end_date&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                <span class="s2">&quot;marketing_channels&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+                <span class="s2">&quot;campaign_total_costs&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">mkt_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+
+        <span class="c1"># save intermediate csv files </span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving model input data.&quot;</span><span class="p">)</span>
+        <span class="n">output_intermediate_file</span><span class="p">(</span><span class="n">outlet_df</span><span class="p">,</span> <span class="n">conf_const</span><span class="p">[</span><span class="s2">&quot;inference&quot;</span><span class="p">][</span><span class="s2">&quot;outlet_filename&quot;</span><span class="p">])</span>
+        <span class="n">output_intermediate_file</span><span class="p">(</span><span class="n">lag_sales_df</span><span class="p">,</span> <span class="n">conf_const</span><span class="p">[</span><span class="s2">&quot;inference&quot;</span><span class="p">][</span><span class="s2">&quot;lag_sales_filename&quot;</span><span class="p">])</span>
+        <span class="n">output_intermediate_file</span><span class="p">(</span><span class="n">mkt_df</span><span class="p">,</span> <span class="n">conf_const</span><span class="p">[</span><span class="s2">&quot;inference&quot;</span><span class="p">][</span><span class="s2">&quot;marketing_filename&quot;</span><span class="p">])</span>
+
+        <span class="c1"># get date for inference (use model_input_df)</span>
+        <span class="n">dates</span> <span class="o">=</span> <span class="n">outlet_df</span><span class="o">.</span> <span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># get cost_centre_codes for labeling</span>
+        <span class="n">cost_centre_codes</span> <span class="o">=</span> <span class="n">outlet_df</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;cost_centre_code&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dates</span><span class="p">,</span> <span class="n">cost_centre_codes</span></div>
+
+<div class="viewcode-block" id="PredictionModel.predict"><a class="viewcode-back" href="../../bipo_fastapi.html#bipo_fastapi.deps.PredictionModel.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sales_attrs</span><span class="p">:</span> <span class="n">SalesAttributes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SalesPredictions</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method is used to predict the sales classes using the trained model.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sales_attrs (SalesAttributes) : An instance of the SalesAttributes class.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            SalesPredictions : An instance of the SalesPredictions class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving API request data.&quot;</span><span class="p">)</span>
+            <span class="n">output_intermediate_file</span><span class="p">(</span><span class="n">sales_attrs</span><span class="p">,</span> <span class="s2">&quot;API_request&quot;</span><span class="p">,</span> <span class="s2">&quot;json&quot;</span><span class="p">)</span>
+
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Transforming API request to model&#39;s expected format.&quot;</span><span class="p">)</span>
+            <span class="n">dates</span><span class="p">,</span> <span class="n">cost_centre_codes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform_attributes</span><span class="p">(</span>
+                <span class="n">sales_attrs</span>
+            <span class="p">)</span>
+            <span class="c1"># load data catalog after saving request as csv files</span>
+            <span class="n">catalog</span> <span class="o">=</span> <span class="n">load_data_catalog</span><span class="p">()</span>
+            <span class="c1"># load model_input_data from kedro run pipeline</span>
+            <span class="n">runner</span> <span class="o">=</span> <span class="n">SequentialRunner</span><span class="p">()</span>
+            <span class="n">output_dict</span> <span class="o">=</span> <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+            <span class="n">pipeline</span><span class="o">=</span><span class="n">main_pipeline</span><span class="p">,</span> <span class="n">catalog</span><span class="o">=</span><span class="n">catalog</span><span class="p">,</span> <span class="n">hook_manager</span><span class="o">=</span><span class="n">hook_manager</span>
+            <span class="p">)</span>
+            <span class="c1"># use the final node output in the pipeline as output_dict key</span>
+            <span class="n">model_input_data</span> <span class="o">=</span> <span class="n">output_dict</span><span class="p">[</span><span class="s2">&quot;processed_final_merged_df&quot;</span><span class="p">]</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Executing model inference.&quot;</span><span class="p">)</span>
+            
+            <span class="c1"># ebm</span>
+            <span class="k">if</span> <span class="s2">&quot;ebm&quot;</span> <span class="ow">in</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">PRED_MODEL_PATH</span><span class="p">:</span>
+                <span class="n">predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span>
+                <span class="n">model_input_data</span>
+                <span class="p">)</span>
+                <span class="c1"># ebm model explainability</span>
+                <span class="k">if</span> <span class="n">conf_inference</span><span class="p">[</span><span class="s2">&quot;enable_explainability&quot;</span><span class="p">]:</span>
+                    <span class="n">explain_ebm_inference</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span><span class="n">model_input_df</span> <span class="o">=</span><span class="n">model_input_data</span><span class="p">,</span><span class="n">pred_y_list</span><span class="o">=</span><span class="n">predictions</span><span class="p">,</span><span class="n">date_list</span><span class="o">=</span><span class="n">dates</span><span class="p">)</span>
+            <span class="c1"># orderedmodel</span>
+            <span class="k">elif</span> <span class="s2">&quot;ordered&quot;</span> <span class="ow">in</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">PRED_MODEL_PATH</span><span class="p">:</span>
+                <span class="n">predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="n">exog</span><span class="o">=</span><span class="n">model_input_data</span>
+                <span class="p">)</span>
+            <span class="c1"># Uncomment this line below to test 500 Internal Server Error with empty fields</span>
+            <span class="c1"># predictions = None</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Raw predictions generated: </span><span class="si">{</span><span class="n">predictions</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">predictions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Formatting predictions for API response.&quot;</span><span class="p">)</span>
+                <span class="c1"># Format the predictions into SalesPredictions class</span>
+                <span class="n">sales_preds</span> <span class="o">=</span> <span class="n">SalesPredictions</span><span class="p">(</span>
+                    <span class="n">sales_predictions</span><span class="o">=</span><span class="p">[</span>
+                        <span class="n">SalesPrediction</span><span class="p">(</span>
+                            <span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">,</span>
+                            <span class="n">cost_centre_code</span><span class="o">=</span><span class="n">cost_centre_code</span><span class="p">,</span>
+                            <span class="n">sales_class_id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">class_id</span> <span class="o">:=</span> <span class="n">pred</span><span class="o">.</span><span class="n">argmax</span><span class="p">()),</span>
+                            <span class="n">sales_class_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">[</span><span class="n">class_id</span><span class="p">],</span>
+                            <span class="n">probabilities</span><span class="o">=</span><span class="p">{</span>
+                                <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+                            <span class="p">},</span>
+                        <span class="p">)</span>
+                        <span class="k">for</span> <span class="n">date</span><span class="p">,</span> <span class="n">cost_centre_code</span><span class="p">,</span> <span class="n">pred</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                            <span class="n">dates</span><span class="p">,</span> <span class="n">cost_centre_codes</span><span class="p">,</span> <span class="n">predictions</span>
+                        <span class="p">)</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The model returned no predictions.&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving API response data.&quot;</span><span class="p">)</span>
+            <span class="n">output_intermediate_file</span><span class="p">(</span><span class="n">sales_preds</span><span class="p">,</span> <span class="s2">&quot;API_response&quot;</span><span class="p">,</span> <span class="s2">&quot;json&quot;</span><span class="p">)</span>
+
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Returning the sales predictions.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">sales_preds</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;not aligned&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+                <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Shape mismatch error during prediction. Check input data shape and model weights. </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to make predictions: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span></div></div>
+
+
+<div class="viewcode-block" id="output_intermediate_file"><a class="viewcode-back" href="../../bipo_fastapi.html#bipo_fastapi.deps.output_intermediate_file">[docs]</a><span class="k">def</span> <span class="nf">output_intermediate_file</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">SalesPredictions</span><span class="p">,</span> <span class="n">SalesAttributes</span><span class="p">],</span>
+    <span class="n">base_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">file_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;csv&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Saves output data to a file (CSV or JSON) with a timestamped filename in the specified folder.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (Union[pd.DataFrame, SalesPredictions]): The DataFrame or Pydantic model to save.</span>
+<span class="sd">        base_filename (str): The base filename to use (without extension).</span>
+<span class="sd">        file_type (str): The type of the file to save (&#39;csv&#39; or &#39;json&#39;). Defaults to &#39;csv&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="ow">and</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s2">&quot;csv&quot;</span><span class="p">:</span>
+            <span class="c1"># save as partitioned dataset</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_filename</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">file_type</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">SETTINGS</span><span class="o">.</span><span class="n">INTERMEDIATE_OUTPUT_PATH</span><span class="p">)</span><span class="o">/</span><span class="n">base_filename</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">file_path_csv</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+            <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">filename</span><span class="p">:</span> <span class="n">data</span><span class="p">}</span>
+            <span class="n">data_set</span> <span class="o">=</span> <span class="n">PartitionedDataset</span><span class="p">(</span>
+                <span class="n">path</span><span class="o">=</span><span class="n">file_path_csv</span><span class="p">,</span>
+                <span class="n">dataset</span><span class="o">=</span><span class="n">CSVDataSet</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">data_set</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">SalesPredictions</span><span class="p">,</span> <span class="n">SalesAttributes</span><span class="p">))</span>
+            <span class="ow">and</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span>
+        <span class="p">):</span>
+            <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">_%H%M%S&quot;</span><span class="p">)</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_filename</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">file_type</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">SETTINGS</span><span class="o">.</span><span class="n">INTERMEDIATE_OUTPUT_PATH</span><span class="p">)</span> <span class="o">/</span> <span class="n">filename</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved intermediate data to: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">PermissionError</span><span class="p">,</span> <span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to save intermediate data: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="load_model"><a class="viewcode-back" href="../../bipo_fastapi.html#bipo_fastapi.deps.load_model">[docs]</a><span class="k">def</span> <span class="nf">load_model</span><span class="p">(</span><span class="n">model_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function loads the trained model from a pickle file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model_path (str): The path of the pickle file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The trained model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Validate the path of the pickle file</span>
+    <span class="n">model_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">model_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No model found at </span><span class="si">{</span><span class="n">model_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># Open the pickle file and load the model</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">model_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">UnpicklingError</span><span class="p">,</span> <span class="ne">EOFError</span><span class="p">,</span> <span class="n">pickle</span><span class="o">.</span><span class="n">PickleError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to load model from </span><span class="si">{</span><span class="n">model_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">model</span></div>
+
+<span class="c1"># Loading the predictive model during the initialization of the module</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">SETTINGS</span><span class="o">.</span><span class="n">PRED_MODEL_PATH</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">PRED_MODEL</span> <span class="o">=</span> <span class="n">PredictionModel</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">SALES_CLASS_NAMES</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Error occurred while initializing the prediction model: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="n">PRED_MODEL</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Failed to load the prediction model.&quot;</span><span class="p">)</span>
+    <span class="n">PRED_MODEL</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By AI Singapore
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, AI Singapore.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

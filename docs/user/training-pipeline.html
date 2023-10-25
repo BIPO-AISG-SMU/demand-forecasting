@@ -32,10 +32,6 @@
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/assets/bipo_docs.css" />
-    <link rel="stylesheet" type="text/css" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/qb1-sphinx-rtd.css" />
-    <link rel="stylesheet" type="text/css" href="/opt/anaconda3/envs/bipo-df/lib/python3.8/site-packages/kedro/framework/html/_static/css/theme-overrides.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
@@ -52,7 +48,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'training-pipeline';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Model Serving Endpoint" href="inference-endpoint.html" />
+    <link rel="next" title="Experiment Tracking" href="experiment-tracking.html" />
     <link rel="prev" title="Data Pipeline" href="data-pipeline.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -140,7 +136,7 @@
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="overview.html">BIPO Demand Forecasting Module: Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Project Overview</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
 <ul class="nav bd-sidenav">
@@ -155,6 +151,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Training Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -168,17 +165,28 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="bipo.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.data_merge.html">bipo.pipelines.data_merge package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.data_preprocessing.html">bipo.pipelines.data_preprocessing package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.data_split.html">bipo.pipelines.data_split package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.time_agnostic_feature_engineering.html">bipo.pipelines.time_agnostic_feature_engineering package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.feature_engineering.html">bipo.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.model_evaluation.html">bipo.pipelines.model_evaluation package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html">bipo.pipelines.model_specific_preprocessing package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.model_training.html">bipo.pipelines.model_training package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.model_evaluation.html">bipo.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.time_agnostic_feature_engineering.html">bipo.pipelines.time_agnostic_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -363,6 +371,10 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-error-and-handling">Possible Error and Handling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-ordered-model">Training Ordered Model</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-structure-in-container">File Structure in Container</a></li>
 </ul>
             </nav>
@@ -389,6 +401,7 @@ document.write(`
 <li><p>Modular Design: Each component is modular for easy maintenance and updates.</p></li>
 <li><p>Decoupling: Pipeline stages are designed to work independently, allowing for easier testing and modifications.</p></li>
 <li><p>Configurability: Most components are configurable through config files, allowing for easy adjustments.</p></li>
+<li><p>Containerization: Contains training pipeline application which can be easily deployed in user’s environment. Experiment tracking (MLflow) is excluded from the Docker container to allow user the option to decide if they want to use MLflow.</p></li>
 </ol>
 </section>
 <section id="flowchart">
@@ -399,8 +412,8 @@ document.write(`
 <li><p>Model input data from <code class="docutils literal notranslate"><span class="pre">data/06_model_specific_preprocessing</span></code> is used in model training and model evaluation module.</p></li>
 <li><p>Pipeline parameters and model hyperparameters can be configured in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> and <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> respectively.</p></li>
 <li><p>Model Training module will generate model weights that is stored in <code class="docutils literal notranslate"><span class="pre">models</span></code> folder.</p></li>
-<li><p>Model Evaluation module will use model weights from <code class="docutils literal notranslate"><span class="pre">models</span></code> folder and data from <code class="docutils literal notranslate"><span class="pre">data/06_model_specific_preprocessing</span></code> to generate evaluation matrics stored in <code class="docutils literal notranslate"><span class="pre">data/07_model_evaluation</span></code></p></li>
-<li><p>(optional) If ML Flow is enabled, MLflow artefacts (model parameters and metrics) will be stored in <code class="docutils literal notranslate"><span class="pre">mlruns</span></code> folder.</p></li>
+<li><p>Model Evaluation module will use model weights from <code class="docutils literal notranslate"><span class="pre">models</span></code> folder and data from <code class="docutils literal notranslate"><span class="pre">data/06_model_specific_preprocessing</span></code> to generate evaluation metrics stored in <code class="docutils literal notranslate"><span class="pre">data/07_model_evaluation</span></code></p></li>
+<li><p>(optional) If MLflow is enabled, MLflow artefacts (model parameters and metrics) will be stored in <code class="docutils literal notranslate"><span class="pre">mlruns</span></code> folder.</p></li>
 </ol>
 </section>
 <section id="choice-of-models">
@@ -451,27 +464,22 @@ document.write(`
 <tr class="row-even"><td><p>fold</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 <td><p>Cross validation fold to be used for model training and evaluation. Note that <code class="docutils literal notranslate"><span class="pre">&quot;simple_split&quot;</span></code> only has 1 fold, hence set fold as 1.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">fold</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>enable_mlflow</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> to enable ML Flow tracking, <code class="docutils literal notranslate"><span class="pre">False</span></code> to disable.</p></td>
+<tr class="row-odd"><td><p>enable_explainability</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Specifically for EBM only. <code class="docutils literal notranslate"><span class="pre">True</span></code> will enable EBM to generate global and local explanations. Files will be generated in <code class="docutils literal notranslate"><span class="pre">models/ebm_explanation/</span></code> folder. Visit <a class="reference internal" href="model-explanation.html"><span class="doc std std-doc">model-explanation section</span></a> for more details.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>is_remote_mlflow</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> to enable remote ML Flow tracking, <code class="docutils literal notranslate"><span class="pre">False</span></code> to disable.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>tracking_uri</p></td>
+<tr class="row-even"><td><p>output_type</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>HTTP Server hosting an MLflow tracking server.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">http://10.43.130.112:5005</span></code></p></td>
+<td><p>EBM explainability file generated to be <code class="docutils literal notranslate"><span class="pre">html</span></code> or <code class="docutils literal notranslate"><span class="pre">png</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">html</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>experiment_name_prefix</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Name of model experiment</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bipo</span></code></p></td>
+<tr class="row-odd"><td><p>feature_to_explain_list</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+<td><p>Features of interest for local explanations</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[&quot;factor&quot;,&quot;is_weekday&quot;]</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -639,7 +647,7 @@ document.write(`
 <ol class="arabic simple">
 <li><p>Pulls training pipeline Docker image from Docker registry (optional).</p></li>
 <li><p>Runs training pipeline Docker image and mount <code class="docutils literal notranslate"><span class="pre">data</span></code>, <code class="docutils literal notranslate"><span class="pre">conf</span></code>, <code class="docutils literal notranslate"><span class="pre">models</span></code>, <code class="docutils literal notranslate"><span class="pre">logs</span></code> and <code class="docutils literal notranslate"><span class="pre">mlruns</span></code> folders as persistent volumes.</p></li>
-<li><p>If ML Flow is installed, script will run <code class="docutils literal notranslate"><span class="pre">mlflow</span> <span class="pre">ui</span></code> on local machine and experiment tracking can be observed in <code class="docutils literal notranslate"><span class="pre">http://127.0.0.1:5000</span></code> on local machine.</p></li>
+<li><p>If MLflow is installed, script will run <code class="docutils literal notranslate"><span class="pre">mlflow</span> <span class="pre">ui</span></code> on local machine and experiment tracking can be observed in <code class="docutils literal notranslate"><span class="pre">http://127.0.0.1:5000</span></code> on local machine.</p></li>
 </ol>
 </section>
 <section id="executing-the-script">
@@ -719,6 +727,18 @@ document.write(`
 </tbody>
 </table>
 </section>
+<section id="possible-error-and-handling">
+<h2>Possible Error and Handling<a class="headerlink" href="#possible-error-and-handling" title="Permalink to this heading">#</a></h2>
+<section id="training-ordered-model">
+<h3>Training Ordered Model<a class="headerlink" href="#training-ordered-model" title="Permalink to this heading">#</a></h3>
+<p>The parameterization of OrderedModel requires that there is no constant in the model, neither explicit nor implicit.By default, the <code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">pipeline</span></code> will check for any constant values and remove them.</p>
+<p>However, if OrderedModel still detects constant values and <code class="docutils literal notranslate"><span class="pre">raise</span> <span class="pre">ValueError(&quot;There</span> <span class="pre">should</span> <span class="pre">not</span> <span class="pre">be</span> <span class="pre">a</span> <span class="pre">constant</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">model&quot;)</span></code>, user can consider adding the parameter <code class="docutils literal notranslate"><span class="pre">hasconst=False</span></code> during OrderedModel training. Refer <a class="reference external" href="https://www.statsmodels.org/stable/examples/notebooks/generated/ordinal_regression.html#Using-formulas---no-constant-in-model">HERE</a> for more infomation.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example usage</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">OrderedModel</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span><span class="n">X_train</span><span class="p">,</span><span class="n">distr</span><span class="o">=</span><span class="s1">&#39;probit&#39;</span><span class="p">,</span> <span class="n">hasconst</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="file-structure-in-container">
 <h2>File Structure in Container<a class="headerlink" href="#file-structure-in-container" title="Permalink to this heading">#</a></h2>
 <p>The following file structure depicts the key directories and files contained in the containerised training submodule. <strong>This is not the same directory with the host computer on which Docker is running.</strong></p>
@@ -763,11 +783,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="inference-endpoint.html"
+       href="experiment-tracking.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Model Serving Endpoint</p>
+        <p class="prev-next-title">Experiment Tracking</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -818,6 +838,10 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-error-and-handling">Possible Error and Handling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-ordered-model">Training Ordered Model</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-structure-in-container">File Structure in Container</a></li>
 </ul>
   </nav></div>

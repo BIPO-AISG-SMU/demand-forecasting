@@ -1,0 +1,463 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bipo_fastapi.common &#8212; BIPO Demand Forecasting v1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/bipo_fastapi/common';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Project Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../inference-deployment-env-setup.html">Deployment Environment Setup - Inference Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../training-deployment-env-setup.html">Deployment Environment Setup - Training Module</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Pipeline</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data-pipeline.html">Data Pipeline</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../training-pipeline.html">Training Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../experiment-tracking.html">Experiment Tracking</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../inference-endpoint.html">Model Serving Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../inference-module.html">Inference Module</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.data_merge.html">bipo.pipelines.data_merge package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.data_preprocessing.html">bipo.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.data_split.html">bipo.pipelines.data_split package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.feature_engineering.html">bipo.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.model_evaluation.html">bipo.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.model_specific_preprocessing.html">bipo.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.model_training.html">bipo.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.time_agnostic_feature_engineering.html">bipo.pipelines.time_agnostic_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../bipo_fastapi.html">bipo_fastapi package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for bipo_fastapi.common</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">interpret.glassbox</span> <span class="kn">import</span> <span class="n">ExplainableBoostingClassifier</span>
+<span class="kn">from</span> <span class="nn">kedro.config</span> <span class="kn">import</span> <span class="n">ConfigLoader</span>
+<span class="kn">from</span> <span class="nn">bipo</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LOGGER_NAME</span><span class="p">)</span>
+<span class="n">conf_loader</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="p">(</span><span class="n">conf_source</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">CONF_SOURCE</span><span class="p">)</span>
+<span class="n">conf_params</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span>
+<span class="n">conf_const</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;constants*&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="generate_default_daily_date"><a class="viewcode-back" href="../../bipo_fastapi.html#bipo_fastapi.common.generate_default_daily_date">[docs]</a><span class="k">def</span> <span class="nf">generate_default_daily_date</span><span class="p">(</span><span class="n">num_dates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">7</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function to generate default dates for inference.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        num_dates (int, optional): Number of days. Defaults to 7 days.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        num_days_list (List): list of dates for inference</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># generate inference list</span>
+    <span class="n">today_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+    <span class="c1"># Create a list to store the dates for the next 7 days</span>
+    <span class="n">num_days_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Loop to generate dates for the next 7 days</span>
+    <span class="n">days</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># inference period is after 2 days</span>
+    <span class="k">for</span> <span class="n">day</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_dates</span><span class="p">):</span>
+        <span class="n">day</span> <span class="o">=</span> <span class="n">days</span> <span class="o">+</span> <span class="n">day</span>
+        <span class="n">next_day</span> <span class="o">=</span> <span class="n">today_date</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">day</span><span class="p">)</span>
+        <span class="n">num_days_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_day</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">num_days_list</span></div>
+
+
+<div class="viewcode-block" id="generate_default_lag_date"><a class="viewcode-back" href="../../bipo_fastapi.html#bipo_fastapi.common.generate_default_lag_date">[docs]</a><span class="k">def</span> <span class="nf">generate_default_lag_date</span><span class="p">(</span><span class="n">num_dates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">14</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function to generate default lag dates for inference.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        num_dates (int, optional): Number of days. Defaults to 14.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        previous_days_list (List): list of lag dates for inference</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># generate inference list</span>
+    <span class="n">today_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+    <span class="c1"># Create a list to store the dates for the next 7 days</span>
+    <span class="n">previous_days_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Loop to generate dates for the next 7 days</span>
+    <span class="n">day_difference</span> <span class="o">=</span> <span class="mi">14</span> 
+    <span class="k">for</span> <span class="n">day</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_dates</span><span class="p">):</span>
+        <span class="n">next_day</span> <span class="o">=</span> <span class="n">today_date</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">day_difference</span><span class="p">)</span>
+        <span class="n">previous_days_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_day</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">))</span>
+        <span class="n">day_difference</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">previous_days_list</span></div>
+
+<div class="viewcode-block" id="explain_ebm_inference"><a class="viewcode-back" href="../../bipo_fastapi.html#bipo_fastapi.common.explain_ebm_inference">[docs]</a><span class="k">def</span> <span class="nf">explain_ebm_inference</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">ExplainableBoostingClassifier</span><span class="p">,</span>
+    <span class="n">model_input_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">pred_y_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+    <span class="n">date_list</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ebm explainability for each single prediction. This function is used in inference pipeline.</span>
+
+<span class="sd">    1) local: breakdown of how much each term contributed to the prediction for a single sample. For inference. The intercept reflects the average case. In regression, the intercept is the average y-value of the train set (e.g., $5.51 if predicting cost). In classification, the intercept is the log of the base rate (e.g., -2.3 if the base rate is 10%).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model (ExplainableBoostingClassifier): ebm model weights</span>
+<span class="sd">        partitioned_input (Dict[str, pd.DataFrame]):  Kedro IncrementalDataSet Dictionary containing fold-based training dataset containing features and target variables identified with suffixes _X and _y.</span>
+<span class="sd">        x (pd.Series, optional): 1 row of the X test dataset for local explainability, which corresponds to a single inference point.</span>
+<span class="sd">        y (float, optional): Single actual y value for local explainability.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        plotly.graph_objs: plotly figure. Also saves the plotly figure/static image locally</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">output_type</span> <span class="o">=</span> <span class="n">conf_params</span><span class="p">[</span><span class="s2">&quot;output_type&quot;</span><span class="p">]</span>
+    <span class="n">output_filepath</span> <span class="o">=</span> <span class="n">conf_const</span><span class="p">[</span><span class="s2">&quot;inference&quot;</span><span class="p">][</span><span class="s2">&quot;ebm_explain_filepath&quot;</span><span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">model_input_df</span><span class="p">)):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">model_input_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">row</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">pred_y_list</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+        <span class="c1"># convert y from float to string as predicted is string</span>
+        <span class="n">ebm_explanation</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">explain_local</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+        <span class="n">plotly_fig</span> <span class="o">=</span> <span class="n">ebm_explanation</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_filepath</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_filepath</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;png&quot;</span><span class="p">:</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_filepath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;local_contribution_to_prediction_</span><span class="si">{</span><span class="n">date_list</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>   
+            <span class="n">plotly_fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span>
+               <span class="n">filepath</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;html&quot;</span><span class="p">:</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_filepath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;local_contribution_to_prediction_</span><span class="si">{</span><span class="n">date_list</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="si">}</span><span class="s2">.html&quot;</span><span class="p">)</span>   
+            <span class="n">plotly_fig</span><span class="o">.</span><span class="n">write_html</span><span class="p">(</span>
+               <span class="n">filepath</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid value for output_type. Accepts either png or html&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By AI Singapore
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, AI Singapore.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

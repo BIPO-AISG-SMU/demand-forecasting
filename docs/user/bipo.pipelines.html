@@ -136,7 +136,7 @@
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="overview.html">BIPO Demand Forecasting Module: Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Project Overview</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
 <ul class="nav bd-sidenav">
@@ -151,6 +151,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -175,6 +176,17 @@
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html">bipo.pipelines.model_specific_preprocessing package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.model_training.html">bipo.pipelines.model_training package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.time_agnostic_feature_engineering.html">bipo.pipelines.time_agnostic_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -432,6 +444,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lag_feature_generation.create_simple_lags"><code class="docutils literal notranslate"><span class="pre">create_simple_lags()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lag_feature_generation.create_sma_lags"><code class="docutils literal notranslate"><span class="pre">create_sma_lags()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lag_feature_generation.generate_data_groups"><code class="docutils literal notranslate"><span class="pre">generate_data_groups()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lag_feature_generation.merge_fold_and_generated_lag"><code class="docutils literal notranslate"><span class="pre">merge_fold_and_generated_lag()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#module-bipo.pipelines.feature_engineering.lightweightmmm">bipo.pipelines.feature_engineering.lightweightmmm module</a><ul>
@@ -439,6 +452,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features"><code class="docutils literal notranslate"><span class="pre">generate_mmm_features()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features_for_outlets"><code class="docutils literal notranslate"><span class="pre">generate_mmm_features_for_outlets()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.get_fitted_parameters"><code class="docutils literal notranslate"><span class="pre">get_fitted_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.merge_mmm_features_with_fold_outlets"><code class="docutils literal notranslate"><span class="pre">merge_mmm_features_with_fold_outlets()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.process_mmm_df"><code class="docutils literal notranslate"><span class="pre">process_mmm_df()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.validate_lags"><code class="docutils literal notranslate"><span class="pre">validate_lags()</span></code></a></li>
 </ul>
@@ -450,6 +464,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.nodes.apply_feature_encoding_transform"><code class="docutils literal notranslate"><span class="pre">apply_feature_encoding_transform()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.nodes.apply_standard_norm_fit"><code class="docutils literal notranslate"><span class="pre">apply_standard_norm_fit()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.nodes.apply_standard_norm_transform"><code class="docutils literal notranslate"><span class="pre">apply_standard_norm_transform()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.nodes.concat_same_folds_of_outlet_data"><code class="docutils literal notranslate"><span class="pre">concat_same_folds_of_outlet_data()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.nodes.generate_lag"><code class="docutils literal notranslate"><span class="pre">generate_lag()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.nodes.merge_fold_and_generated_lag"><code class="docutils literal notranslate"><span class="pre">merge_fold_and_generated_lag()</span></code></a></li>
 </ul>
@@ -476,6 +491,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#module-bipo.pipelines.feature_engineering.tsfresh_node">bipo.pipelines.feature_engineering.tsfresh_node module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.feature_engineering_by_outlet"><code class="docutils literal notranslate"><span class="pre">feature_engineering_by_outlet()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.get_common_outlet_relevant_features"><code class="docutils literal notranslate"><span class="pre">get_common_outlet_relevant_features()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.merge_tsfresh_features_with_outlets"><code class="docutils literal notranslate"><span class="pre">merge_tsfresh_features_with_outlets()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.run_tsfresh_feature_engineering_process"><code class="docutils literal notranslate"><span class="pre">run_tsfresh_feature_engineering_process()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.run_tsfresh_feature_selection_process"><code class="docutils literal notranslate"><span class="pre">run_tsfresh_feature_selection_process()</span></code></a></li>
 </ul>
@@ -501,11 +517,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html#bipo.pipelines.model_specific_preprocessing.create_pipeline"><code class="docutils literal notranslate"><span class="pre">create_pipeline()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html#module-bipo.pipelines.model_specific_preprocessing.nodes">bipo.pipelines.model_specific_preprocessing.nodes module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html#bipo.pipelines.model_specific_preprocessing.nodes.concat_same_folds_of_outlet_data"><code class="docutils literal notranslate"><span class="pre">concat_same_folds_of_outlet_data()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html#bipo.pipelines.model_specific_preprocessing.nodes.identify_const_column"><code class="docutils literal notranslate"><span class="pre">identify_const_column()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html#bipo.pipelines.model_specific_preprocessing.nodes.merge_fold_and_generated_lag"><code class="docutils literal notranslate"><span class="pre">merge_fold_and_generated_lag()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html#bipo.pipelines.model_specific_preprocessing.nodes.merge_mmm_features_with_fold_outlets"><code class="docutils literal notranslate"><span class="pre">merge_mmm_features_with_fold_outlets()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html#bipo.pipelines.model_specific_preprocessing.nodes.merge_tsfresh_features_with_outlets"><code class="docutils literal notranslate"><span class="pre">merge_tsfresh_features_with_outlets()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html#bipo.pipelines.model_specific_preprocessing.nodes.remove_const_column"><code class="docutils literal notranslate"><span class="pre">remove_const_column()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html#bipo.pipelines.model_specific_preprocessing.nodes.remove_unnecessary_columns_and_rows"><code class="docutils literal notranslate"><span class="pre">remove_unnecessary_columns_and_rows()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html#bipo.pipelines.model_specific_preprocessing.nodes.reorder_data"><code class="docutils literal notranslate"><span class="pre">reorder_data()</span></code></a></li>
@@ -522,6 +534,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="bipo.pipelines.model_training.html#bipo.pipelines.model_training.create_pipeline"><code class="docutils literal notranslate"><span class="pre">create_pipeline()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="bipo.pipelines.model_training.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bipo.pipelines.model_training.html#module-bipo.pipelines.model_training.nodes">bipo.pipelines.model_training.nodes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.model_training.html#bipo.pipelines.model_training.nodes.explain_ebm"><code class="docutils literal notranslate"><span class="pre">explain_ebm()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.model_training.html#bipo.pipelines.model_training.nodes.mlflow_tracking"><code class="docutils literal notranslate"><span class="pre">mlflow_tracking()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.model_training.html#bipo.pipelines.model_training.nodes.setup_remote_mlflow"><code class="docutils literal notranslate"><span class="pre">setup_remote_mlflow()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="bipo.pipelines.model_training.html#bipo.pipelines.model_training.nodes.train_model"><code class="docutils literal notranslate"><span class="pre">train_model()</span></code></a></li>

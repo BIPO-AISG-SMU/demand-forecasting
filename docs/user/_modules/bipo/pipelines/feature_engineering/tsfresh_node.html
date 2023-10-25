@@ -133,7 +133,7 @@
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">BIPO Demand Forecasting Module: Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">Project Overview</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
 <ul class="nav bd-sidenav">
@@ -148,6 +148,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -172,6 +173,17 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.model_specific_preprocessing.html">bipo.pipelines.model_specific_preprocessing package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.model_training.html">bipo.pipelines.model_training package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html">bipo.pipelines.time_agnostic_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../bipo_fastapi.html">bipo_fastapi package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -281,7 +293,7 @@ document.write(`
   <h1>Source code for bipo.pipelines.feature_engineering.tsfresh_node</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">kedro.config</span> <span class="kn">import</span> <span class="n">ConfigLoader</span>
 <span class="kn">import</span> <span class="nn">tsfresh</span>
 <span class="kn">from</span> <span class="nn">.tsfresh_main</span> <span class="kn">import</span> <span class="n">TsfreshFe</span>
@@ -298,12 +310,12 @@ document.write(`
 <span class="c1"># 1st node</span>
 <span class="c1"># feature selection pipeline on single outlet dataframe</span>
 <div class="viewcode-block" id="run_tsfresh_feature_selection_process"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.run_tsfresh_feature_selection_process">[docs]</a><span class="k">def</span> <span class="nf">run_tsfresh_feature_selection_process</span><span class="p">(</span>
-    <span class="n">partitioned_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="n">partitioned_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which executes tsfresh feature selection to select relevant tsfresh features on the dataset as defined by partitioned_input. These relevant features are then stored in a dictionary by fold and outlet.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        partitioned_input (Dict[str, Callable[[], Any]]): partitioned input for training fold outlet dataframe.</span>
+<span class="sd">        partitioned_input (Dict[str,pd.DataFrame]): partitioned input for training fold outlet dataframe.</span>
 <span class="sd">        params_dict (Dict[str, Any]): Parameters referencing parameters.yml.</span>
 
 <span class="sd">    Returns:</span>
@@ -338,7 +350,7 @@ document.write(`
         <span class="c1"># iterate over outlets in specific fold and generate relevance table</span>
         <span class="k">for</span> <span class="n">outlet</span> <span class="ow">in</span> <span class="n">outlet_fold_dict</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feature selection on </span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2">, outlet </span><span class="si">{</span><span class="n">outlet</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">outlet_df</span> <span class="o">=</span> <span class="n">outlet_fold_dict</span><span class="p">[</span><span class="n">outlet</span><span class="p">]()</span>
+            <span class="n">outlet_df</span> <span class="o">=</span> <span class="n">outlet_fold_dict</span><span class="p">[</span><span class="n">outlet</span><span class="p">]</span>
             <span class="c1"># Get relevant features for tsfresh based on each outlets in a specific fold, referencing parameters.yml</span>
             <span class="n">tsfresh_features</span> <span class="o">=</span> <span class="n">TsfreshFe</span><span class="p">(</span>
                 <span class="n">df</span><span class="o">=</span><span class="n">outlet_df</span><span class="p">,</span>
@@ -385,15 +397,15 @@ document.write(`
 
 <span class="c1"># 2nd node</span>
 <div class="viewcode-block" id="run_tsfresh_feature_engineering_process"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.run_tsfresh_feature_engineering_process">[docs]</a><span class="k">def</span> <span class="nf">run_tsfresh_feature_engineering_process</span><span class="p">(</span>
-    <span class="n">partitioned_tsfresh_artefacts_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Any</span><span class="p">]],</span>
-    <span class="n">partitioned_outlet_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="n">partitioned_tsfresh_artefacts_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
+    <span class="n">partitioned_outlet_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
     <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which performs tsfresh feature engineering involving tsfresh feature creation for each outlet data in each fold based on learnt tsfresh artefacts and outlet inputs</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        partitioned_tsfresh_artefacts_input (Dict[str, Callable[[], Any]]): partitioned input for tsfresh relevant features json artefacts</span>
-<span class="sd">        partitioned_outlet_input (Dict[str, Callable[[], Any]]): dictionary containing a fold_outlet as keys and outlet dataframes as values. E.g {fold1_outlet_1: outlet_1_df}</span>
+<span class="sd">        partitioned_tsfresh_artefacts_input (Dict[str, pd.DataFrame]): partitioned input for tsfresh relevant features json artefacts</span>
+<span class="sd">        partitioned_outlet_input (Dict[str, pd.DataFrame): dictionary containing a fold_outlet as keys and outlet dataframes as values. E.g {fold1_outlet_1: outlet_1_df}</span>
 <span class="sd">        params_dict (Dict[str, Any]): Parameters referencing parameters.yml.</span>
 
 <span class="sd">    Returns:</span>
@@ -409,7 +421,7 @@ document.write(`
         <span class="c1"># filter input by fold information corresponding fold outlet files</span>
         <span class="n">outlet_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">outlet</span> <span class="k">for</span> <span class="n">outlet</span> <span class="ow">in</span> <span class="n">partitioned_outlet_input</span> <span class="k">if</span> <span class="n">fold</span> <span class="ow">in</span> <span class="n">outlet</span><span class="p">]</span>
         <span class="n">outlet_dict</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">outlet</span><span class="p">:</span> <span class="n">partitioned_outlet_input</span><span class="p">[</span><span class="n">outlet</span><span class="p">]()</span> <span class="k">for</span> <span class="n">outlet</span> <span class="ow">in</span> <span class="n">outlet_list</span>
+            <span class="n">outlet</span><span class="p">:</span> <span class="n">partitioned_outlet_input</span><span class="p">[</span><span class="n">outlet</span><span class="p">]</span> <span class="k">for</span> <span class="n">outlet</span> <span class="ow">in</span> <span class="n">outlet_list</span>
         <span class="p">}</span>
 
         <span class="c1"># Extract the correct tsfresh artefact id by fold info and read off the contents as dictionary</span>
@@ -418,7 +430,7 @@ document.write(`
             <span class="k">for</span> <span class="n">artefact_fold_id</span> <span class="ow">in</span> <span class="n">partitioned_tsfresh_artefacts_input</span>
             <span class="k">if</span> <span class="n">fold</span> <span class="ow">in</span> <span class="n">artefact_fold_id</span>
         <span class="p">]</span>
-        <span class="n">relevant_features_dict</span> <span class="o">=</span> <span class="n">partitioned_tsfresh_artefacts_input</span><span class="p">[</span><span class="n">params_key</span><span class="p">[</span><span class="mi">0</span><span class="p">]]()</span>
+        <span class="n">relevant_features_dict</span> <span class="o">=</span> <span class="n">partitioned_tsfresh_artefacts_input</span><span class="p">[</span><span class="n">params_key</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
 
         <span class="c1"># Create tsfresh features using relevant_features_dict and oultet_dict through function call &#39;feature_engineering_by_outlet&#39; below</span>
         <span class="n">outlet_features_dict</span> <span class="o">=</span> <span class="n">feature_engineering_by_outlet</span><span class="p">(</span>
@@ -440,7 +452,7 @@ document.write(`
 
 <span class="sd">    Args:</span>
 <span class="sd">        relevant_features_dict (Dict[str, Dict]): Dictionary containing the relevant calculated/learned tsfresh features artefacts</span>
-<span class="sd">        outlet_dict (Dict[str, pd.DataFrame]): Dictionary containing outlet  partitions in dataframe identified by its id through a filename from partitioned_dataset.</span>
+<span class="sd">        outlet_dict (Dict[str, pd.DataFrame]): Kedro MemoryDataSet dictionary partitioned by outlets loaded in memory containing individual outlet dataframes.</span>
 <span class="sd">        params_dict (Dict[str, Any]): Parameters referenced from parameters.yml.</span>
 <span class="sd">        extracted_tsfresh_features_outlet_dict: Dict[str, pd.DataFrame]: Dictionary used for storing tsfresh_features_engineered identified by fold and outlet info.</span>
 
@@ -496,7 +508,7 @@ document.write(`
 <span class="sd">        num_features (int): Number of top relevant features to keep based on derived sorted p-value vector from tsfresh&#39;s Benjamini-Yekutieli procedure.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Dict[str,float]: Dictionary of relevant features that is in a suitable format for tsfresh extract features.</span>
+<span class="sd">        Dict[str, float]: Dictionary of relevant features that is in a suitable format for tsfresh extract features.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Relevant features generated for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">relevance_table_list</span><span class="p">)</span><span class="si">}</span><span class="s2"> outlets.&quot;</span><span class="p">)</span>
 
@@ -516,6 +528,57 @@ document.write(`
     <span class="n">kind_to_fc_parameters</span> <span class="o">=</span> <span class="n">tsfresh</span><span class="o">.</span><span class="n">feature_extraction</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">from_columns</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">kind_to_fc_parameters</span></div>
+
+
+<div class="viewcode-block" id="merge_tsfresh_features_with_outlets"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.merge_tsfresh_features_with_outlets">[docs]</a><span class="k">def</span> <span class="nf">merge_tsfresh_features_with_outlets</span><span class="p">(</span>
+    <span class="n">partitioned_outlet_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
+    <span class="n">partitioned_tsfresh_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which left merges a outlet-based generated tsfresh features to each outlet based on common time-index. As the id used for both partitioned inputs are the same, joining can be simply made by using one of the id retreived from either of the inputs and doing a direct referencing from both dictionary keys.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        partitioned_outlet_input: Dict[str, pd.DataFrame]: Kedro MemoryDataSet dictionary partitioned by outlets loaded in memory containing outlet dataframes.</span>
+<span class="sd">        partitioned_mmm_input: Dict[str, pd.DataFrame]: Kedro IncrementalDataset of dataframe representing fold-based outlets.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Union[Dict[str, pd.DataFrame], Dict[str, pd.DataFrame]: Dictionary containing merged dataframes involving both tsfresh features and input outlet dataframe features. Otherwise, returns partitioned_outlet_input with dataframe lazy loading function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">partitioned_tsfresh_input</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;No tsfresh features to merge, skipping merging of such features to outlet dataframes.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">partitioned_outlet_input</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Merging tsfresh features with fold outlets...&quot;</span><span class="p">)</span>
+    <span class="n">merged_partitioned_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">partitioned_id</span><span class="p">,</span> <span class="n">partitioned_df</span> <span class="ow">in</span> <span class="n">partitioned_outlet_input</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">outlet_fold_df</span> <span class="o">=</span> <span class="n">partitioned_df</span>
+
+        <span class="n">outlet_fold_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">outlet_fold_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Load the corresponding fold in lightweightmmm partitions</span>
+        <span class="n">tsfresh_fold_df</span> <span class="o">=</span> <span class="n">partitioned_tsfresh_input</span><span class="p">[</span><span class="n">partitioned_id</span><span class="p">]</span>
+        <span class="n">tsfresh_fold_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">tsfresh_fold_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">outlet_fold_tsfresh_df</span> <span class="o">=</span> <span class="n">outlet_fold_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+            <span class="n">tsfresh_fold_df</span><span class="p">,</span>
+            <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
+            <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;_y&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Drop excess columns with _y suffix due to emrge</span>
+        <span class="n">col_with_y_suffix</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">outlet_fold_tsfresh_df</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;_y&quot;</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">outlet_fold_tsfresh_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">col_with_y_suffix</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">merged_partitioned_dict</span><span class="p">[</span><span class="n">partitioned_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">outlet_fold_tsfresh_df</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Completed Tsfresh features merged with folds.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">merged_partitioned_dict</span></div>
 </pre></div>
 
                 </article>

@@ -8,17 +8,29 @@ Below is a visual representation of the MLflow tracking server. This server faci
 
 ![MLflow Dashboard](./assets/experiment_tracking_local_remote.png)
 
-Below is an illustrative snapshot of the typical MLflow Dashboard.
+
+### MLflow Dashboard Overview
+
+Below is an illustrative snapshot that showcases a typical layout of the MLflow Dashboard when conducting model experiments. 
 
 ![MLflow Dashboard](./assets/experiment_tracking_remote.png)
 
+To explore further details about a specific run, click on the hyperlink located under the `Created` column. This will take you to a detailed view of that particular run's metrics, parameters, and other associated data.
+
+![Detailed view of a specific run on the MLflow Dashboard](./assets/experiment_tracking_remote_run.png)
+
+
 ## Setup
 
-### Configuration
+### Configuration File: `parameters.yml`
 
 Before embarking on any experiments, make sure to adjust the MLflow configurations in the `parameters.yml` file, which is commonly housed in the `conf/base/` folder.
 
-A sample configuration is as follows:
+#### Configuration Parameters
+
+MLflow tracking is disabled by default. You can choose to enable MLflow feature using the `enable_mlflow` parameter by setting it to `True`.
+
+Here's a sample configuration:
 
 ```yaml
 # MLflow Tracking Server
@@ -27,23 +39,28 @@ is_remote_mlflow: False
 tracking_uri: "http://10.43.130.112:5005"
 experiment_name_prefix: "bipo" # Example experiment_name: bipo-ebm
 ```
-- `enable_mlflow`: Whether to enable MLflow tracking
-- `is_remote_mlflow`: Whether the MLflow server is remote
-- `tracking_uri`: URI for the MLflow tracking server
-- `experiment_name_prefix`: Prefix for naming experiments
+
+
+| Parameter                | Type   | Description                                       | Default Value               |
+| ------------------------ | ------ | ------------------------------------------------- | --------------------------- |
+| `enable_mlflow`          | `bool` | Whether to enable MLflow tracking                 | False                       |
+| `is_remote_mlflow`       | `bool` | Whether the MLflow server is remote               | False                       |
+| `tracking_uri`           | `str`  | URI for the MLflow tracking server                | "http://10.43.130.112:5005" |
+| `experiment_name_prefix` | `str`  | Prefix for naming experiments (Example: bipo-ebm) | "bipo"                      |
+
 
 ### Tracking Modes: Local vs Remote
 
-The `is_remote_mlflow` parameter in `parameters.yml` allows you to specify the mode in which tracking is to be done - locally or on a remote server.
+You can also choose to track experiments locally or on a remote server using the `is_remote_mlflow` parameter.
 
-| Feature               | Local Tracking (`is_remote_mlflow: False`)                                               | Remote Server Tracking (`is_remote_mlflow: True`)                                                                               |
-| --------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| **`enable_mlflow`**   | If set to `False`, MLflow tracking is disabled regardless of the `is_remote_mlflow` setting. | If set to `False`, MLflow tracking is disabled regardless of the `is_remote_mlflow` setting.                                    |
-| **Tracking URI**      | The `./mlruns` directory is used for tracking experiments on the local machine.              | `tracking_uri` in `parameters.yml` is used to point to the remote tracking server. For example: `http://10.43.130.112:5005` |
-| **Experiment Naming** | The default experiment name is used, as indicated in the default `mlruns/0/meta.yml` file.   | The prefix from `experiment_name_prefix` is combined with the model name to form a custom experiment name.                      |
-| **Accessibility**     | Experiments are only accessible on the local machine.                                        | Experiments can be accessed remotely, provided the server is reachable.                                                         |
-| **Data Storage**      | Data is stored in the local file system within the `./mlruns/` directory.                    | Data is usually stored on the server or in a database connected to the server.                                                  |
-| **Setup Requirement** | No additional setup is needed.                                                               | Ensure the remote URI is reachable; additional authentication may be required.                                                  |
+| Feature               | Local Tracking (`is_remote_mlflow: False`)                                                                           | Remote Server Tracking (`is_remote_mlflow: True`)                                                                           |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| **`enable_mlflow`**   | If set to `False`, MLflow tracking is disabled regardless of the `is_remote_mlflow` setting.                         | If set to `False`, MLflow tracking is disabled regardless of the `is_remote_mlflow` setting.                                |
+| **Tracking URI**      | The `./mlruns` directory is used for tracking experiments on the local machine. For example: `http://localhost:5005` | `tracking_uri` in `parameters.yml` is used to point to the remote tracking server. For example: `http://10.43.130.112:5005` |
+| **Experiment Naming** | The default experiment name is used, as indicated in the default `mlruns/0/meta.yml` file.                           | The prefix from `experiment_name_prefix` is combined with the model name to form a custom experiment name.                  |
+| **Accessibility**     | Experiments are only accessible on the local machine.                                                                | Experiments can be accessed remotely, provided the server is reachable.                                                     |
+| **Data Storage**      | Data is stored in the local file system within the `./mlruns/` directory.                                            | Data is usually stored on the server or in a database connected to the server.                                              |
+| **Setup Requirement** | No additional setup is needed.                                                                                       | Ensure the remote URI is reachable; additional authentication may be required.                                              |
 
 ### Default Parameters in Release Package
 
@@ -64,7 +81,7 @@ To create a new experiment that aligns with the `experiment_name_prefix` setting
 
 1. **Access the MLflow dashboard**: Open your web browser and enter your MLflow tracking URI. It should look something like this: `http://<ip-address>:<port-number>`.
 
-2. **Initiate a new experiment**: Locate and click the "New Experiment" button, typically found at the top-right corner of the dashboard.
+2. **Initiate a new experiment**: Locate and click the "New Experiment" button, typically found at the top-right corner of the left navigation panel.
 
 3. **Name the experiment**: When prompted, type in the name for your experiment. Ensure you include the prefix from the `experiment_name_prefix` in the `parameters.yml` file. For instance, if the prefix is "bipo" and your model's designation is "ebm", the experiment's name ought to be "bipo-ebm".
 
@@ -93,10 +110,10 @@ As model training progresses, MLflow automatically logs parameters and metrics.
 
 The file `model_training.yml` in `conf/base/parameters` contains the parameters of each model supported in the training pipeline.
 
-| Model | Parameters Logged |
-| --- | --- |
-| EBM | - outer_bags<br/>- inner_bags<br/>- learning_rate<br/>- interactions<br/>- max_leaves<br/>- max_bins<br/>- min_samples_leaf |
-| OrderedModel | - distr<br/>- method<br/>- max_iter |
+| Model        | Parameters Logged                                                                                                           |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| EBM          | - outer_bags<br/>- inner_bags<br/>- learning_rate<br/>- interactions<br/>- max_leaves<br/>- max_bins<br/>- min_samples_leaf |
+| OrderedModel | - distr<br/>- method<br/>- max_iter                                                                                         |
 
 ### Performance Metrics
 
@@ -107,7 +124,7 @@ The model evaluation submodule calculates and logs key performance metrics, name
 ### How can I launch the MLflow UI on my local machine?
 
 1. **Check prerequisites:**<br/>
-    1.1. Ensure MLflow is installed on your machine.<br/>
+    1.1. Ensure MLflow is installed on your machine. For installation details, see [Setting up MLflow on the Local Machine (Optional)](training-deployment-env-setup).<br/>
     1.2. Verify that the `parameters.yml` file contains the appropriate configurations, especially ensuring that MLflow tracking is enabled.
 2. **Execution:** Execute the model training and evaluation process.
 3. **Launching the MLflow UI:** Open a terminal or command promptand enter the command: `mlflow ui`.

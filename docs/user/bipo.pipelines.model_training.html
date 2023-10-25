@@ -136,7 +136,7 @@
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="overview.html">BIPO Demand Forecasting Module: Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Project Overview</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
 <ul class="nav bd-sidenav">
@@ -151,6 +151,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -175,6 +176,17 @@
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.model_specific_preprocessing.html">bipo.pipelines.model_specific_preprocessing package</a></li>
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">bipo.pipelines.model_training package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.time_agnostic_feature_engineering.html">bipo.pipelines.time_agnostic_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -330,6 +342,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.model_training.create_pipeline"><code class="docutils literal notranslate"><span class="pre">create_pipeline()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-bipo.pipelines.model_training.nodes">bipo.pipelines.model_training.nodes module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.model_training.nodes.explain_ebm"><code class="docutils literal notranslate"><span class="pre">explain_ebm()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.model_training.nodes.mlflow_tracking"><code class="docutils literal notranslate"><span class="pre">mlflow_tracking()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.model_training.nodes.setup_remote_mlflow"><code class="docutils literal notranslate"><span class="pre">setup_remote_mlflow()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.model_training.nodes.train_model"><code class="docutils literal notranslate"><span class="pre">train_model()</span></code></a></li>
@@ -372,6 +385,30 @@ generated using Kedro 0.18.11</p>
 <p>This is a boilerplate pipeline ‘model_training’
 generated using Kedro 0.18.11</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="bipo.pipelines.model_training.nodes.explain_ebm">
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.model_training.nodes.</span></span><span class="sig-name descname"><span class="pre">explain_ebm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partitioned_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/model_training/nodes.html#explain_ebm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.model_training.nodes.explain_ebm" title="Permalink to this definition">#</a></dt>
+<dd><p>provides explainability of the ebm model and saves the plotly figure/static image locally. Can either output a png or html file which is configurable by the output_type parameter, where if it is png, a static png file is the output, and if it is html, a html file will be returned. This function is used in the training pipeline.</p>
+<ol class="arabic simple">
+<li><p>global: feature importance for the training dataset. Term importances are the mean absolute contribution (score) each term (feature or interaction) makes to predictions averaged across the training dataset. Contributions are weighted by the number of samples in each bin, and by the sample weights (if any)</p></li>
+<li><p>feature: contribution score to predictions made by the model of the specified feature</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>ExplainableBoostingClassifier</em>) – ebm model weights</p></li>
+<li><p><strong>partitioned_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Kedro IncrementalDataSet Dictionary containing fold-based training dataset containing features and target variables identified with suffixes _X and _y.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>plotly figure. Also saves the plotly figure/static image locally</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>plotly.graph_objs</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.model_training.nodes.mlflow_tracking">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.model_training.nodes.</span></span><span class="sig-name descname"><span class="pre">mlflow_tracking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_params_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/model_training/nodes.html#mlflow_tracking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.model_training.nodes.mlflow_tracking" title="Permalink to this definition">#</a></dt>
 <dd><p>Track model training using MLflow and log relevant parameters.</p>
@@ -382,11 +419,11 @@ generated using Kedro 0.18.11</p>
 <li><p><strong>model_params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing values from parameters/model_training.yml</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True for recognized model; False for unrecognized model name.</p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True for recognized model; False for unrecognized model name.</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -394,7 +431,7 @@ generated using Kedro 0.18.11</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.model_training.nodes.setup_remote_mlflow">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.model_training.nodes.</span></span><span class="sig-name descname"><span class="pre">setup_remote_mlflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">remote_uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experiment_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/model_training/nodes.html#setup_remote_mlflow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.model_training.nodes.setup_remote_mlflow" title="Permalink to this definition">#</a></dt>
-<dd><p>Set up remote MLflow tracking URI and experiment.</p>
+<dd><p>Function which set up remote MLflow tracking URI and experiment.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -402,11 +439,14 @@ generated using Kedro 0.18.11</p>
 <li><p><strong>experiment_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The base name for the experiment.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>None.</strong> – </p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>return False if the URI is unavailable for any reason</p>
+<dd class="field-odd"><p>False if the URI is unavailable for any reason</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -414,23 +454,23 @@ generated using Kedro 0.18.11</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.model_training.nodes.train_model">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.model_training.nodes.</span></span><span class="sig-name descname"><span class="pre">train_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitioned_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_namespace_params_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/model_training/nodes.html#train_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.model_training.nodes.train_model" title="Permalink to this definition">#</a></dt>
-<dd><p>Function that trains a model on a specified data fold defined by parameters.yml from a Kedro IncrementalDataSet contaning various data features identified by suffix X representing predictor features and suffix y representing predicted feature.</p>
+<dd><p>Function that trains a model on a specified data fold defined by parameters.yml from a Kedro IncrementalDataSet contaning various data features identified by suffix ‘_X’ representing predictor features and suffix ‘_y’ representing predicted feature.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>partitioned_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Kedro IncrementalDataSet Dictionary containing fold-based training dataset containing features and target variables identified with suffixes _X and _y.</p></li>
-<li><p><strong>params_dict</strong> (<em>Dict</em>) – Dictionary referencing values from parameters.yml</p></li>
-<li><p><strong>model_params_dict</strong> (<em>Dict</em>) – Dictionary referencing values from parameters/model_training.yml</p></li>
+<li><p><strong>partitioned_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – A dictionary with partition ids as keys and dataframe as values.</p></li>
+<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing parameters.yml.</p></li>
+<li><p><strong>model_namespace_params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing values from parameters/model_training.yml</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>None</strong> – </p>
+<dd class="field-even"><p><strong>None.</strong> – </p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Classes representing fitted model.</p>
+<dd class="field-odd"><p>Either ExplainableBoostingClassifier or OrderedModel: Classes representing fitted model.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Either ExplainableBoostingClassifier or OrderedModel</p>
+<dd class="field-even"><p>Union[ExplainableBoostingClassifier, OrderedModel]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -438,8 +478,6 @@ generated using Kedro 0.18.11</p>
 </section>
 <section id="module-bipo.pipelines.model_training.pipeline">
 <span id="bipo-pipelines-model-training-pipeline-module"></span><h2>bipo.pipelines.model_training.pipeline module<a class="headerlink" href="#module-bipo.pipelines.model_training.pipeline" title="Permalink to this heading">#</a></h2>
-<p>This is a boilerplate pipeline ‘model_training’
-generated using Kedro 0.18.11</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.model_training.pipeline.create_pipeline">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.model_training.pipeline.</span></span><span class="sig-name descname"><span class="pre">create_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/model_training/pipeline.html#create_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.model_training.pipeline.create_pipeline" title="Permalink to this definition">#</a></dt>
@@ -500,6 +538,7 @@ generated using Kedro 0.18.11</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.model_training.create_pipeline"><code class="docutils literal notranslate"><span class="pre">create_pipeline()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-bipo.pipelines.model_training.nodes">bipo.pipelines.model_training.nodes module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.model_training.nodes.explain_ebm"><code class="docutils literal notranslate"><span class="pre">explain_ebm()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.model_training.nodes.mlflow_tracking"><code class="docutils literal notranslate"><span class="pre">mlflow_tracking()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.model_training.nodes.setup_remote_mlflow"><code class="docutils literal notranslate"><span class="pre">setup_remote_mlflow()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.model_training.nodes.train_model"><code class="docutils literal notranslate"><span class="pre">train_model()</span></code></a></li>

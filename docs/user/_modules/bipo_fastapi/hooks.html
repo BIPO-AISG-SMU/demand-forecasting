@@ -1,0 +1,449 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bipo_fastapi.hooks &#8212; BIPO Demand Forecasting v1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/bipo_fastapi/hooks';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Project Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../inference-deployment-env-setup.html">Deployment Environment Setup - Inference Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../training-deployment-env-setup.html">Deployment Environment Setup - Training Module</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Pipeline</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data-pipeline.html">Data Pipeline</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../training-pipeline.html">Training Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../experiment-tracking.html">Experiment Tracking</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../inference-endpoint.html">Model Serving Endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../inference-module.html">Inference Module</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.data_merge.html">bipo.pipelines.data_merge package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.data_preprocessing.html">bipo.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.data_split.html">bipo.pipelines.data_split package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.feature_engineering.html">bipo.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.model_evaluation.html">bipo.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.model_specific_preprocessing.html">bipo.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.model_training.html">bipo.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.time_agnostic_feature_engineering.html">bipo.pipelines.time_agnostic_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../bipo_fastapi.html">bipo_fastapi package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for bipo_fastapi.hooks</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">kedro.framework.hooks</span> <span class="kn">import</span> <span class="n">hook_impl</span>
+<span class="kn">import</span> <span class="nn">kedro.framework.hooks.manager</span> <span class="k">as</span> <span class="nn">hook</span>
+<span class="kn">from</span> <span class="nn">kedro.pipeline.node</span> <span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span> <span class="nn">kedro.framework.project</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">kedro.config</span> <span class="kn">import</span> <span class="n">ConfigLoader</span>
+<span class="kn">import</span> <span class="nn">os</span> 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">bipo_fastapi.load_data_catalog</span> <span class="kn">import</span> <span class="n">load_data_catalog</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="n">conf_loader</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="p">(</span><span class="n">conf_source</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">CONF_SOURCE</span><span class="p">)</span>
+<span class="n">conf_inference</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;inference*&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ParamsHooks"><a class="viewcode-back" href="../../bipo_fastapi.html#bipo_fastapi.hooks.ParamsHooks">[docs]</a><span class="k">class</span> <span class="nc">ParamsHooks</span><span class="p">:</span>
+<div class="viewcode-block" id="ParamsHooks.before_node_run"><a class="viewcode-back" href="../../bipo_fastapi.html#bipo_fastapi.hooks.ParamsHooks.before_node_run">[docs]</a>    <span class="nd">@hook_impl</span>
+    <span class="k">def</span> <span class="nf">before_node_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        - overwrite the start_date and end_date parameters before running the node with modify_params tag.</span>
+<span class="sd">        - instantiate logging</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            node (Node): pipeline node </span>
+<span class="sd">            inputs (Dict[str, Any]): node inputs </span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[dict, None]: overwrites node inputs by returning a dictionary if the node tags is &quot;modify_params&quot;. Otherwise, returns None </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;modify_params&quot;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
+            <span class="c1"># use the first date and last date of the inference period as values to overwrite the start_date and end_date parameters for the function create_mkt_campaign_counts_start_end</span>
+            <span class="n">catalog</span> <span class="o">=</span> <span class="n">load_data_catalog</span><span class="p">()</span>
+            <span class="n">outlet_df</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;outlet_df&quot;</span><span class="p">)</span>
+            <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="s2">&quot;start_date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outlet_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="s2">&quot;end_date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outlet_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="c1"># overwrite the node&#39;s input which is called parameters</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">]}</span>
+        <span class="c1"># logging</span>
+        <span class="n">load_kedro_logger</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span> </div></div>
+
+<div class="viewcode-block" id="load_kedro_logger"><a class="viewcode-back" href="../../bipo_fastapi.html#bipo_fastapi.hooks.load_kedro_logger">[docs]</a><span class="k">def</span> <span class="nf">load_kedro_logger</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;load kedro config for logging purposes </span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">conf_loader</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="p">(</span><span class="n">conf_source</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">CONF_SOURCE</span><span class="p">)</span>
+    <span class="n">config_dict</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;logging*&quot;</span><span class="p">)</span>
+    <span class="n">file_handler_list</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;info_file_handler&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;debug_file_handler&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;error_file_handler&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">file_handler_type</span> <span class="ow">in</span> <span class="n">file_handler_list</span><span class="p">:</span>
+        <span class="c1"># Assumes of the format logs/info.log or similar structure</span>
+        <span class="c1"># base, extension = os.path.splitext(filename)</span>
+        <span class="n">level_info_name</span> <span class="o">=</span> <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;handlers&quot;</span><span class="p">][</span><span class="n">file_handler_type</span><span class="p">][</span><span class="s2">&quot;level&quot;</span><span class="p">]</span>
+        <span class="c1"># Get current run date in ddmmyyyy format</span>
+        <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+        <span class="n">today_str</span> <span class="o">=</span> <span class="n">today</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="c1"># Construct the required format</span>
+
+        <span class="c1"># Make parent folder containing submodule name if avail, regardless of existence as long submodule_name.is not None</span>
+        <span class="n">log_dir_for_submodule</span> <span class="o">=</span> <span class="s2">&quot;logs&quot;</span>
+        <span class="n">log_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">today_str</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">level_info_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">.log&quot;</span>
+
+        <span class="n">orig_log_file</span> <span class="o">=</span> <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;handlers&quot;</span><span class="p">][</span><span class="n">file_handler_type</span><span class="p">][</span><span class="s2">&quot;filename&quot;</span><span class="p">]</span>
+        <span class="c1"># Delete default configure log filepaths to prevent unnecessary confusion between generated logs</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">orig_log_file</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">orig_log_file</span><span class="p">)</span>
+        <span class="c1"># Construct relevant logfile name based on kedro logging structure and update config path</span>
+        <span class="n">rel_logfile_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_dir_for_submodule</span><span class="p">,</span> <span class="n">log_filename</span><span class="p">)</span>
+        <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;handlers&quot;</span><span class="p">][</span><span class="n">file_handler_type</span><span class="p">][</span><span class="s2">&quot;filename&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rel_logfile_path</span>
+    <span class="c1"># Apply the configuration change assuming it has config</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">dictConfig</span><span class="p">(</span><span class="n">config_dict</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<span class="c1"># create hook_manager which is used as input in the kedro runner object</span>
+<span class="n">hook_manager</span> <span class="o">=</span> <span class="n">hook</span><span class="o">.</span><span class="n">_create_hook_manager</span><span class="p">()</span>
+<span class="n">hook_manager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">ParamsHooks</span><span class="p">())</span>
+
+<span class="c1"># load kedro config which will be called in init.py </span>
+<span class="n">load_kedro_logger</span><span class="p">()</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By AI Singapore
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, AI Singapore.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

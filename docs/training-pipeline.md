@@ -9,6 +9,7 @@ This guide outlines the architecture and components of the training data pipelin
 1. Modular Design: Each component is modular for easy maintenance and updates.
 2. Decoupling: Pipeline stages are designed to work independently, allowing for easier testing and modifications.
 3. Configurability: Most components are configurable through config files, allowing for easy adjustments.
+4. Containerization: Contains training pipeline application which can be easily deployed in user's environment. Experiment tracking (MLflow) is excluded from the Docker container to allow user the option to decide if they want to use MLflow. 
 
 ### Flowchart
 The diagram below provides a high-level overview of the training pipeline's process flow.
@@ -18,8 +19,8 @@ The diagram below provides a high-level overview of the training pipeline's proc
 1. Model input data from `data/06_model_specific_preprocessing` is used in model training and model evaluation module.
 2. Pipeline parameters and model hyperparameters can be configured in `parameters.yml` and `model_training.yml` respectively.
 3. Model Training module will generate model weights that is stored in `models` folder.
-4. Model Evaluation module will use model weights from `models` folder and data from `data/06_model_specific_preprocessing` to generate evaluation matrics stored in `data/07_model_evaluation`
-5. (optional) If ML Flow is enabled, MLflow artefacts (model parameters and metrics) will be stored in `mlruns` folder.
+4. Model Evaluation module will use model weights from `models` folder and data from `data/06_model_specific_preprocessing` to generate evaluation metrics stored in `data/07_model_evaluation`
+5. (optional) If MLflow is enabled, MLflow artefacts (model parameters and metrics) will be stored in `mlruns` folder.
 
 ### Choice of Models
 
@@ -35,11 +36,10 @@ The diagram below provides a high-level overview of the training pipeline's proc
 | --- | --- | --- | --- |
 | model | `str` | Choice of model to train. 2 options: `"ebm"` or `"ordered_model"` | `ebm` |
 | split_approach_source | `str` | Choice of cross validation data splits used. Note: this split approach should be the same as specified during `data pipeline`. 3 options: `"simple_split"`,`"expanding_window"` or `"sliding_window"` | `simple_split` |
-| fold | `int` | Cross validation fold to be used for model training and evaluation. Note that `"simple_split"` only has 1 fold, hence set fold as 1. | `fold` |
-| enable_mlflow | `Bool` | `True` to enable ML Flow tracking, `False` to disable. | `True` |
-| is_remote_mlflow | `Bool` | `True` to enable remote ML Flow tracking, `False` to disable. | `False` |
-| tracking_uri | `str` | HTTP Server hosting an MLflow tracking server. | `http://10.43.130.112:5005` |
-| experiment_name_prefix | `str` | Name of model experiment | `bipo` |
+| fold | `int` | Cross validation fold to be used for model training and evaluation. Note that `"simple_split"` only has 1 fold, hence set fold as 1. | `1` |
+| enable_explainability | `bool` | Specifically for EBM only. `True` will enable EBM to generate global and local explanations. Files will be generated in `models/ebm_explanation/` folder. Visit [model-explanation section](model-explanation) for more details. | `True` |
+| output_type | `str` | EBM explainability file generated to be `html` or `png` | `html` |
+| feature_to_explain_list | `list` | Features of interest for local explanations  | `["factor","is_weekday"]` |
 
 ### Model Hyperparameters in the `model_training.yml` File
 
@@ -102,7 +102,7 @@ The training pipeline can be executed using the two methods outlined below.
 #### What `run_model_training.bat` does
 1. Pulls training pipeline Docker image from Docker registry (optional).
 2. Runs training pipeline Docker image and mount `data`, `conf`, `models`, `logs` and `mlruns` folders as persistent volumes.  
-3. If ML Flow is installed, script will run `mlflow ui` on local machine and experiment tracking can be observed in `http://127.0.0.1:5000` on local machine. 
+3. If MLflow is installed, script will run `mlflow ui` on local machine and experiment tracking can be observed in `http://127.0.0.1:5000` on local machine. 
 
 #### Executing the script
 
@@ -162,6 +162,15 @@ The table below summarises the metrics logged by the training pipeline during th
 | Precision | The measure of the accuracy of positive predictions made by the model. It's the ratio of true positive predictions to all positive predictions made by the model |
 | Recall | Recall measures the ability of a model to identify all relevant instances, specifically true positives. It's the ratio of true positives to all actual positive instances in the dataset. |
 | F1 Score | Harmonic mean of precision and recall. It provides a balanced measure of model performance, taking into account both false positives and false negatives. |
+## Possible Error and Handling
+### Training Ordered Model 
+The parameterization of OrderedModel requires that there is no constant in the model, neither explicit nor implicit.By default, the `data pipeline` will check for any constant values and remove them. 
+
+However, if OrderedModel still detects constant values and `raise ValueError("There should not be a constant in the model")`, user can consider adding the parameter `hasconst=False` during OrderedModel training. Refer [HERE](https://www.statsmodels.org/stable/examples/notebooks/generated/ordinal_regression.html#Using-formulas---no-constant-in-model) for more infomation. 
+~~~
+# Example usage
+model = OrderedModel(y_train,X_train,distr='probit', hasconst=False)
+~~~
 
 ## File Structure in Container
 
