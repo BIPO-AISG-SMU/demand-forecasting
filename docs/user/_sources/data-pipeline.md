@@ -1,529 +1,321 @@
 # Data Pipeline
 
 ## Overview
-This guide outlines the architecture and components of the training data pipeline, designed to be modular, flexible, and easily adaptable to various data sources and machine learning models. It is divided into specific modules for different data preparation and processing tasks.
+This section outlines the overall architecture, respective modules and the data inputs/outputs that are required or generated in the pipeline. 
+Function descriptions are only provided in the sections of [Time-agnostic feature engineering](#5-time-agnostic-feature-engineering) and [Time-dependent feature engineering](#6-time-dependent-feature-engineering) due to module complexities.
+
+The respective modules are largely dependent on `pipeline.py` (comprises of functions from `nodes.py`) and `nodes.py` containing functions located in `src/bipo/pipelines` folder.
 
 ## Data Sources
+| Filename | Data type | Description | Data Source |
+| --- | --- | --- | --- |
+| `proxy_revenue_masked.csv` | csv | Daily proxy revenue of all outlets in csv format. | BIPO                                            |
+| `marketing cost.xlsx` | xlsx | Cost breakdown of marketing campaigns by mode. | BIPO  |
+| `consumer propensity to spend.xlsx` | xlsx | Daily consumer propensity to spend by regions in Singapore. | BIPO |
+| `covid capacity.csv` | csv | Extracted sheet containing group size limits implemented as part of COVID pandemic restriction (Sheet 2 of provided covid capacity.xlsx) | BIPO        
+| `SG climate records 2021 - 2022.xlsx` | xlsx | Daily climate data from four key regions in Singapore. | BIPO |
+| `holiday_df.xlsx` | xlsx | Mapping of past dates to school holidays and public holidays in Singapore. | MOE Website, School Terms and Holidays for 2022 |
+---
+<br />
 
-| Filename                              | Description                                                                | Source                                          |
-| ------------------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------- |
-| `proxy_revenue_masked.csv`            | Daily proxy revenue of all outlets.                                        | BIPO                                            |
-| `marketing cost.xlsx`                 | Cost breakdown of marketing campaigns by mode.                             | BIPO                                            |
-| `consumer propensity to spend.xlsx`   | Daily consumer propensity to spend by regions in Singapore.                | BIPO                                            |
-| `SG climate records 2021 - 2022.xlsx` | Daily climate data from four key regions in Singapore.                     | BIPO                                            |
-| `holiday_df.xlsx`                     | Mapping of past dates to school holidays and public holidays in Singapore. | MOE Website, School Terms and Holidays for 2022 |
+## Design Architecture and Considerations:
+1. **Modularity**: Flexibility and maintainability of components.
+2. **Module Decoupling**: Faster adaptation to changing requirements without significant overall impact to entire program as much as possible.
+3. **Configurability**: To facilitate experimentation of various data/model manipulataion approaches.
 
-## Design Architecture
-Design Considerations:
-1. Modular Design: Each component is modular for easy maintenance and updates.
-2. Decoupling: Pipeline stages are designed to work independently, allowing for easier testing and modifications.
-3. Configurability: Most components are configurable through config files, allowing for easy adjustments.
-
-The diagram below provides a high-level overview of the data pipeline's architecture. 
+The data pipeline architecture diagram below provides a high-level overview of the key processing steps in transforming raw data for model training.
 
 ![Pipeline Design](./assets/data_pipeline_training.png)
 
-It outlines the transformation and processing steps for raw data in preparation for model training.
+| **Modules** | **Activity** | **Configuration File**^ | **Output Store**  |
+| --- | --- | --- | --- |
+| Raw Data | Initial datasets provided/crafted in either `.csv` and `.xlsx` files. For a detailed list of these sources, refer to the [Data Sources section](#data-sources) above. | - | - |
+| Data Loader | Ingests raw data files and restructures data into daily based records for datasets containing multiple same-date entries for different features categories, while datafiles containing unique daily records are merged on into a single dataset. | `constants.yml` | Loaded restructured data |
+| Data Preprocessing | Combines all non-proxy revenue features with respective outlet proxy revenue files while filtering out outlets based on specified conditions. | `constants.yml`, `parameters.yml` | Preprocessed Data |
+| Data Merge | Combines individual processed outlet files into single file to facilitate time-based split handled in the next module. | - | Merged Outlet Data |
+| Data Split | Implements following configurable time-based data split as follows: <ul><li>Simple split;</li><li>Expanding window; and</li><li> Sliding_window.</li></ul> into following sets: <ul><li>Training;</li><li>Validation; and </li><li>Testing.</li></ul>| `constants.yml`, `parameters.yml`, `conf/base/data_split.yml` | Split Data              |
+| Time Agnostic Feature Engineering  | Feature engineering processes that are not time dependent. This includes:<ul><li>Boolean feature creation based on defined condition(s);</li><li>Differencing of (multiple) paired features; and</li><li>General value imputation.</li></ul> | `parameters.yml` | Feature Engineered Data |
+| Time Dependent Feature Engineering |Feature engineering processes that are time dependent. This includes:<ul><li>One-hot/Ordinal encoding;</li><li>Standardisation/Normalisation of values; and</li><li>*LightweightMMM* and *tsfresh* feature engineering.</li></ul> | `constants.yml`, `parameters.yml` | Feature Engineered Data |
+| Model-specific Preprocessing | Processes data based on specific requirements of the model (if necessary). Subsequently, conducts removal of data points containing null feature values or single valued columns.| `parameters.yml` | Model Input Data |
+---
 
-| **Step**                           | **Activity**                                                                                                                                                                                | **Configuration File**            | **Output Store**        |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ----------------------- |
-| Raw Data                           | Initial data is sourced from a variety of structured formats, including `.csv` and `.xlsx` files. For a detailed list of these sources, refer to the [Data Sources section](#data-sources). | -                                 | -                       |
-| Data Loading & Validation          | Ingest data using configurations and verify its quality.                                                                                                                                    | `constants.yml`, `parameters.yml`  | Validated Data          |
-| Data Preprocessing                 | Process and cleanse raw data to make it suitable for subsequent steps.                                                                                                                      | `constants.yml`, `parameters.yml`  | Preprocessed Data       |
-| Data Merge                         | Combine various preprocessed data sources.                                                                                                                                                  | `constants.yml`                   | Merged Outlet Data      |
-| Data Split                         | Divide merged data into different subsets (like training, validation, and test).                                                                                                            | `constants.yml`, `parameters.yml`  | Split Data              |
-| Time Agnostic Feature Engineering  | Engineer data features that are not dependent on time.                                                                                                                                      | `constants.yml`, `parameters.yml`  | Feature Engineered Data |
-| Time Dependent Feature Engineering | Engineer data features that take time factors into account.                                                                                                                                 | `constants.yml`, `parameters.yml` | Feature Engineered Data |
-| Model-specific Preprocessing       | Further process data based on specific requirements of the target model.                                                                                                                    | `constants.yml`, `parameters.yml`  | Model Input Data        |
-  
-## 1. Data Loading & Validation
-This module focuses on ingesting and validating data from multiple sources for reliable use in later stages.
+^Note: `constants.yml` is as used as fallback when invalid values are set in `parameters.yml` OR assumed defaults for processing. Not all parameters are covered as applying default values do not make sense. **
+<br><br/>
 
-**Diagram**
+## 1. Data Loader
+This module focuses on ingesting and restructuring raw and multiple common time-indexed data into unique daily-based time-index representations, while unique daily records are merged based on common time-index. Files are then segregate into outlet proxy revenue and non revenue categories.
 
-Refer to the included visual representation for a structured view of this process.
+The diagram below provides a general overview of the module. 
 
 ![Pipeline Design](./assets/data_loader.png)
+<br />
 
-### Input
-Gathered raw data awaiting cleaning and structuring.
+### Input(s)
+| Component | Description | Data directory |
+| --- | --- | --- |
+| Multi daily records (csv/) | Folder containing csv files representing mutliple common time-indexed to features mappings. | data/01_raw/multi_daily_records/csv/
+| Multi daily records (xlsx/) | Folder containing xlsx files representing mutliple common time-indexed to features mappings. | data/01_raw/multi_daily_records/xlsx/
+| Unique daily records (csv/) | Folder containing csv files representing unique time-indexed to features mappings. | data/01_raw/unique_daily_records/csv/
+| Unique daily records (xlsx/) | Folder containing xlsx files representing unique time-indexed to features mappings. | data/01_raw/unique_daily_records/xlsx/
+---
+<br />
 
-| Component                        | Description                                                     |
-| -------------------------------- | --------------------------------------------------------------- |
-| raw_propensity_data              | Customer propensity data in an Excel format.                    |
-| raw_weather_data                 | Weather-related data in an Excel format.                        |
-| raw_marketing_data               | Marketing information in an Excel format.                       |
-| raw_proxy_revenue_data           | Proxy revenue figures also presented in an Excel format.        |
-| xlsx_raw_unique_daily_partitions | Folder with daily Excel files, such as `holiday_df.xlsx`.       |
-| csv_raw_unique_daily_partitions  | Folder with daily CSV files, for example, `covid_capacity.csv`. |
+### Output(s)
+| Component | Description | Data directory |
+| --- | --- | --- |
+| Non proxy revenue files | Folder containing processed time-indexed files representing various data sources in .csv which are non-proxy revenue. | data/02_dataloader/non_revenue_partitions/
+| Outlet proxy revenue files | Folder containing individual time-indexed outlet-based proxy revenue in .csv format. | data/02_dataloader/outlet_proxy_revenues/
+---
+<br />
 
-### Output
-Processed datasets, prepped for analysis.
-
-| Component                             | Description                                                        | Type               |
-| ------------------------------------- | ------------------------------------------------------------------ | ------------------ |
-| loaded_propensity_data                | Propensity data made ready for analysis.                           | CSVDataSet         |
-| loaded_weather_data                   | Weather data that's cleaned and organised.                         | CSVDataSet         |
-| loaded_marketing_data                 | Marketing data that's prepared for extracting insights.            | CSVDataSet         |
-| loaded_proxy_revenue_partitioned_data | Segmented revenue data made ready for detailed analysis.           | PartitionedDataSet |
-| merged_xlsx                           | Combined daily records from XLSX files.                            | MemoryDataset      |
-| merged_csv                            | Combined daily records from CSV files.                             | MemoryDataset      |
-| merged_unique_daily_temp              | Combined records by date, prepared for the final processing steps. | MemoryDataset      |
-| merged_unique_daily                   | Daily records sorted by date for time-based analysis.              | CSVDataSet         |
-
-
+### **IMPORTANT NOTE, PLEASE NOTE:**
+- For pipeline execution with Kedro, Data Loader module needs to be executed first separately before executing other modules that follows subsequently.
+ 
+- This is due to Data Loader module output definition which explicitly defines a mapping for processed file for each file input, whereas the input to Data Preprocessing module is folder-specific definition (where Data Loader processed file(s) resides) is seen by Kedro to be different entities. As a result, Data Preprocessing maybe executed when not all files are fully processed in the Data Loader module.
 
 ## 2. Data Preprocessing
-The data_preprocessing module combines *non-proxy revenue datasets* with *individual outlet proxy revenue datasets*. The pipeline employs sanity checks like date validity, outlet exclusion, and constant value thresholds.
+The data_preprocessing module applies feature combining using all files non-proxy revenue datasets with individual outlet proxy revenue datasets using generated outputs in previous module, [Data Loader](#1-data-loader). Data filterings comprising the following are implemented:
+- Outlets containing data points within required dates are extracted.
+- Specified outlets to be excluded.
+- Outlets with zero-values exceeding a proportion are filtered out (configurable in parameters.yml). This is to prevent binning issues downstream prior to modeling as equal frequency binning is used. 
 
-**Diagram**
-
-Refer to the included visual representation for a structured view of this process.
+The diagram below provides a general overview of the module. 
 
 ![Pipeline Design](./assets/data_preprocessing.png)
+<br />
 
-### Input
-Collected data from various categories are inspected and amalgamated.
+### Input(s)
+| Component | Description | Data directory |
+| --- | --- | --- |
+| Non proxy revenue files | Folder containing processed time-indexed files representing various data sources in .csv format which are non-proxy revenue related. | data/02_dataloader/non_revenue_partitions/
+| Outlet proxy revenue files | Folder containing individual time-indexed outlet-based proxy revenue in .csv format. | data/02_dataloader/outlet_proxy_revenues/
+---
+<br />
 
-| Component                                 | Description                                                                          |
-| ----------------------------------------- | ------------------------------------------------------------------------------------ |
-| loaded_non_proxy_revenue_partitioned_data | Folder with partition IDs and pointers for loading non-proxy revenue data.       |
-| loaded_proxy_revenue_partitioned_data     | Folder with partition IDs and pointers for loading outlet-specific revenue data. |
+### Output(s)
+| Component | Description | Data directory |
+| --- | --- | --- |
+| Processed outlet datafiles | Folder containing individual time-indexed outlet-based proxy revenue with merged features in .csv format. | data/03_data_preprocessing/processed/ |
+---
+<br />
 
-### Output
-Data from various partitions are collected and checked for subsequent analytics.
+## 3. Data Merge
+This module concatenates the individual outlet proxy revenue dataset files generated in previous module, [Data Preprocessing](#2-data-preprocessing) into a single file to facilitate time-index split which is handled in next module, [Data Split](#4-data-split).
 
-| Component               | Description                                                               | Type               |
-| ----------------------- | ------------------------------------------------------------------------- | ------------------ |
-| merged_non_revenue_data | Consolidated DataFrame of non-proxy revenue data from various partitions. | MemoryDataset      |
-| data_preprocessed       | Folder of processed outlets partition.                                | PartitionedDataSet |
+The diagram below provides a general overview of the module.
 
-## 3. Data Merging & Splitting
-The data_splitting module is responsible for merging the preprocessed datasets and then segmenting the them into training, validation, and test sets. This ensures that the model can be trained and evaluated effectively. 
+![Pipeline Design](./assets/data_merge.png)
+<br />
 
-**Diagram**
+### Input(s)
+| Component | Description | Data directory |
+| --- | --- | --- |
+| Processed outlet datafiles | Folder containing individual time-indexed outlet-based proxy revenue with merged features in .csv format. | data/03_data_preprocessing/processed/ | This data is then passed through different data splitting approaches like simple split, expanding window , and sliding window, as specified in the configuration file. |
+---
+<br />
 
-Refer to the included visual representation for a structured view of this process. 
+### Output(s)
 
-![Pipeline Design](./assets/data_splitting.png)
+| Component | Description | Data directory |
+| --- | --- | --- |
+| Merged outlet datafiles | File containing merged time-indexed outlet-based proxy revenue with merged features in .csv format. | data/04_data_split/data_merged/data_merged.csv |
+---
+<br />
 
-### Input
-The cleaned, validated, and combined dataset ready for splitting into training, validation, and test sets.
+## 4. Data split
+This module takes the output of [Data Merge](#3-data-merge) and implements all **three** time-dependent data splits, namely 
+- simple split;
+- expanding window; and
+- sliding window.
 
-| Component         | Description                                                        |
-| ----------------- | ------------------------------------------------------------------ |
-| data_preprocessed | Processed outlets partition, ready for data merging and splitting. |
+Split parameters are configurable via `conf/base/parameters/data_split.yml`. Before conducting splits, checks would be made to validate inputs. If invalid inputs are set, `conf/base/constants.yml` containing default fallback values would be used.
 
-This data is then passed through different data splitting approaches like `simple_split`, `expanding_window`, and `sliding_window`, as specified in the configuration file.
+The diagram below provides a general overview of the module.
 
-### Output
-Datasets partitioned for model training, validation, and testing. Different techniques like simple_split, expanding_window, and sliding_window could be used based on pipeline configuration. 
+![Pipeline Design](./assets/data_split.png)
+<br />
 
-| Component  | Description                                                                                      | Type               |
-| ---------- | ------------------------------------------------------------------------------------------------ | ------------------ |
-| data_merge | A dataframe that consolidates outlets specified files into one, sorted by a default date column. | CSVDataSet         |
-| data_split | Partitioned datasets containing separate subsets for training, validation, and testing.          | PartitionedDataSet |
+### Input(s)
+| Component | Description | Data directory |
+| --- | --- | --- |
+| Merged outlet datafile | Single file containing all outlet-based proxy revenue in .csv format. | data/04_data_split/data_merged/data_merged.csv |
+---
+<br />
 
-## 4. Feature Engineering
-The Feature Engineering module boosts model accuracy by crafting advanced features from your data. It uses statistical metrics, lagging, categorical encoding, and libraries like tsfresh and LightweightMMM.
+### Output(s)
+| Component | Description | Data directory |
+| --- | --- | --- |
+| Simple split | Folder containing training, validation and testing datasets generated via simple time-based index split configured by days. | data/04_data_split/simple_split/ |
+| Expanding window split | Folder containing training, validation and testing datasets generated using expanding window time-index split configured by days. | data/04_data_split/expanding_window/ |
+| Sliding window split | Folder containing training, validation and testing datasets generated using sliding window time-index split configured by days. | data/04_data_split/sliding_window/ |
+---
+<br />
 
-### Feature Inventory
-Here are the features engineered by this module, mapped to their respective data sources. Each entry includes the feature's name, a brief description, and an indication of whether or not the feature is utilised in the final model training.
+## 5. Time-Agnostic Feature Engineering
+This module serves to facilitate feature engineering processes which are  time-agnostic based on configured data split source using fold information and name of data split as configured in `parameters.yml`. Upon completion of necessary feature engineering works, each training, validation and test folds are partitioned into files by outlets and stored in respective `training`, `validation` and `test` folders. 
 
-| Feature Source                        | Feature Name                           | Description                                                          | Included in Trained Model |
-| ------------------------------------- | -------------------------------------- | -------------------------------------------------------------------- | ------------------------- |
-| Native Python Library              | `is_weekend`                           | Indicates if the day is a weekend                                    | Yes                       |
-| `holiday_df.xlsx`                     | `is_public_holiday`                    | Signifies if the day is a public holiday                             | Yes                       |
-| `holiday_df.xlsx`                     | `is_school_holiday`                    | Specifies if the day is a school holiday                             | Yes                       |
-| `proxy_revenue_masked.csv`            | `binned_proxy_revenue`                 | Categorised proxy revenue data                                       | Yes                       |
-| Native Dataset / Library              | `day_of_week`                          | Day of the week                                                      | Yes                       |
-| Native Dataset / Library              | `is_pandemic_restrictions`             | Indicates presence of pandemic-related restrictions                  | Yes                       |
-| `SG climate records 2021 - 2022.xlsx` | `is_raining`                           | Denotes if it's a rainy day                                          | Yes                       |
-| `SG climate records 2021 - 2022.xlsx` | `temp_max`                             | Maximum temperature for the day                                      | Yes                       |
-| `proxy_revenue_masked.csv`            | `lag_9_days_proxy_revenue`             | Revenue data lagged by 9 days                                        | Yes                       |
-| `proxy_revenue_masked.csv`            | `lag_14_days_proxy_revenue`            | Revenue data lagged by 14 days                                       | Yes                       |
-| `proxy_revenue_masked.csv`            | `sma_window_7_days_proxy_revenue`      | 7-day Simple Moving Average of proxy revenue                         | Yes                       |
-| `proxy_revenue_masked.csv`            | `sma_window_8_days_proxy_revenue`      | 8-day Simple Moving Average of proxy revenue                         | Yes                       |
-| `proxy_revenue_masked.csv`            | `lag_1_week_mean_weekly_proxy_revenue` | Mean weekly proxy revenue lagged by 1 week                           | Yes                       |
-| `proxy_revenue_masked.csv`            | `lag_2_week_mean_weekly_proxy_revenue` | Mean weekly proxy revenue lagged by 2 weeks                          | Yes                       |
-| `marketing cost.xlsx`                 | `cat_mkt_campaign_start`               | Start date of ongoing marketing campaigns                            | Yes                       |
-| `marketing cost.xlsx`                 | `cat_mkt_campaign_end`                 | End date of ongoing marketing campaigns                              | Yes                       |
-| `marketing cost.xlsx`                 | `count_mkt_campaign`                   | Number of ongoing marketing campaigns for the current date           | Yes                       |
-| `marketing cost.xlsx`                 | `is_having_campaign`                   | Indicates if any marketing campaigns are active for the current date | Yes                       |
-| `marketing cost.xlsx`                 | `radio_ad_daily_cost`                  | Daily cost for radio advertisements                                  | Yes                       |
-| `marketing cost.xlsx`                 | `digital_daily_cost`                   | Daily cost for digital marketing                                     | Yes                       |
-| `marketing cost.xlsx`                 | `instagram_ad_daily_cost`              | Daily cost for Instagram advertisements                              | Yes                       |
-| `marketing cost.xlsx`                 | `poster_campaign_daily_cost`           | Daily cost for poster campaigns                                      | Yes                       |
-| `marketing cost.xlsx`                 | `tv_ad_daily_cost`                     | Daily cost for TV advertisements                                     | Yes                       |
-| `marketing cost.xlsx`                 | `youtube_ad_daily_cost`                | Daily cost for YouTube advertisements                                | Yes                       |
-| `marketing cost.xlsx`                 | `facebook_ad_daily_cost`               | Daily cost for Facebook advertisements                               | Yes                       |
-| `marketing cost.xlsx`                 | `campaign_daily_cost`                  | Overall daily cost for all marketing campaigns                       | Yes                       |
-| Lightweight MMM                       | `adstock_<channel>_daily_cost`         | Adstock effect on daily cost for a given channel                     | No                        |
-| Lightweight MMM                       | `carryover_<channel>_daily_cost`       | Carryover effect on daily cost for a given channel                   | No                        |
+The key feature engineering works in this module are as follows:
+- Boolean indicator feature generation based on conditions (under `feature_indicator_diff_creation.py`). 
+    - Example: *`is_raining`* feature generated from *`daily_rainfall_total_mm`* feature based whether value is greater than > 0.2 condition.
+- Differencing of values using list of 2 columns features (under `feature_indicator_diff_creation.py`)
+- Marketing cost imputation for days without any marketing events
 
+The diagram below provides a general overview of the module.
 
-## 5. Model-specific Preprocessing
-This module is geared towards *customised preprocessing steps* that are specifically *tailored for the selected machine learning model in use*. Depending on the model selected, this can include tasks like feature scaling, encoding categorical variables, or even more complex data transformations. 
+![Pipeline Design](./assets/time_agnostic_feature_engineering.png)
 
-**Diagram**
+### Table of various time-agnostic feature engineering functions
 
-Refer to the included visual representation for a structured view of this process.
+| Function name | Feature of interest (snakecased feature names) | Description | New feature name | 
+| --- | --- | --- | --- |
+|`create_min_max_feature_diff` | Based on `columns_to_diff_list` parameter (expects List of list containing 2 elements within) | Calculates the difference in values between 2 columns | `diff_<min_column_name>_<max_column_name>`|
+|`create_is_weekday_feature` | Dataframe index in datetime | Sets to 1 if the derived weekday information value <5, else 0.| `is_weekday`|
+|`create_is_holiday_feature` | Based on `fe_holiday_column_list` parameter (list). Example features used: `school_holiday`, `public_holiday` | Sets to 1 if entry exists, else 0.| Prefix `is_` added to all columns used. Example: `is_school_holiday`, `is_public_holiday`|
+|`create_is_raining_feature` | Based on `fe_rainfall_column` parameter (string). Example feature used: `daily_rainfall_total_mm` | Set to 1 if column reference is greater than 0.2, else 0. | Appends a prefix 'is_' to column used. Example: `is_daily_rainfall_total_mm`|
+|`create_is_pandemic_feature` | Based on `fe_pandemic_column` parameter (string). Example feature used: `group_size_cap` | Set to 0 if column reference indicates "no limit", else 1 | `is_pandemic_restrictions` |
+|`create_mkt_campaign_counts_start_end`||||
+|`no_mkt_days_imputation`| Based on `mkt_columns_to_impute_dict` parameter (dict) | Utilises `mkt_columns_to_impute_dict` containing imputation values for specified marketing cost features for days without any marketing events.| No new features created. Only affects `tv_ad_daily_cost`, `radio_ad_daily_cost`, `instagram_ad_daily_cost`, `facebook_ad_daily_cost`, `youtube_ad_daily_cost`,`poster_campaign_daily_cost`, `digital_daily_cost` |
+---
+<br />
 
-![Pipeline Design](./assets/data_model_specific_preprocessing.png)
+### Input(s)
 
-### Input
+| Component | Description | Data directory |
+| --- | --- | --- |
+| Simple split | Folder containing training, validation and testing datasets folds generated using simple time-index split configured by days. | data/04_data_split/simple_split/ |
+| Expanding window split | Folder containing training, validation and testing datasets folds generated using expanding window time-index split configured by days. | data/04_data_split/expanding_window/ |
+| Sliding window split | Folder containing training, validation and testing datasets folds generated using sliding window time-index split configured by days. | data/04_data_split/sliding_window/ |
+---
+<br />
+
+### Output(s)
+
+| Component | Description | Data directory |
+| --- | --- | --- |
+| Training dataset | Training dataset folder containing fold-outlet files with engineered columns. | data/04a_time_agnostic_feature_engineering/sliding_window/training/ |
+| Validation dataset | Validation dataset folder containing fold-outlet files with engineered columns. | data/04a_time_agnostic_feature_engineering/sliding_window/validation/ |
+| Testing dataset | Testing dataset folder  containing fold-outlet files with engineered columns. | data/04a_time_agnostic_feature_engineering/sliding_window/testing/ |
+---
+<br />
+
+## 6. Time-Dependent Feature Engineering
+This module serves to facilitate feature engineering processes which are supposedly time-dependent (or time-sensitive) based on outputs generated under the previous section.
+
+The key feature engineering works in this module are as follows:
+- One-hot and ordinal encodings
+- StandardScaler and Normalizer
+- Lag feature generation
+- *LightweightMMM* feature generation **(can be enabled/disabled via parameters.yml)**
+- *Tsfresh* feature generation **(can be enabled/disabled via parameters.yml)**
+- Merge all feature engineered columns together (including *LightweightMMM* and *Tsfresh*)
+
+The diagram below provides a general overview of the module.
+
+![Pipeline Design](./assets/time_dependent_feature_engineering.png)
+<br />
+
+### Core functions
+| Function name | Feature of interest (snakecased feature names) | Description | New feature name | 
+| --- | --- | --- | --- |
+| `apply_binning_fit` | Based on `binning_dict` parameter (dict) containing feature to bin as key with bin labels in a list specified in parameters.yml.|Function applies a 'fit' to binning to learn binned parameters. | - |
+| `apply_binning_transform` | Based on `binning_dict` parameter (dict) containing column to bin as key with bin labels in a list specified in parameters.yml. | Function applies a 'transform' for binning using binned parameters.| Column to be would be prefixed with `binned_`. Example: `binned_proxyrevenue` |
+| `apply_standard_norm_fit` | Based on `columns_to_std_norm_dict` parameter (list) containing feature to be standardised or normalized specified in parameters.yml.|Applies 'fit' method with either sklearn standardscaler/normalizer depending on `normalization_approach` parameter option which can be either `normalize` or `standardize` with default `normalize` used for invalid cases. | - |
+| `apply_standard_norm_transform` | Based on `columns_to_std_norm_dict` parameter (list) containing feature to be standardised or normalized specified in parameters.yml.|Applies 'transform' method with either sklearn standardscaler/normalizer depending on `normalization_approach` parameter option which can be either `normalize` or `standardize` with default `normalize` used for invalid cases. | No new columns generated as values used in `columns_to_std_norm_dict` are overwritten. |
+| `generate_lag` | Based on `columns_to_create_lag_features` parameter (list) indicating column for lag features generation specified in parameters.yml. | Generates simple lag, simple moving average with period shift, and weekly average lags. Configured lag parameters with `lag_periods_list`, `sma_windows_periods_list`,  `sma_tsfresh_shift_period`, `lag_week_periods_list` | New features identified with `lag_` prefix constructed with corresponding duration and the column used as suffix. Example:  <ul><li>`lag_9_proxyrevenue`,`lag_14_proxyrevenue` (simple lag)</li><li>`lag_9_sma_7_days_proxyrevenue` (simple moving average)</li><li>`lag_mean_1_week_proxyrevenue`, `lag_mean_2_week_proxyrevenue` (lag weekly )</li></ul> 
+| `apply_feature_encoding_fit` | Based on `fe_ordinal_encoding_dict` parameter (dict) and `fe_one_hot_encoding_col_list` parameter (list) specified in parameters.yml.|Applies fit on columns identified for one-hot encoding or ordinal encoding using sklearn library. | - |
+| `apply_feature_encoding_transform` | Based on learned encodings from generated artefacts from `apply_feature_encoding_fit` function specified in parameters.yml. |Applies transform on columns identified for one-hot encoding or ordinal encoding using sklearn library based on learned encodings. | For one-hot encoding, learned encoding names are used. For ordinal encoding, a prefix of `ord_` is appended to columns used. |
+---
+<br />
+
+### Generated Artefacts (with physical file)
+| Name | File type | Directory Path |
+| --- | --- | --- |
+| `feature_encoding.pkl` | pickle | data/05_feature_engineering/artefacts/feature_encoding.pkl |
+| `std_norm.pkl` | pickle | data/05_feature_engineering/artefacts/std_norm.pkl |
+| `lightweightmmm_fitted_params.json`| json | data/05_feature_engineering/lightweightmmm_features/artefacts/lightweightmmm_fitted_params.json |
+| `fold<number>_tsfresh_relevant_features.json` | json | data/05_feature_engineering/tsfresh_features/artefacts/tsfresh_relevant_features/|
+
+---
+<br />
+
+### *LightweightMMM* (configurable for enabling/disabling)
+The following functions **are skipped** if *`include_lightweightMMM`* parameter in `parameters.yml` is set to False.
+
+| Function name | Feature of interest (snakecased feature names) | Description | New feature name | 
+| --- | --- | --- | --- |
+| `extract_mmm_params_for_folds` | Based on `fe_target_feature_name` (numeric target feature) and `mkt_channel_list` (list of marketing cost features) parameters in parameters.yml. | Stores learned fitted lightweightMMM parameters (adstock/carryover) in a dictionary for function below.<br /> <br />  **Caveat: Due to half-normal distribution utilised, values are added with 0.0001 to ensure positive values are porocessed and prevent errors.**| - |
+| `generate_mmm_features_for_outlets` | References the extracted *lightweightMMM* information from the generated dictionary in the previous function.| Generates separate *LightweightMMM* features and adds the derived adstock/carryover costs to daily marketing cost to represent marketing effects. | No new feature name created as existing marketing cost features list `mkt_channel_list` are updated. Example: <ul><li>`tv_ad_daily_cost`</li><li>`radio_ad_daily_cost`</li><li>`instagram_ad_daily_cost`</li><li> `facebook_ad_daily_cost`</li><li>`youtube_ad_daily_cost`</li><li>`poster_campaign_daily_cost`</li><li>`digital_daily_cost`</li></ul> |
+---
+<br />
+
+### *Tsfresh* (configurable for enabling/disabling)
+The following functions **are skipped** if *`include_tsfresh`* parameter in `parameters.yml` is set to `False`.
+| Function name | Feature of interest (snakecased feature names) | Description | New feature name | 
+| --- | --- | --- | --- |
+| `run_tsfresh_feature_selection_process` | Based on `fe_target_feature_name` (numeric target feature) parameter specified in parameters.yml. | Derives and construct relevant tsfresh features based on dataframe predictors and predicted features. |-|
+| `run_tsfresh_feature_engineering_process` |Based on `fe_target_feature_name` (numeric target feature) parameter specified in parameters.yml. | Creates tsfresh features based on learnt tsfresh artefacts | New feature names are prefixed by value configured in `fe_target_feature_name`. Example with 'proxyrevenue' used `proxyrevenue_cwt_coefficients_coeff_0_w_5_widths_2_5_10_20` |
+---
+<br />
+
+### Input(s)
+
+| Component | Description | Data directory |
+| --- | --- | --- |
+| Training dataset | Training dataset folder containing fold-outlet files with engineered columns. | data/04a_time_agnostic_feature_engineering/sliding_window/training/ |
+| Validation dataset | Validation dataset folder containing fold-outlet files with engineered columns. | data/04a_time_agnostic_feature_engineering/sliding_window/validation/ |
+| Testing dataset | Testing dataset folder  containing fold-outlet files with engineered columns. | data/04a_time_agnostic_feature_engineering/sliding_window/testing/ |
+---
+<br />
+
+### Intermediate files
+
+| Component | Description | Data directory |
+| --- | --- | --- |
+| Training dataset (processed) | Training dataset folder containing engineered features **without *tsfresh* and *lightweightMMM* features**. | data/05_feature_engineering/no_tsfresh_lightweightmmm/training/ |
+| Validation dataset (processed) | Validation dataset folder containing engineered features **without *tsfresh* and *lightweightMMM* features**. | data/05_feature_engineering/no_tsfresh_lightweightmmm/validation/ |
+| Testing dataset (processed) | Validation dataset folder containing engineered features **without *tsfresh* and *lightweightMMM* features**. | data/05_feature_engineering/no_tsfresh_lightweightmmm/testing/ |
+| Lag features dataset | Folder containing generated lag features for each outlet (using entire dataset). | data/05_feature_engineering/lag_features/ |
+| *LightweightMMM* features dataset | Folder containing fold-based generated lightweightMMM features (adstock & carry-over) using a sample outlet since marketing cost features for each outlet in the same fold are treated equivalent. This is due to differing time periods covered by **each fold**.  | data/05_feature_engineering/lightweightMMM/ |
+| *Tsfresh* features dataset | Folder containing generated derived tsfeatures for each outlet per fold. | data/05_feature_engineering/tsfresh/ |
+
+### Output(s)
+
+| Component | Description | Data directory |
+| --- | --- | --- |
+| Training dataset | Training dataset folder containing engineered features with *tsfresh* and/or *lightweightMMM* features | data/05_feature_engineering/features_merged/training/ |
+| Validation dataset | Validation dataset folder containing engineered features with *tsfresh* and/or *lightweightMMM* features| data/05_feature_engineering/features_merged/validation/ |
+| Testing dataset | Testing dataset folder containing engineered features with *tsfresh* and/or *lightweightMMM* features| data/05_feature_engineering/features_merged/testing/ |
+---
+<br />
+
+## 7. Model-specific Preprocessing
+This module is primarily used to conduct any model-specific preprocessing steps, especially when more models are experimented with some requiring specialised inputs conversion, continuing from [Time-dependent feature engineering](#6-time-dependent-feature-engineering) module.
+
+Subsequently, numerical columns are retained with the removal of non-numerical columns, redundant columns (i.e. single-valued column(s)) and rows containing null values are implemented before splitting the dataset into predictors and predicted feature for model training purposes. This is to ensure model training can proceed without issues.
+
+**Note: The existing OrderedModel and EBM used do not have a specific preprocessing step required that differs from each other. Should there be new models be considered, this module is to be utilised for necessary model-specific preprocessing works.**
+
+The diagram below provides a general overview of the module.
+
+![Pipeline Design](./assets/model_specific_preprocessing.png)
+
+### Input(s)
 Feature-engineered data customised for the specific predictive models being used in the analysis.
 
-| Component                                          | Description                                                                                                                        |
-| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| feature_engineering_with_lightweightmmm_training   | Feature-engineered data optimised for training the LightweightMMM model. Includes transformations and variable selection.          |
-| feature_engineering_with_lightweightmmm_validation | Feature-engineered data optimised for validating the LightweightMMM model. Similar transformations applied as in the training set. |
-
-### Output
-Data that has been specifically preprocessed to suit the requirements of the chosen predictive model(s). This includes creating concatenated folds, removing unimportant columns, dealing with constant columns, and other model-specific transformations.
-
-| Component                                       | Description                                                                                                                | Type               |
-| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| concatenated_folds_training                     | Training data folds concatenated for model optimisation.                                                                   | MemoryDataset      |
-| concatenated_folds_validation                   | Validation data folds concatenated for model evaluation.                                                                   | MemoryDataset      |
-| removed_columns_training                        | Training data with irrelevant or less significant columns removed.                                                         | MemoryDataset      |
-| removed_columns_validation                      | Validation data with irrelevant or less significant columns removed.                                                       | MemoryDataset      |
-| constant_column_params                          | Settings used to identify and remove constant columns across datasets.                                                     | JSONDataSet        |
-| remove_const_colum_data_training                | Training data with constant columns removed based on constant_column_params.                                               | MemoryDataset      |
-| remove_const_colum_data_validation              | Validation data with constant columns removed based on constant_column_params                                              | MemoryDataset      |
-| reordered_data_folds                            | Ordered dictionary that pairs sorted training and validation data partitions by outlet folds for subsequent processing.    | MemoryDataset      |
-| {model}.model_specific_preprocessing_train      | Model-specific transformations applied on the training set, formatted according to the specific requirements of {model}.   | PartitionedDataSet |
-| {model}.model_specific_preprocessing_validation | Model-specific transformations applied on the validation set, formatted according to the specific requirements of {model}. | PartitionedDataSet |
-| {model}.model_specific_preprocessing_test       | Model-specific transformations applied on the test set, formatted according to the specific requirements of {model}        | PartitionedDataSet |
-
-## Data Pipeline Configuration
-This section captures some of the key parameters from the `parameters.yml`, `constants.yml` and `data_split.yml` files. Due to the volume of parameters, we'll only include a selection for illustrative purposes.
-
-### Key Parameters in the `parameters.yml` File
-
-This sub-section outlines the key parameters in the `parameters.yml` configuration file that control different aspects of a data pipeline. The file is divided into several sections, each dealing with a specific part of the pipeline. Here's a breakdown:
-
-**Dataloader Configuration**
-
-| Parameter            | Type  | Description        | Default Value    |
-| -------------------- | ----- | ------------------ | ---------------- |
-| `outlet_column_name` | `str` | Outlet column name | 'costcentrecode' |
-
-**Data Preprocess Configurations**
-
-| Parameter                 | Type   | Description                                   | Default Value |
-| ------------------------- | ------ | --------------------------------------------- | ------------- |
-| `start_date`              | `str`  | Data start date                               | '2021-01-01'  |
-| `end_date`                | `str`  | Data end date                                 | '2022-12-31'  |
-| `zero_val_threshold_perc` | `int`  | Percentage of zero values allowed in a column | 2             |
-| `outlets_exclusion_list`  | `list` | List of outlets to be excluded                | []            |
-
-**Feature Engineering Configurations: Time Agnostic** 
-
-| Parameter                       | Type   | Description                                      | Default Value                                                                                                                                                                                                                                                                  |
-| ------------------------------- | ------ | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `fe_columns_to_drop_list`       | `list` | Columns to be dropped before feature engineering | ['day', 'location', 'manhours', 'outlet', 'highest_30_min_rainfall_mm', 'highest_60_min_rainfall_mm', 'highest_120_min_rainfall_mm', 'mean_temperature_c', 'minimum_temperature_c', 'mean_wind_speed_kmh', 'max_wind_speed_kmh', 'school_holiday_type', 'public_holiday_type'] |
-| `fe_mkt_column_name`            | `str`  | Column name for marketing-related features       | 'name'                                                                                                                                                                                                                                                                         |
-| `fe_mkt_columns_to_impute_dict` | `dict` | Default values for marketing-related columns     | {'tv_ad_daily_cost': 0, 'radio_ad_daily_cost': 0, 'instagram_ad_daily_cost': 0, 'facebook_ad_daily_cost': 0, 'youtube_ad_daily_cost': 0, 'poster_campaign_daily_cost': 0, 'digital_daily_cost': 0}                                                                             |
-
-**Feature Engineering Configurations: Time-Agnostic Features Categorisation**
-
-| Parameter               | Type  | Description                    | Default Value  |
-| ----------------------- | ----- | ------------------------------ | -------------- |
-| `split_approach_source` | `str` | Method used for data splitting | 'simple_split' |
-
-**Feature Engineering Configurations: Column Specific Features**
-
-| Parameter                | Type   | Description                                  | Default Value                        |
-| ------------------------ | ------ | -------------------------------------------- | ------------------------------------ |
-| `fe_rainfall_column`     | `str`  | Column used for 'is_raining' feature         | 'daily_rainfall_total_mm'            |
-| `fe_holiday_column_list` | `list` | Columns for generating holiday boolean state | ['school_holiday', 'public_holiday'] |
-| `fe_pandemic_column`     | `str`  | Column for generating pandemic boolean state | 'group_size_cap'                     |
-
-**Time-Dependent Feature Engineering**
-
-| Parameter                           | Type   | Description                                              | Default Value                            |
-| ----------------------------------- | ------ | -------------------------------------------------------- | ---------------------------------------- |
-| `fe_target_feature_name`            | `str`  | Target feature of interest                               | 'proxyrevenue'                           |
-| `fe_ordinal_encoding_dict`          | `dict` | Dictionary containing columns to encode and their labels | {}                                       |
-| `fe_one_hot_encoding_col_list`      | `list` | Columns to apply one-hot encoding                        | ['type']                                 |
-| `binning_dict`                      | `dict` | Binning dictionary for target feature                    | ['Low', 'Medium', 'High', 'Exceptional'] |
-| `fe_columns_to_std_norm_list`       | `list` | Columns to apply standard normalization                  | []                                       |
-| `include_lags_columns_for_std_norm` | `bool` | Include lag columns for standard normalization           | True                                     |
-| `normalization_approach`            | `str`  | Normalization approach to use                            | 'standardize'                            |
-
-**Additional Feature Engineering**
-
-| Parameter                        | Type   | Description                    | Default Value                                                                                                                                                                |
-| -------------------------------- | ------ | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `columns_to_create_lag_features` | `list` | Columns to create lag features | ['proxyrevenue']                                                                                                                                                             |
-| `lag_periods_list`               | `list` | List of lag periods            | [9, 14]                                                                                                                                                                      |
-| `sma_window_periods_list`        | `list` | SMA window periods list        | [7]                                                                                                                                                                          |
-| `sma_shift_period`               | `int`  | SMA shift period               | 9                                                                                                                                                                            |
-| `lag_week_periods_list`          | `list` | Lag week periods list          | [1, 2]                                                                                                                                                                       |
-| `lightweightmmm_num_lags`        | `int`  | Lightweight MMM number of lags | 7                                                                                                                                                                            |
-| `fe_mkt_channel_list`            | `list` | FE market channel list         | ['tv_ad_daily_cost', 'radio_ad_daily_cost', 'instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost','poster_campaign_daily_cost', 'digital_daily_cost'] |
-| `include_lightweightMMM`                | `bool`     | Include tsfresh in pipeline                          | False                                                                                                                 |
-| `lightweightmmm_adstock_normalise`      | `bool`     | Normalize adstock values                             | True                                                                                                                  |
-| `lightweightmmm_optimise_parameters`    | `bool`     | Optimize lightweightmmm parameters                   | True                                                                                                                  |
-| `lightweightmmm_params`                 | `dict`     | Parameters for lightweightmmm                        | Various                                                                                                              |
-| ↳ `lag_weight`                          | `list`     | Lag weight                                           | [0.7025, 0.9560, 0.7545, 0.7484, 0.9405, 0.6504, 0.7207]                                                             |
-| ↳ `ad_effect_retention_rate`            | `list`     | Ad effect retention rate                             | [0.4963, 0.6495, 0.5482, 0.5484, 0.5822, 0.6404, 0.7346]                                                             |
-| ↳ `peak_effect_delay`                   | `list`     | Peak effect delay                                   | [1.2488, 5.5658, 1.9455, 1.8988, 1.8554, 1.6911, 1.8539]                                                             |                                                                                                                                           |
-
-
-**Tsfresh Related Features**
-
-| Parameter                   | Type   | Description                    | Default Value                                                                                                                                                                                                    |
-| --------------------------- | ------ | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `include_tsfresh`           | `bool` | Include TSFresh in pipeline    | False                                                                                                                                                                                                            |
-| `run_tsfresh_fe`            | `bool` | Run TSFresh feature extraction | False                                                                                                                                                                                                            |
-| `tsfresh_feature_selection` | `bool` | TSFresh feature selection      | True                                                                                                                                                                                                             |
-| `tsfresh_entity`            | `str`  | TSFresh entity                 | 'week_sma'                                                                                                                                                                                                       |
-| `tsfresh_num_features`      | `int`  | TSFresh number of features     | 20                                                                                                                                                                                                               |
-| `tsfresh_days_per_group`    | `int`  | TSFresh days per group         | 7                                                                                                                                                                                                                |
-| `tsfresh_target_feature`    | `str`  | TSFresh target feature         | 'binned_proxyrevenue'                                                                                                                                                                                            |
-| `tsfresh_features_list`     | `list` | TSFresh features list          | ['proxyrevenue']                                                                                                                                                                                                 |
-| `tsfresh_extract_relevant`  | `bool` | TSFresh extract relevant       | True                                                                                                                                                                                                             |
-| `tsfresh_n_significant`     | `int`  | TSFresh N significant          | 4                                                                                                                                                                                                                |
-| `tsfresh_num_outlets`       | `int`  | TSFresh number of outlets      | 3                                                                                                                                                                                                                |
-| `sma_tsfresh_shift_period`  | `int`  | Shared TSFresh and SMA shift period | 9                                                                                                                                                                                                             |
-
-
-**Model Preprocessing Module**
-
-| Parameter                                | Type   | Description                            | Default Value         |
-| ---------------------------------------- | ------ | -------------------------------------- | --------------------- |
-| `model`                                  | `str`  | Model to use                           | 'ebm'                 |
-| `target_column_for_modeling`             | `str`  | Target column for modeling             | 'binned_proxyrevenue' |
-| `drop_columns_used_for_binning_encoding` | `bool` | Drop columns used for binning/encoding | True                  |
-| `training_testing_mode`                  | `str`  | Training or testing mode               | 'training'            |
-| `fold`                                   | `int`  | Fold number                            | 1                     |
-
-**MLflow Tracking Server**
-
-| Parameter                | Type   | Description            | Default Value               |
-| ------------------------ | ------ | ---------------------- | --------------------------- |
-| `enable_mlflow`          | `bool` | Enable MLFlow          | False                       |
-| `is_remote_mlflow`       | `bool` | Is MLFlow remote       | False                       |
-| `tracking_uri`           | `str`  | Tracking URI           | 'http://10.43.130.112:5005' |
-| `experiment_name_prefix` | `str`  | Experiment name prefix | 'bipo'                      |
-
-
-### Key Parameters in the `constants.yml` File
-
-This sub-section outlines the key parameters in the `constants.yml` configuration file. The file is organised into multiple sections to cater to different aspects of data loading, preprocessing, and modelling.
-
-**Default Configurations for Dataloader**
-
-| Parameter                            | Type   | Description                                       | Default Value              |
-| ------------------------------------ | ------ | ------------------------------------------------- | -------------------------- |
-| `default_date_col`                   | `str`  | Default column for date                           | 'Date'                     |
-| `default_propensity_factor_column`   | `str`  | Default column for propensity factor              | 'Factor'                   |
-| `default_mkt_channels_column`        | `str`  | Default column for marketing channels             | 'Mode'                     |
-| `default_mkt_cost_column`            | `str`  | Default column for marketing total cost           | 'Total Cost'               |
-| `default_mkt_name_column`            | `str`  | Default column for marketing campaigns name       | 'Name'                     |
-| `default_mkt_date_start_end_columns` | `list` | Default columns for marketing start and end dates | ['Date Start', 'Date End'] |
-| `default_outlet_column`              | `str`  | Default column for outlet or cost centre          | 'CostCentreCode'           |
-| `columns_to_construct_date`          | `dict` | Columns to construct date for different datasets  | Various                    |
-| ↳ `weather_data`                     | `list` | Dates for weather data                            | ["Year", "Month", "Day"]   |
-| ↳ `marketing_data`                   | `list` | Start and end dates for marketing data            | ["Date Start", "Date End"] |
-
-**Default Configurations for Data Preprocessing**
-
-| Parameter                            | Type   | Description                                 | Default Value  |
-| ------------------------------------ | ------ | ------------------------------------------- | -------------- |
-| `default_start_date`                 | `str`  | Default start date for the dataset          | '2021-01-01'   |
-| `default_end_date`                   | `str`  | Default end date for the dataset            | '2022-12-31'   |
-| `default_revenue_column`             | `str`  | Default column for revenue                  | 'proxyrevenue' |
-| `default_const_value_perc_threshold` | `int`  | Default constant value percentage threshold | 0              |
-| `default_outlets_exclusion_list`     | `list` | Default list of outlets to be excluded      | []             |
-
-**Default Configurations Marketing Columns Generation**
-
-| Parameter                         | Type   | Description                               | Default Value                                                                                                                                                                |
-| --------------------------------- | ------ | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `default_marketing_channel_list`  | `list` | Default marketing channel list            | ['tv_ad_daily_cost', 'radio_ad_daily_cost', 'instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost','poster_campaign_daily_cost', 'digital_daily_cost'] |
-| `default_lightweightmmm_num_lags` | `int`  | Default number of lags for lightweightmmm | 7                                                                                                                                                                            |
-
-**Default Configurations for Data Splitting Strategy**
-
-| Parameter                              | Type   | Description                                                                       | Default Value                                          |
-| -------------------------------------- | ------ | --------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| `data_split`                           | `dict` | Default configurations for data splitting                                         | Various                                                |
-| ↳ `training_days_default`              | `int`  | Default number of days allocated for training                                     | 365                                                    |
-| ↳ `validation_days_default`            | `int`  | Default number of days allocated for validation                                   | 0                                                      |
-| ↳ `testing_days_default`               | `int`  | Default number of days allocated for testing                                      | 14                                                     |
-| ↳ `window_sliding_stride_days_default` | `int`  | Default stride for sliding window (in days)                                       | 90                                                     |
-| ↳ `window_expansion_days_default`      | `int`  | Default expansion size for expanding window (in days)                             | 90                                                     |
-| ↳ `simple_split_fold_default`          | `int`  | Default fold number if "simple_split" is chosen                                   | 1                                                      |
-| ↳ `window_split_fold_default`          | `int`  | Default fold number if "sliding_window" or "expanding_window" is chosen           | 3                                                      |
-| ↳ `data_split_option_default`          | `str`  | Default splitting strategy ("simple_split", "expanding_window", "sliding_window") | "simple_split"                                         |
-| ↳ `data_split_option_list`             | `list` | List of available splitting strategies                                            | ["simple_split", "expanding_window", "sliding_window"] |
-| ↳ `data_split_fold_default`            | `int`  | Default fold number for any data splitting option                                 | 1                                                      |
-
-**Default Configurations for Model-Specific Preprocessing**
-
-| Parameter                         | Type    | Description                                                     | Default Value                                            |
-| --------------------------------- | ------- | --------------------------------------------------------------- | -------------------------------------------------------- |
-| `modeling`                        | `dict`  | Root dictionary for model-specific configurations               | Various                                                  |
-| ↳ `training_testing_mode_default` | `str`   | Default mode for training or testing                            | "training"                                               |
-| ↳ `valid_training_testing_modes`  | `list`  | List of valid modes for training and testing                    | ["training", "testing"]                                  |
-| ↳ `model_name_default`            | `str`   | Default name for the predictive model                           | "ebm"                                                    |
-| ↳ `valid_model_name`              | `list`  | List of valid model names                                       | ["ordered_model", "ebm"]                                 |
-| ↳ `ebm`                           | `dict`  | Default parameters for EBM (Explainable Boosting Machine) model | Various                                                  |
-| ↳↳ `outer_bags`                   | `int`   | Number of outer bags for EBM                                    | 10                                                       |
-| ↳↳ `inner_bags`                   | `int`   | Number of inner bags for EBM                                    | 0                                                        |
-| ↳↳ `learning_rate`                | `float` | Learning rate for EBM                                           | 0.01                                                     |
-| ↳↳ `interactions`                 | `int`   | Number of interactions for EBM                                  | 0                                                        |
-| ↳↳ `max_leaves`                   | `int`   | Maximum number of leaves for EBM                                | 3                                                        |
-| ↳↳ `min_samples_leaf`             | `int`   | Minimum samples per leaf for EBM                                | 2                                                        |
-| ↳↳ `max_bins`                     | `int`   | Maximum number of bins for EBM                                  | 256                                                      |
-| ↳ `ordered_model`                 | `dict`  | Default parameters for Ordered Model                            | Various                                                  |
-| ↳↳ `const_col_artefacts_path`     | `str`   | Path for constant column artefacts                              | "data/06_model_specific_preprocessing/ordered_model.pkl" |
-| ↳↳ `distr`                        | `str`   | Distribution type for Ordered Model                             | "probit"                                                 |
-| ↳↳ `method`                       | `str`   | Optimization method for Ordered Model                           | "bfgs"                                                   |
-| ↳↳ `max_iter`                     | `int`   | Maximum iterations for Ordered Model                            | 2                                                        |
-
-**Dataloader Specifics**
-
-| Parameter                | Type   | Description                                                  | Default Value                                                                                                                                                                                                                                                                                                                                          |
-| ------------------------ | ------ | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `dataloader`             | `dict` | Parent key for Dataloader configurations                     | Various                                                                                                                                                                                                                                                                                                                                                |
-| ↳ `expected_columns`     | `dict` | Specifies the columns expected in each type of input dataset | Various                                                                                                                                                                                                                                                                                                                                                |
-| ↳↳ `proxy_revenue_data`  | `list` | List of expected columns in the proxy revenue data           | ["CostCentreCode", "Date", "ManHours", "ProxyRevenue", "Location", "Outlet", "Type"]                                                                                                                                                                                                                                                                   |
-| ↳↳ `propensity_data`     | `list` | List of expected columns in the propensity data              | ["Location", "Factor"]                                                                                                                                                                                                                                                                                                                                 |
-| ↳↳ `marketing_data`      | `list` | List of expected columns in the marketing data               | ["Name", "Date Start", "Date End", "Mode", "Total Cost"]                                                                                                                                                                                                                                                                                               |
-| ↳↳ `weather_data`        | `list` | List of expected columns in the weather data                 | ["DIRECTION", "Station", "Year", "Month", "Day", "Daily Rainfall Total (mm)", "Highest 30 min Rainfall (mm)", "Highest 60 min Rainfall (mm)", "Highest 120 min Rainfall (mm)", "Mean Temperature (°C)", "Maximum Temperature (°C)", "Minimum Temperature (°C)", "Mean Wind Speed (km/h)", "Max Wind Speed (km/h)"]                                     |
-| ↳↳ `covid_capacity_data` | `list` | List of expected columns in the COVID capacity data          | ["Group size Cap "]                                                                                                                                                                                                                                                                                                                                    |
-| ↳↳ `holiday_data`        | `list` | List of expected columns in the holiday data                 | ["Date", "School Holiday", "School Holiday Type", "Public Holiday", "Public Holiday Type", "Day"]                                                                                                                                                                                                                                                      |
-| ↳↳ `merged_df`           | `list` | List of expected columns in the merged dataframe             | ["cost_centre_code", "man_hours", "proxy_revenue", "location", "outlet", "type", "propensity_factor", "rain_day_mm", "rain_high_30min_mm", "rain_high_60min_mm", "rain_high_120min_mm", "temp_mean", "temp_max", "temp_min", "wind_mean_kmh", "wind_max_kmh", "cat_covid_group_size_cap", "is_school_holiday", "is_public_holiday", "cat_day_of_week"] |
-| ↳↳ `inference`           | `list` | List of expected columns for inference                       | ["location", "type", "propensity_factor", "is_raining", "max_temp", "is_public_holiday", "is_school_holiday", "campaign_name", "campaign_start_date", "campaign_end_date", "campaign_total_costs", "lag_sales"]                                                                                                                                        |
-
-**Data Preprocessing Specifics**
-
-| Parameter                           | Type   | Description                                    | Default Value                                                                                                                                                                                        |
-| ----------------------------------- | ------ | ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `data_preprocessing`                | `dict` | Default configurations for data preprocessing  | Various                                                                                                                                                                                              |
-| ↳ `non_negative_exogeneous_columns` | `list` | Features mandated to have non-negative values  | ["rain_day_mm", "rain_high_30min_mm", "rain_high_60min_mm", "rain_high_120min_mm", "temp_mean", "temp_max", "temp_min", "wind_mean_kmh", "wind_max_kmh", "proxy_revenue", "man_hours", "total_cost"] |
-| ↳ `expected_dtypes`                 | `dict` | Expected data types for each feature           | Various                                                                                                                                                                                              |
-| ↳ `cost_centre_code`                | `str`  | Expected data type for cost centre code        | "int64"                                                                                                                                                                                              |
-| ↳ `man_hours`                       | `str`  | Expected data type for man hours               | "float64"                                                                                                                                                                                            |
-| ↳ `proxy_revenue`                   | `str`  | Expected data type for proxy revenue           | "float64"                                                                                                                                                                                            |
-| ↳ `location`                        | `str`  | Expected data type for location                | "object"                                                                                                                                                                                             |
-| ↳ `outlet`                          | `str`  | Expected data type for outlet                  | "object"                                                                                                                                                                                             |
-| ↳ `type`                            | `str`  | Expected data type for type                    | "object"                                                                                                                                                                                             |
-| ↳ `propensity_factor`               | `str`  | Expected data type for propensity factor       | "float64"                                                                                                                                                                                            |
-| ↳ `rain_day_mm`                     | `str`  | Expected data type for daily rainfall in mm    | "float64"                                                                                                                                                                                            |
-| ↳ `temp_mean`                       | `str`  | Expected data type for mean temperature        | "float64"                                                                                                                                                                                            |
-| ↳ `wind_mean_kmh`                   | `str`  | Expected data type for mean wind speed in km/h | "float64"                                                                                                                                                                                            |
-| ↳ `is_school_holiday`               | `str`  | Expected data type for school holiday flag     | "bool"                                                                                                                                                                                               |
-| ↳ `is_public_holiday`               | `str`  | Expected data type for public holiday flag     | "bool"                                                                                                                                                                                               |
-| ↳ `campaign_name`                   | `str`  | Expected data type for marketing campaign name | "str"                                                                                                                                                                                                |
-| ↳ `date_start`                      | `str`  | Expected data type for campaign start date     | "object"                                                                                                                                                                                             |
-| ↳ `total_cost`                      | `str`  | Expected data type for total marketing cost    | "float64"                                                                                                                                                                                            |
-| ↳ `cat_day_of_week`                 | `str`  | Expected data type for categorical day of the week | "object"                                                                                                                                                                                             |
-| ↳ `date_end`                        | `str`  | Expected data type for the campaign end date       | "object"                                                                                                                                                                                             |
-| ↳ `mode`                            | `str`  | Expected data type for the marketing mode          | "str"                                                                                                                                                                                                |
-
-
-### Key Parameters in the `data_split.yml` File
-
-This sub-section outlines the key parameters in the `data_split.yml` configuration file. It is broken down into sections, each detailing a specific type of data split.
-
-**Simple Split Configuration** 
-
-| Parameter                    | Type  | Description                                            | Default Value  |
-| ---------------------------- | ----- | ------------------------------------------------------ | -------------- |
-| `training_days`              | `int` | Number of training days                                | 588            |
-| `testing_days`               | `int` | Number of testing days                                 | 71             |
-| `validation_days`            | `int` | Number of validation days                              | 71             |
-| `window_sliding_stride_days` | `int` | Placeholder for config consistency, DO NOT CHANGE THIS | 0              |
-| `window_expansion_days`      | `int` | Placeholder for config consistency, DO NOT CHANGE THIS | 0              |
-| `split_approach`             | `str` | Splitting approach used                                | "simple_split" |
-| `folds`                      | `int` | Number of folds                                        | 1              |
-
-**Sliding Window Configuration**
-
-| Parameter                    | Type  | Description                                            | Default Value    |
-| ---------------------------- | ----- | ------------------------------------------------------ | ---------------- |
-| `training_days`              | `int` | Number of training days                                | 365              |
-| `testing_days`               | `int` | Number of testing days                                 | 60               |
-| `validation_days`            | `int` | Number of validation days                              | 60               |
-| `window_sliding_stride_days` | `int` | Days to stride the window                              | 90               |
-| `window_expansion_days`      | `int` | Placeholder for config consistency, DO NOT CHANGE THIS | 0                |
-| `split_approach`             | `str` | Splitting approach used                                | "sliding_window" |
-| `folds`                      | `int` | Number of folds                                        | 5                |
-
-**Expanding Window Configuration**
-
-| Parameter                    | Type  | Description                                            | Default Value      |
-| ---------------------------- | ----- | ------------------------------------------------------ | ------------------ |
-| `training_days`              | `int` | Number of training days                                | 365                |
-| `testing_days`               | `int` | Number of testing days                                 | 60                 |
-| `validation_days`            | `int` | Number of validation days                              | 60                 |
-| `window_sliding_stride_days` | `int` | Placeholder for config consistency, DO NOT CHANGE THIS | 0                  |
-| `window_expansion_days`      | `int` | Days set for expanding window for each fold            | 90                 |
-| `split_approach`             | `str` | Splitting approach used                                | "expanding_window" |
-| `folds`                      | `int` | Number of folds                                        | 5                  |
-
-
-## How to Execute the Data Pipeline
-
-This guide explains how to operate your data pipeline with the `run_data_pipeline.bat` script. The script offers an automated and convenient way to trigger the pipeline processes.
-
-**Running the Script**
-
-To initiate the pipeline, proceed as follows:
-
-1. **Navigate to the Project Directory**: Ensure you're in the root directory `bipo_demand_forecasting` .
-
-2. **Execute the Script**: 
-  
-    **Command Line**: Open a Command Prompt in the project directory and execute the following command:
-
-        ```cmd
-        # windows powershell
-        .\scripts\run_data_pipeline.bat   
-
-        # linux bash
-        scripts/run_data_pipeline.bat
-
-        ```
-
-By following these steps, you'll successfully kick off the data pipeline.
-
-
-### Logging
-
-Logs provide essential insights into the runtime behaviour of your pipeline, enabling effective monitoring the pipeline's execution. 
-
-Below is an example of what you might see in the log output when you run a Kedro pipeline: 
-
-```
-18/10/2023 08:24 | kedro.io.data_catalog | INFO | Loading data from 'loaded_non_proxy_revenue_partitioned_data' (IncrementalDataSet)...
-18/10/2023 08:24 | kedro.pipeline.node | INFO | Running node: data_preprocessing_merge_non_proxy_revenue_data: merge_non_proxy_revenue_data([loaded_non_proxy_revenue_partitioned_data]) -> [merged_non_revenue_data]
-18/10/2023 08:24 | kedro | INFO | Loading partition: marketing_restructured
-18/10/2023 08:24 | kedro | INFO | Using marketing_restructured as base dataframe.
-18/10/2023 08:24 | kedro | INFO | Loading partition: merged_unique_daily_records
-18/10/2023 08:24 | kedro | INFO | Preparing merge with partition: merged_unique_daily_records
-18/10/2023 08:24 | kedro | INFO | Merged partition: merged_unique_daily_records to existing dataframe.
-
-18/10/2023 08:24 | kedro | INFO | Loading partition: propensity_restructured
-18/10/2023 08:24 | kedro | INFO | Preparing merge with partition: propensity_restructured
-18/10/2023 08:24 | kedro | INFO | Merged partition: propensity_restructured to existing dataframe.
-
-18/10/2023 08:24 | kedro | INFO | Loading partition: weather_restructured
-18/10/2023 08:24 | kedro | INFO | Preparing merge with partition: weather_restructured
-18/10/2023 08:24 | kedro | INFO | Merged partition: weather_restructured to existing dataframe.
-
-18/10/2023 08:24 | kedro | INFO | Completed merging of non proxy revenue dataframe. Dataframe is of shape (1099, 24)
-
-18/10/2023 08:24 | kedro.io.data_catalog | INFO | Saving data to 'merged_non_revenue_data' (MemoryDataSet)...
-18/10/2023 08:24 | kedro.runner.sequential_runner | INFO | Completed 1 out of 43 tasks
-18/10/2023 08:24 | kedro.io.data_catalog | INFO | Loading data from 'loaded_proxy_revenue_partitioned_data' (IncrementalDataSet)...
-18/10/2023 08:24 | kedro.io.data_catalog | INFO | Loading data from 'parameters' (MemoryDataSet)...
-18/10/2023 08:24 | kedro.pipeline.node | INFO | Running node: feature_engr_generate_lag: generate_lag([loaded_proxy_revenue_partitioned_data,parameters]) -> [lag_features_partitions_dict]
-18/10/2023 08:24 | kedro | INFO | Column specified for lag generation {'proxyrevenue'}...
-
-```
+| Component | Description | Data directory |
+| --- | --- | --- |
+| Training dataset | Training dataset folder containing engineered features with *tsfresh* and/or *lightweightMMM* features | data/05_feature_engineering/features_merged/training/ |
+| Validation dataset | Validation dataset folder containing engineered features with *tsfresh* and/or *lightweightMMM* features| data/05_feature_engineering/features_merged/validation/ |
+| Testing dataset | Testing dataset folder containing engineered features with *tsfresh* and/or *lightweightMMM* features| data/05_feature_engineering/features_merged/testing/ |
+---
+<br />
+
+### Output(s)
+
+| Component | Description | Data directory |
+| --- | --- | --- |
+| Training dataset | Training dataset folder containing processed features (removed null rows/single-constant columns) with all engineered features. | data/06_model_specific_preprocessing/<ordered_model or ebm>/training/ |
+| Validation dataset | Validation dataset folder containing processed features (removed null rows/single-constant columns) with all engineered features.| data/06_model_specific_preprocessing/<ordered_model or ebm>/validation/ |
+| Testing dataset | Testing dataset folder containing processed features (removed null rows/single-constant columns) with all engineered features.| data/06_model_specific_preprocessing/<ordered_model or ebm>/testing/ |
+---
+<br />

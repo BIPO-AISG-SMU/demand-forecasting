@@ -56,16 +56,11 @@ You can also choose to track experiments locally or on a remote server using the
 | Feature               | Local Tracking (`is_remote_mlflow: False`)                                                                           | Remote Server Tracking (`is_remote_mlflow: True`)                                                                           |
 | --------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | **`enable_mlflow`**   | If set to `False`, MLflow tracking is disabled regardless of the `is_remote_mlflow` setting.                         | If set to `False`, MLflow tracking is disabled regardless of the `is_remote_mlflow` setting.                                |
-| **Tracking URI**      | The `./mlruns` directory is used for tracking experiments on the local machine. For example: `http://localhost:5005` | `tracking_uri` in `parameters.yml` is used to point to the remote tracking server. For example: `http://10.43.130.112:5005` |
+| **Tracking URI**      | The `./mlruns` directory is used for tracking experiments on the local machine. For example: `http://localhost:5000` | `tracking_uri` in `parameters.yml` is used to point to the remote tracking server. For example: `http://10.43.130.112:5005` |
 | **Experiment Naming** | The default experiment name is used, as indicated in the default `mlruns/0/meta.yml` file.                           | The prefix from `experiment_name_prefix` is combined with the model name to form a custom experiment name.                  |
 | **Accessibility**     | Experiments are only accessible on the local machine.                                                                | Experiments can be accessed remotely, provided the server is reachable.                                                     |
 | **Data Storage**      | Data is stored in the local file system within the `./mlruns/` directory.                                            | Data is usually stored on the server or in a database connected to the server.                                              |
 | **Setup Requirement** | No additional setup is needed.                                                                                       | Ensure the remote URI is reachable; additional authentication may be required.                                              |
-
-### Default Parameters in Release Package
-
-1. **`enable_mlflow: False`**: MLflow tracking is disabled by default.
-2. **`is_remote_mlflow: False`**: Experiments are logged on your local machine in the `./mlruns` subdirectory of the project root.
 
 ## Configuring Experiments
 
@@ -127,12 +122,11 @@ The model evaluation submodule calculates and logs key performance metrics, name
     1.1. Ensure MLflow is installed on your machine. For installation details, see [Setting up MLflow on the Local Machine (Optional)](training-deployment-env-setup).<br/>
     1.2. Verify that the `parameters.yml` file contains the appropriate configurations, especially ensuring that MLflow tracking is enabled.
 2. **Execution:** Execute the model training and evaluation process.
-3. **Launching the MLflow UI:** Open a terminal or command promptand enter the command: `mlflow ui`.
+3. **Launching the MLflow UI:** Open a terminal or command prompt and enter the command: `mlflow ui`.
 4. **Accessing the MLflow UI:** Open a web browser and navigate to `http://localhost:5000`
 
 ### I wish to access the MLflow UI through a remote server. What steps should I follow?
 
 1. **Check prerequisites:** Confirm that the `parameters.yml` file is correctly configured, especially with the details of your remote server.
 2. **Execution:** Execute the model training and evaluation process.
-3. **Launching the MLflow UI:** Open a terminal or command promptand enter the command: `mlflow ui`.
-4. **Accessing the MLflow UI:** Open a web browser and navigate to the remote server URI, e.g. `http://10.43.130.112:5005`.
+3. **Accessing the MLflow UI:** Open a web browser and navigate to the remote server URI, e.g. `http://10.43.130.112:5005`.

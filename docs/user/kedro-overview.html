@@ -151,6 +151,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -341,8 +342,11 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-kedro">What is Kedro?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-kedro">Elements of Kedro</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-kedro-pipelines">Creating Kedro Pipelines</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-registry">Pipeline Registry</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nodes">Nodes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-namespace">Pipeline Namespace</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-kedro-pipelines">Creating Kedro Pipelines</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-registry">Pipeline Registry</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registry-list">Registry List</a></li>
 </ul>
 </li>
@@ -362,32 +366,242 @@ document.write(`
 <h1>Overview of Kedro (v0.18.11)<a class="headerlink" href="#overview-of-kedro-v0-18-11" title="Permalink to this heading">#</a></h1>
 <section id="what-is-kedro">
 <h2>What is Kedro?<a class="headerlink" href="#what-is-kedro" title="Permalink to this heading">#</a></h2>
-<p>Kedro is an open-source Python framework for creating reproducible, maintainable, and modular data science code. It borrows concepts from software engineering best practices and applies them to machine learning code. More information on Kedro is available in its <a class="reference external" href="https://kedro.readthedocs.io/en/stable/">documentation</a>.</p>
+<p>Kedro is an open-source Python framework for creating reproducible, maintainable, and <strong>modular</strong> data science code. It borrows concepts from software engineering best practices and applies them to machine learning code. More information on Kedro is available in its <a class="reference external" href="https://kedro.readthedocs.io/en/stable/">documentation</a>.</p>
 </section>
 <section id="elements-of-kedro">
 <h2>Elements of Kedro<a class="headerlink" href="#elements-of-kedro" title="Permalink to this heading">#</a></h2>
+<p><img alt="kedro overview" src="_images/kedro_overview.png" /></p>
 <p>Although Kedro has numerous feature and functionalities, not all of them are used in this project. The key elements utilised in the context of the Demand Forecasting module are:</p>
-<ul class="simple">
+<ul>
 <li><p><a class="reference external" href="https://docs.kedro.org/en/stable/kedro_project_setup/starters.html">Project Template</a></p>
-<ul>
-<li><p>Inspired by <a class="reference external" href="https://drivendata.github.io/cookiecutter-data-science/">cookie-cutter data science</a> template</p></li>
-<li><p>Built-in support for Python logging, pytest for unit tests and Sphinx for documentation</p></li>
+<ul class="simple">
+<li><p>Inspired by <a class="reference external" href="https://drivendata.github.io/cookiecutter-data-science/">cookie-cutter data science</a> template.</p></li>
+<li><p>Built-in support for Python logging and Sphinx for documentation.</p></li>
 </ul>
 </li>
-<li><p><a class="reference external" href="https://docs.kedro.org/en/stable/data/index.html">Data Catalog</a></p></li>
-<li><p><a class="reference external" href="https://docs.kedro.org/en/stable/nodes_and_pipelines/index.html">Nodes and Pipelines</a></p>
-<ul>
-<li><p>Constructs which enable a data-centric workflow</p></li>
+<li><p><a class="reference external" href="https://docs.kedro.org/en/0.18.5/kedro_project_setup/configuration.html">Configuration</a></p>
+<ul class="simple">
+<li><p>Base folder for default settings.</p></li>
+<li><p>Local folder for user specific config like IDE settings, security credentials.</p></li>
+<li><p>Project config is located in <a class="reference internal" href="#../conf/base/"><span class="xref myst">base</span></a> folder, consisting of YAML files.</p></li>
 </ul>
 </li>
-<li><p>Experiment Tracking</p>
-<ul>
-<li><p>Paired with <a class="reference external" href="https://mlflow.org/">MLFlow</a></p></li>
-<li><p>Visualization within Kedro-Viz</p></li>
+<li><p><a class="reference external" href="https://docs.kedro.org/en/stable/data/index.html">Data Catalog</a></p>
+<ul class="simple">
+<li><p>Registry of all data sources, and specified with a <a class="reference download internal" download="" href="_downloads/2d37be0e75b2ca4e984fc49fd2c33333/catalog.yml"><span class="xref download myst">catalog.yml</span></a> file.</p></li>
+<li><p>Used as node inputs/outputs</p></li>
+<li><p>Specify the dataset type, filepath, load and save arguments</p></li>
 </ul>
 </li>
-<li><p><a class="reference external" href="https://docs.kedro.org/en/stable/hooks/index.html">Hooks</a></p></li>
+<li><p><a class="reference external" href="https://docs.kedro.org/en/stable/kedro_datasets.html#module-kedro_datasets">Datasets</a></p>
+<ul class="simple">
+<li><p>CSVDataSet - uses Pandas backend</p></li>
+<li><p>JSONDataSet - for artefact</p></li>
+<li><p>PickleDataSet - for artefact</p></li>
+<li><p>MemoryDataset - in-memory Python object (not defined in data catalog)</p></li>
+<li><p>IncrementalDataset - inherits from PartitionedDataset which loads/saves each partition that is stored as a separate file within a directory.</p></li>
 </ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># IncrementalDataset will load/save all the separate files in a directory. Here, it is all the processed outlet csv files in 03_data_preprocessing
+├── data
+│   └── 03_data_preprocessing
+|       └── proxy_revenue_201_processed.csv
+|       └── proxy_revenue_202_processed.csv
+|       ...
+</pre></div>
+</div>
+</li>
+<li><p><a class="reference external" href="https://docs.kedro.org/en/stable/nodes_and_pipelines/nodes.html">Nodes</a></p>
+<ul class="simple">
+<li><p>Functions which are the building blocks of pipelines.</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://docs.kedro.org/en/stable/tutorial/create_a_pipeline.html">Pipelines</a></p>
+<ul class="simple">
+<li><p>Constructs which are made up of nodes, and enables a data-centric workflow.</p></li>
+<li><p><a class="reference external" href="https://docs.kedro.org/en/0.18.0/tutorial/namespace_pipelines.html">Namespace</a></p>
+<ul>
+<li><p>Instantiate the same pipeline structure multiple times, but provide different inputs/outputs.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://docs.kedro.org/en/stable/hooks/index.html">Hooks</a></p>
+<ul class="simple">
+<li><p>Injects additional behavior at certain points of the pipeline. (E.g before/after a pipeline is run; before/after a node is run)</p></li>
+<li><p><a class="reference download internal" download="" href="_downloads/2a4f0147053b643afe249f7d3dce3cd4/DataCleanupHooks.py"><span class="xref download myst">DataCleanupHooks</span></a> cleans up the respective data folder before a pipeline is run, which ensures each pipeline is run on a clean slate without any old data remaining from the previous run.</p></li>
+<li><p>Hooks are registered in <a class="reference download internal" download="" href="_downloads/79b0b6e42ef94672e470900b68b9e2bf/settings.py"><span class="xref download myst">settings.py</span></a></p></li>
+</ul>
+</li>
+</ul>
+<p>Additional features:</p>
+<ul class="simple">
+<li><p>Visualization within <a class="reference external" href="https://docs.kedro.org/en/stable/visualisation/kedro-viz_visualisation.html">Kedro-Viz</a> which shows a flowchart of pipelines</p></li>
+</ul>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">#</a></h2>
+<ul>
+<li><p>Can be loaded directly as a node input.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># src/bipo/pipelines/model_training/pipeline.py</span>
+<span class="kn">from</span> <span class="nn">kedro.pipeline.modular_pipeline</span> <span class="kn">import</span> <span class="n">pipeline</span>
+<span class="kn">from</span> <span class="nn">kedro.pipeline</span> <span class="kn">import</span> <span class="n">node</span>
+
+<span class="n">pipeline_instance</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
+      <span class="p">[</span>
+          <span class="n">node</span><span class="p">(</span>
+              <span class="n">func</span><span class="o">=</span><span class="n">train_model</span><span class="p">,</span>  <span class="c1"># In nodes.py</span>
+              <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
+                  <span class="s2">&quot;model_specific_preprocessing_train&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>  <span class="c1"># parameters.yml file is used as node input</span>
+                  <span class="s2">&quot;params:model_namespace_params_dict&quot;</span><span class="p">,</span> <span class="c1"># reads files inside conf/base/parameters folder</span>
+              <span class="p">],</span>
+              <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;model_training_artefact&quot;</span><span class="p">,</span>
+              <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_train_train_model&quot;</span><span class="p">,</span>
+              <span class="n">tags</span><span class="o">=</span><span class="s2">&quot;model_training&quot;</span><span class="p">,</span>
+          <span class="p">),</span>
+      <span class="p">],</span>
+  <span class="p">)</span>
+
+<span class="c1"># src/bipo/pipelines/model_training/nodes.py</span>
+<span class="k">def</span> <span class="nf">train_model</span><span class="p">(</span>
+  <span class="n">partitioned_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
+  <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="c1"># parameters.yml </span>
+  <span class="n">model_namespace_params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="c1"># reads files inside conf/base/parameters folder</span>
+<span class="p">):</span>
+
+<span class="c1"># instantiate parameters from config</span>
+  <span class="n">target_feature_name</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;fe_target_feature_name&quot;</span><span class="p">]</span>
+  <span class="n">model_params_dict</span> <span class="o">=</span> <span class="n">model_namespace_params_dict</span><span class="p">[</span><span class="s2">&quot;params&quot;</span><span class="p">]</span>
+  <span class="n">model_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">model_params_dict</span><span class="p">[</span><span class="s2">&quot;model_name&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</li>
+<li><p>Can be loaded in a script.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bipo</span> <span class="kn">import</span> <span class="n">settings</span> <span class="c1"># bipo/settings.py</span>
+<span class="kn">from</span> <span class="nn">kedro.config</span> <span class="kn">import</span> <span class="n">ConfigLoader</span>
+
+<span class="n">conf_loader</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="p">(</span><span class="n">conf_source</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">CONF_SOURCE</span><span class="p">)</span>
+
+<span class="c1"># loads config files with names that start with parameters or are located inside a folder with name starting with parameters.</span>
+<span class="n">conf_params</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span> 
+
+<span class="c1"># loads config files with names that start with constants</span>
+<span class="n">conf_const</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;constants*&quot;</span><span class="p">)</span> 
+
+<span class="c1"># instantiate parameters</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">conf_params</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span> 
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="nodes">
+<h2>Nodes<a class="headerlink" href="#nodes" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>arguments consist of func, inputs, outputs, name, tags.</p></li>
+<li><p>use of node tags allows selection of specific nodes to be run.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># src/bipo/pipelines/model_training/pipeline.py</span>
+<span class="kn">from</span> <span class="nn">kedro.pipeline.modular_pipeline</span> <span class="kn">import</span> <span class="n">pipeline</span>
+<span class="kn">from</span> <span class="nn">kedro.pipeline</span> <span class="kn">import</span> <span class="n">node</span>
+
+<span class="c1"># to be used as pipeline namespace</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="s2">&quot;model&quot;</span><span class="p">]</span>  <span class="c1"># Name of model (ordered_model or ebm)</span>
+
+<span class="n">pipeline_instance</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">node</span><span class="p">(</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">train_model</span><span class="p">,</span>  <span class="c1"># function in nodes.py</span>
+                <span class="c1"># inputs which are either string or list of string</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>    
+                    <span class="s2">&quot;model_specific_preprocessing_train&quot;</span><span class="p">,</span> <span class="c1"># defined in data catalog</span>
+                    <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>  <span class="c1"># parameters.yml file is used as node input</span>
+                    <span class="s2">&quot;params:model_namespace_params_dict&quot;</span><span class="p">,</span>
+                <span class="p">],</span> 
+                <span class="c1"># outputs which are either string or list of string.</span>
+                <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;model_training_artefact&quot;</span><span class="p">,</span>  <span class="c1"># defined in data catalog</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_train_train_model&quot;</span><span class="p">,</span> <span class="c1"># name of node</span>
+                <span class="n">tags</span><span class="o">=</span><span class="s2">&quot;model_training&quot;</span><span class="p">,</span>  <span class="c1"># can enable only nodes with certain tags to be run. </span>
+            <span class="p">),</span>
+            <span class="n">node</span><span class="p">(</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">explain_ebm</span><span class="p">,</span>  <span class="c1"># In nodes.py</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
+                    <span class="s2">&quot;model_training_artefact&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;model_specific_preprocessing_train&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;explain_ebm&quot;</span><span class="p">,</span>
+                <span class="n">tags</span><span class="o">=</span><span class="s2">&quot;enable_explainability&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+
+
+    <span class="c1"># runs both nodes in the pipeline_instance by selecting both &quot;model_training&quot;, &quot;enable_explainability&quot; tags  </span>
+    <span class="k">if</span> <span class="n">conf_params</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ebm&quot;</span> <span class="ow">and</span> <span class="n">conf_params</span><span class="p">[</span><span class="s2">&quot;enable_explainability&quot;</span><span class="p">]:</span>
+        <span class="n">pipeline_instance</span> <span class="o">=</span> <span class="n">pipeline_instance</span><span class="o">.</span><span class="n">only_nodes_with_tags</span><span class="p">(</span>
+            <span class="s2">&quot;model_training&quot;</span><span class="p">,</span> <span class="s2">&quot;enable_explainability&quot;</span>
+        <span class="p">)</span>
+    <span class="c1"># only run the first node with tag &quot;model_training&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pipeline_instance</span> <span class="o">=</span> <span class="n">pipeline_instance</span><span class="o">.</span><span class="n">only_nodes_with_tags</span><span class="p">(</span><span class="s2">&quot;model_training&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="pipeline-namespace">
+<h2><a class="reference external" href="https://docs.kedro.org/en/0.18.0/tutorial/namespace_pipelines.html">Pipeline Namespace</a><a class="headerlink" href="#pipeline-namespace" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>arguments consist of pipe, inputs, outputs, parameters, namespace.</p></li>
+<li><p>namespace is added as a prefix to node inputs and outputs within the pipeline.</p></li>
+<li><p>inputs and outputs are used to specify the respective inputs and outputs which we want to exclude adding the namespace prefix.</p></li>
+</ul>
+<p>Uses of namespace:</p>
+<ol class="arabic simple">
+<li><p>same pipeline can be used with different sets of parameters.</p></li>
+<li><p>load/save different datasets specified in the data catalog.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># src/bipo/pipelines/data_split/pipeline.py</span>
+
+<span class="c1"># modular pipeline for the 3 data split approaches (simple_split, expanding_window, sliding_window)</span>
+
+<span class="k">def</span> <span class="nf">create_pipeline</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Pipeline</span><span class="p">:</span>
+    <span class="c1"># New pipeline for data split to add all subpipelines</span>
+    <span class="n">pipeline_instance</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">node</span><span class="p">(</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">prepare_for_split</span><span class="p">,</span>  <span class="c1"># In nodes.py</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;data_merge&quot;</span><span class="p">,</span> <span class="s2">&quot;params:data_split_params&quot;</span><span class="p">],</span>
+                <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;split_params_dict&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;data_split_prepare_for_split&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">node</span><span class="p">(</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">do_time_based_data_split</span><span class="p">,</span>  <span class="c1"># In nodes.py</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="s2">&quot;split_params_dict&quot;</span><span class="p">,</span>
+                <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;data_split&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;data_split_do_time_based_data_split&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Instantiate multiple instances of pipelines with static structure, but dynamic inputs/outputs/parameters. Inputs/outputs required if not managed by namespace</span>
+
+    <span class="c1"># simple split pipeline</span>
+    <span class="n">simple_split_pipeline</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
+        <span class="n">pipe</span><span class="o">=</span><span class="n">pipeline_instance</span><span class="p">,</span>
+        <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;data_merge&quot;</span><span class="p">],</span>   
+        <span class="n">parameters</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;params:data_split_params&quot;</span><span class="p">:</span> <span class="s2">&quot;params:simple_split&quot;</span><span class="p">,</span>
+        <span class="p">},</span>    
+        <span class="n">namespace</span><span class="o">=</span><span class="s2">&quot;simple_split&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># parameters argument: overwrite data_split_params with simple_split. This looks for config files under the conf/base/parameters folder and searches for the key. In this case, the key is {simple_split} which is found in parameters/data_split.yml</span>
+
+    <span class="c1"># namespace argument: will be added as a prefix to node inputs and outputs. Since data_merge is specified in the inputs argument, it will be excluded from the addition of namespace prefix. So, the resulting inputs and outputs modified by namespace are simple_split.split_params_dict and simple_split.data_split. </span>
+  
+  <span class="c1"># expanding_window_pipeline and sliding_window pipeline are similar, just with a change in namespace which is their respective split approach. </span>
+</pre></div>
+</div>
 </section>
 <section id="creating-kedro-pipelines">
 <h2>Creating Kedro Pipelines<a class="headerlink" href="#creating-kedro-pipelines" title="Permalink to this heading">#</a></h2>
@@ -427,13 +641,14 @@ document.write(`
                 └── test_pipeline.py
 </pre></div>
 </div>
+</section>
 <section id="pipeline-registry">
-<h3>Pipeline Registry<a class="headerlink" href="#pipeline-registry" title="Permalink to this heading">#</a></h3>
+<h2>Pipeline Registry<a class="headerlink" href="#pipeline-registry" title="Permalink to this heading">#</a></h2>
 <p>Kedro pipelines must be defined under the <a class="reference download internal" download="" href="_downloads/63e8f36013b02c73b6c3cb4bf6b072ff/pipeline_registry.py"><span class="xref download myst">pipeline registry</span></a> in order to use the pipeline.</p>
 <p>An example is shown below:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bipo.pipelines</span> <span class="kn">import</span> <span class="n">data_processor</span> <span class="k">as</span> <span class="n">dl</span>
 <span class="kn">from</span> <span class="nn">kedro.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
-
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 
 <span class="k">def</span> <span class="nf">register_pipelines</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Register the project&#39;s pipelines.</span>
@@ -450,9 +665,8 @@ document.write(`
 </pre></div>
 </div>
 <blockquote>
-<div><p><strong>Note:</strong> Pipelines can be chained together to be ran sequentially. Pipelines specified within the “__default__” pipeline will be executed upon execution of <code class="docutils literal notranslate"><span class="pre">kedro</span> <span class="pre">run</span></code>.</p>
+<div><p><strong>Note:</strong> Pipelines can be <a class="reference download internal" download="" href="_downloads/63e8f36013b02c73b6c3cb4bf6b072ff/pipeline_registry.py"><span class="xref download myst">chained</span></a> together to be ran sequentially. Pipelines specified within the “__default__” pipeline will be executed upon execution of <code class="docutils literal notranslate"><span class="pre">kedro</span> <span class="pre">run</span></code>.</p>
 </div></blockquote>
-</section>
 <section id="registry-list">
 <h3>Registry List<a class="headerlink" href="#registry-list" title="Permalink to this heading">#</a></h3>
 <p>To get the list of all registered pipelines within the project, run the following command:</p>
@@ -526,8 +740,11 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-kedro">What is Kedro?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-kedro">Elements of Kedro</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-kedro-pipelines">Creating Kedro Pipelines</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-registry">Pipeline Registry</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nodes">Nodes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-namespace">Pipeline Namespace</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-kedro-pipelines">Creating Kedro Pipelines</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-registry">Pipeline Registry</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registry-list">Registry List</a></li>
 </ul>
 </li>

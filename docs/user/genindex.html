@@ -148,6 +148,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -511,6 +512,8 @@ document.write(`
         <li><a href="bipo.pipelines.feature_engineering.html#module-bipo.pipelines.feature_engineering.tsfresh_main">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     bipo.pipelines.feature_engineering.tsfresh_node
 
@@ -518,8 +521,6 @@ document.write(`
         <li><a href="bipo.pipelines.feature_engineering.html#module-bipo.pipelines.feature_engineering.tsfresh_node">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     bipo.pipelines.model_evaluation
 
@@ -654,13 +655,6 @@ document.write(`
 </li>
       </ul></li>
       <li>
-    bipo_fastapi.deps
-
-      <ul>
-        <li><a href="bipo_fastapi.html#module-bipo_fastapi.deps">module</a>
-</li>
-      </ul></li>
-      <li>
     bipo_fastapi.hooks
 
       <ul>
@@ -679,13 +673,6 @@ document.write(`
 
       <ul>
         <li><a href="bipo_fastapi.html#module-bipo_fastapi.nodes">module</a>
-</li>
-      </ul></li>
-      <li>
-    bipo_fastapi.pipeline
-
-      <ul>
-        <li><a href="bipo_fastapi.html#module-bipo_fastapi.pipeline">module</a>
 </li>
       </ul></li>
       <li>
@@ -718,8 +705,6 @@ document.write(`
 </li>
       <li><a href="bipo.pipelines.data_split.html#bipo.pipelines.data_split.nodes.check_window_parameters">check_window_parameters() (in module bipo.pipelines.data_split.nodes)</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.deps.PredictionModel.class_names">class_names (bipo_fastapi.deps.PredictionModel attribute)</a>
-</li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe.combine_relevance_table">combine_relevance_table() (bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe method)</a>
 </li>
       <li><a href="bipo.pipelines.data_merge.html#bipo.pipelines.data_merge.nodes.concat_outlet_preprocessed_data">concat_outlet_preprocessed_data() (in module bipo.pipelines.data_merge.nodes)</a>
@@ -733,14 +718,12 @@ document.write(`
       <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.cost_centre_code">cost_centre_code (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id11">[1]</a>
 
       <ul>
-        <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.cost_centre_code">(bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id22">[1]</a>
+        <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.cost_centre_code">(bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id23">[1]</a>
 </li>
       </ul></li>
       <li><a href="bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.create_bool_feature_and_differencing">create_bool_feature_and_differencing() (in module bipo.pipelines.time_agnostic_feature_engineering.nodes)</a>
 </li>
       <li><a href="bipo.html#bipo.utils.create_dir_from_project_root">create_dir_from_project_root() (in module bipo.utils)</a>
-</li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.pipeline.create_encoding_standardize_normalize_pipeline">create_encoding_standardize_normalize_pipeline() (in module bipo_fastapi.pipeline)</a>
 </li>
       <li><a href="bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation.create_is_holiday_feature">create_is_holiday_feature() (in module bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation)</a>
 </li>
@@ -750,21 +733,13 @@ document.write(`
 </li>
       <li><a href="bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation.create_is_weekday_feature">create_is_weekday_feature() (in module bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation)</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.pipeline.create_lag_sales_pipeline">create_lag_sales_pipeline() (in module bipo_fastapi.pipeline)</a>
-</li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lag_feature_generation.create_lag_weekly_avg_sales">create_lag_weekly_avg_sales() (in module bipo.pipelines.feature_engineering.lag_feature_generation)</a>
-</li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.pipeline.create_marketing_pipeline">create_marketing_pipeline() (in module bipo_fastapi.pipeline)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.pipeline.create_merge_pipeline_outputs">create_merge_pipeline_outputs() (in module bipo_fastapi.pipeline)</a>
 </li>
       <li><a href="bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation.create_min_max_feature_diff">create_min_max_feature_diff() (in module bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.create_mkt_campaign_counts_start_end">create_mkt_campaign_counts_start_end() (in module bipo.pipelines.time_agnostic_feature_engineering.nodes)</a>
-</li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.pipeline.create_outlet_pipeline">create_outlet_pipeline() (in module bipo_fastapi.pipeline)</a>
 </li>
       <li><a href="bipo.pipelines.data_loader.html#bipo.pipelines.data_loader.create_pipeline">create_pipeline() (in module bipo.pipelines.data_loader)</a>
 
@@ -817,7 +792,7 @@ document.write(`
       <ul>
         <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.date">(bipo_fastapi.schemas.OutletAttribute attribute)</a>
 </li>
-        <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.date">(bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id23">[1]</a>
+        <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.date">(bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id24">[1]</a>
 </li>
       </ul></li>
   </ul></td>
@@ -866,10 +841,12 @@ document.write(`
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.feature_engineering_by_outlet">feature_engineering_by_outlet() (in module bipo.pipelines.feature_engineering.tsfresh_node)</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.factor">factor (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id12">[1]</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.feature_engineering_by_outlet">feature_engineering_by_outlet() (in module bipo.pipelines.feature_engineering.tsfresh_node)</a>
+</li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.nodes.fill_date_range">fill_date_range() (in module bipo_fastapi.nodes)</a>
 </li>
   </ul></td>
@@ -930,13 +907,13 @@ document.write(`
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_pandemic_restrictions">is_pandemic_restrictions (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id12">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_daily_rainfall_total_mm">is_daily_rainfall_total_mm (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id13">[1]</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_public_holiday">is_public_holiday (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id13">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_pandemic_restrictions">is_pandemic_restrictions (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id14">[1]</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_raining">is_raining (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id14">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_public_holiday">is_public_holiday (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id15">[1]</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_school_holiday">is_school_holiday (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id15">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_school_holiday">is_school_holiday (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id16">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -946,7 +923,7 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.LagSalesAttribute.lag_sales">lag_sales (bipo_fastapi.schemas.LagSalesAttribute attribute)</a>, <a href="bipo_fastapi.html#id6">[1]</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes.lag_sales_attributes">lag_sales_attributes (bipo_fastapi.schemas.SalesAttributes attribute)</a>, <a href="bipo_fastapi.html#id19">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes.lag_sales_attributes">lag_sales_attributes (bipo_fastapi.schemas.SalesAttributes attribute)</a>, <a href="bipo_fastapi.html#id20">[1]</a>
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.LagSalesAttribute.lag_sales_date">lag_sales_date (bipo_fastapi.schemas.LagSalesAttribute attribute)</a>
 </li>
@@ -972,9 +949,7 @@ document.write(`
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.hooks.load_kedro_logger">load_kedro_logger() (in module bipo_fastapi.hooks)</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.deps.load_model">load_model() (in module bipo_fastapi.deps)</a>
-</li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.location">location (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id16">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.location">location (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id17">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -986,7 +961,7 @@ document.write(`
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.MarketingAttribute">MarketingAttribute (class in bipo_fastapi.schemas)</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.max_temp">max_temp (bipo_fastapi.schemas.OutletAttribute attribute)</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.maximum_temperature_c">maximum_temperature_c (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id18">[1]</a>
 </li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lag_feature_generation.merge_fold_and_generated_lag">merge_fold_and_generated_lag() (in module bipo.pipelines.feature_engineering.lag_feature_generation)</a>
 
@@ -1012,7 +987,7 @@ document.write(`
 </li>
       <li><a href="bipo.pipelines.data_loader.html#bipo.pipelines.data_loader.nodes.merge_unique_daily_partitions">merge_unique_daily_partitions() (in module bipo.pipelines.data_loader.nodes)</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes.mkt_attributes">mkt_attributes (bipo_fastapi.schemas.SalesAttributes attribute)</a>, <a href="bipo_fastapi.html#id20">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes.mkt_attributes">mkt_attributes (bipo_fastapi.schemas.SalesAttributes attribute)</a>, <a href="bipo_fastapi.html#id21">[1]</a>
 </li>
       <li><a href="bipo.pipelines.model_training.html#bipo.pipelines.model_training.nodes.mlflow_tracking">mlflow_tracking() (in module bipo.pipelines.model_training.nodes)</a>
 </li>
@@ -1023,8 +998,6 @@ document.write(`
       <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue_diff_dates">mock_non_revenue_diff_dates() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
 </li>
       <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.mock_revenue_partitioned">mock_revenue_partitioned() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.deps.PredictionModel.model">model (bipo_fastapi.deps.PredictionModel attribute)</a>
 </li>
       <li>
     module
@@ -1118,15 +1091,11 @@ document.write(`
 </li>
         <li><a href="bipo_fastapi.html#module-bipo_fastapi.custom_dataset">bipo_fastapi.custom_dataset</a>
 </li>
-        <li><a href="bipo_fastapi.html#module-bipo_fastapi.deps">bipo_fastapi.deps</a>
-</li>
         <li><a href="bipo_fastapi.html#module-bipo_fastapi.hooks">bipo_fastapi.hooks</a>
 </li>
         <li><a href="bipo_fastapi.html#module-bipo_fastapi.load_data_catalog">bipo_fastapi.load_data_catalog</a>
 </li>
         <li><a href="bipo_fastapi.html#module-bipo_fastapi.nodes">bipo_fastapi.nodes</a>
-</li>
-        <li><a href="bipo_fastapi.html#module-bipo_fastapi.pipeline">bipo_fastapi.pipeline</a>
 </li>
         <li><a href="bipo_fastapi.html#module-bipo_fastapi.schemas">bipo_fastapi.schemas</a>
 </li>
@@ -1197,17 +1166,15 @@ document.write(`
 </li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.encoding.ordinal_encoding_fit">ordinal_encoding_fit() (in module bipo.pipelines.feature_engineering.encoding)</a>
 </li>
-      <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.encoding.ordinal_encoding_transform">ordinal_encoding_transform() (in module bipo.pipelines.feature_engineering.encoding)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes.outlet_attributes">outlet_attributes (bipo_fastapi.schemas.SalesAttributes attribute)</a>, <a href="bipo_fastapi.html#id21">[1]</a>
+      <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.encoding.ordinal_encoding_transform">ordinal_encoding_transform() (in module bipo.pipelines.feature_engineering.encoding)</a>
+</li>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes.outlet_attributes">outlet_attributes (bipo_fastapi.schemas.SalesAttributes attribute)</a>, <a href="bipo_fastapi.html#id22">[1]</a>
 </li>
       <li><a href="bipo.pipelines.data_preprocessing.html#bipo.pipelines.data_preprocessing.nodes.outlet_exclusion_list_check">outlet_exclusion_list_check() (in module bipo.pipelines.data_preprocessing.nodes)</a>
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute">OutletAttribute (class in bipo_fastapi.schemas)</a>
-</li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.deps.output_intermediate_file">output_intermediate_file() (in module bipo_fastapi.deps)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1221,19 +1188,13 @@ document.write(`
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.config.Settings.PRED_MODEL_UUID">PRED_MODEL_UUID (bipo_fastapi.config.Settings attribute)</a>, <a href="bipo_fastapi.html#id4">[1]</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.deps.PredictionModel.predict">predict() (bipo_fastapi.deps.PredictionModel method)</a>
-
-      <ul>
-        <li><a href="bipo.pipelines.model_evaluation.html#bipo.pipelines.model_evaluation.nodes.predict">(in module bipo.pipelines.model_evaluation.nodes)</a>
+      <li><a href="bipo.pipelines.model_evaluation.html#bipo.pipelines.model_evaluation.nodes.predict">predict() (in module bipo.pipelines.model_evaluation.nodes)</a>
 </li>
-      </ul></li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.deps.PredictionModel">PredictionModel (class in bipo_fastapi.deps)</a>
+      <li><a href="bipo.pipelines.data_split.html#bipo.pipelines.data_split.nodes.prepare_for_split">prepare_for_split() (in module bipo.pipelines.data_split.nodes)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="bipo.pipelines.data_split.html#bipo.pipelines.data_split.nodes.prepare_for_split">prepare_for_split() (in module bipo.pipelines.data_split.nodes)</a>
-</li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.probabilities">probabilities (bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id24">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.probabilities">probabilities (bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id25">[1]</a>
 </li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe.process_extracted_tsfresh_features_index">process_extracted_tsfresh_features_index() (bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe method)</a>
 </li>
@@ -1242,8 +1203,6 @@ document.write(`
       <li><a href="bipo_fastapi.html#bipo_fastapi.nodes.process_marketing_df">process_marketing_df() (in module bipo_fastapi.nodes)</a>
 </li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.process_mmm_df">process_mmm_df() (in module bipo.pipelines.feature_engineering.lightweightmmm)</a>
-</li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.propensity_factor">propensity_factor (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id17">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1275,13 +1234,13 @@ document.write(`
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.sales_class_id">sales_class_id (bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id25">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.sales_class_id">sales_class_id (bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id26">[1]</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.sales_class_name">sales_class_name (bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id26">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.sales_class_name">sales_class_name (bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id27">[1]</a>
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.config.Settings.SALES_CLASS_NAMES">SALES_CLASS_NAMES (bipo_fastapi.config.Settings attribute)</a>, <a href="bipo_fastapi.html#id5">[1]</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPredictions.sales_predictions">sales_predictions (bipo_fastapi.schemas.SalesPredictions attribute)</a>, <a href="bipo_fastapi.html#id27">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPredictions.sales_predictions">sales_predictions (bipo_fastapi.schemas.SalesPredictions attribute)</a>, <a href="bipo_fastapi.html#id28">[1]</a>
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes">SalesAttributes (class in bipo_fastapi.schemas)</a>
 </li>
@@ -1311,8 +1270,6 @@ document.write(`
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.temp_max">temp_max (bipo_fastapi.schemas.OutletAttribute attribute)</a>
-</li>
       <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_incorrect_input">test_const_value_perc_check_incorrect_input() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
 </li>
       <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_outside_range">test_const_value_perc_check_outside_range() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
@@ -1517,13 +1474,11 @@ document.write(`
 </li>
       <li><a href="bipo.pipelines.model_training.html#bipo.pipelines.model_training.nodes.train_model">train_model() (in module bipo.pipelines.model_training.nodes)</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.deps.PredictionModel.transform_attributes">transform_attributes() (bipo_fastapi.deps.PredictionModel method)</a>
-</li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.nodes.transform_mkt_input">transform_mkt_input() (in module bipo_fastapi.nodes)</a>
 </li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe">TsfreshFe (class in bipo.pipelines.feature_engineering.tsfresh_main)</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.type">type (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id18">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.type">type (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id19">[1]</a>
 </li>
   </ul></td>
 </tr></table>

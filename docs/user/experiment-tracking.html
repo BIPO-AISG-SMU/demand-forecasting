@@ -151,6 +151,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -349,7 +350,6 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-modes-local-vs-remote">Tracking Modes: Local vs Remote</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-parameters-in-release-package">Default Parameters in Release Package</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-experiments">Configuring Experiments</a><ul class="nav section-nav flex-column">
@@ -463,7 +463,7 @@ document.write(`
 <td><p>If set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, MLflow tracking is disabled regardless of the <code class="docutils literal notranslate"><span class="pre">is_remote_mlflow</span></code> setting.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Tracking URI</strong></p></td>
-<td><p>The <code class="docutils literal notranslate"><span class="pre">./mlruns</span></code> directory is used for tracking experiments on the local machine. For example: <code class="docutils literal notranslate"><span class="pre">http://localhost:5005</span></code></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">./mlruns</span></code> directory is used for tracking experiments on the local machine. For example: <code class="docutils literal notranslate"><span class="pre">http://localhost:5000</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">tracking_uri</span></code> in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> is used to point to the remote tracking server. For example: <code class="docutils literal notranslate"><span class="pre">http://10.43.130.112:5005</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Experiment Naming</strong></p></td>
@@ -484,13 +484,6 @@ document.write(`
 </tr>
 </tbody>
 </table>
-</section>
-<section id="default-parameters-in-release-package">
-<h3>Default Parameters in Release Package<a class="headerlink" href="#default-parameters-in-release-package" title="Permalink to this heading">#</a></h3>
-<ol class="arabic simple">
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">enable_mlflow:</span> <span class="pre">False</span></code></strong>: MLflow tracking is disabled by default.</p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">is_remote_mlflow:</span> <span class="pre">False</span></code></strong>: Experiments are logged on your local machine in the <code class="docutils literal notranslate"><span class="pre">./mlruns</span></code> subdirectory of the project root.</p></li>
-</ol>
 </section>
 </section>
 <section id="configuring-experiments">
@@ -565,7 +558,7 @@ document.write(`
 1.1. Ensure MLflow is installed on your machine. For installation details, see <a class="reference internal" href="training-deployment-env-setup.html"><span class="doc std std-doc">Setting up MLflow on the Local Machine (Optional)</span></a>.<br/>
 1.2. Verify that the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> file contains the appropriate configurations, especially ensuring that MLflow tracking is enabled.</p></li>
 <li><p><strong>Execution:</strong> Execute the model training and evaluation process.</p></li>
-<li><p><strong>Launching the MLflow UI:</strong> Open a terminal or command promptand enter the command: <code class="docutils literal notranslate"><span class="pre">mlflow</span> <span class="pre">ui</span></code>.</p></li>
+<li><p><strong>Launching the MLflow UI:</strong> Open a terminal or command prompt and enter the command: <code class="docutils literal notranslate"><span class="pre">mlflow</span> <span class="pre">ui</span></code>.</p></li>
 <li><p><strong>Accessing the MLflow UI:</strong> Open a web browser and navigate to <code class="docutils literal notranslate"><span class="pre">http://localhost:5000</span></code></p></li>
 </ol>
 </section>
@@ -574,7 +567,6 @@ document.write(`
 <ol class="arabic simple">
 <li><p><strong>Check prerequisites:</strong> Confirm that the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> file is correctly configured, especially with the details of your remote server.</p></li>
 <li><p><strong>Execution:</strong> Execute the model training and evaluation process.</p></li>
-<li><p><strong>Launching the MLflow UI:</strong> Open a terminal or command promptand enter the command: <code class="docutils literal notranslate"><span class="pre">mlflow</span> <span class="pre">ui</span></code>.</p></li>
 <li><p><strong>Accessing the MLflow UI:</strong> Open a web browser and navigate to the remote server URI, e.g. <code class="docutils literal notranslate"><span class="pre">http://10.43.130.112:5005</span></code>.</p></li>
 </ol>
 </section>
@@ -635,7 +627,6 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-modes-local-vs-remote">Tracking Modes: Local vs Remote</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-parameters-in-release-package">Default Parameters in Release Package</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-experiments">Configuring Experiments</a><ul class="nav section-nav flex-column">

@@ -148,6 +148,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../../experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -359,12 +360,14 @@ document.write(`
 <span class="sd">    Returns:</span>
 <span class="sd">        pd.DataFrame: Lag sales df with complete values</span>
 <span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="n">lookback_period</span> <span class="o">=</span> <span class="n">conf_inference</span><span class="p">[</span><span class="s2">&quot;lookback_period&quot;</span><span class="p">]</span>
+
     <span class="c1"># impute if lag sales is less than lookback period (e.g 14 days)</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lag_sales_df</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">conf_params</span><span class="p">[</span><span class="s2">&quot;lookback_period&quot;</span><span class="p">]:</span>
-        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lag sales has less than </span><span class="si">{</span><span class="n">conf_params</span><span class="p">[</span><span class="s1">&#39;lookback_period&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lag_sales_df</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">lookback_period</span><span class="p">:</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lag sales has less than </span><span class="si">{</span><span class="n">lookback_period</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">today_date</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
         <span class="c1"># check if first 7 days of lag sales are given</span>
-        <span class="n">start_date</span> <span class="o">=</span> <span class="n">today_date</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">conf_params</span><span class="p">[</span><span class="s2">&quot;lookback_period&quot;</span><span class="p">])</span>
+        <span class="n">start_date</span> <span class="o">=</span> <span class="n">today_date</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">lookback_period</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">lag_sales_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_date</span> <span class="p">:</span> <span class="n">start_date</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">6</span><span class="p">)]</span>
             <span class="o">.</span><span class="n">notnull</span><span class="p">()</span>
@@ -374,7 +377,7 @@ document.write(`
             <span class="c1"># impute by mapping days with missing value to the same day of the previous week and fill up the lookback period</span>
             <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Impute missing lag sales values&quot;</span><span class="p">)</span>
             <span class="c1"># fill up df to end of lookback period</span>
-            <span class="n">end_date</span> <span class="o">=</span> <span class="n">lag_sales_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">conf_params</span><span class="p">[</span><span class="s2">&quot;lookback_period&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">end_date</span> <span class="o">=</span> <span class="n">lag_sales_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">lookback_period</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">lag_sales_df</span> <span class="o">=</span> <span class="n">fill_date_range</span><span class="p">(</span><span class="n">lag_sales_df</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
             <span class="n">lag_sales_df</span><span class="p">[</span><span class="s2">&quot;day&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lag_sales_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">dayofweek</span>
             <span class="n">lag_sales_df</span><span class="p">[</span><span class="s2">&quot;lag_sales&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lag_sales_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;day&quot;</span><span class="p">)[</span><span class="s2">&quot;lag_sales&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span>
@@ -521,19 +524,20 @@ document.write(`
 <div class="viewcode-block" id="process_final_merged_df"><a class="viewcode-back" href="../../bipo_fastapi.html#bipo_fastapi.nodes.process_final_merged_df">[docs]</a><span class="k">def</span> <span class="nf">process_final_merged_df</span><span class="p">(</span><span class="n">merged_df</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    - drop unnecessary columns</span>
-<span class="sd">    - rename column propensity_factor to factor </span>
 <span class="sd">    - convert boolean features to numeric </span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        merged_df (pd.DataFrame): final merged dataframe after processing and feature engineering</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">merged_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">conf_inference</span><span class="p">[</span><span class="s2">&quot;columns_to_drop_list&quot;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">merged_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">conf_inference</span><span class="p">[</span><span class="s2">&quot;inference_columns_rename_map&quot;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1"># convert bool features to numeric as orderedmodel cannot take in bool features</span>
     <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">conf_inference</span><span class="p">[</span><span class="s2">&quot;bool_to_numeric_col_list&quot;</span><span class="p">]:</span>
-        <span class="n">merged_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span>
-                <span class="n">merged_df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">merged_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span>
+                    <span class="n">merged_df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> is not found in merged df&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">merged_df</span></div>
 </pre></div>
 

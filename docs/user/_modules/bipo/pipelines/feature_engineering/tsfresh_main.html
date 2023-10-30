@@ -148,6 +148,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../../../../experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -329,12 +330,12 @@ document.write(`
 <span class="sd">            df (pd.DataFrame): dataframe containing engineered endo and exo features.</span>
 <span class="sd">            date_column (str): Date feature name</span>
 <span class="sd">            target_feature (str): target feature name</span>
-<span class="sd">            days_per_group (int): window size for feature engineering.</span>
+<span class="sd">            days_per_group (int): Timeshift for *tsfresh* rolling time series&#39; min/max timeshift parameter. Related to `tsfresh_features_list`.</span>
 <span class="sd">            bin_labels_list (list): list of the bin labels</span>
-<span class="sd">            tsfresh_features_list (list): list of features to perform tsfresh feature engineering on</span>
+<span class="sd">            tsfresh_features_list (list): list of features where tsfresh rolling time series is applied.</span>
 <span class="sd">            shift_period (int): Number of days to shift dataframe which is equal to the earliest lagged number of days for inference (difference between last inference date and last provided lagged date)</span>
-<span class="sd">            n_significant (int): number of classes for which features should be statistically significant predictors to be regarded as relevant.</span>
-<span class="sd">            num_features (int): number of top relevant features to keep.</span>
+<span class="sd">            n_significant (int): number of predicted target classes for which features should be statistically significant predictors to be regarded as relevant.</span>
+<span class="sd">            num_features (int): Number of derived *tsfresh* features to use based on a derived list of tsfresh&#39;s combined_relevance_tables containing list of tsfresh features for each outlet that satisfies the `tsfresh_n_significant`, based on mean aggregated p-values sorted in ascending order.</span>
 <span class="sd">            relevant_features_dict (dict): dictionary of relevant features. Defaults to None.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -512,7 +513,7 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">relevance_table_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">combined_table_df</span> <span class="o">=</span> <span class="n">relevance_table_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="c1"># combine relevance tables</span>
+        <span class="c1"># Create a combined relevance table out of a list of relevance tables, aggregating the p-values and the relevances.</span>
         <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">relevance_table_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">combined_table_df</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="n">tsfresh</span><span class="o">.</span><span class="n">feature_selection</span><span class="o">.</span><span class="n">relevance</span><span class="o">.</span><span class="n">combine_relevance_tables</span><span class="p">(</span>

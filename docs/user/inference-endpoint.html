@@ -151,6 +151,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -347,6 +348,9 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#request-format">Request Format</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outlet-attributes">outlet_attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lag-sales-attributes">lag_sales attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mkt-attributes">mkt_attributes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-fields">Optional Fields</a></li>
 </ul>
 </li>
@@ -371,7 +375,7 @@ document.write(`
                   
   <section id="model-serving-endpoint">
 <h1>Model Serving Endpoint<a class="headerlink" href="#model-serving-endpoint" title="Permalink to this heading">#</a></h1>
-<p>This document provides detailed information on how to interact with our model serving endpoint, which facilitates predictions through a RESTful API. Ensure you’ve followed the <a class="reference internal" href="inference-deployment-env-setup.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">Environment</span> <span class="pre">Setup</span></code></span></a> before diving in.</p>
+<p>This document provides detailed information on how to interact with our model serving endpoint, which facilitates predictions through a REST API. Ensure you’ve followed the <a class="reference internal" href="inference-deployment-env-setup.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">Environment</span> <span class="pre">Setup</span></code></span></a> before diving in.</p>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
 <p>Our model serving endpoint is designed to take in input data, feed it into a trained model, and deliver the model predictions in real-time. If you’re unfamiliar with REST APIs, consider browsing <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API">MDN Web Docs</a> or <a class="reference external" href="https://restfulapi.net/">REST API Tutorial</a> for foundational knowledge.</p>
@@ -380,8 +384,8 @@ document.write(`
 <h2>How to Run Endpoint<a class="headerlink" href="#how-to-run-endpoint" title="Permalink to this heading">#</a></h2>
 <section id="starting-the-endpoint">
 <h3>1. Starting the Endpoint<a class="headerlink" href="#starting-the-endpoint" title="Permalink to this heading">#</a></h3>
-<p>To run the Docker image containing the endpoint, execute the following command in your home directory. This assumes that your model, data, and configurations are stored in specific directories on your host machine. Note that all path used must be absolute paths.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bash<span class="w"> </span>~/bipo_demand_forecasting/scripts/docker_run.sh
+<p>To run the Docker image containing the endpoint, execute the following command in your home directory. This assumes that your model, data, and configurations are stored in specific directories on your host machine. Note that all paths used must be absolute paths.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bash<span class="w"> </span>~/bipo_demand_forecasting/scripts/fastapi/api-entrypoint.sh
 </pre></div>
 </div>
 </section>
@@ -412,80 +416,142 @@ document.write(`
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>stop<span class="w"> </span>--name<span class="w"> </span>bipo_inference_initial
 </pre></div>
 </div>
-<p>Note: Replace <code class="docutils literal notranslate"><span class="pre">bipo_inference:initial</span></code> with the name you used when starting the container, if different.</p>
+<p>Note: Replace <code class="docutils literal notranslate"><span class="pre">bipo_inference_initial</span></code> with the name you used when starting the container, if different.</p>
 </section>
 </section>
 <section id="request-format">
 <h2>Request Format<a class="headerlink" href="#request-format" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>outlet_attributes</p></li>
+<li><p>lag_sales_attributes</p></li>
+<li><p>mkt_attributes</p></li>
+</ol>
+<ul class="simple">
+<li><p>Minimum number of days required for lag_sales_attributes is the first 7 days. E.g. today is 18 Oct, expected lag sales is from 4-17 Oct, and minimum lag sales to be given is from 4-10 Oct, while the remaining lag sales values will be imputed.</p></li>
+</ul>
+<p>The request below shows the default values.</p>
 <p>To obtain predictions, format your POST request as follows:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;sales_attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">&quot;outlet_attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;20/3/2023&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;cost_centre_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">308</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;East&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dine-in&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;propensity_factor&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;is_raining&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FALSE&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;max_temp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">25.8</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;is_public_holiday&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TRUE&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;is_school_holiday&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TRUE&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;campaign_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pizza_hut_promo1&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;campaign_start_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1/3/2023&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;campaign_end_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;26/3/2023&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;campaign_total_costs&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20100</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;lag_sales&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="mi">20100</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20200</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20300</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20400</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20500</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20600</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20700</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20800</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20900</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">21000</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">21100</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">21200</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">21300</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">21400</span>
-<span class="w">            </span><span class="p">]</span>
-<span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;21/3/2023&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;cost_centre_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">308</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;East&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dine-in&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;propensity_factor&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;is_raining&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TRUE&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;max_temp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">25.8</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;is_public_holiday&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TRUE&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;is_school_holiday&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TRUE&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;campaign_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pizza_hut_promo1&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;campaign_start_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1/3/2023&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;campaign_end_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;26/3/2023&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;campaign_total_costs&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20100</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;lag_sales&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="mi">20100</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20200</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20300</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20400</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20500</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20600</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20700</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20800</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">20900</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">21000</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">21100</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">21200</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">21300</span><span class="p">,</span>
-<span class="w">                </span><span class="mi">21400</span>
-<span class="w">            </span><span class="p">]</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">]</span>
+<span class="w">        </span><span class="nt">&quot;inference_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;2023-10-29&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;2023-10-30&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;2023-10-31&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;2023-11-01&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;2023-11-02&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;2023-11-03&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;2023-11-04&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;cost_centre_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;West&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dine-in&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;factor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">1</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;is_daily_rainfall_total_mm&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;maximum_temperature_c&quot;</span><span class="p">:</span><span class="w">  </span><span class="p">[</span>
+<span class="w">        </span><span class="mi">30</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">30</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">30</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">30</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">30</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">30</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">30</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;is_public_holiday&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;is_school_holiday&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">       </span><span class="nt">&quot;is_pandemic_restrictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">false</span>
+<span class="w">      </span><span class="p">]}],</span>
+<span class="w">    </span><span class="nt">&quot;lag_sales_attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;lag_sales_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;2023-10-13&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;2023-10-14&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;2023-10-15&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;2023-10-16&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;2023-10-17&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;2023-10-18&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;2023-10-19&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;lag_sales&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mi">5831</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">5831</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">5831</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">5831</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">5831</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">5831</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">5831</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;mkt_attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;campaign_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;campaign 1&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;campaign_start_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-10-01&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;campaign_end_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-10-30&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;marketing_channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;TV Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Radio Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Instagram Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Facebook Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Youtube Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Poster Campaign&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Digital&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;total_cost&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+<section id="outlet-attributes">
+<h3>outlet_attributes<a class="headerlink" href="#outlet-attributes" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute</p></th>
@@ -494,110 +560,174 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sales_attributes</span></code></p></td>
-<td><p>list</p></td>
-<td><p>List of data points used for predicting sales.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">inference_date</span></code></p></td>
+<td><p>List[str]</p></td>
+<td><p>List of dates linked to the inference period attributes, formatted as “YYYY-MM-DD”.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">date</span></code></p></td>
-<td><p>str</p></td>
-<td><p>Date linked to the sales attributes, formatted as “DD/MM/YYYY”.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cost_centre_code</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cost_centre_code</span></code></p></td>
 <td><p>int</p></td>
 <td><p>Numeric code identifying the cost centre.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">location</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">location</span></code></p></td>
 <td><p>str</p></td>
 <td><p>Geographical point where the sale occurred.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
 <td><p>str</p></td>
 <td><p>Category or classification of the sale (e.g., retail, online).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">propensity_factor</span></code></p></td>
-<td><p>float</p></td>
-<td><p>Score indicating likelihood or propensity of sales, with higher values signaling greater likelihood.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">factor</span></code></p></td>
+<td><p>List[float]</p></td>
+<td><p>List of scores indicating likelihood or propensity of sales, with higher values signaling greater likelihood.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_raining</span></code></p></td>
-<td><p>bool</p></td>
-<td><p>True if it rained on the given date; otherwise False.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_daily_rainfall_total_mm</span></code></p></td>
+<td><p>List[bool]</p></td>
+<td><p>List of boolean values: True if it rained on the given date; otherwise False.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_temp</span></code></p></td>
-<td><p>float</p></td>
-<td><p>Day’s highest recorded temperature in degrees.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">maximum_temperature_c</span></code></p></td>
+<td><p>List[float]</p></td>
+<td><p>List of the day’s highest recorded temperature in degree celcius.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_public_holiday</span></code></p></td>
-<td><p>bool</p></td>
-<td><p>True if the date is a public holiday; otherwise False.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_public_holiday</span></code></p></td>
+<td><p>List[bool]</p></td>
+<td><p>List of boolean values: True if the date is a public holiday; otherwise False.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_school_holiday</span></code></p></td>
-<td><p>bool</p></td>
-<td><p>True if the date falls within school holiday periods; otherwise False.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_school_holiday</span></code></p></td>
+<td><p>List[bool]</p></td>
+<td><p>List of boolean values: True if the date falls within school holiday periods; otherwise False.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_pandemic_restrictions</span></code></p></td>
+<td><p>List[bool]</p></td>
+<td><p>List of boolean values: True if there are pandemic restrictions implemented on that day; otherwise False.</p></td>
+</tr>
+<tr class="row-even"><td><p><br></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lag-sales-attributes">
+<h3>lag_sales attributes<a class="headerlink" href="#lag-sales-attributes" title="Permalink to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lag_sales_date</span></code></p></td>
+<td><p>List[str]</p></td>
+<td><p>List of dates linked to the lag sales attributes, formatted as “YYYY-MM-DD”.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">lag_sales</span></code></p></td>
+<td><p>List[float]</p></td>
+<td><p>Sequential list of sales figures from the last 14 days, starting from the previous day up to two weeks prior.</p></td>
+</tr>
+<tr class="row-even"><td><p><br></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mkt-attributes">
+<h3>mkt_attributes<a class="headerlink" href="#mkt-attributes" title="Permalink to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">campaign_name</span></code></p></td>
 <td><p>str</p></td>
 <td><p>Designation of the associated marketing campaign.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">campaign_start_date</span></code></p></td>
 <td><p>str</p></td>
-<td><p>Date when the marketing campaign commenced, formatted as “DD/MM/YYYY”.</p></td>
+<td><p>Date when the marketing campaign commenced, formatted as “YYYY-MM-DD”.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">campaign_end_date</span></code></p></td>
 <td><p>str</p></td>
-<td><p>Date when the marketing campaign concluded, formatted as “DD/MM/YYYY”.</p></td>
+<td><p>Date when the marketing campaign concluded, formatted as “YYYY-MM-DD”.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">campaign_total_cost</span></code></p></td>
-<td><p>float</p></td>
-<td><p>Aggregate expenditure associated with the marketing campaign.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">marketing_channels</span></code></p></td>
+<td><p>List[str]</p></td>
+<td><p>List of marketing channels.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lag_sales</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">total_cost</span></code></p></td>
 <td><p>List[float]</p></td>
-<td><p>Sequential list of sales figures from the last 14 days, starting from the previous day up to two weeks prior.</p></td>
+<td><p>List of aggregate expenditure associated with the campaign for each marketing channel.</p></td>
 </tr>
 </tbody>
 </table>
+</section>
 <section id="optional-fields">
 <h3>Optional Fields<a class="headerlink" href="#optional-fields" title="Permalink to this heading">#</a></h3>
-<p>If not applicable (i.e. no ongoing marketing campaign during the inference period), remove the following 4 fields completely from the request.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">campaign_name</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">campaign_start_date</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">campaign_end_date</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">campaign_total_cost</span></code></p></li>
-</ul>
-<p>For <code class="docutils literal notranslate"><span class="pre">lag_sales</span></code>, leave the field as <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code> if not applicable.</p>
+<p>If not applicable (i.e. no ongoing marketing campaign during the inference period), leave <code class="docutils literal notranslate"><span class="pre">campaign</span> <span class="pre">name</span></code> empty from the request, and ensure <code class="docutils literal notranslate"><span class="pre">campaign_start_date</span></code> and <code class="docutils literal notranslate"><span class="pre">campaign_end_date</span></code> are given arbitrary values outside of the inference period.</p>
+<p>For example, if the inference period is from 20-26 Oct 2023, the below request for mkt_attributes could be:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;mkt_attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;campaign_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;campaign_start_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-10-01&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;campaign_end_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-10-30&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;marketing_channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;TV Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Radio Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Instagram Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Facebook Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Youtube Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Poster Campaign&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Digital&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;total_cost&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="response-format">
 <h2>Response Format<a class="headerlink" href="#response-format" title="Permalink to this heading">#</a></h2>
-<p>The server’s response contains:</p>
+<p>The server’s response contains the prediction for 7 consecutive days which is the default. The response below shows the prediction for 2 days for simplicity.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;sales_predictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;20/3/2023&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;cost_centre_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">308</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;sales_class_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;sales_class_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Exceptional&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;probabilities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;0&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1429</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2857</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;3&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5714</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;21/3/2023&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;cost_centre_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">308</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;sales_class_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;sales_class_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;High&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;probabilities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;0&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1611</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2280</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3284</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;3&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2826</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="nt">&quot;sales_predictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-10-29&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cost_centre_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;sales_class_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;sales_class_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Medium&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;probabilities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;0&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3467</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4099</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2433</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;3&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0001</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-10-30&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cost_centre_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;sales_class_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;sales_class_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Medium&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;probabilities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;0&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3477</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3982</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2541</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;3&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0001</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -615,7 +745,7 @@ document.write(`
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">date</span></code></p></td>
 <td><p>str</p></td>
-<td><p>Date of the prediction in “DD/MM/YYYY” format, matching the input API request.</p></td>
+<td><p>Date of the prediction in “YYYY-MM-DD” format, matching the input API request.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cost_centre_code</span></code></p></td>
 <td><p>int</p></td>
@@ -661,11 +791,11 @@ document.write(`
 <p>The <code class="docutils literal notranslate"><span class="pre">date</span></code> and <code class="docutils literal notranslate"><span class="pre">cost_centre_code</span></code> attributes serve as a mapping to the respective fields in the input API request payload, ensuring alignment and traceability between the request and response.</p>
 <section id="example">
 <h4>Example<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h4>
-<p>For the entry on “20/3/2023” with a “cost_centre_code” of 308, the probabilities are {“0”: 0.0, “1”: 0.1429, “2”: 0.2857, “3”: 0.5714}.</p>
+<p>For the entry on “2023-10-29” with a “cost_centre_code” of 201, the probabilities are {“0”: 0.3467, “1”: 0.4099, “2”: 0.2433, “3”: 0.0001}.</p>
 <ul class="simple">
-<li><p>As 0.5714 is the highest probability, the corresponding <code class="docutils literal notranslate"><span class="pre">sales_class_id</span></code> is “3” and <code class="docutils literal notranslate"><span class="pre">sales_class_name</span></code> is “Exceptional”.</p></li>
+<li><p>As 0.4099 is the highest probability, the corresponding <code class="docutils literal notranslate"><span class="pre">sales_class_id</span></code> is “1” and <code class="docutils literal notranslate"><span class="pre">sales_class_name</span></code> is “Medium”.</p></li>
 </ul>
-<p>Similarly, for “21/3/2023”, the highest probability is 0.3284, resulting in a <code class="docutils literal notranslate"><span class="pre">sales_class_id</span></code> of “2” and a <code class="docutils literal notranslate"><span class="pre">sales_class_name</span></code> of “High”.</p>
+<p>Similarly, for “2023-10-30”, the highest probability is 0.3982, resulting in a <code class="docutils literal notranslate"><span class="pre">sales_class_id</span></code> of “1” and a <code class="docutils literal notranslate"><span class="pre">sales_class_name</span></code> of “Medium”.</p>
 </section>
 </section>
 </section>
@@ -687,7 +817,7 @@ document.write(`
 </tr>
 </tbody>
 </table>
-<p>For a deeper dive into HTTP status codes and their meanings, you can explore the <a class="reference external" href="https://restfulapi.net/http-status-codes/">HTTP Status Codes on RESTful API</a>.</p>
+<p>For a deeper dive into HTTP status codes and their meanings, you can explore the <a class="reference external" href="https://restfulapi.net/http-status-codes/">HTTP Status Codes on REST API</a>.</p>
 </section>
 </section>
 
@@ -743,6 +873,9 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#request-format">Request Format</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outlet-attributes">outlet_attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lag-sales-attributes">lag_sales attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mkt-attributes">mkt_attributes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-fields">Optional Fields</a></li>
 </ul>
 </li>

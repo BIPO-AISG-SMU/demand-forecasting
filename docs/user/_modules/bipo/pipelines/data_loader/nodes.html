@@ -148,6 +148,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../../../../experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -603,7 +604,7 @@ document.write(`
 <span class="sd">        pd.DataFrame: Dataframe containing the mean aggregated weather data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Consturct date using defined columns from constants.yml</span>
-    <span class="n">date_col_list</span> <span class="o">=</span> <span class="n">const_dict</span><span class="p">[</span><span class="s2">&quot;columns_to_construct_date&quot;</span><span class="p">][</span><span class="s2">&quot;weather_data&quot;</span><span class="p">]</span>
+    <span class="n">date_col_list</span> <span class="o">=</span> <span class="n">const_dict</span><span class="p">[</span><span class="s2">&quot;default_columns_to_construct_date&quot;</span><span class="p">][</span><span class="s2">&quot;weather_data&quot;</span><span class="p">]</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Constructing date from </span><span class="si">{</span><span class="n">date_col_list</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">df</span><span class="p">[</span><span class="n">date_col_list</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">date_col_list</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>

@@ -148,6 +148,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../../experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -324,9 +325,9 @@ document.write(`
 <span class="sd">        cost_centre_code (int): The code of the cost centre.</span>
 <span class="sd">        location (str): The geographical location of the sale.</span>
 <span class="sd">        type (str): The type of sale.</span>
-<span class="sd">        propensity_factor (float): A measure indicating the propensity of sales.</span>
-<span class="sd">        is_raining (bool): Indicator variable representing whether it was raining on the day.</span>
-<span class="sd">        max_temp (float): Maximum temperature for the day.</span>
+<span class="sd">        factor (float): A measure indicating the propensity of sales.</span>
+<span class="sd">        is_daily_rainfall_total_mm (bool): Indicator variable representing whether it was raining on the day.</span>
+<span class="sd">        maximum_temperature_c (float): Maximum temperature for the day.</span>
 <span class="sd">        is_public_holiday (bool): Indicator if the day was a public holiday.</span>
 <span class="sd">        is_school_holiday (bool): Indicator if the day was during school holidays.</span>
 <span class="sd">        is_pandemic_restrictions (bool): Indicator if the day has any pandemic restrictions.</span>
@@ -343,20 +344,16 @@ document.write(`
     <span class="p">)</span>
     <span class="n">location</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">conf_inference_fields</span><span class="p">[</span><span class="s2">&quot;default_location&quot;</span><span class="p">])</span>
     <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">conf_inference_fields</span><span class="p">[</span><span class="s2">&quot;default_type&quot;</span><span class="p">])</span>
-    <span class="n">propensity_factor</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="n">conf_inference_fields</span><span class="p">[</span><span class="s2">&quot;default_propensity_factor&quot;</span><span class="p">]]</span>
+    <span class="n">factor</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="n">conf_inference_fields</span><span class="p">[</span><span class="s2">&quot;default_factor&quot;</span><span class="p">]]</span>
         <span class="o">*</span> <span class="n">default_num_inference_date</span>
     <span class="p">)</span>
-    <span class="n">is_raining</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="n">conf_inference_fields</span><span class="p">[</span><span class="s2">&quot;default_is_raining&quot;</span><span class="p">]]</span>
+    <span class="n">is_daily_rainfall_total_mm</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="n">conf_inference_fields</span><span class="p">[</span><span class="s2">&quot;default_is_daily_rainfall_total_mm&quot;</span><span class="p">]]</span>
         <span class="o">*</span> <span class="n">default_num_inference_date</span>
     <span class="p">)</span>
-    <span class="n">temp_max</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="n">conf_inference_fields</span><span class="p">[</span><span class="s2">&quot;default_temp_max&quot;</span><span class="p">]]</span> <span class="o">*</span> <span class="n">default_num_inference_date</span>
-    <span class="p">)</span>
-    <span class="n">is_raining</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="n">conf_inference_fields</span><span class="p">[</span><span class="s2">&quot;default_is_raining&quot;</span><span class="p">]]</span>
-        <span class="o">*</span> <span class="n">default_num_inference_date</span>
+    <span class="n">maximum_temperature_c</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="n">conf_inference_fields</span><span class="p">[</span><span class="s2">&quot;default_maximum_temperature_c&quot;</span><span class="p">]]</span> <span class="o">*</span> <span class="n">default_num_inference_date</span>
     <span class="p">)</span>
     <span class="n">is_public_holiday</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="n">conf_inference_fields</span><span class="p">[</span><span class="s2">&quot;default_is_public_holiday&quot;</span><span class="p">]]</span>

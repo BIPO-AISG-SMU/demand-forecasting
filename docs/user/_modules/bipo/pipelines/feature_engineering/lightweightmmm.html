@@ -148,6 +148,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../../../../experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -409,9 +410,7 @@ document.write(`
                 <span class="p">)</span>
                 <span class="c1"># Assign fold info to parametrise learned parameters</span>
                 <span class="n">mmm_fold_params_dict</span><span class="p">[</span><span class="n">current_fold</span><span class="p">]</span> <span class="o">=</span> <span class="n">mmm_fitted_params_dict</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Completed extraction of fitted params for </span><span class="si">{</span><span class="n">current_fold</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Completed extraction of fitted params for </span><span class="si">{</span><span class="n">current_fold</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="c1"># Break the loop and go to next fold</span>
                 <span class="k">break</span>
 
@@ -441,8 +440,10 @@ document.write(`
 
     <span class="c1"># Read from parameters yml</span>
     <span class="n">mmm_lags</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;lightweightmmm_num_lags&quot;</span><span class="p">]</span>
-    <span class="n">adstock_normalise</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;lightweightmmm_adstock_normalise&quot;</span><span class="p">]</span>
-    <span class="n">optimise_parameters</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;lightweightmmm_optimise_parameters&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Convert to boolean state regardless of any entry. So long there is input other than False, or empty value, assume true.</span>
+    <span class="n">adstock_normalise</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;lightweightmmm_adstock_normalise&quot;</span><span class="p">])</span>
+    <span class="n">optimise_parameters</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;lightweightmmm_optimise_parameters&quot;</span><span class="p">])</span>
     <span class="n">lightweight_params_dict</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;lightweightmmm_params&quot;</span><span class="p">]</span>
     <span class="n">mkt_cost_col_list</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;mkt_channel_list&quot;</span><span class="p">]</span>
 
@@ -537,7 +538,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="process_mmm_df"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.process_mmm_df">[docs]</a><span class="k">def</span> <span class="nf">process_mmm_df</span><span class="p">(</span><span class="n">marketing_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">mmm_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;process mmm dataframes which include adstock and carryover. Previous day&#39;s adstock/carryover values are added to the current day&#39;s daily cost to get the final daily cost which takes into account adstock/carryover effects.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function processes mmm dataframes which include adstock and carryover. Previous day&#39;s adstock/carryover values are added to the current day&#39;s daily cost to get the final daily cost which takes into account adstock/carryover effects.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        marketing_df (pd.DataFrame): Marketing dataframe to be processed.</span>
@@ -621,7 +622,6 @@ document.write(`
     <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;ad_effect_retention_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ad_effect_retention_rate</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
     <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;peak_effect_delay&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak_effect_delay</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">params_dict</span></div>
-
 
 
 <div class="viewcode-block" id="merge_mmm_features_with_fold_outlets"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.merge_mmm_features_with_fold_outlets">[docs]</a><span class="k">def</span> <span class="nf">merge_mmm_features_with_fold_outlets</span><span class="p">(</span>

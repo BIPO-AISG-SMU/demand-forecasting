@@ -148,6 +148,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../../experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -294,7 +295,7 @@ document.write(`
 <span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">os</span> 
 <span class="kn">from</span> <span class="nn">kedro.config</span> <span class="kn">import</span> <span class="n">ConfigLoader</span>
-<span class="kn">from</span> <span class="nn">kedro.io</span> <span class="kn">import</span> <span class="n">DataCatalog</span><span class="p">,</span> <span class="n">PartitionedDataset</span>
+<span class="kn">from</span> <span class="nn">kedro.io</span> <span class="kn">import</span> <span class="n">DataCatalog</span>
 <span class="kn">from</span> <span class="nn">kedro_datasets.json</span> <span class="kn">import</span> <span class="n">JSONDataSet</span> 
 <span class="kn">from</span> <span class="nn">kedro_datasets.pickle</span> <span class="kn">import</span> <span class="n">PickleDataSet</span>
 <span class="kn">from</span> <span class="nn">kedro_datasets.pandas</span> <span class="kn">import</span> <span class="n">CSVDataSet</span>
@@ -317,11 +318,11 @@ document.write(`
 <span class="sd">        dict: artefact dictionary</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">artefact_filepath</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No artefact in </span><span class="si">{</span><span class="n">artefact_filepath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No artefact in </span><span class="si">{</span><span class="n">artefact_filepath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">artefact_filepath</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;More than 1 artefact in </span><span class="si">{</span><span class="n">artefact_filepath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;More than 1 artefact in </span><span class="si">{</span><span class="n">artefact_filepath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span> 
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extract fold from </span><span class="si">{</span><span class="n">artefact_filepath</span><span class="si">}</span><span class="s2"> to rename dataframe&quot;</span><span class="p">)</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Load artefact from </span><span class="si">{</span><span class="n">artefact_filepath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">artefact_filepath</span><span class="p">):</span>
             <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">artefact_filepath</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">filepath</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">):</span>
@@ -352,23 +353,30 @@ document.write(`
 
     <span class="c1"># load specific fold encoding artefact </span>
     <span class="n">std_norm_artefact</span> <span class="o">=</span> <span class="n">load_artefact</span><span class="p">(</span><span class="n">conf_const</span><span class="p">[</span><span class="s2">&quot;inference&quot;</span><span class="p">][</span><span class="s2">&quot;std_norm_filepath&quot;</span><span class="p">])</span>
-    <span class="n">std_norm_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">conf_inference</span><span class="p">[</span><span class="s2">&quot;artefact_fold&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">cost_centre_code</span><span class="si">}</span><span class="s1">_standardize&#39;</span>
-    <span class="k">if</span> <span class="n">std_norm_key</span> <span class="ow">in</span> <span class="n">std_norm_artefact</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="n">std_norm_artefact</span> <span class="o">=</span> <span class="n">std_norm_artefact</span><span class="p">[</span><span class="n">std_norm_key</span><span class="p">]</span>
+    <span class="n">std_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">conf_inference</span><span class="p">[</span><span class="s2">&quot;artefact_fold&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">cost_centre_code</span><span class="si">}</span><span class="s1">_standardize&#39;</span>
+    <span class="n">norm_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">conf_inference</span><span class="p">[</span><span class="s2">&quot;artefact_fold&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">cost_centre_code</span><span class="si">}</span><span class="s1">_normalize&#39;</span>
+    <span class="k">if</span> <span class="n">std_key</span> <span class="ow">in</span> <span class="n">std_norm_artefact</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">std_norm_artefact</span> <span class="o">=</span> <span class="n">std_norm_artefact</span><span class="p">[</span><span class="n">std_key</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">norm_key</span> <span class="ow">in</span> <span class="n">std_norm_artefact</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">std_norm_artefact</span> <span class="o">=</span> <span class="n">std_norm_artefact</span><span class="p">[</span><span class="n">norm_key</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">std_norm_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">conf_inference</span><span class="p">[</span><span class="s2">&quot;artefact_fold&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">cost_centre_code</span><span class="si">}</span><span class="s1">_normalize&#39;</span>
-        <span class="n">std_norm_artefact</span> <span class="o">=</span> <span class="n">std_norm_artefact</span><span class="p">[</span><span class="n">std_norm_key</span><span class="p">]</span>
-    
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No standardization or normalization key is found in std_norm.pkl artefact&quot;</span><span class="p">)</span>
+        <span class="n">std_norm_artefact</span> <span class="o">=</span> <span class="mi">0</span>
+
     <span class="c1"># encoding </span>
     <span class="n">encoding_artefact</span> <span class="o">=</span> <span class="n">load_artefact</span><span class="p">(</span><span class="n">conf_const</span><span class="p">[</span><span class="s2">&quot;inference&quot;</span><span class="p">][</span><span class="s2">&quot;encoding_filepath&quot;</span><span class="p">])</span>
     <span class="n">ohe_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">conf_inference</span><span class="p">[</span><span class="s2">&quot;artefact_fold&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">_ohe&#39;</span>
     <span class="n">ordinal_encoding_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">conf_inference</span><span class="p">[</span><span class="s2">&quot;artefact_fold&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">_ord&#39;</span>
-    <span class="n">ohe_artefact</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">if</span> <span class="n">ohe_key</span> <span class="ow">in</span> <span class="n">encoding_artefact</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="n">ohe_artefact</span> <span class="o">=</span> <span class="n">encoding_artefact</span><span class="p">[</span><span class="n">ohe_key</span><span class="p">]</span>
-    <span class="n">ordinal_encoding_artefact</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;One_hot_encoding key is not found in encoding.pkl artefact&quot;</span><span class="p">)</span>
+        <span class="n">ohe_artefact</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">if</span> <span class="n">ordinal_encoding_key</span> <span class="ow">in</span> <span class="n">encoding_artefact</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="n">ordinal_encoding_artefact</span> <span class="o">=</span> <span class="n">encoding_artefact</span><span class="p">[</span><span class="n">ohe_key</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Ordinal_encoding key is not found in encoding.pkl artefact&quot;</span><span class="p">)</span>
+        <span class="n">ordinal_encoding_artefact</span> <span class="o">=</span> <span class="mi">0</span>
 
 
     <span class="c1"># populate data catalog</span>
@@ -384,7 +392,6 @@ document.write(`
             <span class="s2">&quot;ohe_artefact&quot;</span><span class="p">:</span> <span class="n">ohe_artefact</span><span class="p">,</span>
             <span class="s2">&quot;ordinal_encoding_artefact&quot;</span><span class="p">:</span> <span class="n">ordinal_encoding_artefact</span><span class="p">,</span>
             <span class="s2">&quot;tsfresh_relevant_features&quot;</span><span class="p">:</span> <span class="n">tsfresh_relevant_features</span><span class="p">,</span>
-            <span class="s2">&quot;cost_centre_code&quot;</span><span class="p">:</span> <span class="n">cost_centre_code</span>
         <span class="p">},</span>
         <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>

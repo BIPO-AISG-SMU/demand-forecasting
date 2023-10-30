@@ -148,6 +148,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../../../../experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -381,15 +382,12 @@ document.write(`
     <span class="p">)</span>
 
     <span class="c1"># Check validity of model name</span>
-    <span class="n">valid_model_name_list</span> <span class="o">=</span> <span class="n">conf_constants</span><span class="p">[</span><span class="s2">&quot;modeling&quot;</span><span class="p">][</span><span class="s2">&quot;valid_model_name&quot;</span><span class="p">]</span>
+    <span class="n">valid_model_name_list</span> <span class="o">=</span> <span class="n">conf_constants</span><span class="p">[</span><span class="s2">&quot;modeling&quot;</span><span class="p">][</span><span class="s2">&quot;valid_model_name_list&quot;</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">model_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_model_name_list</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Invalid mode detected and does not belong to either of  </span><span class="si">{</span><span class="n">valid_model_name_list</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Invalid mode detected and does not belong to either of  </span><span class="si">{</span><span class="n">valid_model_name_list</span><span class="si">}</span><span class="s2">. Using default model name: </span><span class="si">{</span><span class="n">conf_constants</span><span class="p">[</span><span class="s1">&#39;modeling&#39;</span><span class="p">][</span><span class="s1">&#39;default_model&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Using default model name: </span><span class="si">{</span><span class="n">conf_constants</span><span class="p">[</span><span class="s1">&#39;modeling&#39;</span><span class="p">][</span><span class="s1">&#39;model_name_default&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
-        <span class="n">model_name</span> <span class="o">=</span> <span class="n">conf_constants</span><span class="p">[</span><span class="s2">&quot;modeling&quot;</span><span class="p">][</span><span class="s2">&quot;model_name_default&quot;</span><span class="p">]</span>
+        <span class="n">model_name</span> <span class="o">=</span> <span class="n">conf_constants</span><span class="p">[</span><span class="s2">&quot;modeling&quot;</span><span class="p">][</span><span class="s2">&quot;default_model&quot;</span><span class="p">]</span>
 
     <span class="c1"># Read parameters for instantiating necessary models</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Instantiating </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2"> with necessary parameters&quot;</span><span class="p">)</span>
@@ -408,7 +406,7 @@ document.write(`
 
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="s2">&quot;Unable to reference required parameters for ebm model due to key error. Using default settings...&quot;</span>
+                <span class="s2">&quot;Unable to reference required parameters for ebm model due to key error. Using default settings..&quot;</span>
             <span class="p">)</span>
             <span class="n">ebm_params_const_dict</span> <span class="o">=</span> <span class="n">conf_constants</span><span class="p">[</span><span class="s2">&quot;modeling&quot;</span><span class="p">][</span><span class="s2">&quot;ebm&quot;</span><span class="p">]</span>
             <span class="c1"># Read off defaults from constants.yml</span>
@@ -466,11 +464,20 @@ document.write(`
                 <span class="sa">f</span><span class="s2">&quot;Using default parameters for ebm:</span><span class="si">{</span><span class="n">ordered_model_params_const_dict</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
 
-        <span class="c1"># Instantiate and fit OrderedModel with parameters</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">OrderedModel</span><span class="p">(</span><span class="n">y_train_df</span><span class="p">,</span> <span class="n">X_train_df</span><span class="p">,</span> <span class="n">distr</span><span class="o">=</span><span class="n">distr</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Instantiated OrderedModel with parameters </span><span class="si">{</span><span class="n">distr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">trained_model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Instantiate and fit OrderedModel with parameters with constant check to for any implicit constant since explicit constants should have been excluded during model_specific_preprocesing</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">OrderedModel</span><span class="p">(</span><span class="n">y_train_df</span><span class="p">,</span> <span class="n">X_train_df</span><span class="p">,</span> <span class="n">distr</span><span class="o">=</span><span class="n">distr</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Attempting to fit OrderedModel with parameters </span><span class="si">{</span><span class="n">distr</span><span class="si">}</span><span class="s2"> on assumption that there are no implicit constants.&quot;</span>
+            <span class="p">)</span>
+            <span class="n">trained_model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;OrderedModel has identified an implicit constant in data, refitting for overparameterised data by setting hasconst=False, to override constant check...&quot;</span>
+            <span class="p">)</span>
+            <span class="c1"># Instantiate and fit OrderedModel with parameters</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">OrderedModel</span><span class="p">(</span><span class="n">y_train_df</span><span class="p">,</span> <span class="n">X_train_df</span><span class="p">,</span> <span class="n">distr</span><span class="o">=</span><span class="n">distr</span><span class="p">,</span> <span class="n">hasconst</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">trained_model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="c1"># Run MLflow tracking if enabled</span>
         <span class="k">if</span> <span class="n">enable_mlflow</span><span class="p">:</span>
             <span class="n">mlflow_tracking</span><span class="p">(</span><span class="n">params_dict</span><span class="p">,</span> <span class="n">model_params_dict</span><span class="p">)</span>

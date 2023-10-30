@@ -151,6 +151,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -387,14 +388,11 @@ generated using Kedro 0.18.11</p>
 generated using Kedro 0.18.11</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.model_specific_preprocessing.nodes.identify_const_column">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.model_specific_preprocessing.nodes.</span></span><span class="sig-name descname"><span class="pre">identify_const_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitioned_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/model_specific_preprocessing/nodes.html#identify_const_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.model_specific_preprocessing.nodes.identify_const_column" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.model_specific_preprocessing.nodes.</span></span><span class="sig-name descname"><span class="pre">identify_const_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitioned_input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/model_specific_preprocessing/nodes.html#identify_const_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.model_specific_preprocessing.nodes.identify_const_column" title="Permalink to this definition">#</a></dt>
 <dd><p>Function which identifies the existence of constant column across dataframe residing in the partitioned_input dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>partitioned_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – A dictionary with partition ids as keys and dataframe as values.</p></li>
-<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing parameters.yml.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>partitioned_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – A dictionary with partition ids as keys and dataframe as values.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>None.</strong> – </p>
@@ -410,13 +408,12 @@ generated using Kedro 0.18.11</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.model_specific_preprocessing.nodes.remove_const_column">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.model_specific_preprocessing.nodes.</span></span><span class="sig-name descname"><span class="pre">remove_const_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitioned_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">const_column_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/model_specific_preprocessing/nodes.html#remove_const_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.model_specific_preprocessing.nodes.remove_const_column" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.model_specific_preprocessing.nodes.</span></span><span class="sig-name descname"><span class="pre">remove_const_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitioned_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">const_column_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/model_specific_preprocessing/nodes.html#remove_const_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.model_specific_preprocessing.nodes.remove_const_column" title="Permalink to this definition">#</a></dt>
 <dd><p>Function which identifies columns with constant value (single unique value) and removes them from dataframes in partitioned_input containing fold-based merged outlets dataframe.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>partitioned_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – A dictionary with partition ids as keys and dataframe as values.</p></li>
-<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary referencing parameters.yml.</p></li>
 <li><p><strong>const_column_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>List</em><em>]</em>) – Dictionary containing fold-based columns which are constant (only 1 unique value)</p></li>
 </ul>
 </dd>
@@ -454,13 +451,14 @@ generated using Kedro 0.18.11</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.model_specific_preprocessing.nodes.reorder_data">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.model_specific_preprocessing.nodes.</span></span><span class="sig-name descname"><span class="pre">reorder_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitioned_input_training</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partitioned_input_validation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/model_specific_preprocessing/nodes.html#reorder_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.model_specific_preprocessing.nodes.reorder_data" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.model_specific_preprocessing.nodes.</span></span><span class="sig-name descname"><span class="pre">reorder_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitioned_input_training</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partitioned_input_validation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partitioned_input_testing</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/model_specific_preprocessing/nodes.html#reorder_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.model_specific_preprocessing.nodes.reorder_data" title="Permalink to this definition">#</a></dt>
 <dd><p>Function which pairs up files from training and validation subfolders containing fold-based merged outlets data in ‘data’ directory by using an OrderedDict to update corresponding alternating training, validation prefix folds before model training can be done.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>partitioned_input_training</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – A dictionary with partition ids as keys and dataframe as values for training data.</p></li>
 <li><p><strong>partitioned_input_validation</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em>) – A dictionary with partition ids as keys and dataframe as values for validation data.</p></li>
+<li><p><strong>partitioned_input_testing</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em>) – A dictionary with partition ids as keys and dataframe as values for testing data.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -488,10 +486,10 @@ generated using Kedro 0.18.11</p>
 <dd class="field-even"><p><strong>None.</strong> – </p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Tuple of dictionaries similar to partitioned_input representing training, validation and testing datasets</p>
+<dd class="field-odd"><p>Tuple of dictionaries similar to partitioned_input representing training and validation datasets</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Tuple[Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, pd.DataFrame],Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, pd.DataFrame], Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, pd.DataFrame]]</p>
+<dd class="field-even"><p>Tuple[Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, pd.DataFrame],Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, pd.DataFrame]]</p>
 </dd>
 </dl>
 </dd></dl>

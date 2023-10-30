@@ -151,6 +151,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -399,18 +400,7 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html#module-bipo_fastapi.deps">bipo_fastapi.deps module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.deps.PredictionModel"><code class="docutils literal notranslate"><span class="pre">PredictionModel</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.deps.PredictionModel.model"><code class="docutils literal notranslate"><span class="pre">PredictionModel.model</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.deps.PredictionModel.class_names"><code class="docutils literal notranslate"><span class="pre">PredictionModel.class_names</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.deps.PredictionModel.predict"><code class="docutils literal notranslate"><span class="pre">PredictionModel.predict()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.deps.PredictionModel.transform_attributes"><code class="docutils literal notranslate"><span class="pre">PredictionModel.transform_attributes()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.deps.load_model"><code class="docutils literal notranslate"><span class="pre">load_model()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.deps.output_intermediate_file"><code class="docutils literal notranslate"><span class="pre">output_intermediate_file()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html#bipo-fastapi-deps-module">bipo_fastapi.deps module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html#module-bipo_fastapi.hooks">bipo_fastapi.hooks module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.hooks.ParamsHooks"><code class="docutils literal notranslate"><span class="pre">ParamsHooks</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.hooks.ParamsHooks.before_node_run"><code class="docutils literal notranslate"><span class="pre">ParamsHooks.before_node_run()</span></code></a></li>
@@ -436,14 +426,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.nodes.transform_mkt_input"><code class="docutils literal notranslate"><span class="pre">transform_mkt_input()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html#module-bipo_fastapi.pipeline">bipo_fastapi.pipeline module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.pipeline.create_encoding_standardize_normalize_pipeline"><code class="docutils literal notranslate"><span class="pre">create_encoding_standardize_normalize_pipeline()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.pipeline.create_lag_sales_pipeline"><code class="docutils literal notranslate"><span class="pre">create_lag_sales_pipeline()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.pipeline.create_marketing_pipeline"><code class="docutils literal notranslate"><span class="pre">create_marketing_pipeline()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.pipeline.create_merge_pipeline_outputs"><code class="docutils literal notranslate"><span class="pre">create_merge_pipeline_outputs()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.pipeline.create_outlet_pipeline"><code class="docutils literal notranslate"><span class="pre">create_outlet_pipeline()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html#bipo-fastapi-pipeline-module">bipo_fastapi.pipeline module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html#module-bipo_fastapi.schemas">bipo_fastapi.schemas module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.LagSalesAttribute"><code class="docutils literal notranslate"><span class="pre">LagSalesAttribute</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.LagSalesAttribute.date"><code class="docutils literal notranslate"><span class="pre">LagSalesAttribute.date</span></code></a></li>
@@ -472,32 +455,32 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.cost_centre_code"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.cost_centre_code</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.location"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.location</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.type"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.type</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.propensity_factor"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.propensity_factor</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_raining"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_raining</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.max_temp"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.max_temp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.factor"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.factor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_daily_rainfall_total_mm"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_daily_rainfall_total_mm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.maximum_temperature_c"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.maximum_temperature_c</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_public_holiday"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_public_holiday</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_school_holiday"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_school_holiday</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_pandemic_restrictions"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_pandemic_restrictions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id11"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.cost_centre_code</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.ensure_datetime"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.ensure_datetime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id12"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.factor</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.inference_date"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.inference_date</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id12"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_pandemic_restrictions</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id13"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_public_holiday</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id14"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_raining</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id15"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_school_holiday</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id16"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.location</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id17"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.propensity_factor</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.temp_max"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.temp_max</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id18"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id13"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_daily_rainfall_total_mm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id14"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_pandemic_restrictions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id15"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_public_holiday</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id16"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_school_holiday</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id17"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.location</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id18"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.maximum_temperature_c</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id19"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.type</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes"><code class="docutils literal notranslate"><span class="pre">SalesAttributes</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes.outlet_attributes"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.outlet_attributes</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes.lag_sales_attributes"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.lag_sales_attributes</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes.mkt_attributes"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.mkt_attributes</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id19"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.lag_sales_attributes</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id20"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.mkt_attributes</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id21"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.outlet_attributes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id20"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.lag_sales_attributes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id21"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.mkt_attributes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id22"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.outlet_attributes</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction"><code class="docutils literal notranslate"><span class="pre">SalesPrediction</span></code></a><ul>
@@ -506,16 +489,16 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.sales_class_id"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.sales_class_name"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.probabilities"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.probabilities</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id22"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.cost_centre_code</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id23"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.date</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id24"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.probabilities</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id25"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_id</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id26"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id23"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.cost_centre_code</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id24"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.date</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id25"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.probabilities</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id26"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id27"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_name</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPredictions"><code class="docutils literal notranslate"><span class="pre">SalesPredictions</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPredictions.sales_predictions"><code class="docutils literal notranslate"><span class="pre">SalesPredictions.sales_predictions</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id27"><code class="docutils literal notranslate"><span class="pre">SalesPredictions.sales_predictions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bipo_fastapi.html#id28"><code class="docutils literal notranslate"><span class="pre">SalesPredictions.sales_predictions</span></code></a></li>
 </ul>
 </li>
 </ul>

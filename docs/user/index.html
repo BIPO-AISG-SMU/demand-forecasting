@@ -150,6 +150,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -393,21 +394,25 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="kedro-overview.html">Overview of Kedro (v0.18.11)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="kedro-overview.html#what-is-kedro">What is Kedro?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kedro-overview.html#elements-of-kedro">Elements of Kedro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kedro-overview.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kedro-overview.html#nodes">Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kedro-overview.html#pipeline-namespace">Pipeline Namespace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kedro-overview.html#creating-kedro-pipelines">Creating Kedro Pipelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kedro-overview.html#pipeline-registry">Pipeline Registry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kedro-overview.html#running-specific-pipelines">Running Specific Pipelines</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="data-pipeline.html">Data Pipeline</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#data-sources">Data Sources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#design-architecture">Design Architecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#data-loading-validation">1. Data Loading &amp; Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#design-architecture-and-considerations">Design Architecture and Considerations:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#data-loader">1. Data Loader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#data-preprocessing">2. Data Preprocessing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#data-merging-splitting">3. Data Merging &amp; Splitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#feature-engineering">4. Feature Engineering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#model-specific-preprocessing">5. Model-specific Preprocessing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#data-pipeline-configuration">Data Pipeline Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#how-to-execute-the-data-pipeline">How to Execute the Data Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#data-merge">3. Data Merge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#data-split">4. Data split</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#time-agnostic-feature-engineering">5. Time-Agnostic Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#time-dependent-feature-engineering">6. Time-Dependent Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-pipeline.html#model-specific-preprocessing">7. Model-specific Preprocessing</a></li>
 </ul>
 </li>
 </ul>
@@ -417,13 +422,19 @@ document.write(`
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="training-pipeline.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="training-pipeline.html#pipeline-design">Pipeline Design</a></li>
-<li class="toctree-l2"><a class="reference internal" href="training-pipeline.html#training-pipeline-configuration">Training Pipeline Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training-pipeline.html#design-architecture-and-considerations">Design Architecture and Considerations:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training-pipeline.html#supported-models">Supported models</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="training-pipeline.html#training-pipeline-configuration">Training Pipeline Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="training-pipeline.html#id1">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training-pipeline.html#explanation-on-the-purpose-of-yml-files-placement-locations">Explanation on the purpose of yml files placement locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training-pipeline.html#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a></li>
 <li class="toctree-l2"><a class="reference internal" href="training-pipeline.html#model-input-data-definition">Model Input Data Definition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="training-pipeline.html#how-to-run">How to Run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training-pipeline.html#how-to-execute-the-training-pipeline-windows-os-only-from-a-docker-image">How to execute the Training Pipeline (Windows OS only) from a Docker image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="training-pipeline.html#model-evaluation">Model Evaluation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="training-pipeline.html#possible-error-and-handling">Possible Error and Handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="training-pipeline.html#file-structure-in-container">File Structure in Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training-pipeline.html#file-structure-layout-in-docker-container">File Structure layout in Docker container</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a><ul>
@@ -452,6 +463,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="inference-module.html#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inference-module.html#pipeline-configuration">Pipeline Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inference-module.html#file-structure-in-container">File Structure in Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inference-module.html#fastapi-app">1. FastAPI app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inference-module.html#kedro-inference-pipeline">2. Kedro inference pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inference-module.html#inference-module-configuration">Inference module configuration</a></li>
 </ul>
 </li>
 </ul>

@@ -151,6 +151,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -818,7 +819,7 @@ generated using Kedro 0.18.10</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.lightweightmmm.process_mmm_df">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.lightweightmmm.</span></span><span class="sig-name descname"><span class="pre">process_mmm_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marketing_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mmm_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/lightweightmmm.html#process_mmm_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.lightweightmmm.process_mmm_df" title="Permalink to this definition">#</a></dt>
-<dd><p>process mmm dataframes which include adstock and carryover. Previous day’s adstock/carryover values are added to the current day’s daily cost to get the final daily cost which takes into account adstock/carryover effects.</p>
+<dd><p>Function processes mmm dataframes which include adstock and carryover. Previous day’s adstock/carryover values are added to the current day’s daily cost to get the final daily cost which takes into account adstock/carryover effects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1262,7 +1263,7 @@ For every feature the influence on the target is evaluated by univariate tests a
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>partitioned_outlet_input</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>]) – Dict[str, pd.DataFrame]: Kedro MemoryDataSet dictionary partitioned by outlets loaded in memory containing outlet dataframes.</p></li>
+<li><p><strong>partitioned_outlet_input</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>]) – Dict[str, pd.DataFrame]: Kedro MemoryDataSet dictionary partitioned by outlets loaded in memory containing outlet dataframes.</p></li>
 <li><p><strong>partitioned_mmm_input</strong> – Dict[str, pd.DataFrame]: Kedro IncrementalDataset of dataframe representing fold-based outlets.</p></li>
 </ul>
 </dd>
@@ -1281,7 +1282,7 @@ For every feature the influence on the target is evaluated by univariate tests a
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.tsfresh_node.run_tsfresh_feature_engineering_process">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.tsfresh_node.</span></span><span class="sig-name descname"><span class="pre">run_tsfresh_feature_engineering_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitioned_tsfresh_artefacts_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partitioned_outlet_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/tsfresh_node.html#run_tsfresh_feature_engineering_process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.tsfresh_node.run_tsfresh_feature_engineering_process" title="Permalink to this definition">#</a></dt>
-<dd><p>Function which performs tsfresh feature engineering involving tsfresh feature creation for each outlet data in each fold based on learnt tsfresh artefacts and outlet inputs</p>
+<dd><p>Function which performs tsfresh feature engineering involving tsfresh feature creation for each outlet data in each fold based on learnt tsfresh artefacts and outlet inputs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

@@ -1,6 +1,6 @@
 # Model Serving Endpoint
 
-This document provides detailed information on how to interact with our model serving endpoint, which facilitates predictions through a RESTful API. Ensure you've followed the [`Environment Setup`](inference-deployment-env-setup) before diving in.
+This document provides detailed information on how to interact with our model serving endpoint, which facilitates predictions through a REST API. Ensure you've followed the [`Environment Setup`](inference-deployment-env-setup) before diving in.
 
 ## Overview
 
@@ -9,10 +9,10 @@ Our model serving endpoint is designed to take in input data, feed it into a tra
 ## How to Run Endpoint
 
 ### 1. Starting the Endpoint
-To run the Docker image containing the endpoint, execute the following command in your home directory. This assumes that your model, data, and configurations are stored in specific directories on your host machine. Note that all path used must be absolute paths.
+To run the Docker image containing the endpoint, execute the following command in your home directory. This assumes that your model, data, and configurations are stored in specific directories on your host machine. Note that all paths used must be absolute paths.
 
 ```bash
-$ bash ~/bipo_demand_forecasting/scripts/docker_run.sh
+$ bash ~/bipo_demand_forecasting/scripts/fastapi/api-entrypoint.sh
 ```
 
 ### 2. Interacting with the API through Swagger UI
@@ -37,145 +37,240 @@ $ bash ~/bipo_demand_forecasting/scripts/docker_run.sh
 ```bash
 docker stop --name bipo_inference_initial
 ```
-Note: Replace `bipo_inference:initial` with the name you used when starting the container, if different.
+Note: Replace `bipo_inference_initial` with the name you used when starting the container, if different.
 
 ## Request Format
+1. outlet_attributes
+2. lag_sales_attributes
+3. mkt_attributes
+- Minimum number of days required for lag_sales_attributes is the first 7 days. E.g. today is 18 Oct, expected lag sales is from 4-17 Oct, and minimum lag sales to be given is from 4-10 Oct, while the remaining lag sales values will be imputed.  
+
+The request below shows the default values.  
 
 To obtain predictions, format your POST request as follows: 
 
 ```json
 {
-    "sales_attributes": [
+    "outlet_attributes": [
         {
-            "date": "20/3/2023",
-            "cost_centre_code": 308,
-            "location": "East",
-            "type": "dine-in",
-            "propensity_factor": 1.5,
-            "is_raining": "FALSE",
-            "max_temp": 25.8,
-            "is_public_holiday": "TRUE",
-            "is_school_holiday": "TRUE",
-            "campaign_name": "pizza_hut_promo1",
-            "campaign_start_date": "1/3/2023",
-            "campaign_end_date": "26/3/2023",
-            "campaign_total_costs": 20100,
-            "lag_sales": [
-                20100,
-                20200,
-                20300,
-                20400,
-                20500,
-                20600,
-                20700,
-                20800,
-                20900,
-                21000,
-                21100,
-                21200,
-                21300,
-                21400
-            ]
-        },
-        {
-            "date": "21/3/2023",
-            "cost_centre_code": 308,
-            "location": "East",
-            "type": "dine-in",
-            "propensity_factor": 1.5,
-            "is_raining": "TRUE",
-            "max_temp": 25.8,
-            "is_public_holiday": "TRUE",
-            "is_school_holiday": "TRUE",
-            "campaign_name": "pizza_hut_promo1",
-            "campaign_start_date": "1/3/2023",
-            "campaign_end_date": "26/3/2023",
-            "campaign_total_costs": 20100,
-            "lag_sales": [
-                20100,
-                20200,
-                20300,
-                20400,
-                20500,
-                20600,
-                20700,
-                20800,
-                20900,
-                21000,
-                21100,
-                21200,
-                21300,
-                21400
-            ]
-        }
-    ]
+        "inference_date": [
+        "2023-10-29",
+        "2023-10-30",
+        "2023-10-31",
+        "2023-11-01",
+        "2023-11-02",
+        "2023-11-03",
+        "2023-11-04"
+      ],
+        "cost_centre_code": 201,
+        "location": "West",
+        "type": "dine-in",
+        "factor": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+        "is_daily_rainfall_total_mm": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+        "maximum_temperature_c":  [
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30
+      ],
+        "is_public_holiday": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+        "is_school_holiday": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+       "is_pandemic_restrictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]}],
+    "lag_sales_attributes": [
+    {
+        "lag_sales_date": [
+        "2023-10-13",
+        "2023-10-14",
+        "2023-10-15",
+        "2023-10-16",
+        "2023-10-17",
+        "2023-10-18",
+        "2023-10-19"
+      ],
+        "lag_sales": [
+        5831,
+        5831,
+        5831,
+        5831,
+        5831,
+        5831,
+        5831
+      ]
+    }
+  ],
+    "mkt_attributes": [
+    {
+        "campaign_name": "campaign 1",
+        "campaign_start_date": "2023-10-01",
+        "campaign_end_date": "2023-10-30",
+        "marketing_channels": [
+        "TV Ad",
+        "Radio Ad",
+        "Instagram Ad",
+        "Facebook Ad",
+        "Youtube Ad",
+        "Poster Campaign",
+        "Digital"
+      ],
+        "total_cost": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
 }
 ```
+### outlet_attributes
 | Attribute             | Type        | Description                                                                                                   |
 | --------------------- | ----------- | ------------------------------------------------------------------------------------------------------------- |
-| `sales_attributes`    | list        | List of data points used for predicting sales.                                                                |
-| `date`                | str         | Date linked to the sales attributes, formatted as "DD/MM/YYYY".                                               |
+| `inference_date`                | List[str]         | List of dates linked to the inference period attributes, formatted as "YYYY-MM-DD".                                               |
 | `cost_centre_code`    | int         | Numeric code identifying the cost centre.                                                                     |
 | `location`            | str         | Geographical point where the sale occurred.                                                                   |
 | `type`                | str         | Category or classification of the sale (e.g., retail, online).                                                |
-| `propensity_factor`   | float       | Score indicating likelihood or propensity of sales, with higher values signaling greater likelihood.          |
-| `is_raining`          | bool        | True if it rained on the given date; otherwise False.                                                         |
-| `max_temp`            | float       | Day's highest recorded temperature in degrees.                                                                |
-| `is_public_holiday`   | bool        | True if the date is a public holiday; otherwise False.                                                        |
-| `is_school_holiday`   | bool        | True if the date falls within school holiday periods; otherwise False.                                        |
-| `campaign_name`       | str         | Designation of the associated marketing campaign.                                                             |
-| `campaign_start_date` | str         | Date when the marketing campaign commenced, formatted as "DD/MM/YYYY".                                        |
-| `campaign_end_date`   | str         | Date when the marketing campaign concluded, formatted as "DD/MM/YYYY".                                        |
-| `campaign_total_cost` | float       | Aggregate expenditure associated with the marketing campaign.                                                 |
+| `factor`   | List[float]       | List of scores indicating likelihood or propensity of sales, with higher values signaling greater likelihood.          |
+| `is_daily_rainfall_total_mm`          | List[bool]        | List of boolean values: True if it rained on the given date; otherwise False.                                                         |
+| `maximum_temperature_c`            | List[float]       | List of the day's highest recorded temperature in degree celcius.                                                                |
+| `is_public_holiday`   | List[bool]        | List of boolean values: True if the date is a public holiday; otherwise False.                                                        |
+| `is_school_holiday`   | List[bool]        | List of boolean values: True if the date falls within school holiday periods; otherwise False.                                        |
+| `is_pandemic_restrictions`   | List[bool]        | List of boolean values: True if there are pandemic restrictions implemented on that day; otherwise False.                                        |
+<br>
+
+### lag_sales attributes
+| Attribute             | Type        | Description                                                                                                   |
+| --------------------- | ----------- | ------------------------------------------------------------------------------------------------------------- |
+| `lag_sales_date`                | List[str]         | List of dates linked to the lag sales attributes, formatted as "YYYY-MM-DD".                                               |
 | `lag_sales`           | List[float] | Sequential list of sales figures from the last 14 days, starting from the previous day up to two weeks prior. |
+<br>
+
+### mkt_attributes
+| Attribute             | Type        | Description                                                                                                   |
+| --------------------- | ----------- | ------------------------------------------------------------------------------------------------------------- |
+| `campaign_name`       | str         | Designation of the associated marketing campaign.                                                             |
+| `campaign_start_date` | str         | Date when the marketing campaign commenced, formatted as "YYYY-MM-DD".                                        |
+| `campaign_end_date`   | str         | Date when the marketing campaign concluded, formatted as "YYYY-MM-DD".                                        |
+| `marketing_channels`   | List[str]         | List of marketing channels.                                        |
+| `total_cost` | List[float]       | List of aggregate expenditure associated with the campaign for each marketing channel.                                                |
 
 ### Optional Fields
-If not applicable (i.e. no ongoing marketing campaign during the inference period), remove the following 4 fields completely from the request.
-- `campaign_name`
-- `campaign_start_date`
-- `campaign_end_date`
-- `campaign_total_cost`
+If not applicable (i.e. no ongoing marketing campaign during the inference period), leave `campaign name` empty from the request, and ensure `campaign_start_date` and `campaign_end_date` are given arbitrary values outside of the inference period. 
 
-For `lag_sales`, leave the field as `[ ]` if not applicable.
+For example, if the inference period is from 20-26 Oct 2023, the below request for mkt_attributes could be:
+
+```json
+"mkt_attributes": [
+    {
+        "campaign_name": "",
+        "campaign_start_date": "2022-10-01",
+        "campaign_end_date": "2022-10-30",
+        "marketing_channels": [
+        "TV Ad",
+        "Radio Ad",
+        "Instagram Ad",
+        "Facebook Ad",
+        "Youtube Ad",
+        "Poster Campaign",
+        "Digital"
+      ],
+        "total_cost": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+```
+
 
 ## Response Format
 
-The server's response contains:
+The server's response contains the prediction for 7 consecutive days which is the default. The response below shows the prediction for 2 days for simplicity. 
 
 ```json
 {
-    "sales_predictions": [
-        {
-            "date": "20/3/2023",
-            "cost_centre_code": 308,
-            "sales_class_id": "3",
-            "sales_class_name": "Exceptional",
-            "probabilities": {
-                "0": 0.0,
-                "1": 0.1429,
-                "2": 0.2857,
-                "3": 0.5714
-            }
-        },
-        {
-            "date": "21/3/2023",
-            "cost_centre_code": 308,
-            "sales_class_id": "2",
-            "sales_class_name": "High",
-            "probabilities": {
-                "0": 0.1611,
-                "1": 0.2280,
-                "2": 0.3284,
-                "3": 0.2826
-            }
-        }
-    ]
+  "sales_predictions": [
+    {
+      "date": "2023-10-29",
+      "cost_centre_code": 201,
+      "sales_class_id": "1",
+      "sales_class_name": "Medium",
+      "probabilities": {
+        "0": 0.3467,
+        "1": 0.4099,
+        "2": 0.2433,
+        "3": 0.0001
+      }
+    },
+    {
+      "date": "2023-10-30",
+      "cost_centre_code": 201,
+      "sales_class_id": "1",
+      "sales_class_name": "Medium",
+      "probabilities": {
+        "0": 0.3477,
+        "1": 0.3982,
+        "2": 0.2541,
+        "3": 0.0001
+      }
+    },
+  ]
 }
 ```
 | Attribute           | Type             | Description                                                                                             |
 | ------------------- | ---------------- | ------------------------------------------------------------------------------------------------------- |
 | `sales_predictions` | list             | List of sales forecasts corresponding to input data.                                                    |
-| `date`              | str              | Date of the prediction in "DD/MM/YYYY" format, matching the input API request.                          |
+| `date`              | str              | Date of the prediction in "YYYY-MM-DD" format, matching the input API request.                          |
 | `cost_centre_code`  | int              | Identifier for a specific outlet, matching the input API request.                                       |
 | `sales_class_id`    | str              | ID linked to the class with the highest probability from the `probabilities` attribute.                 |
 | `sales_class_name`  | str              | Descriptive name based on `sales_class_id` and the highest probability.                                 |
@@ -194,10 +289,10 @@ The `date` and `cost_centre_code` attributes serve as a mapping to the respectiv
 
 #### Example
 
-For the entry on "20/3/2023" with a "cost_centre_code" of 308, the probabilities are {"0": 0.0, "1": 0.1429, "2": 0.2857, "3": 0.5714}. 
-- As 0.5714 is the highest probability, the corresponding `sales_class_id` is "3" and `sales_class_name` is "Exceptional". 
+For the entry on "2023-10-29" with a "cost_centre_code" of 201, the probabilities are {"0": 0.3467, "1": 0.4099, "2": 0.2433, "3": 0.0001}. 
+- As 0.4099 is the highest probability, the corresponding `sales_class_id` is "1" and `sales_class_name` is "Medium". 
   
-Similarly, for "21/3/2023", the highest probability is 0.3284, resulting in a `sales_class_id` of "2" and a `sales_class_name` of "High".
+Similarly, for "2023-10-30", the highest probability is 0.3982, resulting in a `sales_class_id` of "1" and a `sales_class_name` of "Medium".
 
 ## API Error Codes
 
@@ -208,4 +303,4 @@ When interacting with the API, you may occasionally encounter error responses. T
 |400 (Bad Request)|This indicates that the server couldn't understand the request due to invalid syntax or format. Before making another request:<ul><li>Ensure that the API request payload adheres to the expected format.</li><li>Double-check against the [Request Format](#request-format) section to ensure accuracy.</li></ul>|
 |500 (Internal Server Error)|This is a catch-all error, indicating unexpected conditions on the server side. Possible steps to troubleshoot include:<ul><li>Review server logs for detailed error messages.</li><li> Ensure the server environment and dependencies are correctly set up.</li><li> If the issue persists, reach out to the technical support or the system administrator for assistance.|
   
-For a deeper dive into HTTP status codes and their meanings, you can explore the [HTTP Status Codes on RESTful API](https://restfulapi.net/http-status-codes/).
+For a deeper dive into HTTP status codes and their meanings, you can explore the [HTTP Status Codes on REST API](https://restfulapi.net/http-status-codes/).

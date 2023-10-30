@@ -148,6 +148,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../../../../experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -309,36 +310,41 @@ document.write(`
 <span class="n">conf_loader</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="p">(</span><span class="n">conf_source</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">CONF_SOURCE</span><span class="p">)</span>
 <span class="n">conf_constants</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;constants*&quot;</span><span class="p">)</span>
 
+
 <div class="viewcode-block" id="create_pipeline"><a class="viewcode-back" href="../../../../bipo.pipelines.model_specific_preprocessing.html#bipo.pipelines.model_specific_preprocessing.create_pipeline">[docs]</a><span class="k">def</span> <span class="nf">create_pipeline</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Pipeline</span><span class="p">:</span>
     <span class="n">model</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">conf_loader</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="s2">&quot;model&quot;</span><span class="p">])</span>
-    <span class="n">valid_model_list</span> <span class="o">=</span> <span class="n">conf_constants</span><span class="p">[</span><span class="s2">&quot;modeling&quot;</span><span class="p">][</span><span class="s2">&quot;valid_model_name&quot;</span><span class="p">]</span>
+    <span class="n">valid_model_list</span> <span class="o">=</span> <span class="n">conf_constants</span><span class="p">[</span><span class="s2">&quot;modeling&quot;</span><span class="p">][</span><span class="s2">&quot;valid_model_name_list&quot;</span><span class="p">]</span>
 
     <span class="c1"># Override invalid model name if not valid</span>
     <span class="k">if</span> <span class="n">model</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_model_list</span><span class="p">:</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">conf_constants</span><span class="p">[</span><span class="s2">&quot;modeling&quot;</span><span class="p">][</span><span class="s2">&quot;model_name_default&quot;</span><span class="p">]</span>
-
+        <span class="n">model</span> <span class="o">=</span> <span class="n">conf_constants</span><span class="p">[</span><span class="s2">&quot;modeling&quot;</span><span class="p">][</span><span class="s2">&quot;default_model&quot;</span><span class="p">]</span>
 
     <span class="n">model_spec_preprocessing_pipeline_instance</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
         <span class="p">[</span>
             <span class="c1"># Unnecessary column removal</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span>  <span class="c1"># Handles training data</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">remove_unnecessary_columns_and_rows</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;merged_features_training&quot;</span><span class="p">,</span> <span class="s2">&quot;parameters&quot;</span><span class="p">],</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;removed_columns_rows_training&quot;</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_spec_preprocess_remove_unnecessary_columns_train&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_spec_preprocess_remove_unnecessary_columns_training&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span>  <span class="c1"># Handles validation data</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">remove_unnecessary_columns_and_rows</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;merged_features_validation&quot;</span><span class="p">,</span> <span class="s2">&quot;parameters&quot;</span><span class="p">],</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;removed_columns_rows_validation&quot;</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_spec_preprocess_remove_unnecessary_columns_val&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_spec_preprocess_remove_unnecessary_columns_validation&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">node</span><span class="p">(</span>  <span class="c1"># Handles testing data</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">remove_unnecessary_columns_and_rows</span><span class="p">,</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;merged_features_testing&quot;</span><span class="p">,</span> <span class="s2">&quot;parameters&quot;</span><span class="p">],</span>
+                <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;removed_columns_rows_testing&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_spec_preprocess_remove_unnecessary_columns_testing&quot;</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="c1"># Constant column identification and removal</span>
             <span class="n">node</span><span class="p">(</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">identify_const_column</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;removed_columns_rows_training&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>
                 <span class="p">],</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;constant_column_params&quot;</span><span class="p">,</span>
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_spec_preprocess_identify_const_column&quot;</span><span class="p">,</span>
@@ -348,27 +354,35 @@ document.write(`
                 <span class="n">func</span><span class="o">=</span><span class="n">remove_const_column</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;removed_columns_rows_training&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;constant_column_params&quot;</span><span class="p">,</span>
                 <span class="p">],</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;remove_const_colum_data_training&quot;</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_spec_preprocess_remove_const_column_train&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_spec_preprocess_remove_const_column_training&quot;</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="n">node</span><span class="p">(</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">remove_const_column</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;removed_columns_rows_validation&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;constant_column_params&quot;</span><span class="p">,</span>
                 <span class="p">],</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;remove_const_colum_data_validation&quot;</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_spec_preprocess_remove_const_column_val&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_spec_preprocess_remove_const_column_validation&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">node</span><span class="p">(</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">remove_const_column</span><span class="p">,</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
+                    <span class="s2">&quot;removed_columns_rows_testing&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;constant_column_params&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;remove_const_colum_data_testing&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_spec_preprocess_remove_const_column_testing&quot;</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="n">node</span><span class="p">(</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">reorder_data</span><span class="p">,</span>  <span class="c1"># Combine train/val</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;remove_const_colum_data_training&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;remove_const_colum_data_validation&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;remove_const_colum_data_testing&quot;</span><span class="p">,</span>
                 <span class="p">],</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;reordered_data_folds&quot;</span><span class="p">,</span>
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_spec_preprocess_reorder_data&quot;</span><span class="p">,</span>
@@ -377,9 +391,9 @@ document.write(`
                 <span class="n">func</span><span class="o">=</span><span class="n">split_data_into_X_y_features</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;reordered_data_folds&quot;</span><span class="p">,</span> <span class="s2">&quot;parameters&quot;</span><span class="p">],</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="p">[</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">.model_specific_preprocessing_train&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">.model_specific_preprocessing_training&quot;</span><span class="p">,</span>
                     <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">.model_specific_preprocessing_validation&quot;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">.model_specific_preprocessing_test&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">.model_specific_preprocessing_testing&quot;</span><span class="p">,</span>
                 <span class="p">],</span>
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_spec_preprocess_split_data_into_X_y_features&quot;</span><span class="p">,</span>
             <span class="p">),</span>

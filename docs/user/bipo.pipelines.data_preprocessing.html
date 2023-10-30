@@ -151,6 +151,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -375,7 +376,7 @@ generated using Kedro 0.18.10</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.data_preprocessing.nodes.const_value_perc_check">
 <span class="sig-prename descclassname"><span class="pre">bipo.pipelines.data_preprocessing.nodes.</span></span><span class="sig-name descname"><span class="pre">const_value_perc_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">perc_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/data_preprocessing/nodes.html#const_value_perc_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.data_preprocessing.nodes.const_value_perc_check" title="Permalink to this definition">#</a></dt>
-<dd><p>Function which conducts a percentage value check by type casting it into a valid float, clipping the value to the range between 0 and 100 (both values inclusive). Should float type casting fails, a default value referencing constants.yml is used.</p>
+<dd><p>Function which conducts a percentage value check by type casting it into a valid floating value, clipping the value to the range between 0 and 100 (both values inclusive). Should float type casting fails, a default value referencing constants.yml is used.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>perc_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Floating value of percentage.</p>

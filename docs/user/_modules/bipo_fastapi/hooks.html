@@ -148,6 +148,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../../experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -319,9 +320,9 @@ document.write(`
 <span class="sd">        Returns:</span>
 <span class="sd">            Union[dict, None]: overwrites node inputs by returning a dictionary if the node tags is &quot;modify_params&quot;. Otherwise, returns None </span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">catalog</span> <span class="o">=</span> <span class="n">load_data_catalog</span><span class="p">()</span>
         <span class="k">if</span> <span class="s2">&quot;modify_params&quot;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
             <span class="c1"># use the first date and last date of the inference period as values to overwrite the start_date and end_date parameters for the function create_mkt_campaign_counts_start_end</span>
-            <span class="n">catalog</span> <span class="o">=</span> <span class="n">load_data_catalog</span><span class="p">()</span>
             <span class="n">outlet_df</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;outlet_df&quot;</span><span class="p">)</span>
             <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="s2">&quot;start_date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outlet_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="s2">&quot;end_date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outlet_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>

@@ -151,6 +151,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -339,33 +340,32 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Training Pipeline</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-design">Pipeline Design</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#design-considerations">Design Considerations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flowchart">Flowchart</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choice-of-models">Choice of Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-architecture-and-considerations">Design Architecture and Considerations:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-models">Supported models</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-pipeline-configuration">Training Pipeline Configuration</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-hyperparameters-in-the-model-training-yml-file">Model Hyperparameters in the <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> File</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#orderedmodel">OrderedModel</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#explainable-boosting-machine-ebm">Explainable Boosting Machine (EBM)</a></li>
-</ul>
-</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#training-pipeline-configuration">Training Pipeline Configuration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation-on-the-purpose-of-yml-files-placement-locations">Explanation on the purpose of yml files placement locations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurations-for-various-modules">Configurations for various modules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-the-model-training-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-the-constants-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> file</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-input-data-definition">Model Input Data Definition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-run">How to Run</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-script-docker-container">1. Batch Script (Docker Container)</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-execute-the-training-pipeline-windows-os-only-from-a-docker-image">How to execute the Training Pipeline (Windows OS only) from a Docker image</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#via-windows-batch-script-docker-container">1. Via windows Batch Script (Docker Container)</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-run-model-training-bat-does">What <code class="docutils literal notranslate"><span class="pre">run_model_training.bat</span></code> does</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-the-script">Executing the script</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose-of-run-model-training-bat-script">Purpose of <code class="docutils literal notranslate"><span class="pre">run_model_training.bat</span></code> script</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-the-bat-script">Executing the bat script</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kedro-command">2. Kedro Command</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Prerequisites</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Executing the script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#via-direct-command-line-in-code-repository-provided">2. Via direct command line in code repository provided</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Prerequisites</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#command-to-execute">Command to execute</a></li>
 </ul>
 </li>
 </ul>
@@ -375,8 +375,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-ordered-model">Training Ordered Model</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-structure-in-container">File Structure in Container</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-structure-layout-in-docker-container">File Structure layout in Docker container</a></li>
 </ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -391,38 +394,35 @@ document.write(`
 <h1>Training Pipeline<a class="headerlink" href="#training-pipeline" title="Permalink to this heading">#</a></h1>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
-<p>This guide outlines the architecture and components of the training data pipeline, designed to be modular, flexible, and easily adaptable to either Ordered Model or Explainable Boosting Machine. It is divided mainly into Model Training and Model Evaluation tasks.</p>
+<p>This section outlines the overall architecture, respective modules, the data inputs/outputs and the relevant configurations used by the pipeline. This pipeline should be executed after data pipeline has been executed, as data would have been processed for model training.</p>
 </section>
-<section id="pipeline-design">
-<h2>Pipeline Design<a class="headerlink" href="#pipeline-design" title="Permalink to this heading">#</a></h2>
-<section id="design-considerations">
-<h3>Design Considerations<a class="headerlink" href="#design-considerations" title="Permalink to this heading">#</a></h3>
+<section id="design-architecture-and-considerations">
+<h2>Design Architecture and Considerations:<a class="headerlink" href="#design-architecture-and-considerations" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p>Modular Design: Each component is modular for easy maintenance and updates.</p></li>
-<li><p>Decoupling: Pipeline stages are designed to work independently, allowing for easier testing and modifications.</p></li>
-<li><p>Configurability: Most components are configurable through config files, allowing for easy adjustments.</p></li>
-<li><p>Containerization: Contains training pipeline application which can be easily deployed in user’s environment. Experiment tracking (MLflow) is excluded from the Docker container to allow user the option to decide if they want to use MLflow.</p></li>
+<li><p><strong>Modularity</strong>: Flexibility and maintainability of components.</p></li>
+<li><p><strong>Module Decoupling</strong>: Faster adaptation to changing requirements without significant overall impact to entire program as much as possible.</p></li>
+<li><p><strong>Configurability</strong>: To facilitate experimentation of various data/model manipulataion approaches.</p></li>
+<li><p><strong>Containerization</strong>: To support iterative experiments involving hyperparameter tuning or configuration by different users.</p></li>
 </ol>
-</section>
-<section id="flowchart">
-<h3>Flowchart<a class="headerlink" href="#flowchart" title="Permalink to this heading">#</a></h3>
-<p>The diagram below provides a high-level overview of the training pipeline’s process flow.</p>
+<p>The training pipeline architecture below provides a high-level overview of the key processes in model training.</p>
 <p><img alt="Alt text" src="_images/training-pipeline.png" /></p>
+<p>Key processes in the architecture:</p>
 <ol class="arabic simple">
-<li><p>Model input data from <code class="docutils literal notranslate"><span class="pre">data/06_model_specific_preprocessing</span></code> is used in model training and model evaluation module.</p></li>
+<li><p>Model input data from <code class="docutils literal notranslate"><span class="pre">data/06_model_specific_preprocessing</span></code> is used in both model training and model evaluation modules.</p></li>
 <li><p>Pipeline parameters and model hyperparameters can be configured in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> and <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> respectively.</p></li>
-<li><p>Model Training module will generate model weights that is stored in <code class="docutils literal notranslate"><span class="pre">models</span></code> folder.</p></li>
-<li><p>Model Evaluation module will use model weights from <code class="docutils literal notranslate"><span class="pre">models</span></code> folder and data from <code class="docutils literal notranslate"><span class="pre">data/06_model_specific_preprocessing</span></code> to generate evaluation metrics stored in <code class="docutils literal notranslate"><span class="pre">data/07_model_evaluation</span></code></p></li>
-<li><p>(optional) If MLflow is enabled, MLflow artefacts (model parameters and metrics) will be stored in <code class="docutils literal notranslate"><span class="pre">mlruns</span></code> folder.</p></li>
+<li><p>Model Training module will generate model weights that are stored in <code class="docutils literal notranslate"><span class="pre">models</span></code> folder, which is a mounted directory.</p></li>
+<li><p>Model Evaluation module will utilise generated model weights in previous process from <code class="docutils literal notranslate"><span class="pre">models</span></code> folder, and data from <code class="docutils literal notranslate"><span class="pre">data/06_model_specific_preprocessing</span></code> to generate evaluation metrics. The evaluation metrics would then be stored in <code class="docutils literal notranslate"><span class="pre">data/07_model_evaluation</span></code>.</p></li>
+<li><p><strong>(Optional)</strong> Model experimentation results could be written to an experimentation tracking database if required. The existing program provided has included MLflow library python support to enable linkedup with local/on-prem MLflow server. When MLflow is enabled locally, MLflow artefacts (model parameters and metrics) would be stored in <code class="docutils literal notranslate"><span class="pre">mlruns</span></code> folder.</p></li>
 </ol>
 </section>
-<section id="choice-of-models">
-<h3>Choice of Models<a class="headerlink" href="#choice-of-models" title="Permalink to this heading">#</a></h3>
+<section id="supported-models">
+<h2>Supported models<a class="headerlink" href="#supported-models" title="Permalink to this heading">#</a></h2>
+<p>The following table lists down the model that is currently implemented.</p>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Model</p></th>
 <th class="head"><p>Description</p></th>
-<th class="head"><p>Repository</p></th>
+<th class="head"><p>Reference repository</p></th>
 </tr>
 </thead>
 <tbody>
@@ -439,9 +439,24 @@ document.write(`
 </section>
 </section>
 <section id="training-pipeline-configuration">
-<h2>Training Pipeline Configuration<a class="headerlink" href="#training-pipeline-configuration" title="Permalink to this heading">#</a></h2>
+<h1>Training Pipeline Configuration<a class="headerlink" href="#training-pipeline-configuration" title="Permalink to this heading">#</a></h1>
+<section id="id1">
+<h2>Overview<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>This section provides information on key parameters from the files <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> contained in <code class="docutils literal notranslate"><span class="pre">conf/base/</span></code> directory, as well as <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> file in <code class="docutils literal notranslate"><span class="pre">conf/base/parameters</span></code> directory. Due to the volume of parameters, we will only include a selection for illustrative purposes. These files can be found in <code class="docutils literal notranslate"><span class="pre">conf/base/</span></code> directory.
+<br /></p>
+</section>
+<section id="explanation-on-the-purpose-of-yml-files-placement-locations">
+<h2>Explanation on the purpose of yml files placement locations<a class="headerlink" href="#explanation-on-the-purpose-of-yml-files-placement-locations" title="Permalink to this heading">#</a></h2>
+<p>There are two separate folder placements of yml files, namely in <code class="docutils literal notranslate"><span class="pre">conf/base/</span></code> and <code class="docutils literal notranslate"><span class="pre">conf/base/parameters</span></code>. Yml files placed in <code class="docutils literal notranslate"><span class="pre">conf/base</span></code> is primarily shared across different Kedro pipeline modules, to facilitate single configuration entrypoint that can be used across the entire pipeline. In the other case, yml files in <code class="docutils literal notranslate"><span class="pre">conf/base/parameters</span></code> are identified by its module name naming convention (e.g <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> in current context) governs the configuration control for a specific pipeline module, so as to facilitate possible experimentations of values.</p>
+</section>
 <section id="key-parameters-in-the-parameters-yml-file">
-<h3>Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File<a class="headerlink" href="#key-parameters-in-the-parameters-yml-file" title="Permalink to this heading">#</a></h3>
+<h2>Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File<a class="headerlink" href="#key-parameters-in-the-parameters-yml-file" title="Permalink to this heading">#</a></h2>
+<p>This sub-section outlines the key parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> configuration file that control different aspects of the training pipeline. The file is divided into several sections, each dealing with a specific part of the pipeline. Here’s a breakdown:
+<br /></p>
+<section id="configurations-for-various-modules">
+<h3>Configurations for various modules<a class="headerlink" href="#configurations-for-various-modules" title="Permalink to this heading">#</a></h3>
+<br />
+<p><strong>Model Training Module: General</strong></p>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
@@ -451,43 +466,53 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>model</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">model</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Choice of model to train. 2 options: <code class="docutils literal notranslate"><span class="pre">&quot;ebm&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;ordered_model&quot;</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">ebm</span></code></p></td>
+<td><p>Model to use. Supported models: <code class="docutils literal notranslate"><span class="pre">ordered_model</span></code> or <code class="docutils literal notranslate"><span class="pre">ebm</span></code>.</p></td>
+<td><p>‘ebm’</p></td>
 </tr>
-<tr class="row-odd"><td><p>split_approach_source</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Choice of cross validation data splits used. Note: this split approach should be the same as specified during <code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">pipeline</span></code>. 3 options: <code class="docutils literal notranslate"><span class="pre">&quot;simple_split&quot;</span></code>,<code class="docutils literal notranslate"><span class="pre">&quot;expanding_window&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;sliding_window&quot;</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">simple_split</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>fold</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fold</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-<td><p>Cross validation fold to be used for model training and evaluation. Note that <code class="docutils literal notranslate"><span class="pre">&quot;simple_split&quot;</span></code> only has 1 fold, hence set fold as 1.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>The fold number of the processed data derived from Data Split module to be used for model training.</p></td>
+<td><p>1</p></td>
 </tr>
-<tr class="row-odd"><td><p>enable_explainability</p></td>
+</tbody>
+</table>
+<hr class="docutils" />
+<br />
+<p><strong>Model Training Module: Model Explanability</strong></p>
+<ul class="simple">
+<li><p>Please note that current support for model explanability is only EBM model.</p></li>
+</ul>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">enable_explainability</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-<td><p>Specifically for EBM only. <code class="docutils literal notranslate"><span class="pre">True</span></code> will enable EBM to generate global and local explanations. Files will be generated in <code class="docutils literal notranslate"><span class="pre">models/ebm_explanation/</span></code> folder. Visit <a class="reference internal" href="model-explanation.html"><span class="doc std std-doc">model-explanation section</span></a> for more details.</p></td>
+<td><p>Specifically for EBM only. <code class="docutils literal notranslate"><span class="pre">True</span></code> will allow EBM to generate global and local explanations. Files will be generated in <code class="docutils literal notranslate"><span class="pre">models/ebm_explanation/</span></code> folder. Visit <a class="reference internal" href="model-explanation.html"><span class="doc std std-doc">model-explanation section</span></a> for more details.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>output_type</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">output_type</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 <td><p>EBM explainability file generated to be <code class="docutils literal notranslate"><span class="pre">html</span></code> or <code class="docutils literal notranslate"><span class="pre">png</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">html</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>feature_to_explain_list</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feature_to_explain_list</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
-<td><p>Features of interest for local explanations</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">[&quot;factor&quot;,&quot;is_weekday&quot;]</span></code></p></td>
+<td><p>Features of interest for local explanations. <br /> Set to empty list “<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code>” if no features are required.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[&quot;factor&quot;,</span> <span class="pre">&quot;is_weekday&quot;]</span></code></p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="model-hyperparameters-in-the-model-training-yml-file">
-<h3>Model Hyperparameters in the <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> File<a class="headerlink" href="#model-hyperparameters-in-the-model-training-yml-file" title="Permalink to this heading">#</a></h3>
-<section id="orderedmodel">
-<h4>OrderedModel<a class="headerlink" href="#orderedmodel" title="Permalink to this heading">#</a></h4>
+<hr class="docutils" />
+<br />
+<p><strong>Model Training Module: MLflow Tracking Server</strong></p>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
@@ -497,27 +522,64 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>distr</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">enable_mlflow</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Control to enable/disable MLflow server usage as part of experimentation process.</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_remote_mlflow</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Control that determines if MLflow server is remote (True) or local (False).</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tracking_uri</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>URI of MLFlow server.</p></td>
+<td><p>‘http://10.43.130.112:5005’</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">experiment_name_prefix</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>MLflow experiment name to use, example experiment_name: bipo-ebm.</p></td>
+<td><p>‘bipo’</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<br />
+</section>
+<section id="key-parameters-in-the-model-training-yml-file">
+<h3>Key Parameters in the <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> File<a class="headerlink" href="#key-parameters-in-the-model-training-yml-file" title="Permalink to this heading">#</a></h3>
+<p>This sub-section outlines the key parameters in the <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> configuration file which handles provided configurable parameters for the hyperparameters to be used in the process of model training. It is broken down into sections, each detailing a specific type of data split.</p>
+<p>The following tables below contains configurable models’ hyperparameters which are currently supported by the program implementation.</p>
+<p><strong>OrderedModel Configuration (under <code class="docutils literal notranslate"><span class="pre">ordered_model</span></code> key)</strong></p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">distr</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">probit</span></code> for normal distribution or <code class="docutils literal notranslate"><span class="pre">logit</span></code> for logistic distribution. Refer <a class="reference external" href="https://www.statsmodels.org/dev/generated/statsmodels.miscmodels.ordinal_model.OrderedModel.html#statsmodels.miscmodels.ordinal_model.OrderedModel-parameters">HERE</a> for more infomation.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">probit</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>method</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">method</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 <td><p>The method determines which solver from scipy.optimize is used. Refer <a class="reference external" href="https://www.statsmodels.org/dev/generated/statsmodels.miscmodels.ordinal_model.OrderedModel.fit.html#statsmodels.miscmodels.ordinal_model.OrderedModel.fit">HERE</a> for more infomation.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bfgs</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>max_iter</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_iter</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 <td><p>The maximum number of iterations to perform.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">10</span></code></p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="explainable-boosting-machine-ebm">
-<h4>Explainable Boosting Machine (EBM)<a class="headerlink" href="#explainable-boosting-machine-ebm" title="Permalink to this heading">#</a></h4>
-<p>Refer to the <a class="reference external" href="https://interpret.ml/docs/ExplainableBoostingClassifier.html">InterpretML API documentation</a> for the complete list of hyperparameters.</p>
+<p><strong>EBM Configuration (under <code class="docutils literal notranslate"><span class="pre">ebm</span></code> key)</strong></p>
+<p>For more details, refer to the <a class="reference external" href="https://interpret.ml/docs/ExplainableBoostingClassifier.html">InterpretML API documentation</a> for the complete list of hyperparameters.</p>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
@@ -527,37 +589,37 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>outer_bags</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">outer_bags</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 <td><p>Number of outer bags. Outer bags are used to generate error bounds and help with smoothing the graphs.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">8</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>inner_bags</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">inner_bags</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 <td><p>Number of inner bags. 0 turns off inner bagging.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>learning_rate</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">learning_rate</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 <td><p>Learning rate for boosting.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0.01</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>interactions</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">interactions</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 <td><p>Interaction terms to be included in the model.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>max_leaves</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_leaves</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 <td><p>Maximum number of leaves allowed in each tree.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>max_bins</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_bins</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-<td><p>Max number of bins per feature for the main effects stage</p></td>
+<td><p>Max number of bins per feature for the main effects stage.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">256</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>min_samples_leaf</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">min_samples_leaf</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 <td><p>Minimum number of samples allowed in the leaves.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
@@ -565,72 +627,191 @@ document.write(`
 </tbody>
 </table>
 </section>
+<section id="key-parameters-in-the-constants-yml-file">
+<h3>Key Parameters in the <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> file<a class="headerlink" href="#key-parameters-in-the-constants-yml-file" title="Permalink to this heading">#</a></h3>
+<hr class="docutils" />
+<p>This sub-section outlines the key parameters in the <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> configuration file. The file is organised into multiple sections to cater to different modules of data pipeline.</p>
+<p>Please note that these file is intended for 2 purposes:</p>
+<ul class="simple">
+<li><p><strong>Configured value serves as a fallback for invalid parameters set in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> or required parameters that are missing. Note that not all parameters are covered in this <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code>, as it is not feasible to make assumption on valid values for some parameters</strong>; and</p></li>
+<li><p><strong>Global ‘constants’ which is shared.</strong></p></li>
+</ul>
+<p><strong>Default Configurations for Model Training (under modeling key)</strong></p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">valid_model_name_list</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+<td><p>List containing names of supported model in snakecase. Modify if models to be experimented would be changed.</p></td>
+<td><p>[“ebm”, “ordered_model”]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">default_model</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>Default model to use when name of model to use in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> does not belong to default values stated in <code class="docutils literal notranslate"><span class="pre">valid_model_name_list</span></code> parameters.</p></td>
+<td><p>“ebm”</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Config using nested dictionary for EBM</strong></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ebm</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+<td><p>Dictionary containing default EBM model hyperparameters as override when required keys for EBM hyperparameters tuning in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> are not found.</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <code class="docutils literal notranslate"><span class="pre">outer_bags</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Number of outer bags. Outer bags are used to generate error bounds and help with smoothing the graphs.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <code class="docutils literal notranslate"><span class="pre">inner_bags</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Number of inner bags. 0 turns off inner bagging.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <code class="docutils literal notranslate"><span class="pre">learning_rate</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Learning rate for boosting.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.01</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <code class="docutils literal notranslate"><span class="pre">interactions</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Interaction terms to be included in the model.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <code class="docutils literal notranslate"><span class="pre">max_leaves</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Maximum number of leaves allowed in each tree.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <code class="docutils literal notranslate"><span class="pre">max_bins</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Max number of bins per feature for the main effects stage.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">256</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <code class="docutils literal notranslate"><span class="pre">min_samples_leaf</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Minimum number of samples allowed in the leaves.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Config using nested dictionary for OrderedModel</strong></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ordered_model</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+<td><p>Dictionary containing default OrderedModel hyperparameters as override when required keys for OrderedModel hyperparameters tuning in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> are not found.</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳  <code class="docutils literal notranslate"><span class="pre">distr</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">probit</span></code> for normal distribution or <code class="docutils literal notranslate"><span class="pre">logit</span></code> for logistic distribution. Refer <a class="reference external" href="https://www.statsmodels.org/dev/generated/statsmodels.miscmodels.ordinal_model.OrderedModel.html#statsmodels.miscmodels.ordinal_model.OrderedModel-parameters">HERE</a> for more infomation.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">probit</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>↳  <code class="docutils literal notranslate"><span class="pre">method</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>The method determines which solver from scipy.optimize is used. Refer <a class="reference external" href="https://www.statsmodels.org/dev/generated/statsmodels.miscmodels.ordinal_model.OrderedModel.fit.html#statsmodels.miscmodels.ordinal_model.OrderedModel.fit">HERE</a> for more infomation.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bfgs</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>↳  <code class="docutils literal notranslate"><span class="pre">max_iter</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>The maximum number of iterations to perform.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 <section id="model-input-data-definition">
 <h2>Model Input Data Definition<a class="headerlink" href="#model-input-data-definition" title="Permalink to this heading">#</a></h2>
-<p>The training pipeline accepts data generated from the <code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">pipeline</span></code> in <code class="docutils literal notranslate"><span class="pre">06_model_specific_preprocessing</span></code>.</p>
+<p>The training pipeline accepts the raw data that was processed by the entire <code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">pipeline</span></code>, which resides in <code class="docutils literal notranslate"><span class="pre">06_model_specific_preprocessing</span></code>.</p>
+<p>The following data definition is accurate for the trained model weights released on 19 October 2023.</p>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Column</p></th>
 <th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>maximum_temperature_c</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">maximum_temperature_c</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Max temperature detected for the day</p></td>
 </tr>
-<tr class="row-odd"><td><p>factor</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">factor</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>National aggregation of propensity to spend.</p></td>
 </tr>
-<tr class="row-even"><td><p>name_counts</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name_counts</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Number of active marketing campaigns ongoing for the day.</p></td>
 </tr>
-<tr class="row-odd"><td><p>is_name_start</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_name_start</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Boolean feature indicator (represented in int , with 1 = True, 0 = False) feature representing if the day is a start of another marketing campaign.</p></td>
 </tr>
-<tr class="row-even"><td><p>is_name_end</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_name_end</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Boolean feature indicator (represented in int , with 1 = True, 0 = False) feature representing if the day is a end of another marketing campaign.</p></td>
 </tr>
-<tr class="row-odd"><td><p>is_weekday</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_weekday</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Boolean feature indicator (represented in int , with 1 = True, 0 = False) indicating if the day is weekday.</p></td>
 </tr>
-<tr class="row-even"><td><p>is_school_holiday</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_school_holiday</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Boolean feature indicator (represented in int , with 1 = True, 0 = False) indicating if the day is weekday.</p></td>
 </tr>
-<tr class="row-odd"><td><p>is_public_holiday</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_public_holiday</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Boolean feature indicator (represented in int , with 1 = True, 0 = False) indicating if the day is a public holiday.</p></td>
 </tr>
-<tr class="row-even"><td><p>is_daily_rainfall_total_mm</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_daily_rainfall_total_mm</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Boolean feature indicator (represented in int , with 1 = True, 0 = False) indicating if the day is raining (based on daily_total_rainfall exceeding 0.2mm condition).</p></td>
 </tr>
-<tr class="row-odd"><td><p>is_pandemic_restrictions</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_pandemic_restrictions</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Boolean feature indicator (represented in int , with 1 = True, 0 = False) indicating if there are pandemic restrictions imposed.</p></td>
 </tr>
-<tr class="row-even"><td><p>lag_9_proxyrevenue</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lag_9_proxyrevenue</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Proxy revenue lagged by 9 days.</p></td>
 </tr>
-<tr class="row-odd"><td><p>lag_14_proxyrevenue</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">lag_14_proxyrevenue</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Proxy revenue lagged by 14 days.</p></td>
 </tr>
-<tr class="row-even"><td><p>lag_9_sma_7_days_proxyrevenue</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lag_9_sma_7_days_proxyrevenue</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Simple moving average using 7 day window lagged by 9 days.</p></td>
 </tr>
-<tr class="row-odd"><td><p>lag_mean_1_week_proxyrevenue</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">lag_mean_1_week_proxyrevenue</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Weekly average of proxyrevenue lagged by 1 week.</p></td>
 </tr>
-<tr class="row-even"><td><p>lag_mean_2_week_proxyrevenue</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lag_mean_2_week_proxyrevenue</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Weekly average of proxyrevenue lagged by 2 weeks.</p></td>
 </tr>
 </tbody>
 </table>
-<p>This data definition is accurate for the trained model weights released on 19 October 2023.</p>
+<hr class="docutils" />
+<br />
 </section>
-<section id="how-to-run">
-<h2>How to Run<a class="headerlink" href="#how-to-run" title="Permalink to this heading">#</a></h2>
-<p>The training pipeline can be executed using the two methods outlined below.</p>
-<section id="batch-script-docker-container">
-<h3>1. Batch Script (Docker Container)<a class="headerlink" href="#batch-script-docker-container" title="Permalink to this heading">#</a></h3>
+<section id="how-to-execute-the-training-pipeline-windows-os-only-from-a-docker-image">
+<h2>How to execute the Training Pipeline (Windows OS only) from a Docker image<a class="headerlink" href="#how-to-execute-the-training-pipeline-windows-os-only-from-a-docker-image" title="Permalink to this heading">#</a></h2>
+<p>This guide explains how to run the training pipeline using either of the <strong>two</strong> methods outlined below in a Windows OS environment. It assumes that you have load the required docker image onto the host machine and executed the data pipeline to generate the processed datasets.</p>
+<section id="via-windows-batch-script-docker-container">
+<h3>1. Via windows Batch Script (Docker Container)<a class="headerlink" href="#via-windows-batch-script-docker-container" title="Permalink to this heading">#</a></h3>
 <section id="prerequisites">
 <h4>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
@@ -639,25 +820,27 @@ document.write(`
 <li><p>If you want to train <code class="docutils literal notranslate"><span class="pre">ordered_model</span></code> or <code class="docutils literal notranslate"><span class="pre">ebm</span></code>, please ensure <code class="docutils literal notranslate"><span class="pre">06_model_specific_preprocessing/ordered_model</span></code> or <code class="docutils literal notranslate"><span class="pre">06_model_specific_preprocessing/ebm_model</span></code> folders are present.</p></li>
 </ul>
 </li>
-<li><p>The correct <code class="docutils literal notranslate"><span class="pre">image_name</span></code> and <code class="docutils literal notranslate"><span class="pre">docker_registry</span></code> (optional) should be defined in <code class="docutils literal notranslate"><span class="pre">run_model_training.bat</span></code>.</p></li>
+<li><p>The correct <code class="docutils literal notranslate"><span class="pre">image_name</span></code> and <code class="docutils literal notranslate"><span class="pre">docker_registry</span></code> (optional) should be defined in <code class="docutils literal notranslate"><span class="pre">run_model_training.bat</span></code> provided parameters as per below.</p></li>
 </ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="nb">set</span> <span class="n">docker_registry</span><span class="o">=</span><span class="n">registry</span><span class="o">.</span><span class="n">aisingapore</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="mi">100</span><span class="n">e</span><span class="o">-</span><span class="n">bipo</span>
+<span class="nb">set</span> <span class="n">image_name</span><span class="o">=</span><span class="n">bipo</span><span class="o">-</span><span class="n">training</span><span class="o">-</span><span class="n">pipeline</span><span class="p">:</span><span class="mf">0.1.3</span>
+<span class="o">...</span>
+</pre></div>
+</div>
 </section>
-<section id="what-run-model-training-bat-does">
-<h4>What <code class="docutils literal notranslate"><span class="pre">run_model_training.bat</span></code> does<a class="headerlink" href="#what-run-model-training-bat-does" title="Permalink to this heading">#</a></h4>
+<section id="purpose-of-run-model-training-bat-script">
+<h4>Purpose of <code class="docutils literal notranslate"><span class="pre">run_model_training.bat</span></code> script<a class="headerlink" href="#purpose-of-run-model-training-bat-script" title="Permalink to this heading">#</a></h4>
 <ol class="arabic simple">
-<li><p>Pulls training pipeline Docker image from Docker registry (optional).</p></li>
-<li><p>Runs training pipeline Docker image and mount <code class="docutils literal notranslate"><span class="pre">data</span></code>, <code class="docutils literal notranslate"><span class="pre">conf</span></code>, <code class="docutils literal notranslate"><span class="pre">models</span></code>, <code class="docutils literal notranslate"><span class="pre">logs</span></code> and <code class="docutils literal notranslate"><span class="pre">mlruns</span></code> folders as persistent volumes.</p></li>
-<li><p>If MLflow is installed, script will run <code class="docutils literal notranslate"><span class="pre">mlflow</span> <span class="pre">ui</span></code> on local machine and experiment tracking can be observed in <code class="docutils literal notranslate"><span class="pre">http://127.0.0.1:5000</span></code> on local machine.</p></li>
+<li><p>Pulls training pipeline Docker image from Docker registry if <code class="docutils literal notranslate"><span class="pre">docker_registry</span></code> is specified. Else it assumes the existing image has been loaded onto the host machine.</p></li>
+<li><p>Runs the Docker image as a docker container and mount the directories, <code class="docutils literal notranslate"><span class="pre">data</span></code>, <code class="docutils literal notranslate"><span class="pre">conf</span></code>, <code class="docutils literal notranslate"><span class="pre">models</span></code>, <code class="docutils literal notranslate"><span class="pre">logs</span></code> and <code class="docutils literal notranslate"><span class="pre">mlruns</span></code> as docker volumes to the docker container.</p></li>
+<li><p>If MLflow is enabled via <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> , script will run <code class="docutils literal notranslate"><span class="pre">mlflow</span> <span class="pre">ui</span></code> on local machine and experiment tracking can be observed in <code class="docutils literal notranslate"><span class="pre">http://127.0.0.1:5000</span></code> on local machine.</p></li>
 </ol>
 </section>
-<section id="executing-the-script">
-<h4>Executing the script<a class="headerlink" href="#executing-the-script" title="Permalink to this heading">#</a></h4>
-<p>Run the following command in your terminal window to execute <code class="docutils literal notranslate"><span class="pre">run_model_training.bat</span></code>:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># windows powershell</span>
-<span class="p">.\</span><span class="n">scripts</span><span class="p">\</span><span class="n">run_model_training</span><span class="p">.</span><span class="n">bat</span>   
-
-<span class="c"># linux bash</span>
-<span class="n">scripts</span><span class="p">/</span><span class="n">run_model_training</span><span class="p">.</span><span class="n">bat</span>
+<section id="executing-the-bat-script">
+<h4>Executing the bat script<a class="headerlink" href="#executing-the-bat-script" title="Permalink to this heading">#</a></h4>
+<p>Run the following command in your <strong>Windows’s cmd/powershell/terminal</strong> console to execute <code class="docutils literal notranslate"><span class="pre">run_model_training.bat</span></code>:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">scripts</span><span class="p">\</span><span class="n">run_model_training</span><span class="p">.</span><span class="n">bat</span>   
 </pre></div>
 </div>
 <p>You should see output similar to the below:</p>
@@ -673,28 +856,23 @@ document.write(`
 </div>
 </section>
 </section>
-<section id="kedro-command">
-<h3>2. Kedro Command<a class="headerlink" href="#kedro-command" title="Permalink to this heading">#</a></h3>
-<section id="id1">
-<h4>Prerequisites<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<section id="via-direct-command-line-in-code-repository-provided">
+<h3>2. Via direct command line in code repository provided<a class="headerlink" href="#via-direct-command-line-in-code-repository-provided" title="Permalink to this heading">#</a></h3>
+<section id="id2">
+<h4>Prerequisites<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
-<li><p>Ensure that Kedro is installed in the Conda environment on your local machine.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">data/06_model_specific_preprocessing</span></code> files are required.</p></li>
+<li><p>Please ensure that the Conda environment/Python environment is activated on your local machine. You would need to at run the data pipeline first in order to generate processed data for model training purposes. The outputs would reside in the folder <code class="docutils literal notranslate"><span class="pre">data/06_model_specific_preprocessing</span></code>.</p></li>
 </ul>
 </section>
-<section id="id2">
-<h4>Executing the script<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
-<p>Run the following commands in your terminal window, which specifies the <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> argument as <code class="docutils literal notranslate"><span class="pre">training_pipeline</span></code> to run the training pipeline.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kedro</span> <span class="n">run</span> <span class="o">--</span><span class="n">pipeline</span><span class="o">=</span><span class="n">training_pipeline</span>
+<section id="command-to-execute">
+<h4>Command to execute<a class="headerlink" href="#command-to-execute" title="Permalink to this heading">#</a></h4>
+<p>Run the following commands in your terminal window, which specifies the <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> argument as <code class="docutils literal notranslate"><span class="pre">training_pipeline</span></code> to run the training pipeline.
+This should be executed in the project root folder.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kedro</span> <span class="n">run</span> <span class="o">--</span><span class="n">pipeline</span><span class="o">=</span><span class="n">training_pipeline</span>
 </pre></div>
 </div>
-<p>You should see output similar to the below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">18</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">2023</span> <span class="mi">12</span><span class="p">:</span><span class="mi">46</span> <span class="o">|</span> <span class="n">kedro</span><span class="o">.</span><span class="n">framework</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">session</span> <span class="o">|</span> <span class="n">INFO</span> <span class="o">|</span> <span class="n">Kedro</span> <span class="n">project</span> <span class="n">kedro_docker</span>
-<span class="mi">18</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">2023</span> <span class="mi">12</span><span class="p">:</span><span class="mi">46</span> <span class="o">|</span> <span class="n">kedro</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">data_catalog</span> <span class="o">|</span> <span class="n">INFO</span> <span class="o">|</span> <span class="n">Loading</span> <span class="n">data</span> <span class="kn">from</span> <span class="s1">&#39;ebm.model_specific_preprocessing_validation&#39;</span> <span class="p">(</span><span class="n">PartitionedDataset</span><span class="p">)</span><span class="o">...</span>
-<span class="o">.</span>
-<span class="o">.</span>
-<span class="o">.</span>
-<span class="mi">18</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">2023</span> <span class="mi">12</span><span class="p">:</span><span class="mi">47</span> <span class="o">|</span> <span class="n">kedro</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">data_catalog</span> <span class="o">|</span> <span class="n">INFO</span> <span class="o">|</span> <span class="n">Saving</span> <span class="n">data</span> <span class="n">to</span> <span class="s1">&#39;ebm.model_evaluation_val_result&#39;</span> <span class="p">(</span><span class="n">JSONDataSet</span><span class="p">)</span><span class="o">...</span>
+<p>You should see output with an ending showing a successful completion similar to the below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">18</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">2023</span> <span class="mi">12</span><span class="p">:</span><span class="mi">47</span> <span class="o">|</span> <span class="n">kedro</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">data_catalog</span> <span class="o">|</span> <span class="n">INFO</span> <span class="o">|</span> <span class="n">Saving</span> <span class="n">data</span> <span class="n">to</span> <span class="s1">&#39;ebm.model_evaluation_val_result&#39;</span> <span class="p">(</span><span class="n">JSONDataSet</span><span class="p">)</span><span class="o">...</span>
 <span class="mi">18</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">2023</span> <span class="mi">12</span><span class="p">:</span><span class="mi">47</span> <span class="o">|</span> <span class="n">kedro</span><span class="o">.</span><span class="n">runner</span><span class="o">.</span><span class="n">sequential_runner</span> <span class="o">|</span> <span class="n">INFO</span> <span class="o">|</span> <span class="n">Completed</span> <span class="mi">7</span> <span class="n">out</span> <span class="n">of</span> <span class="mi">7</span> <span class="n">tasks</span>
 <span class="mi">18</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">2023</span> <span class="mi">12</span><span class="p">:</span><span class="mi">47</span> <span class="o">|</span> <span class="n">kedro</span><span class="o">.</span><span class="n">runner</span><span class="o">.</span><span class="n">sequential_runner</span> <span class="o">|</span> <span class="n">INFO</span> <span class="o">|</span> <span class="n">Pipeline</span> <span class="n">execution</span> <span class="n">completed</span> <span class="n">successfully</span><span class="o">.</span>
 </pre></div>
@@ -704,7 +882,7 @@ document.write(`
 </section>
 <section id="model-evaluation">
 <h2>Model Evaluation<a class="headerlink" href="#model-evaluation" title="Permalink to this heading">#</a></h2>
-<p>The table below summarises the metrics logged by the training pipeline during the model evaluation stage.</p>
+<p>The table below summarises the metrics currently used and logged by the training pipeline during the model evaluation stage.</p>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Metrics</p></th>
@@ -716,13 +894,16 @@ document.write(`
 <td><p>The measure of the overall correctness of a model. It represents the ratio of correctly predicted instances to the total instances in the dataset.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Precision</p></td>
-<td><p>The measure of the accuracy of positive predictions made by the model. It’s the ratio of true positive predictions to all positive predictions made by the model</p></td>
+<td><p>The measure of the accuracy of positive predictions made by the model. It’s the ratio of true positive predictions to all positive predictions made by the model.</p></td>
 </tr>
 <tr class="row-even"><td><p>Recall</p></td>
 <td><p>Recall measures the ability of a model to identify all relevant instances, specifically true positives. It’s the ratio of true positives to all actual positive instances in the dataset.</p></td>
 </tr>
 <tr class="row-odd"><td><p>F1 Score</p></td>
 <td><p>Harmonic mean of precision and recall. It provides a balanced measure of model performance, taking into account both false positives and false negatives.</p></td>
+</tr>
+<tr class="row-even"><td><p><br /></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -732,15 +913,15 @@ document.write(`
 <section id="training-ordered-model">
 <h3>Training Ordered Model<a class="headerlink" href="#training-ordered-model" title="Permalink to this heading">#</a></h3>
 <p>The parameterization of OrderedModel requires that there is no constant in the model, neither explicit nor implicit.By default, the <code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">pipeline</span></code> will check for any constant values and remove them.</p>
-<p>However, if OrderedModel still detects constant values and <code class="docutils literal notranslate"><span class="pre">raise</span> <span class="pre">ValueError(&quot;There</span> <span class="pre">should</span> <span class="pre">not</span> <span class="pre">be</span> <span class="pre">a</span> <span class="pre">constant</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">model&quot;)</span></code>, user can consider adding the parameter <code class="docutils literal notranslate"><span class="pre">hasconst=False</span></code> during OrderedModel training. Refer <a class="reference external" href="https://www.statsmodels.org/stable/examples/notebooks/generated/ordinal_regression.html#Using-formulas---no-constant-in-model">HERE</a> for more infomation.</p>
+<p>However, if OrderedModel still detects constant values and <code class="docutils literal notranslate"><span class="pre">raise</span> <span class="pre">ValueError(&quot;There</span> <span class="pre">should</span> <span class="pre">not</span> <span class="pre">be</span> <span class="pre">a</span> <span class="pre">constant</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">model&quot;)</span></code>, an exception handling is included based on suggested approach from online, which skips constant value check. Refer <a class="reference external" href="https://www.statsmodels.org/stable/examples/notebooks/generated/ordinal_regression.html#Using-formulas---no-constant-in-model">HERE</a> for more infomation.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example usage</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">OrderedModel</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span><span class="n">X_train</span><span class="p">,</span><span class="n">distr</span><span class="o">=</span><span class="s1">&#39;probit&#39;</span><span class="p">,</span> <span class="n">hasconst</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 </section>
-<section id="file-structure-in-container">
-<h2>File Structure in Container<a class="headerlink" href="#file-structure-in-container" title="Permalink to this heading">#</a></h2>
+<section id="file-structure-layout-in-docker-container">
+<h2>File Structure layout in Docker container<a class="headerlink" href="#file-structure-layout-in-docker-container" title="Permalink to this heading">#</a></h2>
 <p>The following file structure depicts the key directories and files contained in the containerised training submodule. <strong>This is not the same directory with the host computer on which Docker is running.</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>├──/app/bipo_demand_forecasting/
     ├── pyproject.toml
@@ -806,33 +987,32 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Training Pipeline</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-design">Pipeline Design</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#design-considerations">Design Considerations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flowchart">Flowchart</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choice-of-models">Choice of Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-architecture-and-considerations">Design Architecture and Considerations:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-models">Supported models</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-pipeline-configuration">Training Pipeline Configuration</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-hyperparameters-in-the-model-training-yml-file">Model Hyperparameters in the <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> File</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#orderedmodel">OrderedModel</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#explainable-boosting-machine-ebm">Explainable Boosting Machine (EBM)</a></li>
-</ul>
-</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#training-pipeline-configuration">Training Pipeline Configuration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation-on-the-purpose-of-yml-files-placement-locations">Explanation on the purpose of yml files placement locations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurations-for-various-modules">Configurations for various modules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-the-model-training-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">model_training.yml</span></code> File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-the-constants-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> file</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-input-data-definition">Model Input Data Definition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-run">How to Run</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-script-docker-container">1. Batch Script (Docker Container)</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-execute-the-training-pipeline-windows-os-only-from-a-docker-image">How to execute the Training Pipeline (Windows OS only) from a Docker image</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#via-windows-batch-script-docker-container">1. Via windows Batch Script (Docker Container)</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-run-model-training-bat-does">What <code class="docutils literal notranslate"><span class="pre">run_model_training.bat</span></code> does</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-the-script">Executing the script</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose-of-run-model-training-bat-script">Purpose of <code class="docutils literal notranslate"><span class="pre">run_model_training.bat</span></code> script</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-the-bat-script">Executing the bat script</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kedro-command">2. Kedro Command</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Prerequisites</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Executing the script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#via-direct-command-line-in-code-repository-provided">2. Via direct command line in code repository provided</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Prerequisites</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#command-to-execute">Command to execute</a></li>
 </ul>
 </li>
 </ul>
@@ -842,8 +1022,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-ordered-model">Training Ordered Model</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-structure-in-container">File Structure in Container</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-structure-layout-in-docker-container">File Structure layout in Docker container</a></li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>

@@ -148,6 +148,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../../../../experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -331,7 +332,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="const_value_perc_check"><a class="viewcode-back" href="../../../../bipo.pipelines.data_preprocessing.html#bipo.pipelines.data_preprocessing.nodes.const_value_perc_check">[docs]</a><span class="k">def</span> <span class="nf">const_value_perc_check</span><span class="p">(</span><span class="n">perc_value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which conducts a percentage value check by type casting it into a valid float, clipping the value to the range between 0 and 100 (both values inclusive). Should float type casting fails, a default value referencing constants.yml is used.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which conducts a percentage value check by type casting it into a valid floating value, clipping the value to the range between 0 and 100 (both values inclusive). Should float type casting fails, a default value referencing constants.yml is used.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        perc_value (float): Floating value of percentage.</span>
@@ -351,7 +352,7 @@ document.write(`
     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
         <span class="n">perc_value_float</span> <span class="o">=</span> <span class="n">const_dict</span><span class="p">[</span><span class="s2">&quot;default_const_value_perc_threshold&quot;</span><span class="p">]</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Attempting to type cast </span><span class="si">{</span><span class="n">perc_value</span><span class="si">}</span><span class="s2"> to integer by failed. Using default values </span><span class="si">{</span><span class="n">perc_value_float</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Attempting to type cast </span><span class="si">{</span><span class="n">perc_value</span><span class="si">}</span><span class="s2"> to float by failed. Using default values </span><span class="si">{</span><span class="n">perc_value_float</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">perc_value_float</span></div>
 
@@ -506,7 +507,7 @@ document.write(`
                 <span class="n">zero_val_threshold_perc</span> <span class="o">/</span> <span class="mi">100</span>
             <span class="p">):</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">outlet_partition_id</span><span class="si">}</span><span class="s2"> excluded as there exists value(s) which exceeds the defined threshold. Moving to the next.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">outlet_partition_id</span><span class="si">}</span><span class="s2"> excluded as the number of zero value which exceeds the defined threshold. Moving to the next outlet if applicable.</span><span class="se">\n</span><span class="s2">&quot;</span>
                 <span class="p">)</span>
                 <span class="k">continue</span>
 

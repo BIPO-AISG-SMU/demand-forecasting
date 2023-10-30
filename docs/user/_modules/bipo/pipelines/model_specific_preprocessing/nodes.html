@@ -148,6 +148,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../../../../experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -329,11 +330,11 @@ document.write(`
 <span class="sd">        Dict[str, pd.DataFrame]: A dictionary similar to input partitioned_data with identified columns and rows removed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># Identify parameters with &#39;fe&#39; prefixes and outlet_column_name key</span>
+    <span class="c1"># Identify parameters with &#39;fe&#39; prefixes and outlet_column_name</span>
     <span class="n">fe_prefix_params</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">params</span>
         <span class="k">for</span> <span class="n">params</span> <span class="ow">in</span> <span class="n">params_dict</span>
-        <span class="k">if</span> <span class="n">params</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;fe&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">params</span> <span class="o">==</span> <span class="s2">&quot;outlet_column_name&quot;</span>
+        <span class="k">if</span> <span class="n">params</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;fe_&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">params</span> <span class="o">==</span> <span class="s2">&quot;outlet_column_name&quot;</span>
     <span class="p">]</span>
 
     <span class="n">columns_to_drop</span> <span class="o">=</span> <span class="p">[]</span>
@@ -368,6 +369,7 @@ document.write(`
             <span class="n">validated_col_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
                 <span class="nb">set</span><span class="p">(</span><span class="n">columns_to_drop</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
             <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Existing columns before dropping any&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;Shape of data for </span><span class="si">{</span><span class="n">partition_id</span><span class="si">}</span><span class="s2"> before dropping </span><span class="si">{</span><span class="n">validated_col_list</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
@@ -387,24 +389,26 @@ document.write(`
 <div class="viewcode-block" id="reorder_data"><a class="viewcode-back" href="../../../../bipo.pipelines.model_specific_preprocessing.html#bipo.pipelines.model_specific_preprocessing.nodes.reorder_data">[docs]</a><span class="k">def</span> <span class="nf">reorder_data</span><span class="p">(</span>
     <span class="n">partitioned_input_training</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
     <span class="n">partitioned_input_validation</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
+    <span class="n">partitioned_input_testing</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OrdDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which pairs up files from training and validation subfolders containing fold-based merged outlets data in &#39;data&#39; directory by using an OrderedDict to update corresponding alternating training, validation prefix folds before model training can be done.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        partitioned_input_training (Dict[str, pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values for training data.</span>
 <span class="sd">        partitioned_input_validation (Dict[str, pd.DataFrame): A dictionary with partition ids as keys and dataframe as values for validation data.</span>
-
+<span class="sd">        partitioned_input_testing (Dict[str, pd.DataFrame): A dictionary with partition ids as keys and dataframe as values for testing data.</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        typing.OrderedDict[str, pd.DataFrame]): OrderedDict containing paired training and validation datasets updated in sorted partition ids.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ordered_dict</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
 
-    <span class="k">for</span> <span class="n">training_outlet_folds</span><span class="p">,</span> <span class="n">validation_outlet_folds</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+    <span class="k">for</span> <span class="n">training_outlet_folds</span><span class="p">,</span> <span class="n">validation_outlet_folds</span><span class="p">,</span> <span class="n">testing_outlet_folds</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
         <span class="nb">sorted</span><span class="p">(</span><span class="n">partitioned_input_training</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
         <span class="nb">sorted</span><span class="p">(</span><span class="n">partitioned_input_validation</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+        <span class="nb">sorted</span><span class="p">(</span><span class="n">partitioned_input_testing</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
     <span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Pairing </span><span class="si">{</span><span class="n">training_outlet_folds</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">validation_outlet_folds</span><span class="si">}</span><span class="s2"> in order&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Pairing </span><span class="si">{</span><span class="n">training_outlet_folds</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">validation_outlet_folds</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">testing_outlet_folds</span><span class="si">}</span><span class="s2"> in order&quot;</span>
         <span class="p">)</span>
         <span class="c1"># Pair training and validation in such order as they are related by name. Only difference is the use of different prefixes, training and validation for their purpose.</span>
         <span class="n">ordered_dict</span><span class="p">[</span><span class="n">training_outlet_folds</span><span class="p">]</span> <span class="o">=</span> <span class="n">partitioned_input_training</span><span class="p">[</span>
@@ -413,6 +417,9 @@ document.write(`
         <span class="n">ordered_dict</span><span class="p">[</span><span class="n">validation_outlet_folds</span><span class="p">]</span> <span class="o">=</span> <span class="n">partitioned_input_validation</span><span class="p">[</span>
             <span class="n">validation_outlet_folds</span>
         <span class="p">]</span>
+        <span class="n">ordered_dict</span><span class="p">[</span><span class="n">testing_outlet_folds</span><span class="p">]</span> <span class="o">=</span> <span class="n">partitioned_input_testing</span><span class="p">[</span>
+            <span class="n">testing_outlet_folds</span>
+        <span class="p">]</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reordered files in the following order: </span><span class="si">{</span><span class="n">ordered_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">ordered_dict</span></div>
@@ -420,13 +427,11 @@ document.write(`
 
 <div class="viewcode-block" id="identify_const_column"><a class="viewcode-back" href="../../../../bipo.pipelines.model_specific_preprocessing.html#bipo.pipelines.model_specific_preprocessing.nodes.identify_const_column">[docs]</a><span class="k">def</span> <span class="nf">identify_const_column</span><span class="p">(</span>
     <span class="n">partitioned_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
-    <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which identifies the existence of constant column across dataframe residing in the partitioned_input dictionary.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        partitioned_input (Dict[str, pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values.</span>
-<span class="sd">        params_dict (Dict[str, Any]): Dictionary referencing parameters.yml.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        None.</span>
@@ -450,8 +455,11 @@ document.write(`
         <span class="n">const_column_list</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">partition_df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">partition_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
         <span class="p">]</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Constant columns: </span><span class="si">{</span><span class="n">const_column_list</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="n">const_column_list</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found constant column(s): </span><span class="si">{</span><span class="n">const_column_list</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No constant column(s) found for </span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="c1"># Update dictionary</span>
         <span class="n">const_column_dict</span><span class="p">[</span><span class="n">fold</span><span class="p">]</span> <span class="o">=</span> <span class="n">const_column_list</span>
 
@@ -461,14 +469,12 @@ document.write(`
 
 <div class="viewcode-block" id="remove_const_column"><a class="viewcode-back" href="../../../../bipo.pipelines.model_specific_preprocessing.html#bipo.pipelines.model_specific_preprocessing.nodes.remove_const_column">[docs]</a><span class="k">def</span> <span class="nf">remove_const_column</span><span class="p">(</span>
     <span class="n">partitioned_input</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
-    <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
     <span class="n">const_column_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which identifies columns with constant value (single unique value) and removes them from dataframes in partitioned_input containing fold-based merged outlets dataframe.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        partitioned_input (Dict[str, pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values.</span>
-<span class="sd">        params_dict (Dict[str, Any]): Dictionary referencing parameters.yml.</span>
 <span class="sd">        const_column_dict (Dict[str, List]): Dictionary containing fold-based columns which are constant (only 1 unique value)</span>
 
 <span class="sd">    Returns:</span>
@@ -509,7 +515,7 @@ document.write(`
 
 <div class="viewcode-block" id="split_data_into_X_y_features"><a class="viewcode-back" href="../../../../bipo.pipelines.model_specific_preprocessing.html#bipo.pipelines.model_specific_preprocessing.nodes.split_data_into_X_y_features">[docs]</a><span class="k">def</span> <span class="nf">split_data_into_X_y_features</span><span class="p">(</span>
     <span class="n">dataframe_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which splits a provided dataframes residing in each entry of dataframe_dict based on a given target_column parameter into respective predictor and predicted components.</span>
 
 <span class="sd">    Depending on the prefix of the input dataframe_dict keys, the dataframes are then categorised into training/validation/testing categories. It assumes the target_column passed in is valid.</span>
@@ -522,9 +528,11 @@ document.write(`
 <span class="sd">        None.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Tuple[Dict[str, pd.DataFrame],Dict[str, pd.DataFrame], Dict[str, pd.DataFrame]]: Tuple of dictionaries similar to partitioned_input representing training, validation and testing datasets</span>
+<span class="sd">        Tuple[Dict[str, pd.DataFrame],Dict[str, pd.DataFrame]]: Tuple of dictionaries similar to partitioned_input representing training and validation datasets</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">target_column</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;target_column_for_modeling&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Dictionary to store train/val/test partitions</span>
     <span class="n">train_data_partition_dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">val_data_partition_dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">test_data_partition_dict</span> <span class="o">=</span> <span class="p">{}</span>
@@ -540,7 +548,7 @@ document.write(`
         <span class="p">)</span>
 
         <span class="n">y_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="n">target_column</span><span class="p">]]</span>
-        <span class="n">X_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">target_column</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;object&quot;</span><span class="p">])</span>
+        <span class="n">X_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">target_column</span><span class="p">)</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;object&quot;</span><span class="p">])</span>
 
         <span class="c1"># Drop columns with null. This could be caused by unseen encoding which may not appear in training data but instead validation data due to time period differences.</span>
         <span class="n">nan_cols_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">X_df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">X_df</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">()]</span>
@@ -554,7 +562,11 @@ document.write(`
         <span class="c1"># to training_fold1_expanding_window</span>
         <span class="n">filename_substring</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
         <span class="c1"># Update dict with splits</span>
-        <span class="k">if</span> <span class="n">df_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">):</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Assigning </span><span class="si">{</span><span class="n">df_id</span><span class="si">}</span><span class="s2"> to either training/validation/testing partitions...&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">df_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;training&quot;</span><span class="p">):</span>
             <span class="n">train_data_partition_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename_substring</span><span class="si">}</span><span class="s2">_X&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_df</span>
             <span class="n">train_data_partition_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename_substring</span><span class="si">}</span><span class="s2">_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_df</span>
         <span class="k">elif</span> <span class="n">df_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;validation&quot;</span><span class="p">):</span>
@@ -563,7 +575,6 @@ document.write(`
         <span class="k">elif</span> <span class="n">df_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;testing&quot;</span><span class="p">):</span>
             <span class="n">test_data_partition_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename_substring</span><span class="si">}</span><span class="s2">_X&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_df</span>
             <span class="n">test_data_partition_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename_substring</span><span class="si">}</span><span class="s2">_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_df</span>
-
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Created features of shape </span><span class="si">{</span><span class="n">X_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> and target </span><span class="si">{</span><span class="n">y_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="n">df_id</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>

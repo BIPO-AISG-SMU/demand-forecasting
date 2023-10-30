@@ -148,6 +148,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../../../../experiment-tracking.html">Experiment Tracking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
@@ -344,7 +345,7 @@ document.write(`
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;binning_encodings_dict&quot;</span><span class="p">,</span>
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_apply_binning_fit&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles training set</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">apply_binning_transform</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;time_agnostic_feature_engineering_training&quot;</span><span class="p">,</span>
@@ -362,7 +363,17 @@ document.write(`
                     <span class="s2">&quot;binning_encodings_dict&quot;</span><span class="p">,</span>
                 <span class="p">],</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;equal_freq_binning_fit_validation&quot;</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_apply_binning_transform_val&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_apply_binning_transform_validation&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">node</span><span class="p">(</span>  <span class="c1"># Handles testing set</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">apply_binning_transform</span><span class="p">,</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
+                    <span class="s2">&quot;time_agnostic_feature_engineering_testing&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;binning_encodings_dict&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;equal_freq_binning_fit_testing&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_apply_binning_transform_testing&quot;</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="c1">## Standardisation/Normalisation nodes.</span>
             <span class="n">node</span><span class="p">(</span>
@@ -374,7 +385,7 @@ document.write(`
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;std_norm_encoding_dict&quot;</span><span class="p">,</span>
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_apply_standard_norm_fit&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1">#Handles training set</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">apply_standard_norm_transform</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;equal_freq_binning_fit_training&quot;</span><span class="p">,</span>
@@ -384,7 +395,7 @@ document.write(`
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;feature_engineering_training&quot;</span><span class="p">,</span>
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_apply_standard_norm_transform_training&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1">#Handles validation set</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">apply_standard_norm_transform</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;equal_freq_binning_fit_validation&quot;</span><span class="p">,</span>
@@ -392,10 +403,19 @@ document.write(`
                     <span class="s2">&quot;std_norm_encoding_dict&quot;</span><span class="p">,</span>
                 <span class="p">],</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;feature_engineering_validation&quot;</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_apply_standard_norm_transform_val&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_apply_standard_norm_transform_validation&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1">#Handles testing set</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">apply_standard_norm_transform</span><span class="p">,</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
+                    <span class="s2">&quot;equal_freq_binning_fit_testing&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;std_norm_encoding_dict&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;feature_engineering_testing&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_apply_standard_norm_transform_testing&quot;</span><span class="p">,</span>
             <span class="p">),</span>
         <span class="p">],</span>
-        <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;cleanup&quot;</span><span class="p">],</span>
     <span class="p">)</span>
 
     <span class="c1"># Pipeline for generating lightweightmmmm features only. Input continues off the last node of feature_engineering_pipeline_instance</span>
@@ -428,7 +448,17 @@ document.write(`
                     <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>
                 <span class="p">],</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;lightweightmmm_features_validation&quot;</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_generate_mmm_features_for_outlets_val&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_generate_mmm_features_for_outlets_validation&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+                <span class="n">node</span><span class="p">(</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">generate_mmm_features_for_outlets</span><span class="p">,</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
+                    <span class="s2">&quot;lightweightmmm_fitted_params&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;feature_engineering_testing&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;lightweightmmm_features_testing&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_generate_mmm_features_for_outlets_testing&quot;</span><span class="p">,</span>
             <span class="p">),</span>
         <span class="p">],</span>
     <span class="p">)</span>
@@ -445,7 +475,7 @@ document.write(`
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;tsfresh_fitted_params&quot;</span><span class="p">,</span>
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_tsfresh_feature_selection_process&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles training set</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">run_tsfresh_feature_engineering_process</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;tsfresh_fitted_params&quot;</span><span class="p">,</span>
@@ -453,9 +483,9 @@ document.write(`
                     <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>
                 <span class="p">],</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;tsfresh_features_training&quot;</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_run_tsfresh_feature_engineering_process_train&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_run_tsfresh_feature_engineering_process_training&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles validation set</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">run_tsfresh_feature_engineering_process</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;tsfresh_fitted_params&quot;</span><span class="p">,</span>
@@ -463,7 +493,17 @@ document.write(`
                     <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>
                 <span class="p">],</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;tsfresh_features_validation&quot;</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_run_tsfresh_feature_engineering_process_val&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_run_tsfresh_feature_engineering_process_validation&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles testing set</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">run_tsfresh_feature_engineering_process</span><span class="p">,</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
+                    <span class="s2">&quot;tsfresh_fitted_params&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;feature_engineering_testing&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;tsfresh_features_testing&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_run_tsfresh_feature_engineering_process_testing&quot;</span><span class="p">,</span>
             <span class="p">),</span>
         <span class="p">],</span>
     <span class="p">)</span>
@@ -484,7 +524,7 @@ document.write(`
     <span class="n">merge_generated_features_pipeline</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
         <span class="p">[</span>
             <span class="c1"># Merge mmm features and fold outlets</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1">#Handles training set</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">merge_mmm_features_with_fold_outlets</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;feature_engineering_training&quot;</span><span class="p">,</span>
@@ -493,7 +533,7 @@ document.write(`
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;merged_lightweightmmm_training&quot;</span><span class="p">,</span>
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_merge_mmm_features_with_fold_outlets_training&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1">#Handles validation set</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">merge_mmm_features_with_fold_outlets</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;feature_engineering_validation&quot;</span><span class="p">,</span>
@@ -502,8 +542,17 @@ document.write(`
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;merged_lightweightmmm_validation&quot;</span><span class="p">,</span>
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_merge_mmm_features_with_fold_outlets_validation&quot;</span><span class="p">,</span>
             <span class="p">),</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1">#Handles testing</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">merge_mmm_features_with_fold_outlets</span><span class="p">,</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
+                    <span class="s2">&quot;feature_engineering_testing&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;lightweightmmm_features_testing&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;merged_lightweightmmm_testing&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_merge_mmm_features_with_fold_outlets_testing&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
             <span class="c1"># Tsfresh feature merging</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles training set</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">merge_tsfresh_features_with_outlets</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;merged_lightweightmmm_training&quot;</span><span class="p">,</span>
@@ -512,7 +561,7 @@ document.write(`
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;merged_tsfresh_features_training&quot;</span><span class="p">,</span>
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_merge_tsfresh_features_with_fold_outlets_training&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles validation set</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">merge_tsfresh_features_with_outlets</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;merged_lightweightmmm_validation&quot;</span><span class="p">,</span>
@@ -521,8 +570,17 @@ document.write(`
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;merged_tsfresh_features_validation&quot;</span><span class="p">,</span>
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_merge_tsfresh_features_with_fold_outlets_validation&quot;</span><span class="p">,</span>
             <span class="p">),</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles testing set</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">merge_tsfresh_features_with_outlets</span><span class="p">,</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
+                    <span class="s2">&quot;merged_lightweightmmm_testing&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tsfresh_features_testing&quot;</span><span class="p">,</span>  <span class="c1"># From feature_engineering</span>
+                <span class="p">],</span>
+                <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;merged_tsfresh_features_testing&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_merge_tsfresh_features_with_fold_outlets_testing&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
             <span class="c1"># Lag features merging</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles training set</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">merge_fold_and_generated_lag</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;merged_tsfresh_features_training&quot;</span><span class="p">,</span>
@@ -531,7 +589,7 @@ document.write(`
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;merged_lag_features_training&quot;</span><span class="p">,</span>
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_merge_fold_and_generated_lag_training&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles validation set</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">merge_fold_and_generated_lag</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;merged_tsfresh_features_validation&quot;</span><span class="p">,</span>
@@ -540,18 +598,33 @@ document.write(`
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;merged_lag_features_validation&quot;</span><span class="p">,</span>
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_merge_fold_and_generated_lag_validation&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="c1"># Concatenate same data folds</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles testing set</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">merge_fold_and_generated_lag</span><span class="p">,</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
+                    <span class="s2">&quot;merged_tsfresh_features_testing&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;lag_features_partitions_dict&quot;</span><span class="p">,</span>  <span class="c1"># From feature_engineering</span>
+                <span class="p">],</span>
+                <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;merged_lag_features_testing&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_merge_fold_and_generated_lag_testing&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># Concatenate data folds</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles training set</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">concat_same_folds_of_outlet_data</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="s2">&quot;merged_lag_features_training&quot;</span><span class="p">,</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;concatenated_folds_training&quot;</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_preprocess_concat_same_folds_of_outlet_data_train&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_preprocess_concat_same_folds_of_outlet_data_training&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles validation set</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">concat_same_folds_of_outlet_data</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="s2">&quot;merged_lag_features_validation&quot;</span><span class="p">,</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;concatenated_folds_validation&quot;</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_preprocess_concat_same_folds_of_outlet_data_val&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_preprocess_concat_same_folds_of_outlet_data_validation&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles testing set</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">concat_same_folds_of_outlet_data</span><span class="p">,</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="s2">&quot;merged_lag_features_testing&quot;</span><span class="p">,</span>
+                <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;concatenated_folds_testing&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_preprocess_concat_same_folds_of_outlet_data_testing&quot;</span><span class="p">,</span>
             <span class="p">),</span>
         <span class="p">],</span>
     <span class="p">)</span>
@@ -568,7 +641,7 @@ document.write(`
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;feature_encoding_dict&quot;</span><span class="p">,</span>
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_apply_feature_encoding_fit&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles training data</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">apply_feature_encoding_transform</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;concatenated_folds_training&quot;</span><span class="p">,</span>
@@ -576,9 +649,9 @@ document.write(`
                     <span class="s2">&quot;feature_encoding_dict&quot;</span><span class="p">,</span>
                 <span class="p">],</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;merged_features_training&quot;</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_apply_feature_encoding_transform_train&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_apply_feature_encoding_transform_training&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">node</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles validation data</span>
                 <span class="n">func</span><span class="o">=</span><span class="n">apply_feature_encoding_transform</span><span class="p">,</span>
                 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
                     <span class="s2">&quot;concatenated_folds_validation&quot;</span><span class="p">,</span>
@@ -586,7 +659,17 @@ document.write(`
                     <span class="s2">&quot;feature_encoding_dict&quot;</span><span class="p">,</span>
                 <span class="p">],</span>
                 <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;merged_features_validation&quot;</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_apply_feature_encoding_transform_val&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_apply_feature_encoding_transform_validation&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">node</span><span class="p">(</span> <span class="c1"># Handles testing data</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">apply_feature_encoding_transform</span><span class="p">,</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
+                    <span class="s2">&quot;concatenated_folds_testing&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;parameters&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;feature_encoding_dict&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;merged_features_testing&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feature_engr_apply_feature_encoding_transform_testing&quot;</span><span class="p">,</span>
             <span class="p">),</span>
         <span class="p">]</span>
     <span class="p">)</span>
