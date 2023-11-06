@@ -58,6 +58,7 @@ intersphinx_mapping = {
     'interpretml': ('https://interpret.ml/docs/', None),
     'mlflow': ('https://mlflow.org/docs/latest/', None),
     'kedro': ('https://docs.kedro.org/', None),
+    'pytest': ('https://docs.pytest.org/en/7.4.x/', None),
     'pydantic': ('https://docs.pydantic.dev/latest/', None),
 }
 

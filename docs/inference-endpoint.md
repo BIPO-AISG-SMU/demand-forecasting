@@ -9,17 +9,17 @@ Our model serving endpoint is designed to take in input data, feed it into a tra
 ## How to Run Endpoint
 
 ### 1. Starting the Endpoint
-To run the Docker image containing the endpoint, execute the following command in your home directory. This assumes that your model, data, and configurations are stored in specific directories on your host machine. Note that all paths used must be absolute paths.
+To run the Docker image containing the endpoint, execute the following command in the **root project directory**. This assumes that your model, data, and configurations are stored in specific directories on your host machine.
 
 ```bash
-$ bash ~/bipo_demand_forecasting/scripts/fastapi/api-entrypoint.sh
+$ bash ./scripts/fastapi/api-entrypoint.sh
 ```
 
 ### 2. Interacting with the API through Swagger UI
 
    After starting the Docker container, you can easily interact with the API endpoints using the Swagger UI, a powerful tool for visualizing and testing API endpoints.
 
-1. **Access the Interface**: Open your preferred web browser and navigate to the Swagger UI, typically located at http://<VM_IP_address>:8000/docs
+1. **Access the Interface**: Open your preferred web browser and navigate to the Swagger UI, located at http://<VM_IP_address>:8000/docs
 2. **Submit Requests**: The interface provides an interactive platform to send requests and view responses. To initiate a request:
     1. Locate the POST `/api/v1/model/predict` endpoint.
     2. Click the `Try it out` button.

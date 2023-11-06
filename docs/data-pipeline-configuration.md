@@ -4,22 +4,20 @@
 
 This section contains information on key parameters from the files `parameters.yml`, `constants.yml` from `conf/base/` directory as well as yml files in `conf/base/parameters/` subdirectory, namely  `data_split.yml` file. Due to the volume of parameters, we will only include a selection for illustrative purposes. These files can be found in `conf/base/` directory.
 
-## Explanation on the purpose of yml files placement locations
+### Placement of configuration files
 
 There are two separate folder placements of yml files, namely in `conf/base/` and `conf/base/parameters`. Yml files placed in `conf/base` folder is primarily shared across different Kedro pipeline modules, to facilitate single configuration entrypoint that can be used across the entire pipeline. As for yml files in `conf/base/parameters`, they are identified by its module name naming convention (e.g `data_split.yml` in current context) governs the configuration control for a specific pipeline module, so as to facilitate possible experimentations of values.
 
-## Key Parameters in the `parameters.yml` file.
+## Key Parameters in `parameters.yml`
 
-This sub-section outlines the key parameters in the `parameters.yml` configuration file that control different aspects of the data pipeline. The file is divided into several sections, each dealing with a specific part of the pipeline. Here's a breakdown:
+This sub-section outlines the key parameters in the `parameters.yml` configuration file that control different aspects of the data pipeline. The file is divided into several sections, each dealing with a specific part of the pipeline. 
 
-
-### Configurations for various modules
-
-**Data Loader Configurations**
+### Data Loader
 
 - Not applicable
 
-**Data Preprocessing Configurations**
+### Data Preprocessing
+
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
 | `start_date` | `str` | Data start in `yyyy-mm-dd` format. | '2021-01-01' |
@@ -28,13 +26,12 @@ This sub-section outlines the key parameters in the `parameters.yml` configurati
 | `outlets_exclusion_list` | `list` | List of outlets (costcentercode) represented in strings to be excluded. Ideally should be the values found in data. <br /> Example: ['201', '202'] | [ ] |
 ---
 
-
-**Data Merge Configurations**
+### Data Merge Configurations
 
 - Not applicable
 
+### Time Agnostic Feature Engineering
 
-**Time Agnostic Feature Engineering** 
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
 | `fe_columns_to_drop_list` | `list` | Columns to be dropped after time-agnostic feature engineering is completed. It is advised to refer to the data artefacts generated after data merge module as it would indicate the columns available to be considered for necessary feature engineering (except index itself). | ['day', 'location', 'manhours', 'outlet', 'highest_30_min_rainfall_mm', 'highest_60_min_rainfall_mm', 'highest_120_min_rainfall_mm', 'mean_temperature_c', 'min_temperature_c', 'mean_wind_speed_kmh', 'max_wind_speed_kmh', 'school_holiday_type', 'public_holiday_type'] |
@@ -47,8 +44,8 @@ This sub-section outlines the key parameters in the `parameters.yml` configurati
 | `columns_to_diff_list` | `list of list` | List of paired features in a inner list used for value differencing purposes. Generalisable to the format of [[...,...], [...,...], ...]. <br /> Example setting the value to `[["minimum_temperature_c","maximum_temperature_c"]]` indicates that feature differencing by `maximum_temperature_c` - `minimum_temperature_c` is to be implemented. | [[ ]] |
 ---
 
+### Time-Dependent Feature Engineering
 
-**Time-Dependent Feature Engineering**
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
 | `fe_target_feature_name` | `str` | Target feature of interest (predicted feature). Primarily referenced by *tsfresh* and *LightweightMMMM* feature engineering. | 'proxyrevenue' |
@@ -60,34 +57,32 @@ This sub-section outlines the key parameters in the `parameters.yml` configurati
 | `normalization_approach` | `str` | Specified normalization approach to use: either `normalize` or `standardize`. Any other values would be defaulted back to `normalize`. | 'standardize' |
 ---
 
+### Additional Feature Engineering: *Lag Features Generation*
 
-**Additional Feature Engineering: *Lag Features Generation***
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
-| `columns_to_create_lag_features` | `list` | List of columns which lag features should be created. Parameters for lag generation are controlled in the next 5 parameters below. | ['proxyrevenue'] |
-| `lag_periods_list` | `list` | List of lag periods (integers) to generate. This takes into consideration of based on the difference in number of days from the last date of predictions to be made and available data, as per `sma_tsfresh_shift_period` description. | [9, 14] |
-| `sma_window_periods_list` | `list` | List of window size for simple moving average aggregation. | [7] |
-| `lag_week_periods_list` | `list` | List of lag periods in terms of weeks to be applied to when weekly average is calculated. | [1, 2] |
-| `sma_tsfresh_shift_period`  | `int` | Shared *Tsfresh* and *simple moving average* shift periods for the purpose of alignment in shift period. Based on the difference in number of days from the last date of predictions to be made and available data. <br /><br /> **Example, on 18th of a month prediction, for 20 to 26th is to be made, while data is only available upt to 17th. Hence, there is a 9 days difference which a shift needs to be applied. In view of this, the training process needs to account for such consideration when inference is to be made.** | 9 |
+| `columns_to_create_lag_features` | `list` | List of columns which lag features should be created. Parameters for lag generation are controlled in the next 5 parameters below. | `['proxyrevenue']` |
+| `lag_periods_list` | `list` | List of lag periods (integers) to generate. This takes into consideration of based on the difference in number of days from the last date of predictions to be made and available data, as per `sma_tsfresh_shift_period` description. | `[9, 14]` |
+| `sma_window_periods_list` | `list` | List of window size for simple moving average aggregation. | `[7]` |
+| `lag_week_periods_list` | `list` | List of lag periods in terms of weeks to be applied to when weekly average is calculated. | `[1, 2]` |
+| `sma_tsfresh_shift_period`  | `int` | Shared *Tsfresh* and *simple moving average* shift periods for the purpose of alignment in shift period. Based on the difference in number of days from the last date of predictions to be made and available data. <br/>Example, on 18th of a month prediction, for 20 to 26th is to be made, while data is only available up to 17th. Hence, there is a 9 days difference which a shift needs to be applied. In view of this, the training process needs to account for such consideration when inference is to be made. | 9 |
 
+### Additional Feature Engineering: *LightweightMMM*
 
-**Additional Feature Engineering: *LightweightMMM***
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
 | `include_lightweightMMM` | `bool` | Control that determines if lightweightMMM should be included in feature engineering pipeline process. If False, the parameters below do not apply. | False |
 | `lightweightmmm_num_lags` | `int`  | Lags in days to be applied on lightweightmmm features are generated. Has no relation to other lag values used, based on week effect assumptions. | 7 |
 | `lightweightmmm_adstock_normalise` | `bool` | Control that determines if normalization of adstock values is required. | True |
-| `lightweightmmm_optimise_parameters` | `bool` | Control that determines if **optimized lightweightmmm parameters as defined in `lightweightmmm_params` should be used.** | True |
-| **Config using dictionary subsection** | | | |
-| `lightweightmmm_params` | `dict` | Dictionary of optimal *lightweightMMM* weights learned for *lightweightMMM* features used. `['tv_ad_daily_cost', 'radio_ad_daily_cost', 'instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost','poster_campaign_daily_cost', 'digital_daily_cost']` | - |
-| ↳ `lag_weight` | `list` | Learned lag weight parameters for each marketing cost channels. | [0.7025, 0.9560, 0.7545, 0.7484, 0.9405, 0.6504, 0.7207] |
-| ↳ `ad_effect_retention_rate` | `list` | Learned ad effect retention rates used by carryover for each marketing cost channels. | [0.4963, 0.6495, 0.5482, 0.5484, 0.5822, 0.6404, 0.7346]    |
-| ↳ `peak_effect_delay`  | `list` | Learned peak effect delay weights for each marketing cost channels. | [1.2488, 5.5658, 1.9455, 1.8988, 1.8554, 1.6911, 1.8539] |
-| `mkt_channel_list` | `list` | List of marketing cost features (represented with `daily_cost` suffix). | ['tv_ad_daily_cost', 'radio_ad_daily_cost', 'instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost','poster_campaign_daily_cost', 'digital_daily_cost'] |
----
+| `lightweightmmm_optimise_parameters` | `bool` | Control that determines if optimized lightweightmmm parameters as defined in `lightweightmmm_params` should be used. | True |
+| `lightweightmmm_params` | `dict` | Dictionary of optimal *lightweightMMM* weights learned for *lightweightMMM* features used. | - |
+| ↳ `lag_weight` | `list` | Learned lag weight parameters for each marketing cost channels. | `[0.7025, 0.9560, 0.7545, 0.7484, 0.9405, 0.6504, 0.7207]` |
+| ↳ `ad_effect_retention_rate` | `list` | Learned ad effect retention rates used by carryover for each marketing cost channels. | `[0.4963, 0.6495, 0.5482, 0.5484, 0.5822, 0.6404, 0.7346]`    |
+| ↳ `peak_effect_delay`  | `list` | Learned peak effect delay weights for each marketing cost channels. | `[1.2488, 5.5658, 1.9455, 1.8988, 1.8554, 1.6911, 1.8539]` |
+| `mkt_channel_list` | `list` | List of marketing cost features (represented with `daily_cost` suffix). | `['tv_ad_daily_cost', 'radio_ad_daily_cost', 'instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost','poster_campaign_daily_cost', 'digital_daily_cost']` |
 
+### Additional Feature Engineering: *tsfresh*
 
-**Additional Feature Engineering:*tsfresh***
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
 | `include_tsfresh`| `bool` | Control that determines if *tsfresh* should be included in feature engineering pipeline process. If False, the parameters below do not apply. | False |
@@ -98,24 +93,24 @@ This sub-section outlines the key parameters in the `parameters.yml` configurati
 | `tsfresh_n_significant` | `int` | Threshold determining which features should be statistically significant predictors for categorical target feature to be regarded as relevant. <br /><br /> Example, if there are X target categories for prediction, set this value to be <= X | 4 |
 ---
 
+### Model Specific Preprocessing Module
 
-**Model Specific Preprocessing Module** 
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
 | `target_column_for_modeling` | `str` | Column to serve as predicted model | 'binned_proxyrevenue' |
 ---
 
+## Key Parameters in `constants.yml`
 
-### Key Parameters in the `constants.yml` file
----
-This sub-section outlines the key parameters in the `constants.yml` configuration file. The file is organised into multiple sections to cater to different modules of data pipeline
+This sub-section outlines the key parameters in the `constants.yml` configuration file. The file is organised into multiple sections to cater to different modules of the data pipeline.
 
-Please note that these file is intended for 2 purposes:
-- **Configured value serves as a fallback for invalid parameters set in `parameters.yml` or required parameters that are missing. Note that not all parameters are covered in this `constants.yml`, as it is not feasible to make assumption on valid values for some parameters**; and
-- **Global 'constants' which is shared.**
+This file has two intended purposes:
+1. Configured values serve as a fallback for invalid parameters set in `parameters.yml` or required parameters that are missing. Note that not all parameters are covered in this `constants.yml`, as it is not feasible to make assumptions on valid values for some parameters.
+2. Storage of global constants which are shared.
 
 
-**Default Configurations for Dataloader**
+### Default Configurations for Data Loader
+
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
 | `default_date_col` | `str` | Default column to reference date column based on provided data. It is assumed that such column are represented with a single universal identifier. | 'Date' |
@@ -125,14 +120,14 @@ Please note that these file is intended for 2 purposes:
 | `default_mkt_name_column` | `str` | Default column for marketing campaigns name. | 'Name' |
 | `default_mkt_date_start_end_columns` | `list` | Default columns for marketing's start and end dates. | ['Date Start', 'Date End'] |
 | `default_outlet_column` | `str`  | Default column for outlet (aka cost centre codes). | 'CostCentreCode' |
-| **Config using dictionary subsection** | | | |
 | `columns_to_construct_date` | `dict` | Columns used to construct date feature for different datasets. | - |
 | ↳ `weather_data` | `list` | Date related column from weather data used for construction 'Date' feature in the format of `YYYY-MM-DD` format. | ["Year", "Month", "Day"] |
 | ↳ `marketing_data` | `list` | Start and end dates for marketing data. | ["Date Start", "Date End"] |
 ---
 
 
-**Default Configurations for Data Preprocessing**
+### Default Configurations for Data Preprocessing
+
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
 | `default_start_date` | `str` | Default start date for the dataset to be used when invalid format is provided. | '2021-01-01' |
@@ -142,8 +137,8 @@ Please note that these file is intended for 2 purposes:
 | `default_outlets_exclusion_list` | `list` | Default list of outlets to be excluded. Utilised when the outlets specified to be excluded in parameters is not in a list format. | [ ] |
 ---
 
+### Default Configurations for Data Split
 
-**Default Configurations for Data Split**
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
 | **Config using dictionary subsection** | | | |
@@ -159,19 +154,19 @@ Please note that these file is intended for 2 purposes:
 | ↳ `data_split_option_default` | `str` | Default data split when invalid option is provided. | "simple_split" |
 ---
 
+### Default Configurations for Feature Engineering
 
-**Default Configurations for Feature Engineering**
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
 | `default_lightweightmmm_num_lags` | `int`  | Default number of lags for *lightweightMMM*. | 7 |
 ---
 
+## Key Parameters in `data_split.yml`
 
-### Key Parameters in the `data_split.yml` File
+This subsection outlines the key parameters in the `data_split.yml` configuration file which handles provides configurable parameters on how different splits involving *simple*, *sliding window* and *expanding window* are implemented. It is broken down into sections, each detailing a specific type of data split.
 
-This sub-section outlines the key parameters in the `data_split.yml` configuration file which handles provides configurable parameters on how different splits involving *simple*, *sliding window* and *expanding window* are implemented. It is broken down into sections, each detailing a specific type of data split.
+### Simple Split (under `simple_split`)
 
-**Simple Split Configuration (under `simple_split` key)** 
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
 | `training_days` | `int` | Number of training days. | 588 |
@@ -183,8 +178,8 @@ This sub-section outlines the key parameters in the `data_split.yml` configurati
 | `folds` | `int` | Placeholder for parameters use consistency, DO NOT CHANGE THIS. | 1 |
 ---
 
+### Sliding Window Split (under `sliding_window`)
 
-**Sliding Window Configuration (under `sliding_window` key)**
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
 | `training_days` | `int` | Number of training days. | 365 |
@@ -196,8 +191,8 @@ This sub-section outlines the key parameters in the `data_split.yml` configurati
 | `folds` | `int` | Number of folds. | 5 |
 ---
 
+### Expanding Window Split (under `expanding_window`)
 
-**Expanding Window Configuration (under `expanding_window` key)**
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
 | `training_days` | `int` | Number of training days. | 365 |
@@ -209,8 +204,7 @@ This sub-section outlines the key parameters in the `data_split.yml` configurati
 | `folds` | `int` | Number of folds required for split. | 5 |
 ---
 
-
-## How to execute the Data Pipeline (Windows OS only) from a Docker image
+## Executing the Data Pipeline on a Docker Container (Windows only)
 
 This guide explains how to run the data pipeline using the `run_data_pipeline.bat` script on a Windows OS environment. The script offers an automated and convenient way to trigger the pipeline processes. Before executing the script, please ensure that you have loaded the provided docker image on the host machine. This can be done via the following command:
 
@@ -219,13 +213,15 @@ This guide explains how to run the data pipeline using the `run_data_pipeline.ba
   docker load -i <path/to>/100E_BIPO_docker_training.tar
 ```
 
-**Notes for pushing docker image to preferred docker registry**
-In the event you would need to push the docker image to your internal docker registry , please rename your docker image to the source url of the docker registry as the existing docker registry used points to registry.aisingapore.net/100e-bipo, which would not be accessible outside of AI Singapore. Please refer to https://docs.docker.com/ for more details on the renaming procedure to facilitate push to docker image registry.
+### Pushing Docker image to a preferred registry
 
-**Notes for usage of script**
-Key configurations in the bat file is described in the following snippet below. In the event that you have pushed the provided docker image into your repository, please amend only the following variables `docker_registry` and `image_name` in the script as they are related to docker registry url and image name. 
+In the event you would need to push the Docker image to your internal registry, please rename your Docker image to the source URL of the Docker registry as the existing registry used points to `registry.aisingapore.net/100e-bipo`, which would not be accessible outside of AI Singapore. Please refer to the [Docker documentation](https://docs.docker.com/) for details on the renaming procedure to facilitate push to a Docker registry.
 
-Please leave `docker_registry` variable blank if this is not applicable. The script would just use loaded docker image for running.
+### Usage of `run_data_pipeline.bat`
+
+Key configurations in the file are described below. In the event that you have pushed the provided Docker image into your registry, amend only the following variables `docker_registry` and `image_name` in the script as they are related to the registry URL and image name. 
+
+Leave `docker_registry` variable blank if this is not applicable. The script will use the loaded Docker image for running.
 
 ```
 @REM Define your Docker image and registry
@@ -233,7 +229,7 @@ set docker_registry=<Url to docker registry>/<project folder>
 set image_name=<image name>
 ```
 
-The following governs the directory to be mounted.
+The following governs the directories to be mounted.
 
 ```
 @REM Define volume variables from host directories
@@ -242,51 +238,36 @@ set CONF_DIR=conf
 set LOGS_DIR=logs
 ```
 
-**Running the Script**
+### Running `run_data_pipeline.bat`
 
-To initiate the pipeline, proceed as follows:
+To initiate the pipeline:
 
-1. **Navigate to the Project Directory**: Ensure you are in the root project directory `bipo_demand_forecasting`.
-
-2. **Execute the Script**: 
-  
-  **Windows powershell**: Open a Command Prompt in the project directory and execute the following command:
-
+1. Open Windows Powershell.
+2. Navigate to the project root directory `bipo_demand_forecasting`.
+3. Execute the following command:
     ```cmd
-    # windows powershell
     .\scripts\run_data_pipeline.bat
     ```
 
-Note: The script initiates a *docker run* command with mounted directories through the following command as stated in the script which in turns execute *kedro run --pipeline* command
-```
-docker run --rm ^
--v "%CD%\%CONF_DIR%:/home/kedro_docker/%CONF_DIR%" ^
--v "%CD%\%DATA_DIR%\:/home/kedro_docker/%DATA_DIR%" ^
--v "%CD%\%LOGS_DIR%:/home/kedro_docker/%LOGS_DIR%" ^
--itd %image_tag_name% ^
-sh -c "kedro run --pipeline=data_loader && kedro run --pipeline=data_pipeline"
-```
-
-### **Logging**
+### Logging
 
 Logs provide essential insights into the runtime behaviour of your pipeline, enabling effective monitoring the pipeline's execution. Generated log files are located in `logs` folder at the project parent directory. 
 
 For log settings, please navigate to `conf/base/logging.yml` to customise according to your needs. 
 
-**Notes:**
--  Do no delete this file before running the pipeline, otherwise Kedro would throw an error.
-- The log filepath used in the yml file is just a placeholder and would be created and deleted when Kedro pipeline execution starts and completes its execution. There is nothing important that would be logged to the file since, a separate log file (in daily format) is generated to log instead. This is implemented via the script `src/bipo/hooks/SetupDailyLogsHooks.py` serving as Kedro Hook's mechanism which overwrites the specified logfile path with today's date whenever a pipeline is run.
+> **Note:**
+> Do not delete this file before running the pipeline or Kedro will throw an error.
 
+The log filepath used in the yml file is a placeholder and would be created and deleted when a Kedro pipeline starts and completes its execution. Nothing important is logged to the file since a separate log file (in daily format) is generated instead. This is implemented via the script `src/bipo/hooks/SetupDailyLogsHooks.py`, serving as Kedro Hook's mechanism which overwrites the specified logfile path with today's date whenever a pipeline is run.
 
-The following levels of logs are used in the codebase as follows:
+The following levels of logs are used in the code base:
 - Info
 - Error
 - Debug (Included as log handler, unused. Intended for development purposes.)
 
+#### Successful start of Kedro pipeline run
 
-**Successful start of Kedro pipeline run**
-
-Snippet below is an illustration of a successful start of Kedro pipeline run
+The log snippet below shows a successful start of a Kedro pipeline run:
 ```
 18/10/2023 08:24 | kedro.io.data_catalog | INFO | Loading data from 'loaded_non_proxy_revenue_partitioned_data' (IncrementalDataSet)...
 18/10/2023 08:24 | kedro.pipeline.node | INFO | Running node: data_preprocessing_merge_non_proxy_revenue_data: merge_non_proxy_revenue_data([loaded_non_proxy_revenue_partitioned_data]) -> [merged_non_revenue_data]
@@ -315,9 +296,9 @@ Snippet below is an illustration of a successful start of Kedro pipeline run
 ...
 ```
 
-**Successful completion of Kedro pipeline run**
+#### Successful completion of Kedro pipeline run
 
-Snippet below is an illustration of a successful completion of Kedro pipeline run (containing the wording `Pipeline execution completed successfully`): 
+The snippet below is an illustration of a successful completion of Kedro pipeline run (containing the wording `Pipeline execution completed successfully`): 
 
 ```
 ...
@@ -326,5 +307,4 @@ Snippet below is an illustration of a successful completion of Kedro pipeline ru
 25/10/2023 09:17 | kedro.io.data_catalog | INFO | Saving data to 'ebm.model_specific_preprocessing_testing' (MemoryDataSet)...
 25/10/2023 09:17 | kedro.runner.sequential_runner | INFO | Completed 49 out of 49 tasks
 25/10/2023 09:17 | kedro.runner.sequential_runner | INFO | Pipeline execution completed successfully.
-
 ```
