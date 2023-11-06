@@ -7,13 +7,6 @@ from kedro.config import ConfigLoader
 # Lag feature processes
 from .lag_feature_generation import merge_fold_and_generated_lag
 
-# Lightweightmmm processes
-from .lightweightmmm import (
-    extract_mmm_params_for_folds,
-    generate_mmm_features_for_outlets,
-    merge_mmm_features_with_fold_outlets,
-)
-
 # General feature engineering processes
 from .nodes import (
     generate_lag,
@@ -51,7 +44,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                 outputs="binning_encodings_dict",
                 name="feature_engr_apply_binning_fit",
             ),
-            node(
+            node(  # Handles training set
                 func=apply_binning_transform,
                 inputs=[
                     "time_agnostic_feature_engineering_training",
@@ -69,7 +62,17 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "binning_encodings_dict",
                 ],
                 outputs="equal_freq_binning_fit_validation",
-                name="feature_engr_apply_binning_transform_val",
+                name="feature_engr_apply_binning_transform_validation",
+            ),
+            node(  # Handles testing set
+                func=apply_binning_transform,
+                inputs=[
+                    "time_agnostic_feature_engineering_testing",
+                    "parameters",
+                    "binning_encodings_dict",
+                ],
+                outputs="equal_freq_binning_fit_testing",
+                name="feature_engr_apply_binning_transform_testing",
             ),
             ## Standardisation/Normalisation nodes.
             node(
@@ -81,7 +84,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                 outputs="std_norm_encoding_dict",
                 name="feature_engr_apply_standard_norm_fit",
             ),
-            node(
+            node(  # Handles training set
                 func=apply_standard_norm_transform,
                 inputs=[
                     "equal_freq_binning_fit_training",
@@ -91,7 +94,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                 outputs="feature_engineering_training",
                 name="feature_engr_apply_standard_norm_transform_training",
             ),
-            node(
+            node(  # Handles validation set
                 func=apply_standard_norm_transform,
                 inputs=[
                     "equal_freq_binning_fit_validation",
@@ -99,43 +102,17 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "std_norm_encoding_dict",
                 ],
                 outputs="feature_engineering_validation",
-                name="feature_engr_apply_standard_norm_transform_val",
+                name="feature_engr_apply_standard_norm_transform_validation",
             ),
-        ],
-        tags=["cleanup"],
-    )
-
-    # Pipeline for generating lightweightmmmm features only. Input continues off the last node of feature_engineering_pipeline_instance
-    lightweight_mmm_pipeline = pipeline(
-        [
-            node(
-                func=extract_mmm_params_for_folds,
+            node(  # Handles testing set
+                func=apply_standard_norm_transform,
                 inputs=[
-                    "feature_engineering_training",
+                    "equal_freq_binning_fit_testing",
                     "parameters",
+                    "std_norm_encoding_dict",
                 ],
-                outputs="lightweightmmm_fitted_params",
-                name="feature_engr_extract_mmm_params_for_folds",
-            ),
-            node(
-                func=generate_mmm_features_for_outlets,
-                inputs=[
-                    "lightweightmmm_fitted_params",
-                    "feature_engineering_training",
-                    "parameters",
-                ],
-                outputs="lightweightmmm_features_training",
-                name="feature_engr_generate_mmm_features_for_outlets_training",
-            ),
-            node(
-                func=generate_mmm_features_for_outlets,
-                inputs=[
-                    "lightweightmmm_fitted_params",
-                    "feature_engineering_validation",
-                    "parameters",
-                ],
-                outputs="lightweightmmm_features_validation",
-                name="feature_engr_generate_mmm_features_for_outlets_val",
+                outputs="feature_engineering_testing",
+                name="feature_engr_apply_standard_norm_transform_testing",
             ),
         ],
     )
@@ -152,7 +129,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                 outputs="tsfresh_fitted_params",
                 name="feature_engr_tsfresh_feature_selection_process",
             ),
-            node(
+            node(  # Handles training set
                 func=run_tsfresh_feature_engineering_process,
                 inputs=[
                     "tsfresh_fitted_params",
@@ -160,9 +137,9 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "parameters",
                 ],
                 outputs="tsfresh_features_training",
-                name="feature_engr_run_tsfresh_feature_engineering_process_train",
+                name="feature_engr_run_tsfresh_feature_engineering_process_training",
             ),
-            node(
+            node(  # Handles validation set
                 func=run_tsfresh_feature_engineering_process,
                 inputs=[
                     "tsfresh_fitted_params",
@@ -170,7 +147,17 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "parameters",
                 ],
                 outputs="tsfresh_features_validation",
-                name="feature_engr_run_tsfresh_feature_engineering_process_val",
+                name="feature_engr_run_tsfresh_feature_engineering_process_validation",
+            ),
+            node(  # Handles testing set
+                func=run_tsfresh_feature_engineering_process,
+                inputs=[
+                    "tsfresh_fitted_params",
+                    "feature_engineering_testing",
+                    "parameters",
+                ],
+                outputs="tsfresh_features_testing",
+                name="feature_engr_run_tsfresh_feature_engineering_process_testing",
             ),
         ],
     )
@@ -187,49 +174,39 @@ def create_pipeline(**kwargs) -> Pipeline:
         ],
     )
 
-    # Pipeline facilitating merging of lightweightMMM/tsfresh feature merging with outlet features.
+    # Pipeline facilitating merging of tsfresh feature merging with outlet features.
     merge_generated_features_pipeline = pipeline(
         [
-            # Merge mmm features and fold outlets
-            node(
-                func=merge_mmm_features_with_fold_outlets,
-                inputs=[
-                    "feature_engineering_training",
-                    "lightweightmmm_features_training",
-                ],
-                outputs="merged_lightweightmmm_training",
-                name="feature_engr_merge_mmm_features_with_fold_outlets_training",
-            ),
-            node(
-                func=merge_mmm_features_with_fold_outlets,
-                inputs=[
-                    "feature_engineering_validation",
-                    "lightweightmmm_features_validation",
-                ],
-                outputs="merged_lightweightmmm_validation",
-                name="feature_engr_merge_mmm_features_with_fold_outlets_validation",
-            ),
             # Tsfresh feature merging
-            node(
+            node(  # Handles training set
                 func=merge_tsfresh_features_with_outlets,
                 inputs=[
-                    "merged_lightweightmmm_training",
+                    "feature_engineering_training",
                     "tsfresh_features_training",  # From feature_engineering
                 ],
                 outputs="merged_tsfresh_features_training",
                 name="feature_engr_merge_tsfresh_features_with_fold_outlets_training",
             ),
-            node(
+            node(  # Handles validation set
                 func=merge_tsfresh_features_with_outlets,
                 inputs=[
-                    "merged_lightweightmmm_validation",
+                    "feature_engineering_validation",
                     "tsfresh_features_validation",  # From feature_engineering
                 ],
                 outputs="merged_tsfresh_features_validation",
                 name="feature_engr_merge_tsfresh_features_with_fold_outlets_validation",
             ),
+            node(  # Handles testing set
+                func=merge_tsfresh_features_with_outlets,
+                inputs=[
+                    "feature_engineering_testing",
+                    "tsfresh_features_testing",  # From feature_engineering
+                ],
+                outputs="merged_tsfresh_features_testing",
+                name="feature_engr_merge_tsfresh_features_with_fold_outlets_testing",
+            ),
             # Lag features merging
-            node(
+            node(  # Handles training set
                 func=merge_fold_and_generated_lag,
                 inputs=[
                     "merged_tsfresh_features_training",
@@ -238,7 +215,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                 outputs="merged_lag_features_training",
                 name="feature_engr_merge_fold_and_generated_lag_training",
             ),
-            node(
+            node(  # Handles validation set
                 func=merge_fold_and_generated_lag,
                 inputs=[
                     "merged_tsfresh_features_validation",
@@ -247,18 +224,33 @@ def create_pipeline(**kwargs) -> Pipeline:
                 outputs="merged_lag_features_validation",
                 name="feature_engr_merge_fold_and_generated_lag_validation",
             ),
-            # Concatenate same data folds
-            node(
+            node(  # Handles testing set
+                func=merge_fold_and_generated_lag,
+                inputs=[
+                    "merged_tsfresh_features_testing",
+                    "lag_features_partitions_dict",  # From feature_engineering
+                ],
+                outputs="merged_lag_features_testing",
+                name="feature_engr_merge_fold_and_generated_lag_testing",
+            ),
+            # Concatenate data folds
+            node(  # Handles training set
                 func=concat_same_folds_of_outlet_data,
                 inputs="merged_lag_features_training",
                 outputs="concatenated_folds_training",
-                name="feature_engr_preprocess_concat_same_folds_of_outlet_data_train",
+                name="feature_engr_preprocess_concat_same_folds_of_outlet_data_training",
             ),
-            node(
+            node(  # Handles validation set
                 func=concat_same_folds_of_outlet_data,
                 inputs="merged_lag_features_validation",
                 outputs="concatenated_folds_validation",
-                name="feature_engr_preprocess_concat_same_folds_of_outlet_data_val",
+                name="feature_engr_preprocess_concat_same_folds_of_outlet_data_validation",
+            ),
+            node(  # Handles testing set
+                func=concat_same_folds_of_outlet_data,
+                inputs="merged_lag_features_testing",
+                outputs="concatenated_folds_testing",
+                name="feature_engr_preprocess_concat_same_folds_of_outlet_data_testing",
             ),
         ],
     )
@@ -275,7 +267,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                 outputs="feature_encoding_dict",
                 name="feature_engr_apply_feature_encoding_fit",
             ),
-            node(
+            node(  # Handles training data
                 func=apply_feature_encoding_transform,
                 inputs=[
                     "concatenated_folds_training",
@@ -283,9 +275,9 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "feature_encoding_dict",
                 ],
                 outputs="merged_features_training",
-                name="feature_engr_apply_feature_encoding_transform_train",
+                name="feature_engr_apply_feature_encoding_transform_training",
             ),
-            node(
+            node(  # Handles validation data
                 func=apply_feature_encoding_transform,
                 inputs=[
                     "concatenated_folds_validation",
@@ -293,17 +285,22 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "feature_encoding_dict",
                 ],
                 outputs="merged_features_validation",
-                name="feature_engr_apply_feature_encoding_transform_val",
+                name="feature_engr_apply_feature_encoding_transform_validation",
+            ),
+            node(  # Handles testing data
+                func=apply_feature_encoding_transform,
+                inputs=[
+                    "concatenated_folds_testing",
+                    "parameters",
+                    "feature_encoding_dict",
+                ],
+                outputs="merged_features_testing",
+                name="feature_engr_apply_feature_encoding_transform_testing",
             ),
         ]
     )
 
-    # Extend pipeline based on togglable configuration enabling/disabling lightweightmmm and tsfresh.
-    if conf_params["include_lightweightMMM"]:
-        feature_engineering_pipeline_instance = (
-            feature_engineering_pipeline_instance + lightweight_mmm_pipeline
-        )
-
+    # Extend pipeline based on togglable configuration enabling/disabling tsfresh.
     if conf_params["include_tsfresh"]:
         feature_engineering_pipeline_instance = (
             feature_engineering_pipeline_instance + tsfresh_pipeline

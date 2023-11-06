@@ -246,15 +246,15 @@ lag_features_partitions_dict:
 
 feature_engineering_training:
   <<: *catalog_partitioned_default
-  path: data/05_feature_engineering/no_tsfresh_lightweightmmm/training
+  path: data/05_feature_engineering/no_tsfresh/training
 
 feature_engineering_validation:
   <<: *catalog_partitioned_default
-  path: data/05_feature_engineering/no_tsfresh_lightweightmmm/validation
+  path: data/05_feature_engineering/no_tsfresh/validation
 
 feature_engineering_testing:
   <<: *catalog_partitioned_default
-  path: data/05_feature_engineering/no_tsfresh_lightweightmmm/testing
+  path: data/05_feature_engineering/no_tsfresh/testing
 
 feature_encoding_dict:
   type: pickle.PickleDataSet
@@ -263,30 +263,6 @@ feature_encoding_dict:
   versioned: true
   load_args:
     encoding: 'utf-8'
-
-
-### lightweightmmm 
-lightweightmmm_fitted_params:
-  type: json.JSONDataSet
-  filepath: data/05_feature_engineering/lightweightmmm_features/artefacts/lightweightmmm_fitted_params.json
-
-lightweightmmm_features_training:
-  <<: *catalog_partitioned_default
-  path: data/05_feature_engineering/lightweightmmm_features/training
-  layer: lightweightmmm_features_training
-  
-
-lightweightmmm_features_validation:
-  <<: *catalog_partitioned_default
-  path: data/05_feature_engineering/lightweightmmm_features/validation
-  layer: lightweightmmm_features_validation
-  
-
-lightweightmmm_features_testing:
-  <<: *catalog_partitioned_default
-  path: data/05_feature_engineering/lightweightmmm_features/testing
-  layer: lightweightmmm_features_testing
-  
 
 merged_features_training:
   <<: *catalog_partitioned_default
@@ -334,10 +310,10 @@ tsfresh_features_testing:
 #####################################################
 # Model specific preprocessing
 # OrderedModel.  Define 3 train/val/test
-ordered_model.model_specific_preprocessing_train:
+ordered_model.model_specific_preprocessing_training:
   <<: *catalog_partitioned_default
-  path: data/06_model_specific_preprocessing/ordered_model/train
-  layer: ordered_model_model_specific_preprocessing_train
+  path: data/06_model_specific_preprocessing/ordered_model/training
+  layer: ordered_model_model_specific_preprocessing_training
   
 
 ordered_model.model_specific_preprocessing_validation:
@@ -346,17 +322,17 @@ ordered_model.model_specific_preprocessing_validation:
   layer: ordered_model_model_specific_preprocessing_validation
   
 
-ordered_model.model_specific_preprocessing_test:
+ordered_model.model_specific_preprocessing_testing:
   <<: *catalog_partitioned_default
-  path: data/06_model_specific_preprocessing/ordered_model/test
-  layer: ordered_model_model_specific_preprocessing_test
+  path: data/06_model_specific_preprocessing/ordered_model/testing
+  layer: ordered_model_model_specific_preprocessing_testing
   
 
 # EBM. Define 3 train/val/test
-ebm.model_specific_preprocessing_train:
+ebm.model_specific_preprocessing_training:
   <<: *catalog_partitioned_default
-  path: data/06_model_specific_preprocessing/ebm_model/train
-  layer: ebm_model_specific_preprocessing_train
+  path: data/06_model_specific_preprocessing/ebm_model/training
+  layer: ebm_model_specific_preprocessing_training
   
 
 ebm.model_specific_preprocessing_validation:
@@ -365,10 +341,10 @@ ebm.model_specific_preprocessing_validation:
   layer: ebm_model_specific_preprocessing_validation
   
 
-ebm.model_specific_preprocessing_test:
+ebm.model_specific_preprocessing_testing:
   <<: *catalog_partitioned_default
-  path: data/06_model_specific_preprocessing/ebm_model/test
-  layer: ebm_model_specific_preprocessing_test
+  path: data/06_model_specific_preprocessing/ebm_model/testing
+  layer: ebm_model_specific_preprocessing_testing
   
 
 constant_column_params:
@@ -395,34 +371,34 @@ ebm.model_training_artefact:
 
 ###################################################
 ## Evaluation: Training data - for analysis of possible overfit
-ordered_model.model_evaluation_train_result:
+ordered_model.model_evaluation_training_result:
   type: json.JSONDataSet
   filepath: data/07_model_evaluation/ordered_model_train
   layer: ordered_model_evaluation_train
 
-ebm.model_evaluation_train_result:
+ebm.model_evaluation_training_result:
   type: json.JSONDataSet
   filepath: data/07_model_evaluation/ebm_model_train
   layer: ebm_model_evaluation_train
 
 ## Evaluation: Val data
-ordered_model.model_evaluation_val_result:
+ordered_model.model_evaluation_validation_result:
   type: json.JSONDataSet
   filepath: data/07_model_evaluation/ordered_model_val
   layer: ordered_model_evaluation_val
 
-ebm.model_evaluation_val_result:
+ebm.model_evaluation_validation_result:
   type: json.JSONDataSet
   filepath: data/07_model_evaluation/ebm_model_val
   layer: ebm_model_evaluation_val
 
 ## Evaluation: Test data
-ordered_model.model_evaluation_test_result:
+ordered_model.model_evaluation_testing_result:
   type: json.JSONDataSet
   filepath: data/07_model_evaluation/ordered_model_test
   layer: ordered_model_evaluation_test
 
-ebm.model_evaluation_test_result:
+ebm.model_evaluation_testing_result:
   type: json.JSONDataSet
   filepath: data/07_model_evaluation/ebm_model_test
   layer: ebm_model_evaluation_test

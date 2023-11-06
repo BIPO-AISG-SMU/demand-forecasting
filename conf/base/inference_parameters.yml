@@ -4,10 +4,9 @@ default_request_fields:
   default_cost_centre_code: 201
   default_location: "West"
   default_type: "dine-in"
-  default_propensity_factor: 1.0
-  default_is_raining: False
-  default_temp_max: 30
-  default_is_raining: False
+  default_factor: 1.0
+  default_maximum_temperature_c: 30
+  default_is_daily_rainfall_total_mm: False
   default_is_public_holiday: False
   default_is_school_holiday: False
   default_is_pandemic_restrictions: False
@@ -32,28 +31,20 @@ default_request_fields:
     ]
   default_marketing_total_cost: 0
 
+lookback_period: 14
+
 request_thresholds:
   # minimum number of inputs for LagsAttribute
   min_number_of_lag_days: 7
 
 file_paths:
-  path_to_logging_yml: "conf/base/logging.yml"
   intermediate_output_path: "data/08_model_inference_output"
-  # path_to_model: "models/orderedmodel_20231019.pkl"
   path_to_model: "models/ebm_20231019.pkl"
+  # path_to_model: "models/ordered_model.pkl"
 
-columns_to_drop_list: ["name","location",'tv_ad_daily_cost', 'radio_ad_daily_cost','instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost', 'poster_campaign_daily_cost',
-'digital_daily_cost']
-bool_to_numeric_col_list: ["is_raining","is_public_holiday","is_school_holiday","is_pandemic_restrictions"]
+columns_to_drop_list: ["name","location"]
+bool_to_numeric_col_list: ["is_daily_rainfall_total_mm","is_public_holiday","is_school_holiday","is_pandemic_restrictions"]
 
-include_tsfresh: False
-include_lightweight_mmm: False
-# parameters for inference module
-lag_sales_date_range: #date formate have to be yyyy-mm-dd (must be 14 days)
-        { "start_date": "2023-03-04", "end_date": "2023-03-17" }
-ordinal_columns:
-    { "cat_covid_group_size_cap": ["2", "5", "8", "10", "no limit"] }
-# inference_columns_rename_map: { "max_temp": "temp_max", }
-inference_columns_rename_map: {"propensity_factor": "factor"}
+include_tsfresh: True
 artefact_fold: "fold1" # best fold from training. E.g fold1 or fold2 etc 
 enable_explainability: True

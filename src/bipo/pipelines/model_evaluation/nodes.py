@@ -86,7 +86,7 @@ def predict(
     bin_labels_list = params_dict["binning_dict"][target_feature_name]
 
     # Check validity of entries. Assign constants from default
-    valid_model_name_list = conf_constants["modeling"]["valid_model_name"]
+    valid_model_name_list = conf_constants["modeling"]["valid_model_name_list"]
     if model_name not in valid_model_name_list:
         logger.error(
             f"Invalid mode detected and does not belong to either of  {valid_model_name_list}"
@@ -94,7 +94,7 @@ def predict(
         logger.info(
             f"Using default model name: {conf_constants['modeling']['model_name_default']}"
         )
-        model_name = conf_constants["modeling"]["model_name_default"]
+        model_name = conf_constants["modeling"]["default_model"]
 
     logger.info(f"Predicting test data {X_df.shape}")
 

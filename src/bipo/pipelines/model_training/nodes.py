@@ -88,15 +88,12 @@ def train_model(
     )
 
     # Check validity of model name
-    valid_model_name_list = conf_constants["modeling"]["valid_model_name"]
+    valid_model_name_list = conf_constants["modeling"]["valid_model_name_list"]
     if model_name not in valid_model_name_list:
         logger.error(
-            f"Invalid mode detected and does not belong to either of  {valid_model_name_list}"
+            f"Invalid mode detected and does not belong to either of  {valid_model_name_list}. Using default model name: {conf_constants['modeling']['default_model']}"
         )
-        logger.info(
-            f"Using default model name: {conf_constants['modeling']['model_name_default']}"
-        )
-        model_name = conf_constants["modeling"]["model_name_default"]
+        model_name = conf_constants["modeling"]["default_model"]
 
     # Read parameters for instantiating necessary models
     logger.info(f"Instantiating {model_name} with necessary parameters")
@@ -115,7 +112,7 @@ def train_model(
 
         except KeyError:
             logger.info(
-                "Unable to reference required parameters for ebm model due to key error. Using default settings..."
+                "Unable to reference required parameters for ebm model due to key error. Using default settings.."
             )
             ebm_params_const_dict = conf_constants["modeling"]["ebm"]
             # Read off defaults from constants.yml
@@ -173,11 +170,20 @@ def train_model(
                 f"Using default parameters for ebm:{ordered_model_params_const_dict}"
             )
 
-        # Instantiate and fit OrderedModel with parameters
-        model = OrderedModel(y_train_df, X_train_df, distr=distr)
-        logger.info(f"Instantiated OrderedModel with parameters {distr}")
-        trained_model = model.fit(method=method, maxiter=max_iter, disp=True)
-
+        try:
+            # Instantiate and fit OrderedModel with parameters with constant check to for any implicit constant since explicit constants should have been excluded during model_specific_preprocesing
+            model = OrderedModel(y_train_df, X_train_df, distr=distr)
+            logger.info(
+                f"Attempting to fit OrderedModel with parameters {distr} on assumption that there are no implicit constants."
+            )
+            trained_model = model.fit(method=method, maxiter=max_iter, disp=True)
+        except ValueError:
+            logger.info(
+                "OrderedModel has identified an implicit constant in data, refitting for overparameterised data by setting hasconst=False, to override constant check..."
+            )
+            # Instantiate and fit OrderedModel with parameters
+            model = OrderedModel(y_train_df, X_train_df, distr=distr, hasconst=False)
+            trained_model = model.fit(method=method, maxiter=max_iter, disp=True)
         # Run MLflow tracking if enabled
         if enable_mlflow:
             mlflow_tracking(params_dict, model_params_dict)

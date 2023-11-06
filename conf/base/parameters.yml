@@ -2,20 +2,14 @@
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://docs.kedro.org/en/0.18.10/kedro_project_setup/configuration.html#parameters
-general:
-    raw_target_feature: "proxy_revenue"
-    target_feature: "binned_proxy_revenue"
-    revenue_number_of_bins: 4
 
-outlet_column_name: "costcentrecode"
-#number of days for lag sales 
-lookback_period: 14 
-
-####### Datapreprocess configurations
+####### Datapreprocess configurations.
+# Start and end date should be in YYYY-MM-DD format. Example: 2021-01-01
 start_date: "2021-01-01"
 end_date: "2022-12-31"
 
-# Caters to % instances of zero valued causing binning issue. Between 0 and 100
+# Caters to % instances of zero valued causing binning issue. Between 0 and 100.
+# Other values would be overriden by constants.yml
 zero_val_threshold_perc: 2
 # List of costcentre/outlets to exclude from pipeline
 outlets_exclusion_list: []
@@ -27,7 +21,7 @@ outlets_exclusion_list: []
 # Date, costcentrecode, manhours, proxyrevenue, location, outlet, type,daily_rainfall_total_mm, highest_30_min_rainfall_mm, highest_60_min_rainfall_mm,highest_120_min_rainfall_mm, mean_temperature_c, maximum_temperature_c,minimum_temperature_c, mean_wind_speed_kmh, max_wind_speed_kmh, factor,group_size_cap, school_holiday, school_holiday_type, public_holiday,public_holiday_type, day, name, tv_ad,radio_ad, instagram_ad,facebook_ad,youtube_ad, poster_campaign, digital
 
 ###### Time agnostic feature engineering section
-# List of columns to be after feature engineering (not including tsfresh, lightweightmmm)
+# List of columns to be after feature engineering (not including tsfresh)
 fe_columns_to_drop_list: [
     "day",
     "location",
@@ -44,8 +38,7 @@ fe_columns_to_drop_list: [
     "public_holiday_type",
 ]
 
-# Impute values for marketing columns which no marketing event occurs.
-# Values either a scalar or dict
+# Column representing marketing event column
 fe_mkt_column_name: "name"
 
 # Dictionary containing values for imputation related to marketing features excluding marketing campaign.
@@ -62,15 +55,19 @@ mkt_columns_to_impute_dict: {
 # -----------------------------------------------------------------------
 ###### Time-agnostic features categorsiation. 
 
-
 # NOTE: Parameters prefixed with 'fe' are columns which would be dropped after relevant encoding/transformation. They are depended by the code for conducting such activity.
 
 #Possible options: simple_split, expanding_window or sliding_window.
-split_approach_source: "expanding_window" 
-fold: 1  #Fold to use
+split_approach_source: "expanding_window"
 
-### Column specific features for feature engineer involving conversion to boolean state based on hard coded condition.
-# Weather related column for use in creating 'is_raining' feature.
+# 
+outlet_column_name: "costcentrecode"
+#
+##########################
+# Column specific features for feature engineer involving conversion to boolean state based on hard coded condition. This would not need to be changed so long as there is no change in the names of columns concerned
+##########################
+
+# Daily rainfall related column for use in creating 'is_raining' boolean feature.
 # Officially defined as having “rained” if the total rainfall for that day is 0.2mm or more.
 fe_rainfall_column: "daily_rainfall_total_mm"
 
@@ -83,8 +80,20 @@ fe_pandemic_column: "group_size_cap"
 # Columns to be applied differencing. List of list with inner list containing only 2 elements. Example [["minimum_temperature_c","maximum_temperature_c"]]
 columns_to_diff_list: [[]]
 
-# Holiday related columns to use for generating its equivalent boolean state: # "school_holiday", "public_holiday". A corresponding prefix 'is' will be appended to the specified list of column.
-fe_holiday_column_list: ["school_holiday", "public_holiday"]
+## Adstock 
+include_adstock: False
+adstock_value_threshold: 0.05 
+adstock_days_threshold: 60
+# marketing channel lag_weights 
+tv_ad_lag_weight: 0.5
+radio_ad_lag_weight: 0.5
+instagram_ad_lag_weight: 0.5
+facebook_ad_lag_weight: 0.5
+youtube_ad_lag_weight: 0.5
+poster_campaign_ad_lag_weight: 0.5
+digital_lag_weight: 0.5
+
+mkt_channel_list: ['tv_ad_daily_cost', 'radio_ad_daily_cost', 'instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost','poster_campaign_daily_cost', 'digital_daily_cost']
 # ----------------------------------------------------------------------
 ############### Time-dependent feature engineering
 
@@ -104,104 +113,97 @@ binning_dict: {
 }
 
 
-## Normalisation
-columns_to_std_norm_list: [] # Define columns to normalise based on above specified column information. Exclude lag features
-include_lags_columns_for_std_norm: True # set to False if all lag feature is not required for normalisation
-normalization_approach: "normalize" # "normalize", "standardize"
+## Normalisation subsection
+# Define columns to normalise based on above specified column information. Exclude lag features
+columns_to_std_norm_list: []
+
+# Whether to include lag columns for standardisation/normalisation.
+# Set to False if all lag feature is not required for normalisation
+include_lags_columns_for_std_norm: True
+
+# Config for using either standardisation/normalisation. Only "normalize", "standardize" supported.
+normalization_approach: "normalize"
 
 # ----------------------------------------------------------------------
-############################## Non time-dependent feature engineering
+############################## Additional feature engineering
 ### NOTE: Parameters prefixed with 'fe' are columns which would be dropped after relevant encoding/transformation. They are depended by the code for conducting such activity. 
 
-## Lag feature(s) generation
-columns_to_create_lag_features: ["proxyrevenue"] # Columns to create lag
-lag_periods_list: [9, 14] # List of lag periods to generate prior to split. Values should be positive integers
+## Lag feature(s) generation section
 
-# Sma features
-sma_window_periods_list: [7] # List of window size for aggregation
+## General lag features
+# Column used for lag feature generation
+columns_to_create_lag_features: ["proxyrevenue"]
 
-lag_week_periods_list: [1,2] # Week level equivalent of lag periods list
-# ----------------------------------------------------------------------
-## LightweightMMM related features.
+# List of lag periods to generate prior to split. Values should be positive integers
+lag_periods_list: [9, 14]
 
-include_lightweightMMM: False  #Config that determines whether pipeline should include lightweightMMM. Either True/False.
+## Simple moving average lag generation
+# List of window sizes simple moving average
+sma_window_periods_list: [7]
 
-# Num of day lags for use in lightweightmmm, must be numeric
-lightweightmmm_num_lags: 7
-# True to normalize adstock values. Otherwise False. 
-lightweightmmm_adstock_normalise: True 
-# If lightweightmmm_optimise_parameters set to False, then use lightweightmmm_params to generate lightweightmmm features. 
-lightweightmmm_optimise_parameters: True
-
-
-# each parameter contains the same length of values as the total marketing channel cost, and the order of the marketing channels is identical to the order of the columns listed in fe_mkt_channel_list below.
-lightweightmmm_params: {
-    "lag_weight": [
-      0.7025092840194702,
-      0.9559807777404785,
-      0.7545639872550964,
-      0.7484495639801025,
-      0.9405289888381958,
-      0.6504644751548767,
-      0.7207008600234985
-    ],
-    "ad_effect_retention_rate": [
-      0.4963219165802002,
-      0.6495261788368225,
-      0.5482161045074463,
-      0.5484575033187866,
-      0.5822694897651672,
-      0.6404658555984497,
-      0.7346216440200806
-    ],
-    "peak_effect_delay": [
-      1.2488423585891724,
-      5.565805435180664,
-      1.9455510377883911,
-      1.8988547325134277,
-      1.8554285764694214,
-      1.6911286115646362,
-      1.8539011478424072
-    ]
-  }
-
-mkt_channel_list: ['tv_ad_daily_cost', 'radio_ad_daily_cost', 'instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost','poster_campaign_daily_cost', 'digital_daily_cost']
+# Week level equivalent of lag periods list to apply for weekly lags.
+lag_week_periods_list: [1,2]
 
 # ----------------------------------------------------------------------
-## Tsfresh related features
-include_tsfresh: False #Config that determines whether pipeline should include tsfresh. Either True/False.
+###### Tsfresh related features section
 
-run_tsfresh_fe: False # boolean either True or False
-tsfresh_feature_selection: True # boolean either True or False
+# Config that determines whether pipeline should include tsfresh. Either True/False.
+include_tsfresh: False
 
-tsfresh_entity: "week_sma" # either week or week_sma
+# Number of derived *tsfresh* features to use based on a derived list of tsfresh's combined_relevance_tables containing list of tsfresh features for each outlet that satisfies the `tsfresh_n_significant`, based on mean aggregated p-values sorted in ascending order.
 tsfresh_num_features: 20 # Numerical
-tsfresh_days_per_group: 7
-tsfresh_target_feature: "binned_proxyrevenue"
-# Specify features to do tsfresh engineering and selection. Can refer to added_features_list.json artefact for added engineered features. 
-tsfresh_features_list: ["proxyrevenue"]
-tsfresh_extract_relevant: True
-tsfresh_n_significant: 4
-tsfresh_num_outlets: 3
 
-filter_num_days: 365
+# Timeshift for *tsfresh* rolling time series' min/max timeshift parameter. Related to `tsfresh_features_list`.
+tsfresh_days_per_group: 7
+
+# Target feature which tsfresh feature generation relies on
+tsfresh_target_feature: "binned_proxyrevenue"
+
+# Feature which tsfresh rolling time series is applied, creating subwindows.
+tsfresh_features_list: ["proxyrevenue"]
+
+# Threshold determining which features should be statistically significant predictors for categorical target feature to be regarded as relevant
+tsfresh_n_significant: 4
+
+# Shared *Tsfresh* and *simple moving average* shift periods for the purpose of alignment in shift period. Based on the difference in number of days from the last date of predictions to be made and available data.
 sma_tsfresh_shift_period: 9
 
 # ----------------------------------------------------------------------
-########## Used for model_preprocessing module
-model: "ebm" # Model to use: "ordered_model" or "ebm"
-target_column_for_modeling: "binned_proxyrevenue" #For classification. We will use the binned column of the target column as defined above.
+########## Used for model specific preprocessing, also used for training module
 
-drop_columns_used_for_binning_encoding: True # Either true or false
-training_testing_mode: "training" # Mode of pipeline: training or testing
+# Used for specifying predicted feature when performing X,y split
+target_column_for_modeling: "binned_proxyrevenue"
 
-# MLflow Tracking Server
+# ----------------------------------------------------------------------
+########## Used for model training/evaluation
+
+## Model related and data fold related
+# Model to use: "ordered_model" or "ebm"
+model: "ebm"
+
+# Data fold to pick for training/evaluation purposes
+fold: 1
+
+## MLflow Tracking Server
+# Config that determines if mlflow is required.
 enable_mlflow: True
-is_remote_mlflow: False
-tracking_uri: "http://10.43.130.112:5005"
-experiment_name_prefix: "bipo" # Example experiment_name: bipo-ebm
 
-# ebm model explainability
+# Config that determines if MLflow server used is remote
+is_remote_mlflow: False
+
+# URI of MLflow server
+tracking_uri: "http://10.43.130.112:5005"
+
+# MLflow experiment name to use, example experiment_name: bipo-ebm
+experiment_name_prefix: "bipo"
+
+## Model explainability. Only EBM supported
+
+# Config that determines if explanability is required.
 enable_explainability: True
-output_type: "html" # png or html
-feature_to_explain_list: ["factor","is_weekday"] # any feature name, or empty
+
+# Output format to generate, either png or html
+output_type: "html"
+
+# any feature name of interest, or empty
+feature_to_explain_list: ["factor", "is_weekday"]

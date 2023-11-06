@@ -8,28 +8,26 @@ from kedro_datasets.pandas import CSVDataSet
 from bipo import settings
 from kedro.config import ConfigLoader
 from bipo_fastapi.hooks import hook_manager
-# from bipo_fastapi.load_data_catalog import catalog
+
 from bipo_fastapi.load_data_catalog import load_data_catalog
+
 # Create a logger for this module
 from bipo_fastapi.config import SETTINGS
 import logging
-conf_loader = ConfigLoader(conf_source=settings.CONF_SOURCE)
-conf_const = conf_loader.get("constants*")
-conf_inference = conf_loader.get("inference*")
+
+CONF_LOADER = ConfigLoader(conf_source=settings.CONF_SOURCE)
 LOGGER = logging.getLogger(settings.LOGGER_NAME)
 
 from bipo_fastapi.schemas import SalesAttributes, SalesPredictions, SalesPrediction
 from bipo_fastapi.common import explain_ebm_inference
 
-# from bipo.inference_pipeline.inference_pipeline import run_pipeline
 # import pipeline object from kedro_pipeline_test
 from bipo_fastapi.pipeline import main_pipeline
 from kedro.runner.sequential_runner import SequentialRunner
 
 
 class PredictionModel:
-    """
-    This class is used for making predictions with a trained model.
+    """This class is used for making predictions with a trained model.
 
     Attributes:
         model : The trained model.
@@ -58,16 +56,15 @@ class PredictionModel:
         Returns:
             DataFrames representation of dates_cost_centre and sales_attrs.
         """
-        # try:
         outlet_data = [attr.dict() for attr in sales_attrs.outlet_attributes]
         lag_sales_data = [attr.dict() for attr in sales_attrs.lag_sales_attributes]
         mkt_data = [attr.dict() for attr in sales_attrs.mkt_attributes]
 
-        # checks if the length of all the given input has the same length as the date input.
+        # Checks if the length of all the given input has the same length as the date input
         LOGGER.info(
             f"Checking if the length of all the given input has the same length as the date input."
         )
-        # get the date length from the dict and use as reference.
+        # Get the date length from the dict and use as reference
         reference_inference_length = len(list(outlet_data[0].values())[0])
         reference_lag_length = len(list(lag_sales_data[0].values())[0])
         for key, lst in outlet_data[0].items():
@@ -80,9 +77,9 @@ class PredictionModel:
                 LOGGER.error(
                     f"{key} has {len(lst)} inputs. Fields must have the same length as {list(lag_sales_data[0].keys())[0]}: {reference_lag_length}"
                 )
-        # convert the request inputs into dataframe
+        # Convert the request inputs into dataframe
         try:
-            # sales_data and lag_sales_data should only have 1 input. If more input is given, error will be raise
+            # Sales_data and lag_sales_data should only have 1 input. If more input is given, error will be raise
             if len(outlet_data) == 1 and len(lag_sales_data) == 1:
                 LOGGER.info(
                     f"Converting outlet_attributes and lag_sales_attributes request data into DataFrame"
@@ -95,7 +92,7 @@ class PredictionModel:
             )
 
         # Only mkt_date can have mulitple keys / dataframes
-        # If the mkt request field is left empty, by default a empty mkt df will be generated.
+        # If the mkt request field is left empty, by default a empty mkt df will be generated
         if len(mkt_data) >= 1:
             LOGGER.info(f"Mkt_attributes have {len(mkt_data)} request inputs")
             mkt_df_list = []
@@ -119,21 +116,23 @@ class PredictionModel:
             }
             mkt_df = pd.DataFrame(columns=columns)
 
-        # save intermediate csv files 
+        # Save intermediate csv files
+        conf_const = CONF_LOADER.get("constants*")
         LOGGER.info(f"Saving model input data.")
         output_intermediate_file(outlet_df, conf_const["inference"]["outlet_filename"])
-        output_intermediate_file(lag_sales_df, conf_const["inference"]["lag_sales_filename"])
+        output_intermediate_file(
+            lag_sales_df, conf_const["inference"]["lag_sales_filename"]
+        )
         output_intermediate_file(mkt_df, conf_const["inference"]["marketing_filename"])
 
-        # get date for inference (use model_input_df)
-        dates = outlet_df. iloc[:,0]
-        # get cost_centre_codes for labeling
+        # Get date for inference (use model_input_df)
+        dates = outlet_df.iloc[:, 0]
+        # Get cost_centre_codes for labeling
         cost_centre_codes = outlet_df.pop("cost_centre_code")
         return dates, cost_centre_codes
 
     def predict(self, sales_attrs: SalesAttributes) -> SalesPredictions:
-        """
-        This method is used to predict the sales classes using the trained model.
+        """This method is used to predict the sales classes using the trained model.
 
         Args:
             sales_attrs (SalesAttributes) : An instance of the SalesAttributes class.
@@ -146,35 +145,36 @@ class PredictionModel:
             output_intermediate_file(sales_attrs, "API_request", "json")
 
             LOGGER.info(f"Transforming API request to model's expected format.")
-            dates, cost_centre_codes = self.transform_attributes(
-                sales_attrs
-            )
-            # load data catalog after saving request as csv files
+            dates, cost_centre_codes = self.transform_attributes(sales_attrs)
+            # Load data catalog after saving request as csv files
             catalog = load_data_catalog()
-            # load model_input_data from kedro run pipeline
+            # Load model_input_data from kedro run pipeline
+            LOGGER.info("Generating model inputs")
             runner = SequentialRunner()
             output_dict = runner.run(
-            pipeline=main_pipeline, catalog=catalog, hook_manager=hook_manager
+                pipeline=main_pipeline, catalog=catalog, hook_manager=hook_manager
             )
-            # use the final node output in the pipeline as output_dict key
+            LOGGER.info("Completed generating model inputs")
+            # Use the final node output in the pipeline as output_dict key
             model_input_data = output_dict["processed_final_merged_df"]
             LOGGER.info(f"Executing model inference.")
-            
             # ebm
             if "ebm" in SETTINGS.PRED_MODEL_PATH:
-                predictions = self.model.predict_proba(
-                model_input_data
-                )
+                predictions = self.model.predict_proba(model_input_data)
                 # ebm model explainability
+                conf_inference = CONF_LOADER.get("inference*")
                 if conf_inference["enable_explainability"]:
-                    explain_ebm_inference(model=self.model,model_input_df =model_input_data,pred_y_list=predictions,date_list=dates)
+                    explain_ebm_inference(
+                        model=self.model,
+                        model_input_df=model_input_data,
+                        pred_y_list=predictions,
+                        date_list=dates,
+                    )
             # orderedmodel
             elif "ordered" in SETTINGS.PRED_MODEL_PATH:
                 predictions = self.model.model.predict(
                     self.model.params, exog=model_input_data
                 )
-            # Uncomment this line below to test 500 Internal Server Error with empty fields
-            # predictions = None
             LOGGER.info(f"Raw predictions generated: {predictions}")
 
             if predictions is not None:
@@ -220,8 +220,7 @@ def output_intermediate_file(
     base_filename: str,
     file_type: str = "csv",
 ) -> None:
-    """
-    Saves output data to a file (CSV or JSON) with a timestamped filename in the specified folder.
+    """Saves output data to a file (CSV or JSON) with a timestamped filename in the specified folder.
 
     Args:
         data (Union[pd.DataFrame, SalesPredictions]): The DataFrame or Pydantic model to save.
@@ -230,9 +229,9 @@ def output_intermediate_file(
     """
     try:
         if isinstance(data, pd.DataFrame) and file_type == "csv":
-            # save as partitioned dataset
+            # Save as partitioned dataset
             filename = f"{base_filename}.{file_type}"
-            file_path = Path(SETTINGS.INTERMEDIATE_OUTPUT_PATH)/base_filename
+            file_path = Path(SETTINGS.INTERMEDIATE_OUTPUT_PATH) / base_filename
             LOGGER.info(f"{file_path}")
             file_path_csv = str(file_path)
             data_dict = {filename: data}
@@ -256,9 +255,9 @@ def output_intermediate_file(
     except (TypeError, PermissionError, FileNotFoundError, IOError) as e:
         LOGGER.error(f"Failed to save intermediate data: {e}")
 
+
 def load_model(model_path: str):
-    """
-    This function loads the trained model from a pickle file.
+    """This function loads the trained model from a pickle file.
 
     Args:
         model_path (str): The path of the pickle file.
@@ -282,6 +281,7 @@ def load_model(model_path: str):
             return None
 
     return model
+
 
 # Loading the predictive model during the initialization of the module
 model = load_model(SETTINGS.PRED_MODEL_PATH)

@@ -1,7 +1,7 @@
 # This yml file is used primary for default configurations settings (fallback when parameters set in parameters.yml are invalid) and data schema related settings involving the key data features name which are used for processing related activities. They should only be changed in circumstances where data values or feature names has changed.
 
 
-# Used for dataloader
+####### Data loader defaults
 default_date_col: "Date" #Assume date col name for all input dataset
 default_propensity_factor_column: "Factor"
 default_mkt_channels_column: "Mode"
@@ -9,120 +9,54 @@ default_mkt_cost_column: "Total Cost"
 default_mkt_name_column: "Name"
 default_mkt_date_start_end_columns: ["Date Start", "Date End"]
 default_outlet_column: "CostCentreCode"
-columns_to_construct_date:
+default_columns_to_construct_date:
     weather_data: ["Year", "Month", "Day"]
     marketing_data: ["Date Start", "Date End"]
-
-# Used for data preprocessing
+# ----------------------------------------------------------------------
+####### Used for data preprocessing
 default_start_date: "2021-01-01" 
 default_end_date: "2022-12-31"
-default_revenue_column: "proxyrevenue" # Target column (lowercase due to dataloader column renaming)
+# Target column (lowercase due to dataloader column renaming)
+default_revenue_column: "proxyrevenue"
 default_const_value_perc_threshold: 0
 default_outlets_exclusion_list: []
 
-marketing_channel_list: ['tv_ad_daily_cost', 'radio_ad_daily_cost', 'instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost','poster_campaign_daily_cost', 'digital_daily_cost']
-
-# Fixed parameters
-inference:
-    # Used in data_preprocessing.py
-    # logging_name: "inference" # see logging.yml
-    inference_marketing_columns: [
-            "campaign_name",
-            "campaign_start_date",
-            "campaign_end_date",
-            "campaign_total_costs",
-        ] # order is important
-    campaign_column: "cat_mkt_campaign"
-    campaign_count_column: "count_mkt_campaign"
-    inference_lag_sales_columns: ["lag_sales"]
-    inference_location_columns:
-        [
-            "location",
-            "type",
-            "propensity_factor",
-            "is_raining",
-            "max_temp",
-            "is_public_holiday",
-            "is_school_holiday",
-        ]
-    # Used in feature_enginerring.py
-    inference_proxy_revenue_column: "proxy_revenue"
-    # Used in model_specific_fe.py
-    inference_columns_to_drop: ["cat_day_of_week", "cat_mkt_campaign"]
-    ohe_columns_to_drop: ["location_East", "type_carry-out"]
-    ohe_columns_to_add:
-        [
-            "location_East",
-            "location_West",
-            "location_North",
-            "type_carry-out",
-            "type_dine-in",
-        ]
-    column_order:
-        [
-            "cat_covid_group_size_cap",
-            "location_North",
-            "location_West",
-            "type_dine-in",
-            "temp_max",
-            "lag_14_days_proxy_revenue",
-            "count_mkt_campaign",
-            "lag_2_week_mean_weekly_proxy_revenue",
-            "cat_mkt_campaign_end",
-            "is_raining",
-            "propensity_factor",
-            "is_public_holiday",
-            "is_weekend",
-            "is_school_holiday",
-            "lag_9_days_proxy_revenue",
-            "sma_window_8_days_proxy_revenue",
-            "campaign_daily_cost",
-            "cat_mkt_campaign_start",
-            "is_having_campaign",
-            "sma_window_7_days_proxy_revenue",
-            "lag_1_week_mean_weekly_proxy_revenue",
-        ]
-
-# Generate marketing columns.
-default_marketing_channel_list: ['tv_ad_daily_cost', 'radio_ad_daily_cost', 'instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost','poster_campaign_daily_cost', 'digital_daily_cost']
-
-default_lightweightmmm_num_lags: 7
-
-# Default configurations for train/val/test days in case of misconfiguration
+# ----------------------------------------------------------------------
+####### Data Split default configurations for train/val/test days in case of misconfiguration
 data_split:
     training_days_default: 365
-    validation_days_default: 0
+    validation_days_default: 14
     testing_days_default: 14
     window_sliding_stride_days_default: 90
     window_expansion_days_default: 90
     simple_split_fold_default: 1 # Defaults if simple_split chosen but invalid fold stated
     window_split_fold_default: 3 # Defaults if sliding/expanding_window chosen but invalid fold stated
-    data_split_option_default: "simple_split" #Fallback defaults
     data_split_option_list: ["simple_split", "expanding_window", "sliding_window"]
-    data_split_fold_default: 1
+    data_split_option_default: "simple_split" #Fallback defaults
 
-# Defaults for model_specific_preprocessing module and validity values
+# ----------------------------------------------------------------------
+####### Model training default configurations in case of misconfiguration
 modeling:
-    training_testing_mode_default: "training"
-    valid_training_testing_modes: ["training","testing"]
-    model_name_default: "ebm"
-    valid_model_name: ["ordered_model", "ebm"]
+    valid_model_name_list: ["ebm", "ordered_model"]
+    default_model: "ebm"
     ebm:
         outer_bags: 10
         inner_bags:  0
         learning_rate: 0.01
         interactions: 0
         max_leaves: 3
-        min_samples_leaf: 2
         max_bins: 256
+        min_samples_leaf: 2
 
     ordered_model:
-        const_col_artefacts_path: "data/06_model_specific_preprocessing/ordered_model.pkl"
         distr: "probit"
         method: "bfgs"
         max_iter: 2
+
     explainability_filepath: "models/ebm_explanation/"
 
+# ----------------------------------------------------------------------
+###### Defaults used for inference pipeline
 inference:
     lag_sales_filename: "inference_lag_sales_data"
     marketing_filename: "inference_mkt_data"
@@ -132,8 +66,7 @@ inference:
     outlet_filepath: "data/08_model_inference_output/inference_outlet_data/inference_outlet_data.csv"
     lag_sales_partition_filepath: "data/08_model_inference_output/inference_lag_sales_data"
     # artefacts 
-    tsfresh_relevant_features_filepath: "data/05_feature_engineering/tsfresh_features/tsfresh_relevant_features"
-    lightweightmmm_params_filepath: "data/05_feature_engineering/lightweightmmm_features/artefacts"
+    tsfresh_relevant_features_filepath: "data/05_feature_engineering/tsfresh_features/artefacts/tsfresh_relevant_features"
     std_norm_filepath: "data/08_model_inference_output/std_norm_artefact"
     encoding_filepath: "data/08_model_inference_output/encoding_artefact"
     ebm_explain_filepath: "data/08_model_inference_output/ebm_explanation"

@@ -310,7 +310,7 @@ def load_and_structure_weather_data(df: pd.DataFrame) -> pd.DataFrame:
         pd.DataFrame: Dataframe containing the mean aggregated weather data.
     """
     # Consturct date using defined columns from constants.yml
-    date_col_list = const_dict["columns_to_construct_date"]["weather_data"]
+    date_col_list = const_dict["default_columns_to_construct_date"]["weather_data"]
     try:
         logger.info(f"Constructing date from {date_col_list}")
         df[date_col_list] = df[date_col_list].astype(str)

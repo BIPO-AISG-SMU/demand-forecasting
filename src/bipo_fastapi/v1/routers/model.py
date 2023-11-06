@@ -11,9 +11,7 @@ router = APIRouter()
 
 @router.get("/version")
 def version():
-    """
-    Get version (UUID) of the model
-    - this endpoint returns the version (UUID) of the model currently loaded in the API.
+    """This endpoint receives a GET request and returns the version (UUID) of the model currently loaded in the API.
 
     Returns:
         dict: A dictionary with a single key-value pair. The key is "version" and the value is the model version (UUID).
@@ -27,20 +25,20 @@ def version():
     "/predict", response_model=SalesPredictions, status_code=status.HTTP_201_CREATED
 )
 def predict_sales(request: SalesAttributes, response: Response):
-    """
-    Predict sales classes based on the provided attributes.
-    - this endpoint receives a POST request containing a list of sales attributes,
-    - makes sales class predictions using a trained model, and
-    - returns the predictions.
+    """This endpoint receives a POST request and return sales prediction.
+
+    It handles the sales prediction process by validating request attributes, and invoking model inference.
 
     Args:
         request (SalesAttributes): A list of sales attributes for which to predict sales classes.
+        response (Response): FastAPI's Response object to handle HTTP response status.
+
+    Raises:
+        HTTPException: If the request data is invalid.
 
     Returns:
         SalesPredictions: A list of predicted sales classes.
 
-    Raises:
-        HTTPException: If the request data is invalid.
     """
 
     # Validate the sales request data

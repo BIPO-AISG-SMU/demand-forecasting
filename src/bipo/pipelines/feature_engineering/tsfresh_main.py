@@ -36,12 +36,12 @@ class TsfreshFe:
             df (pd.DataFrame): dataframe containing engineered endo and exo features.
             date_column (str): Date feature name
             target_feature (str): target feature name
-            days_per_group (int): window size for feature engineering.
+            days_per_group (int): Timeshift for *tsfresh* rolling time series' min/max timeshift parameter. Related to `tsfresh_features_list`.
             bin_labels_list (list): list of the bin labels
-            tsfresh_features_list (list): list of features to perform tsfresh feature engineering on
+            tsfresh_features_list (list): list of features where tsfresh rolling time series is applied.
             shift_period (int): Number of days to shift dataframe which is equal to the earliest lagged number of days for inference (difference between last inference date and last provided lagged date)
-            n_significant (int): number of classes for which features should be statistically significant predictors to be regarded as relevant.
-            num_features (int): number of top relevant features to keep.
+            n_significant (int): number of predicted target classes for which features should be statistically significant predictors to be regarded as relevant.
+            num_features (int): Number of derived *tsfresh* features to use based on a derived list of tsfresh's combined_relevance_tables containing list of tsfresh features for each outlet that satisfies the `tsfresh_n_significant`, based on mean aggregated p-values sorted in ascending order.
             relevant_features_dict (dict): dictionary of relevant features. Defaults to None.
 
         """
@@ -219,7 +219,7 @@ class TsfreshFe:
         """
         if len(relevance_table_list) == 1:
             combined_table_df = relevance_table_list[0]
-        # combine relevance tables
+        # Create a combined relevance table out of a list of relevance tables, aggregating the p-values and the relevances.
         elif len(relevance_table_list) > 1:
             combined_table_df = (
                 tsfresh.feature_selection.relevance.combine_relevance_tables(

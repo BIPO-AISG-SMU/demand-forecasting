@@ -38,7 +38,7 @@ def outlet_exclusion_list_check(outlet_exclusion_list: List) -> Set:
 
 
 def const_value_perc_check(perc_value: float) -> float:
-    """Function which conducts a percentage value check by type casting it into a valid float, clipping the value to the range between 0 and 100 (both values inclusive). Should float type casting fails, a default value referencing constants.yml is used.
+    """Function which conducts a percentage value check by type casting it into a valid floating value, clipping the value to the range between 0 and 100 (both values inclusive). Should float type casting fails, a default value referencing constants.yml is used.
 
     Args:
         perc_value (float): Floating value of percentage.
@@ -58,7 +58,7 @@ def const_value_perc_check(perc_value: float) -> float:
     except ValueError:
         perc_value_float = const_dict["default_const_value_perc_threshold"]
         logger.error(
-            f"Attempting to type cast {perc_value} to integer by failed. Using default values {perc_value_float}"
+            f"Attempting to type cast {perc_value} to float by failed. Using default values {perc_value_float}"
         )
     return perc_value_float
 
@@ -213,7 +213,7 @@ def merge_outlet_and_other_df_feature(
                 zero_val_threshold_perc / 100
             ):
                 logger.info(
-                    f"{outlet_partition_id} excluded as there exists value(s) which exceeds the defined threshold. Moving to the next.\n"
+                    f"{outlet_partition_id} excluded as the number of zero value which exceeds the defined threshold. Moving to the next outlet if applicable.\n"
                 )
                 continue
 

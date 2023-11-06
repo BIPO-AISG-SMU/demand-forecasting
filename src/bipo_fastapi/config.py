@@ -3,30 +3,27 @@ from typing import List
 
 from kedro.config import ConfigLoader
 from kedro.framework.project import settings
-# initiate to inference.yml and parameters.yml
-conf_loader = ConfigLoader(conf_source=settings.CONF_SOURCE)
-conf_inference_files = conf_loader.get("inference*")
-conf_params = conf_loader["parameters"]
 
-# output files:
-INTERMEDIATE_OUTPUT_PATH = conf_inference_files["file_paths"][
+# Initiate to inference.yml and parameters.yml
+CONF_LOADER = ConfigLoader(conf_source=settings.CONF_SOURCE)
+CONF_INFERENCE_FILES = CONF_LOADER.get("inference*")
+CONF_PARAMS = CONF_LOADER["parameters"]
+
+# Output files:
+INTERMEDIATE_OUTPUT_PATH = CONF_INFERENCE_FILES["file_paths"][
     "intermediate_output_path"
 ]
 
-# bin list (get from params, but will be changed after refactor)
-TARGET = conf_params["fe_target_feature_name"]
-BIN_LABEL_LIST = conf_params["binning_dict"][TARGET]
+# Bin list (get from params, but will be changed after refactor)
+TARGET = CONF_PARAMS["fe_target_feature_name"]
+BIN_LABEL_LIST = CONF_PARAMS["binning_dict"][TARGET]
 
-
-# path to model weights
-MODEL_PATH = conf_inference_files["file_paths"]["path_to_model"]
+# Path to model weights
+MODEL_PATH = CONF_INFERENCE_FILES["file_paths"]["path_to_model"]
 
 
 class Settings(BaseSettings):
-    """
-    Defines the application settings.
-
-    This class uses pydantic's BaseSettings for environment variable parsing.
+    """Defines the application settings using pydantic's BaseSettings.
 
     Attributes:
         API_NAME (str): The name of the API, default is "BIPO FastAPI".

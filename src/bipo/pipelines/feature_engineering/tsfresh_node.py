@@ -108,7 +108,7 @@ def run_tsfresh_feature_engineering_process(
     partitioned_outlet_input: Dict[str, pd.DataFrame],
     params_dict: Dict[str, Any],
 ) -> Dict:
-    """Function which performs tsfresh feature engineering involving tsfresh feature creation for each outlet data in each fold based on learnt tsfresh artefacts and outlet inputs
+    """Function which performs tsfresh feature engineering involving tsfresh feature creation for each outlet data in each fold based on learnt tsfresh artefacts and outlet inputs.
 
     Args:
         partitioned_tsfresh_artefacts_input (Dict[str, pd.DataFrame]): partitioned input for tsfresh relevant features json artefacts

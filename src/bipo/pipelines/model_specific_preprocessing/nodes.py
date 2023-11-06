@@ -36,11 +36,11 @@ def remove_unnecessary_columns_and_rows(
         Dict[str, pd.DataFrame]: A dictionary similar to input partitioned_data with identified columns and rows removed.
     """
 
-    # Identify parameters with 'fe' prefixes and outlet_column_name key
+    # Identify parameters with 'fe' prefixes and outlet_column_name
     fe_prefix_params = [
         params
         for params in params_dict
-        if params.startswith("fe") or params == "outlet_column_name"
+        if params.startswith("fe_") or params == "outlet_column_name"
     ]
 
     columns_to_drop = []
@@ -75,6 +75,7 @@ def remove_unnecessary_columns_and_rows(
             validated_col_list = list(
                 set(columns_to_drop).intersection(set(df.columns))
             )
+            logger.info("Existing columns before dropping any")
             logger.info(
                 f"Shape of data for {partition_id} before dropping {validated_col_list} is {df.shape}"
             )
@@ -94,24 +95,26 @@ def remove_unnecessary_columns_and_rows(
 def reorder_data(
     partitioned_input_training: Dict[str, pd.DataFrame],
     partitioned_input_validation: Dict[str, pd.DataFrame],
+    partitioned_input_testing: Dict[str, pd.DataFrame],
 ) -> OrdDict[str, pd.DataFrame]:
     """Function which pairs up files from training and validation subfolders containing fold-based merged outlets data in 'data' directory by using an OrderedDict to update corresponding alternating training, validation prefix folds before model training can be done.
 
     Args:
         partitioned_input_training (Dict[str, pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values for training data.
         partitioned_input_validation (Dict[str, pd.DataFrame): A dictionary with partition ids as keys and dataframe as values for validation data.
-
+        partitioned_input_testing (Dict[str, pd.DataFrame): A dictionary with partition ids as keys and dataframe as values for testing data.
     Returns:
         typing.OrderedDict[str, pd.DataFrame]): OrderedDict containing paired training and validation datasets updated in sorted partition ids.
     """
     ordered_dict = OrderedDict()
 
-    for training_outlet_folds, validation_outlet_folds in zip(
+    for training_outlet_folds, validation_outlet_folds, testing_outlet_folds in zip(
         sorted(partitioned_input_training, reverse=False),
         sorted(partitioned_input_validation, reverse=False),
+        sorted(partitioned_input_testing, reverse=False),
     ):
         logger.info(
-            f"Pairing {training_outlet_folds}, {validation_outlet_folds} in order"
+            f"Pairing {training_outlet_folds}, {validation_outlet_folds}, {testing_outlet_folds} in order"
         )
         # Pair training and validation in such order as they are related by name. Only difference is the use of different prefixes, training and validation for their purpose.
         ordered_dict[training_outlet_folds] = partitioned_input_training[
@@ -120,6 +123,9 @@ def reorder_data(
         ordered_dict[validation_outlet_folds] = partitioned_input_validation[
             validation_outlet_folds
         ]
+        ordered_dict[testing_outlet_folds] = partitioned_input_testing[
+            testing_outlet_folds
+        ]
 
     logger.info(f"Reordered files in the following order: {ordered_dict.keys()}.\n")
     return ordered_dict
@@ -127,13 +133,11 @@ def reorder_data(
 
 def identify_const_column(
     partitioned_input: Dict[str, pd.DataFrame],
-    params_dict: Dict[str, Any],
 ) -> Dict[str, List]:
     """Function which identifies the existence of constant column across dataframe residing in the partitioned_input dictionary.
 
     Args:
         partitioned_input (Dict[str, pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values.
-        params_dict (Dict[str, Any]): Dictionary referencing parameters.yml.
 
     Raises:
         None.
@@ -157,8 +161,11 @@ def identify_const_column(
         const_column_list = [
             col for col in partition_df.columns if partition_df[col].nunique() == 1
         ]
-        logger.info(f"Constant columns: {const_column_list} for {fold}")
 
+        if const_column_list:
+            logger.info(f"Found constant column(s): {const_column_list} for {fold}")
+        else:
+            logger.info(f"No constant column(s) found for {fold}")
         # Update dictionary
         const_column_dict[fold] = const_column_list
 
@@ -168,14 +175,12 @@ def identify_const_column(
 
 def remove_const_column(
     partitioned_input: Dict[str, pd.DataFrame],
-    params_dict: Dict[str, Any],
     const_column_dict: Dict[str, List],
 ) -> Dict[str, pd.DataFrame]:
     """Function which identifies columns with constant value (single unique value) and removes them from dataframes in partitioned_input containing fold-based merged outlets dataframe.
 
     Args:
         partitioned_input (Dict[str, pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values.
-        params_dict (Dict[str, Any]): Dictionary referencing parameters.yml.
         const_column_dict (Dict[str, List]): Dictionary containing fold-based columns which are constant (only 1 unique value)
 
     Returns:
@@ -216,7 +221,7 @@ def remove_const_column(
 
 def split_data_into_X_y_features(
     dataframe_dict: Dict[str, pd.DataFrame], params_dict: Dict[str, Any]
-) -> Tuple[Dict[str, pd.DataFrame], Dict[str, pd.DataFrame], Dict[str, pd.DataFrame]]:
+) -> Tuple[Dict[str, pd.DataFrame], Dict[str, pd.DataFrame]]:
     """Function which splits a provided dataframes residing in each entry of dataframe_dict based on a given target_column parameter into respective predictor and predicted components.
 
     Depending on the prefix of the input dataframe_dict keys, the dataframes are then categorised into training/validation/testing categories. It assumes the target_column passed in is valid.
@@ -229,9 +234,11 @@ def split_data_into_X_y_features(
         None.
 
     Returns:
-        Tuple[Dict[str, pd.DataFrame],Dict[str, pd.DataFrame], Dict[str, pd.DataFrame]]: Tuple of dictionaries similar to partitioned_input representing training, validation and testing datasets
+        Tuple[Dict[str, pd.DataFrame],Dict[str, pd.DataFrame]]: Tuple of dictionaries similar to partitioned_input representing training and validation datasets
     """
     target_column = params_dict["target_column_for_modeling"]
+
+    # Dictionary to store train/val/test partitions
     train_data_partition_dict = {}
     val_data_partition_dict = {}
     test_data_partition_dict = {}
@@ -247,7 +254,7 @@ def split_data_into_X_y_features(
         )
 
         y_df = df[[target_column]]
-        X_df = df.drop(target_column, axis=1).select_dtypes(exclude=["object"])
+        X_df = df.drop(columns=target_column).select_dtypes(exclude=["object"])
 
         # Drop columns with null. This could be caused by unseen encoding which may not appear in training data but instead validation data due to time period differences.
         nan_cols_list = [i for i in X_df.columns if X_df[i].isnull().any()]
@@ -261,7 +268,11 @@ def split_data_into_X_y_features(
         # to training_fold1_expanding_window
         filename_substring = "_".join(df_id.split("_")[0:5])
         # Update dict with splits
-        if df_id.startswith("train"):
+
+        logger.info(
+            f"Assigning {df_id} to either training/validation/testing partitions..."
+        )
+        if df_id.startswith("training"):
             train_data_partition_dict[f"{filename_substring}_X"] = X_df
             train_data_partition_dict[f"{filename_substring}_y"] = y_df
         elif df_id.startswith("validation"):
@@ -270,7 +281,6 @@ def split_data_into_X_y_features(
         elif df_id.startswith("testing"):
             test_data_partition_dict[f"{filename_substring}_X"] = X_df
             test_data_partition_dict[f"{filename_substring}_y"] = y_df
-
         logger.info(
             f"Created features of shape {X_df.shape} and target {y_df.shape} for {df_id}"
         )
