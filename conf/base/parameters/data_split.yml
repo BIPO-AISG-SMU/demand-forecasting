@@ -7,9 +7,9 @@
 
 # All parameters required
 simple_split:
-  training_days: 588 #Training days
-  testing_days: 71 #Test case (added after validation days)
-  validation_days: 71 #Validation (added after base_train_days)
+  training_days: 610 #Training days
+  testing_days: 60 #Test case (added after validation days)
+  validation_days: 60 #Validation (added after base_train_days)
   window_sliding_stride_days: 0 # Placeholder for config consistency DO NOT CHANGE THIS!!
   window_expansion_days: 0 # Placeholder for config consistency DO NOT CHANGE THIS!!
   split_approach: "simple_split"

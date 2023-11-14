@@ -168,3 +168,125 @@ def create_is_pandemic_feature(df: pd.DataFrame, pandemic_col: str) -> pd.DataFr
         logger.info(f"Unable to create a boolean representation of {pandemic_col}.\n")
 
     return df
+
+
+def create_marketing_counts_start_end_features(
+    df: pd.DataFrame,
+    mkt_campaign_col: str,
+    mkt_count_col_name: str,
+    mkt_start: str,
+    mkt_end: str,
+):
+    """Function which creates marketing start and marketing end indicator features based on provided 'mkt_campaign_col' feature info.
+
+    Args:
+        df (pd.DataFrame): Dataframe to be processed.
+        mkt_campaign_col (str): Specified marketing campaign column in dataframe to reference when processing dataframe.
+        mkt_count_col_name (str): Column name containing number of marketing events that are active.
+        mkt_start (str): Column name for an indicator feature representing start of a marketing event.
+        mkt_end (str): Column name for an indicator feature representing end of a marketing event.
+
+    Raises:
+        None
+
+    Returns:
+        pd.DataFrame: Updated dataframe with generated mkt_count_col_name,mkt_start and mkt_end columns.
+    """
+    if mkt_campaign_col in df.columns:
+        # Strip ",[,] symbols from marketing campaign col to facilitate event substring comparisons.
+        df[mkt_campaign_col] = df[mkt_campaign_col].map(
+            lambda x: x.strip('[]"') if not pd.isna(x) else ""
+        )
+
+        # Create a new features representing a up/down shift of marketing campaign col. This is used as part of condition involved in deciding if a date contains the start/end of a marketing event.
+        df[f"{mkt_campaign_col}_shift_down"] = (
+            df[mkt_campaign_col].shift().bfill(axis="rows")
+        )
+        df[f"{mkt_campaign_col}_shift_up"] = (
+            df[mkt_campaign_col].shift(-1).ffill(axis="rows")
+        )
+        # Check if an event also exist in previous time period through column comparison.
+        df["is_name_subset_as_prev"] = df.apply(
+            lambda x: x[mkt_campaign_col] in x[f"{mkt_campaign_col}_shift_down"],
+            axis=1,
+        )
+
+        # Get number of events for each day. Defaults to 0
+        df[mkt_count_col_name] = (
+            df[mkt_campaign_col]
+            .fillna("None")
+            .apply(lambda x: len(x.split(",")) if x else 0)
+        )
+
+        # Compare number of ongoing campaigns of between the day and the day before. For first entry without difference, treat as no change assuming event is a continuation.
+        df["mkt_count_diff_prev"] = df[mkt_count_col_name].diff(1)
+        df["mkt_count_diff_prev"].fillna(0, inplace=True)
+
+        # Construct condition for marketing start where 1) the day must have at least an event with its event name not being part of any events in previous time period; OR 2), if there is positive value when comparing total events occurring based on mkt_count_diff_prev col.
+        mkt_start_condition = (
+            (df[mkt_count_col_name] >= 1) & (df["is_name_subset_as_prev"] == False)
+        ) | (df["mkt_count_diff_prev"] > 0)
+
+        # Apply condition and set value to numeric.
+        df[mkt_start] = mkt_start_condition
+
+        # Similar to the case right above,
+        df["mkt_count_diff"] = df[mkt_count_col_name].diff()
+        df["mkt_count_diff"].fillna(0, inplace=True)
+
+        # Compare number of ongoing campaigns of between the day and the day before to identify if there is an increase in length which signifies new campaign AND there must be change in the marketing events. Alternatively, the increase in total events count as well indicates a start of new marketing event
+
+        # Construct condition for marketing start where the day must have at least an event with its event name not being part of any events in previous time period OR, if there is positive value when comparing total events occurring based on mkt_count_diff_next col.
+        mkt_start_condition = (
+            (df[mkt_count_col_name] >= 1) & (df["is_name_subset_as_prev"] == False)
+        ) | (df["mkt_count_diff_prev"] > 0)
+
+        # Apply condition and set value to numeric.
+        df[mkt_start] = mkt_start_condition
+
+        df[mkt_start] = (
+            pd.to_numeric(df[mkt_start], errors="coerce").fillna(0).astype(int)
+        )
+        # Compare number of ongoing campaigns of between the day and the day next. For last entry without difference, treat as no change assuming event continues.
+        df["mkt_count_diff_next"] = df[mkt_count_col_name].diff(-1)
+        df["mkt_count_diff_next"].fillna(0, inplace=True)
+
+        # Check if same event occurs for next day. For no event,
+        df["is_name_subset_as_next"] = df.apply(
+            lambda x: x[mkt_campaign_col] in x[f"{mkt_campaign_col}_shift_up"],
+            axis=1,
+        )
+
+        # For marketing end condition, check that 1) there is at least a marketing event AND the marketing event next day is not the same as current day; OR 2) that the next day total marketing event is lesser.
+        mkt_end_condition = (
+            (df[mkt_count_col_name] >= 1) & (df["is_name_subset_as_next"] == False)
+        ) | (df["mkt_count_diff_next"] > 0)
+        df[mkt_end] = mkt_end_condition
+        df[mkt_end] = pd.to_numeric(df[mkt_end], errors="coerce").fillna(0).astype(int)
+
+        logger.info(
+            f"Created a indicator features related to start/end for {mkt_campaign_col}"
+        )
+
+        # Drop created temporary columns
+
+        df.drop(
+            columns=[
+                "is_name_subset_as_prev",
+                "is_name_subset_as_next",
+                "mkt_count_diff_prev",
+                "mkt_count_diff_next",
+                f"{mkt_campaign_col}_shift_up",
+                f"{mkt_campaign_col}_shift_down",
+            ],
+            inplace=True,
+        )
+
+    else:
+        # Simply assume marketing counts, start and end of campaigns indicator are 0 if column required is wrongly referenced, i.e assume no marketing events info at all.
+        logger.error(
+            f"Unable to create a boolean indicator for start/end of a marketing event based on given column: {mkt_campaign_col} as it does not exist.\n"
+        )
+        data = {mkt_count_col_name: 0, mkt_start: 0, mkt_end: 0}
+        df = df.assign(**data)
+    return df[[mkt_count_col_name, mkt_start, mkt_end]]

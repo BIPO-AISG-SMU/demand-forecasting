@@ -33,7 +33,6 @@ def ordinal_encoding_fit(
     """
 
     ordinal_col_list = list(ordinal_columns_dict.keys())
-    ordinal_values_list = list(ordinal_columns_dict.values())
 
     logger.info(
         f"Number of features to be ordinal encoded: {len(ordinal_columns_dict)}"
@@ -43,9 +42,13 @@ def ordinal_encoding_fit(
     # Get object type columns (numerical values typecasted in string) which may be categorical
     df_column_set = set(df.columns)
 
-    # Find common columns:
+    # Find valid columns referencing dataframe:
     corrected_ordinal_col_list = list[(df_column_set).intersection(ordinal_col_set)]
 
+    # Get the relevant values from
+    ordinal_values_list = [
+        list(ordinal_columns_dict[col]) for col in corrected_ordinal_col_list
+    ]
     df[corrected_ordinal_col_list] = df[corrected_ordinal_col_list].astype(str)
 
     logger.info(
@@ -56,12 +59,14 @@ def ordinal_encoding_fit(
 
     ord_encoder = OrdinalEncoder(
         categories=ordinal_values_list,
-        handle_unknown="error",
+        handle_unknown="use_encoded_value",
+        unknown_value=-1,  # For unknown categories
+        encoded_missing_value=-1,  # For missing values
     )
 
-    logger.info(f"Encoding fit on {ordinal_features_list}")
+    logger.info(f"Applying ordinal fit valid columns: {corrected_ordinal_col_list}")
     # fit other columns (artefacts saved)
-    ord_encoder.fit(df[ordinal_features_list])
+    ord_encoder.fit(df[corrected_ordinal_col_list])
 
     ordinal_encoding_dict[f"{fold}_ord"] = ord_encoder
     return ordinal_encoding_dict
@@ -87,7 +92,7 @@ def ordinal_encoding_transform(
     # Retrieve feature names seen during fit by ordinalencoder
     ordinal_features_list = ordinal_encoder.feature_names_in_
 
-    logger.info(f"Applying ordinal encoding on {ordinal_features_list}")
+    logger.info(f"Applying ordinal encoding with features: {ordinal_features_list}")
 
     # Create new columns representing ordinal encoded feature
     try:

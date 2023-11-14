@@ -58,7 +58,7 @@ mkt_columns_to_impute_dict: {
 # NOTE: Parameters prefixed with 'fe' are columns which would be dropped after relevant encoding/transformation. They are depended by the code for conducting such activity.
 
 #Possible options: simple_split, expanding_window or sliding_window.
-split_approach_source: "expanding_window"
+split_approach_source: "simple_split"
 
 # 
 outlet_column_name: "costcentrecode"

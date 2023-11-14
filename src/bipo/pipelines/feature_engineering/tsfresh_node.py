@@ -89,10 +89,9 @@ def run_tsfresh_feature_selection_process(
         if relevance_table_list:
             # To store fold based outlet relevant features
             relevant_features_dict = get_common_outlet_relevant_features(
-                relevance_table_list
+                relevance_table_list, params_dict
             )
-
-        if not relevant_features_dict or not relevance_table_list:
+        else:
             logger.info(f"No relevant features generated for {fold}")
             relevant_features_dict = {}
         # Save as artefacts dictionary for current fold
@@ -206,7 +205,7 @@ def feature_engineering_by_outlet(
 
 
 def get_common_outlet_relevant_features(
-    relevance_table_list: List[Union[pd.DataFrame, None]],
+    relevance_table_list: List[Union[pd.DataFrame, None]], params_dict: Dict[str, Any]
 ) -> Dict[str, float]:
     """Function which combines multiple outlets' relevance tables
 
@@ -218,17 +217,30 @@ def get_common_outlet_relevant_features(
         Dict[str, float]: Dictionary of relevant features that is in a suitable format for tsfresh extract features.
     """
     logger.info(f"Relevant features generated for {len(relevance_table_list)} outlets.")
-
+    target_feature = params_dict["fe_target_feature_name"]  # Raw target column
+    tsfresh_features = TsfreshFe(
+        df=pd.DataFrame(),
+        date_column=constants["default_date_col"],
+        target_feature=params_dict["tsfresh_target_feature"],
+        days_per_group=params_dict["tsfresh_days_per_group"],
+        bin_labels_list=params_dict["binning_dict"][target_feature],
+        tsfresh_features_list=params_dict["tsfresh_features_list"],
+        shift_period=params_dict["sma_tsfresh_shift_period"],
+        n_significant=params_dict["tsfresh_n_significant"],
+        num_features=params_dict["tsfresh_num_features"],
+        relevant_features_dict=None,
+    )
     # For case of only single relevance table, take as it is, otherwise use tsfresh combine_relevance_tables
     if len(relevance_table_list) == 1:
         combined_relevance_table = relevance_table_list[0]
+        combined_relevance_table.sort_values("p_value", inplace=True)
+        combined_relevance_table = combined_relevance_table.iloc[
+            : params_dict["tsfresh_num_features"]
+        ]
     else:
-        combined_relevance_table = (
-            tsfresh.feature_selection.relevance.combine_relevance_tables(
-                relevance_table_list
-            )
+        combined_relevance_table = tsfresh_features.combine_relevance_table(
+            relevance_table_list
         )
-
     # Retrieve values of combined relevance tables
     features = combined_relevance_table["feature"].values
     logger.info(f"{len(features)} relevant features selected after combination.")

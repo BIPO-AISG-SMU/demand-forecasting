@@ -4,7 +4,6 @@ from kedro.pipeline.modular_pipeline import pipeline
 from .nodes import (
     segregate_outlet_based_train_val_test_folds,
     create_bool_feature_and_differencing,
-    no_mkt_days_imputation,
     drop_columns,
     create_mkt_campaign_counts_start_end,
     merge_fold_partitions_and_gen_mkt_data,
@@ -51,14 +50,8 @@ def create_pipeline(**kwargs) -> Pipeline:
                 name="time_agnostic_fe_merge_mkt_adstock",
             ),
             node(
-                func=no_mkt_days_imputation,
-                inputs=["merged_folds_mkt_and_adstock", "parameters"],
-                outputs="no_mkt_imputation_data",
-                name="time_agnostic_fe_no_mkt_days_imputation",
-            ),
-            node(
                 func=create_bool_feature_and_differencing,
-                inputs=["no_mkt_imputation_data", "parameters"],
+                inputs=["merged_folds_mkt_and_adstock", "parameters"],
                 outputs="bool_feature_and_diff_data",
                 name="time_agnostic_fe_create_bool_feature_and_differencing",
             ),

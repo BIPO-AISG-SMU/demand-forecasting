@@ -10,7 +10,6 @@ scipy==1.10.1
 statsmodels==0.14.0
 openpyxl==3.1.2
 mlflow==2.7.1
-lightweight-mmm==0.1.9
 tsfresh==0.20.1
 memory-profiler==0.61.0
 ## unnecessary packages for docker

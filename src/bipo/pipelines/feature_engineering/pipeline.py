@@ -51,7 +51,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "parameters",
                     "binning_encodings_dict",
                 ],
-                outputs="equal_freq_binning_fit_training",
+                outputs="feature_engineering_training",
                 name="feature_engr_apply_binning_transform_training",
             ),
             node(  # Handles validation set
@@ -61,7 +61,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "parameters",
                     "binning_encodings_dict",
                 ],
-                outputs="equal_freq_binning_fit_validation",
+                outputs="feature_engineering_validation",
                 name="feature_engr_apply_binning_transform_validation",
             ),
             node(  # Handles testing set
@@ -71,50 +71,10 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "parameters",
                     "binning_encodings_dict",
                 ],
-                outputs="equal_freq_binning_fit_testing",
+                outputs="feature_engineering_testing",
                 name="feature_engr_apply_binning_transform_testing",
             ),
-            ## Standardisation/Normalisation nodes.
-            node(
-                func=apply_standard_norm_fit,
-                inputs=[
-                    "equal_freq_binning_fit_training",
-                    "parameters",
-                ],
-                outputs="std_norm_encoding_dict",
-                name="feature_engr_apply_standard_norm_fit",
-            ),
-            node(  # Handles training set
-                func=apply_standard_norm_transform,
-                inputs=[
-                    "equal_freq_binning_fit_training",
-                    "parameters",
-                    "std_norm_encoding_dict",
-                ],
-                outputs="feature_engineering_training",
-                name="feature_engr_apply_standard_norm_transform_training",
-            ),
-            node(  # Handles validation set
-                func=apply_standard_norm_transform,
-                inputs=[
-                    "equal_freq_binning_fit_validation",
-                    "parameters",
-                    "std_norm_encoding_dict",
-                ],
-                outputs="feature_engineering_validation",
-                name="feature_engr_apply_standard_norm_transform_validation",
-            ),
-            node(  # Handles testing set
-                func=apply_standard_norm_transform,
-                inputs=[
-                    "equal_freq_binning_fit_testing",
-                    "parameters",
-                    "std_norm_encoding_dict",
-                ],
-                outputs="feature_engineering_testing",
-                name="feature_engr_apply_standard_norm_transform_testing",
-            ),
-        ],
+        ]
     )
 
     # Pipeline for generating tsfresh derived features only. Input continues off the last node of feature_engineering_pipeline_instance
@@ -233,22 +193,62 @@ def create_pipeline(**kwargs) -> Pipeline:
                 outputs="merged_lag_features_testing",
                 name="feature_engr_merge_fold_and_generated_lag_testing",
             ),
-            # Concatenate data folds
+            ## Standardisation/Normalisation nodes.
+            node(
+                func=apply_standard_norm_fit,
+                inputs=[
+                    "merged_lag_features_training",
+                    "parameters",
+                ],
+                outputs="std_norm_encoding_dict",
+                name="feature_engr_apply_standard_norm_fit",
+            ),
+            node(  # Handles training set
+                func=apply_standard_norm_transform,
+                inputs=[
+                    "merged_lag_features_training",
+                    "parameters",
+                    "std_norm_encoding_dict",
+                ],
+                outputs="merged_lag_features_training_transform",
+                name="feature_engr_apply_standard_norm_transform_training",
+            ),
+            node(  # Handles validation set
+                func=apply_standard_norm_transform,
+                inputs=[
+                    "merged_lag_features_validation",
+                    "parameters",
+                    "std_norm_encoding_dict",
+                ],
+                outputs="merged_lag_features_validation_transform",
+                name="feature_engr_apply_standard_norm_transform_validation",
+            ),
+            node(  # Handles testing set
+                func=apply_standard_norm_transform,
+                inputs=[
+                    "merged_lag_features_testing",
+                    "parameters",
+                    "std_norm_encoding_dict",
+                ],
+                outputs="merged_lag_features_testing_transform",
+                name="feature_engr_apply_standard_norm_transform_testing",
+            ),
+            # Concatenate all outlets in each data
             node(  # Handles training set
                 func=concat_same_folds_of_outlet_data,
-                inputs="merged_lag_features_training",
+                inputs="merged_lag_features_training_transform",
                 outputs="concatenated_folds_training",
                 name="feature_engr_preprocess_concat_same_folds_of_outlet_data_training",
             ),
             node(  # Handles validation set
                 func=concat_same_folds_of_outlet_data,
-                inputs="merged_lag_features_validation",
+                inputs="merged_lag_features_validation_transform",
                 outputs="concatenated_folds_validation",
                 name="feature_engr_preprocess_concat_same_folds_of_outlet_data_validation",
             ),
             node(  # Handles testing set
                 func=concat_same_folds_of_outlet_data,
-                inputs="merged_lag_features_testing",
+                inputs="merged_lag_features_testing_transform",
                 outputs="concatenated_folds_testing",
                 name="feature_engr_preprocess_concat_same_folds_of_outlet_data_testing",
             ),

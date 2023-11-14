@@ -10,6 +10,7 @@ from .feature_indicator_diff_creation import (
     create_is_holiday_feature,
     create_is_raining_feature,
     create_is_pandemic_feature,
+    create_marketing_counts_start_end_features,
 )
 
 logger = logging.getLogger(settings.LOGGER_NAME)
@@ -76,11 +77,10 @@ def create_mkt_campaign_counts_start_end(
         params_dict (Dict[str, Any]): Dictionary containing parameters referenced from parameters.yml.
 
     Raises:
-        None
+        None.
 
     Returns:
-        Tuple containing:
-        - pd.DataFrame: Updated marketing dataframe with generated boolean column.
+        pd.DataFrame: Dataframe containing generated marketing features.
     """
     mkt_campaign_col = params_dict["fe_mkt_column_name"]
     logger.info(f"Processing marketing campaign name column: {mkt_campaign_col}")
@@ -98,53 +98,36 @@ def create_mkt_campaign_counts_start_end(
     default_date_col = conf_const["default_date_col"]
 
     # Convert new datetimeindex to dataframe. Drop excess column when converting datetime index to dataframe
-    new_df = pd.date_range(
-        start=start_date,
-        end=end_date,
-        freq="D",
-    ).to_frame(name=default_date_col)
-
+    new_df = (
+        pd.date_range(
+            start=start_date,
+            end=end_date,
+            freq="D",
+        )
+        .to_frame(name=default_date_col)
+        .set_index(default_date_col)
+    )
     # Ensure index is converted to datetime
     new_df.index = pd.to_datetime(new_df.index, format="%Y-%m-%d")
+    new_df.index.name = default_date_col
+
+    if default_date_col in df.columns:
+        df.set_index(default_date_col, inplace=True)
     df.index = pd.to_datetime(df.index, format="%Y-%m-%d")
 
     # Use new_df as a base for df to be joined to based on index, which is time
-    df = new_df.join(df)
-    if mkt_campaign_col in df.columns:
-        # Fill null with None before deriving number of campaigns as listed in the form of [Campaign1,Campaign2].Splitting a string without ',' results in itself.
-        df[mkt_count_col_name] = (
-            df[mkt_campaign_col]
-            .fillna("None")
-            .apply(lambda x: len(x.split(",")) if x else 0)
-        )
+    df = new_df.join(df, how="left")
 
-        # Compare number of ongoing campaigns of between the day and the day before to identify if there is an increase in length which signifies new campaign
-        df[mkt_start] = df[mkt_count_col_name].diff() > 0
-        # Due to differencing, we need to impute first entry. Set to 0 (false) by assuming that an event is unlikely to start on the first entry of the data.
-        df[mkt_start] = (
-            pd.to_numeric(df[mkt_start], errors="coerce").fillna(0).astype(int)
-        )
+    # Do imputation across all dates of interest where marketing events dont exist.
+    df = no_mkt_days_imputation(df, params_dict)
 
-        # Compare number of ongoing campaigns of between the day and the day before to identify if there is an decrease in length which signifies new campaign.
-
-        df[mkt_end] = df[mkt_count_col_name].diff() < 0
-        df[mkt_end] = pd.to_numeric(df[mkt_end], errors="coerce").astype(int)
-
-        # Due to differencing effect for ending of campaign,we need to shift the values up since calculation is applied on later index instead of previous time index. This results in last entry having null. Set to 0 (false) by assuming that an event is unlikely to end on the last entry of the data.
-        df[mkt_end] = df[mkt_end].shift(-1).fillna(0)
-
-        logger.info(
-            f"Created a indicator features related to start/end for {mkt_campaign_col}"
-        )
-
-    else:
-        # Assume marketing counts, start and end of campaigns indicator are 0 if wrong column is referenced.
-        logger.error(
-            f"Unable to create a boolean indicator for start/end of a marketing event based on given column: {mkt_campaign_col} as it does not exist.\n"
-        )
-        data = {mkt_count_col_name: 0, mkt_start: 0, mkt_end: 0}
-        df = df.assign(**data)
-    return df[[mkt_count_col_name, mkt_start, mkt_end]]
+    return create_marketing_counts_start_end_features(
+        df=df,
+        mkt_campaign_col=mkt_campaign_col,
+        mkt_count_col_name=mkt_count_col_name,
+        mkt_start=mkt_start,
+        mkt_end=mkt_end,
+    )
 
 
 def drop_columns(
@@ -238,7 +221,7 @@ def merge_mkt_data_and_adstock_data(
 
 
 def no_mkt_days_imputation(
-    partitioned_dict: Dict[str, pd.DataFrame], params_dict: Dict[str, Any]
+    df: pd.DataFrame, params_dict: Dict[str, Any]
 ) -> Dict[str, pd.DataFrame]:
     """Function which imputes dataframes from partitioned_dict with an imputation dictionary referenced from params_dict input for days where no marketing related activities exist.
 
@@ -258,24 +241,20 @@ def no_mkt_days_imputation(
         logger.info("Imputation dict provided is empty. Skipping this process.")
         return {id: load_func for (id, load_func) in partitioned_input.items()}
 
-    partition_output_dict = {}
     # Impute if dictionary is not empty.
-    for partition_id, df in partitioned_dict.items():
-        logger.info(
-            f"Imputing features based on provided imputation dictionary: {impute_dict}"
+    logger.info(
+        f"Imputing features based on provided imputation dictionary: {impute_dict}"
+    )
+    try:
+        # Impute cost values
+        df.fillna(impute_dict, inplace=True)
+
+    except KeyError:
+        logger.error(
+            "Unable to impute with the provided keys into the dataframe. Some features might not be imputed.\n"
         )
-        try:
-            # Impute cost values
-            df.fillna(impute_dict, inplace=True)
 
-            partition_output_dict[partition_id] = df
-
-        except KeyError:
-            logger.error(
-                "Unable to impute with the provided keys into the dataframe. Some features might not be imputed.\n"
-            )
-
-    return partition_output_dict
+    return df
 
 
 def segregate_outlet_based_train_val_test_folds(
@@ -343,8 +322,10 @@ def segregate_outlet_based_train_val_test_folds(
     )
 
 
-def generate_adstock(marketing_df: pd.DataFrame, params_dict: Dict[str, Any])->pd.DataFrame:
-    """Generates adstock features from the daily costs of each marketing channel in the given marketing dataframe. 
+def generate_adstock(
+    marketing_df: pd.DataFrame, params_dict: Dict[str, Any]
+) -> pd.DataFrame:
+    """Generates adstock features from the daily costs of each marketing channel in the given marketing dataframe.
 
     Args:
         marketing_df: marketing dataframe

@@ -123,7 +123,7 @@ def train_model(
             max_bins = ebm_params_const_dict["max_bins"]
             max_leaves = ebm_params_const_dict["max_leaves"]
             min_samples_leaf = ebm_params_const_dict["min_samples_leaf"]
-            logger.info(f"Using default parameters for ebm:{ebm_params_const_dict}")
+            logger.error(f"Using default parameters for ebm:{ebm_params_const_dict}")
 
         logger.info("Instantiating EBM")
         model = ExplainableBoostingClassifier(
@@ -160,13 +160,13 @@ def train_model(
             ordered_model_params_const_dict = conf_constants["modeling"][
                 "ordered_model"
             ]
-            logger.info(
+            logger.error(
                 "Unable to reference required parameters for OrderedModel due to key error. Using default settings..."
             )
             distr = ordered_model_params_const_dict["distr"]
             method = ordered_model_params_const_dict["method"]
             max_iter = ordered_model_params_const_dict["max_iter"]
-            logger.info(
+            logger.error(
                 f"Using default parameters for ebm:{ordered_model_params_const_dict}"
             )
 
@@ -178,7 +178,7 @@ def train_model(
             )
             trained_model = model.fit(method=method, maxiter=max_iter, disp=True)
         except ValueError:
-            logger.info(
+            logger.error(
                 "OrderedModel has identified an implicit constant in data, refitting for overparameterised data by setting hasconst=False, to override constant check..."
             )
             # Instantiate and fit OrderedModel with parameters
@@ -339,7 +339,7 @@ def setup_remote_mlflow(remote_uri: str, experiment_name: str) -> None:
             mlflow.set_experiment(experiment_name)
             logger.info(f"Current experiment_name: {experiment_name}")
         else:
-            logger.warning(
+            logger.info(
                 f"Given experiment name '{experiment_name}' doesn't exist. MLflow will use the 'default' experiment name."
             )
         return True
