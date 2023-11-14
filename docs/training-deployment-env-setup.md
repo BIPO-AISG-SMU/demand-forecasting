@@ -29,7 +29,7 @@ This assumes that the dependencies has been installed in part 1.
 ~~~
 Expand-Archive -Path "100E_BIPO_final_deployment_20231019.zip" -DestinationPath "100E_BIPO_final_deployment_20231019" -Force
 ~~~
-2. After unzipping, do ensure that the subdirectories below are present as they would be mounted as volume to the Docker container.
+2. After unzipping, do ensure that the subdirectories below are present as they would be **mounted as a volume** to the Docker container.
 
 ```
 ├──/app/bipo_demand_forecasting/
@@ -48,7 +48,7 @@ Expand-Archive -Path "100E_BIPO_final_deployment_20231019.zip" -DestinationPath 
     |   ├── parameters/ 
     |   |   ├── data_split.yml
     |   |   └─ model_training.yml
-    |   └─ local/ (empty folder)
+    |   └─ local/ (empty folder, **to be created on host machine if missing**)
     |      └─ ...
     ├── data/ (to be bind mounted)
     ├── mlruns/ (to be bind mounted)
@@ -61,7 +61,7 @@ Expand-Archive -Path "100E_BIPO_final_deployment_20231019.zip" -DestinationPath 
     |   └── ordered_model.pkl
     |       └──/2023-10-19T02.40.38.841Z/
     |          └── ordered_model.pkl (Model file)
-    └── logs/ (to be bind mounted)
+    └── logs/ (to be bind mounted; **to be created on host machine if missing**)
 
 ```
 3. Run Docker Desktop application.

@@ -4,9 +4,9 @@
 
 This section contains information on key parameters from the files `parameters.yml`, `constants.yml` from `conf/base/` directory as well as yml files in `conf/base/parameters/` subdirectory, namely  `data_split.yml` file. Due to the volume of parameters, we will only include a selection for illustrative purposes. These files can be found in `conf/base/` directory.
 
-### Placement of configuration files
+### Location of Configuration Files
 
-There are two separate folder placements of yml files, namely in `conf/base/` and `conf/base/parameters`. Yml files placed in `conf/base` folder is primarily shared across different Kedro pipeline modules, to facilitate single configuration entrypoint that can be used across the entire pipeline. As for yml files in `conf/base/parameters`, they are identified by its module name naming convention (e.g `data_split.yml` in current context) governs the configuration control for a specific pipeline module, so as to facilitate possible experimentations of values.
+There are two separate directories containing .yml files, namely in `conf/base/` and `conf/base/parameters`. Those placed in `conf/base` are primarily shared across different Kedro pipelines, to facilitate single configuration entrypoint that can be used across the entire pipeline. On the other hand, files located in `conf/base/parameters` are identified by its module name naming convention (e.g. `data_split.yml`) and govern the configuration for a specific pipeline, so as to facilitate experimentation of configuration values.
 
 ## Key Parameters in `parameters.yml`
 
@@ -41,14 +41,29 @@ This sub-section outlines the key parameters in the `parameters.yml` configurati
 | `fe_rainfall_column` | `str` | Column representing daily total rainfall for the purpose of generating boolean indicator `is_raining` feature. <br /><br />**Condition is hardcoded based on assuming values exceeding 0.2 indicates a rainy day.** | 'daily_rainfall_total_mm'
 | `fe_holiday_column_list` | `list` | Columns referencing school and public holiday columns for the purpose of generating boolean indicator feature prefixed with `is_`. <br /><br /> **Condition is hardcoded based on assuming entries of the column as indication of non-holiday, Otherwise it indicates holiday.** | ['school_holiday', 'public_holiday'] |
 | `fe_pandemic_column` | `str` | Column representing pandemic restrictions imposed in terms of group size amount for generating a boolean indicator feature `is_pandemic_restrictions`. <br /><br />**Condition is hardcoded by checking if values = 'no limit' and setting to 0. Otherwise set to 1 to indicate restrictions.**  | 'group_size_cap' |
-| `columns_to_diff_list` | `list of list` | List of paired features in a inner list used for value differencing purposes. Generalisable to the format of [[...,...], [...,...], ...]. <br /> Example setting the value to `[["minimum_temperature_c","maximum_temperature_c"]]` indicates that feature differencing by `maximum_temperature_c` - `minimum_temperature_c` is to be implemented. | [[ ]] |
+| `columns_to_diff_list` | `list of list` | List of paired features in a inner list used for value differencing purposes. Generalisable to the format of [[...,...], [...,...], ...]. <br /> Example setting the value to `[["minimum_temperature_c","maximum_temperature_c"]]` indicates that feature differencing by `maximum_temperature_c` - `minimum_temperature_c` is to be implemented.|
 ---
+### Additional Feature Engineering: *Adstock features*
+
+| Parameter | Type | Description | Default Value |
+| --- | --- | --- | --- |
+| `include_adstock` | `bool` | Control that determines if adstock features should be included in feature engineering pipeline process. If False, the parameters below do not apply. | False |
+| `adstock_value_threshold` | `float` | Percentage of adstock value on the last campaign date to be used as the cut-off value, for stopping the generation of adstock values beyond the campaign duration. | 0.05 |
+| `adstock_days_threshold` | `int` | Number of days beyond the campaign duration to be used as the cut-off value, for stopping the generation of adstock values beyond the campaign duration. | 60 |
+| `tv_ad_lag_weight` | `float` | Lag weight for tv_ad  | 0.5 |
+| `radio_ad_lag_weight` | `float` | Lag weight for radio_ad | 0.5 |
+| `instagram_ad_lag_weight` | `float` | Lag weight for instagram_ad | 0.5 |
+| `facebook_ad_lag_weight` | `float` | Lag weight for facebook_ad | 0.5 |
+| `youtube_ad_lag_weight` | `float` | Lag weight for youtube_ad | 0.5 |
+| `poster_campaign_ad_lag_weight` | `float` | Lag weight for poster_campaign_ad | 0.5 |
+| `digital_lag_weight` | `float` | Lag weight for digital_ad | 0.5 |
+| `mkt_channel_list` | `list` | List of marketing cost features (represented with `daily_cost` suffix). | `['tv_ad_daily_cost', 'radio_ad_daily_cost', 'instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost','poster_campaign_daily_cost', 'digital_daily_cost']` |
 
 ### Time-Dependent Feature Engineering
 
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
-| `fe_target_feature_name` | `str` | Target feature of interest (predicted feature). Primarily referenced by *tsfresh* and *LightweightMMMM* feature engineering. | 'proxyrevenue' |
+| `fe_target_feature_name` | `str` | Target feature of interest (predicted feature). Primarily referenced by *tsfresh* feature engineering. | 'proxyrevenue' |
 | `fe_ordinal_encoding_dict` | `dict` | Dictionary containing columns to be ordinal encoded as key a list of labels as values. Simple example `{"type" : ["carry-out","dine-in"]}`. | {} |
 | `fe_one_hot_encoding_col_list` | `list` | List of columns to be one-hot encoded. Example `["type"]`. | ['type'] |
 | `binning_dict` | `dict` | Dictionary containing columns to be binned (equal frequncy binning) as keys and bin labels list as values. | { "proxyrevenue" : ['Low', 'Medium', 'High', 'Exceptional'] } |
@@ -66,20 +81,6 @@ This sub-section outlines the key parameters in the `parameters.yml` configurati
 | `sma_window_periods_list` | `list` | List of window size for simple moving average aggregation. | `[7]` |
 | `lag_week_periods_list` | `list` | List of lag periods in terms of weeks to be applied to when weekly average is calculated. | `[1, 2]` |
 | `sma_tsfresh_shift_period`  | `int` | Shared *Tsfresh* and *simple moving average* shift periods for the purpose of alignment in shift period. Based on the difference in number of days from the last date of predictions to be made and available data. <br/>Example, on 18th of a month prediction, for 20 to 26th is to be made, while data is only available up to 17th. Hence, there is a 9 days difference which a shift needs to be applied. In view of this, the training process needs to account for such consideration when inference is to be made. | 9 |
-
-### Additional Feature Engineering: *LightweightMMM*
-
-| Parameter | Type | Description | Default Value |
-| --- | --- | --- | --- |
-| `include_lightweightMMM` | `bool` | Control that determines if lightweightMMM should be included in feature engineering pipeline process. If False, the parameters below do not apply. | False |
-| `lightweightmmm_num_lags` | `int`  | Lags in days to be applied on lightweightmmm features are generated. Has no relation to other lag values used, based on week effect assumptions. | 7 |
-| `lightweightmmm_adstock_normalise` | `bool` | Control that determines if normalization of adstock values is required. | True |
-| `lightweightmmm_optimise_parameters` | `bool` | Control that determines if optimized lightweightmmm parameters as defined in `lightweightmmm_params` should be used. | True |
-| `lightweightmmm_params` | `dict` | Dictionary of optimal *lightweightMMM* weights learned for *lightweightMMM* features used. | - |
-| ↳ `lag_weight` | `list` | Learned lag weight parameters for each marketing cost channels. | `[0.7025, 0.9560, 0.7545, 0.7484, 0.9405, 0.6504, 0.7207]` |
-| ↳ `ad_effect_retention_rate` | `list` | Learned ad effect retention rates used by carryover for each marketing cost channels. | `[0.4963, 0.6495, 0.5482, 0.5484, 0.5822, 0.6404, 0.7346]`    |
-| ↳ `peak_effect_delay`  | `list` | Learned peak effect delay weights for each marketing cost channels. | `[1.2488, 5.5658, 1.9455, 1.8988, 1.8554, 1.6911, 1.8539]` |
-| `mkt_channel_list` | `list` | List of marketing cost features (represented with `daily_cost` suffix). | `['tv_ad_daily_cost', 'radio_ad_daily_cost', 'instagram_ad_daily_cost', 'facebook_ad_daily_cost', 'youtube_ad_daily_cost','poster_campaign_daily_cost', 'digital_daily_cost']` |
 
 ### Additional Feature Engineering: *tsfresh*
 
@@ -152,13 +153,6 @@ This file has two intended purposes:
 | ↳ `window_split_fold_default`. | `int` | Default fold number if "sliding_window" or "expanding_window" is chosen. | 3 |
 | ↳ `data_split_option_list` | `list` | List of available data split option. | ["simple_split", "expanding_window", "sliding_window"] |
 | ↳ `data_split_option_default` | `str` | Default data split when invalid option is provided. | "simple_split" |
----
-
-### Default Configurations for Feature Engineering
-
-| Parameter | Type | Description | Default Value |
-| --- | --- | --- | --- |
-| `default_lightweightmmm_num_lags` | `int`  | Default number of lags for *lightweightMMM*. | 7 |
 ---
 
 ## Key Parameters in `data_split.yml`
@@ -245,7 +239,7 @@ To initiate the pipeline:
 1. Open Windows Powershell.
 2. Navigate to the project root directory `bipo_demand_forecasting`.
 3. Execute the following command:
-    ```cmd
+    ```
     .\scripts\run_data_pipeline.bat
     ```
 

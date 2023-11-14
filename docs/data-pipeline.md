@@ -16,7 +16,6 @@ The respective modules are largely dependent on `pipeline.py` (comprises of func
 | `SG climate records 2021 - 2022.xlsx` | xlsx | Daily climate data from four key regions in Singapore. | BIPO |
 | `holiday_df.xlsx` | xlsx | Mapping of past dates to school holidays and public holidays in Singapore. | MOE Website, School Terms and Holidays for 2022 |
 ---
-<br />
 
 ## Design Architecture and Considerations:
 1. **Modularity**: Flexibility and maintainability of components.
@@ -34,13 +33,12 @@ The data pipeline architecture diagram below provides a high-level overview of t
 | Data Preprocessing | Combines all non-proxy revenue features with respective outlet proxy revenue files while filtering out outlets based on specified conditions. | `constants.yml`, `parameters.yml` | Preprocessed Data |
 | Data Merge | Combines individual processed outlet files into single file to facilitate time-based split handled in the next module. | - | Merged Outlet Data |
 | Data Split | Implements following configurable time-based data split as follows: <ul><li>Simple split;</li><li>Expanding window; and</li><li> Sliding_window.</li></ul> into following sets: <ul><li>Training;</li><li>Validation; and </li><li>Testing.</li></ul>| `constants.yml`, `parameters.yml`, `conf/base/data_split.yml` | Split Data              |
-| Time Agnostic Feature Engineering  | Feature engineering processes that are not time dependent. This includes:<ul><li>Boolean feature creation based on defined condition(s);</li><li>Differencing of (multiple) paired features; and</li><li>General value imputation.</li></ul> | `parameters.yml` | Feature Engineered Data |
-| Time Dependent Feature Engineering |Feature engineering processes that are time dependent. This includes:<ul><li>One-hot/Ordinal encoding;</li><li>Standardisation/Normalisation of values; and</li><li>*LightweightMMM* and *tsfresh* feature engineering.</li></ul> | `constants.yml`, `parameters.yml` | Feature Engineered Data |
+| Time Agnostic Feature Engineering  | Feature engineering processes that are not time dependent. This includes:<ul><li>Boolean feature creation based on defined condition(s);</li><li>Adstock feature engineering;</li><li>Differencing of (multiple) paired features; and</li><li>General value imputation.</li></ul> | `parameters.yml` | Feature Engineered Data |
+| Time Dependent Feature Engineering |Feature engineering processes that are time dependent. This includes:<ul><li>One-hot/Ordinal encoding;</li><li>Standardisation/Normalisation of values; and</li><li>*tsfresh* feature engineering.</li></ul> | `constants.yml`, `parameters.yml` | Feature Engineered Data |
 | Model-specific Preprocessing | Processes data based on specific requirements of the model (if necessary). Subsequently, conducts removal of data points containing null feature values or single valued columns.| `parameters.yml` | Model Input Data |
 ---
 
-^Note: `constants.yml` is as used as fallback when invalid values are set in `parameters.yml` OR assumed defaults for processing. Not all parameters are covered as applying default values do not make sense. **
-<br><br/>
+> Note: `constants.yml` is used as a fallback when invalid values are set in `parameters.yml` OR assumed defaults for processing. Not all parameters are covered as applying default values do not make sense. 
 
 ## 1. Data Loader
 This module focuses on ingesting and restructuring raw and multiple common time-indexed data into unique daily-based time-index representations, while unique daily records are merged based on common time-index. Files are then segregate into outlet proxy revenue and non revenue categories.
@@ -48,7 +46,6 @@ This module focuses on ingesting and restructuring raw and multiple common time-
 The diagram below provides a general overview of the module. 
 
 ![Pipeline Design](./assets/data_loader.png)
-<br />
 
 ### Input(s)
 | Component | Description | Data directory |
@@ -58,7 +55,6 @@ The diagram below provides a general overview of the module.
 | Unique daily records (csv/) | Folder containing csv files representing unique time-indexed to features mappings. | data/01_raw/unique_daily_records/csv/
 | Unique daily records (xlsx/) | Folder containing xlsx files representing unique time-indexed to features mappings. | data/01_raw/unique_daily_records/xlsx/
 ---
-<br />
 
 ### Output(s)
 | Component | Description | Data directory |
@@ -66,7 +62,6 @@ The diagram below provides a general overview of the module.
 | Non proxy revenue files | Folder containing processed time-indexed files representing various data sources in .csv which are non-proxy revenue. | data/02_dataloader/non_revenue_partitions/
 | Outlet proxy revenue files | Folder containing individual time-indexed outlet-based proxy revenue in .csv format. | data/02_dataloader/outlet_proxy_revenues/
 ---
-<br />
 
 ### **IMPORTANT NOTE, PLEASE NOTE:**
 - For pipeline execution with Kedro, Data Loader module needs to be executed first separately before executing other modules that follows subsequently.
@@ -82,7 +77,6 @@ The data_preprocessing module applies feature combining using all files non-prox
 The diagram below provides a general overview of the module. 
 
 ![Pipeline Design](./assets/data_preprocessing.png)
-<br />
 
 ### Input(s)
 | Component | Description | Data directory |
@@ -90,14 +84,12 @@ The diagram below provides a general overview of the module.
 | Non proxy revenue files | Folder containing processed time-indexed files representing various data sources in .csv format which are non-proxy revenue related. | data/02_dataloader/non_revenue_partitions/
 | Outlet proxy revenue files | Folder containing individual time-indexed outlet-based proxy revenue in .csv format. | data/02_dataloader/outlet_proxy_revenues/
 ---
-<br />
 
 ### Output(s)
 | Component | Description | Data directory |
 | --- | --- | --- |
 | Processed outlet datafiles | Folder containing individual time-indexed outlet-based proxy revenue with merged features in .csv format. | data/03_data_preprocessing/processed/ |
 ---
-<br />
 
 ## 3. Data Merge
 This module concatenates the individual outlet proxy revenue dataset files generated in previous module, [Data Preprocessing](#2-data-preprocessing) into a single file to facilitate time-index split which is handled in next module, [Data Split](#4-data-split).
@@ -105,14 +97,12 @@ This module concatenates the individual outlet proxy revenue dataset files gener
 The diagram below provides a general overview of the module.
 
 ![Pipeline Design](./assets/data_merge.png)
-<br />
 
 ### Input(s)
 | Component | Description | Data directory |
 | --- | --- | --- |
 | Processed outlet datafiles | Folder containing individual time-indexed outlet-based proxy revenue with merged features in .csv format. | data/03_data_preprocessing/processed/ | This data is then passed through different data splitting approaches like simple split, expanding window , and sliding window, as specified in the configuration file. |
 ---
-<br />
 
 ### Output(s)
 
@@ -120,9 +110,9 @@ The diagram below provides a general overview of the module.
 | --- | --- | --- |
 | Merged outlet datafiles | File containing merged time-indexed outlet-based proxy revenue with merged features in .csv format. | data/04_data_split/data_merged/data_merged.csv |
 ---
-<br />
 
-## 4. Data split
+## 4. Data Split
+
 This module takes the output of [Data Merge](#3-data-merge) and implements all **three** time-dependent data splits, namely 
 - simple split;
 - expanding window; and
@@ -133,14 +123,12 @@ Split parameters are configurable via `conf/base/parameters/data_split.yml`. Bef
 The diagram below provides a general overview of the module.
 
 ![Pipeline Design](./assets/data_split.png)
-<br />
 
 ### Input(s)
 | Component | Description | Data directory |
 | --- | --- | --- |
 | Merged outlet datafile | Single file containing all outlet-based proxy revenue in .csv format. | data/04_data_split/data_merged/data_merged.csv |
 ---
-<br />
 
 ### Output(s)
 | Component | Description | Data directory |
@@ -149,7 +137,6 @@ The diagram below provides a general overview of the module.
 | Expanding window split | Folder containing training, validation and testing datasets generated using expanding window time-index split configured by days. | data/04_data_split/expanding_window/ |
 | Sliding window split | Folder containing training, validation and testing datasets generated using sliding window time-index split configured by days. | data/04_data_split/sliding_window/ |
 ---
-<br />
 
 ## 5. Time-Agnostic Feature Engineering
 This module serves to facilitate feature engineering processes which are  time-agnostic based on configured data split source using fold information and name of data split as configured in `parameters.yml`. Upon completion of necessary feature engineering works, each training, validation and test folds are partitioned into files by outlets and stored in respective `training`, `validation` and `test` folders. 
@@ -174,9 +161,9 @@ The diagram below provides a general overview of the module.
 |`create_is_raining_feature` | Based on `fe_rainfall_column` parameter (string). Example feature used: `daily_rainfall_total_mm` | Set to 1 if column reference is greater than 0.2, else 0. | Appends a prefix 'is_' to column used. Example: `is_daily_rainfall_total_mm`|
 |`create_is_pandemic_feature` | Based on `fe_pandemic_column` parameter (string). Example feature used: `group_size_cap` | Set to 0 if column reference indicates "no limit", else 1 | `is_pandemic_restrictions` |
 |`create_mkt_campaign_counts_start_end`||||
+|`generate_adstock` | Based on `mkt_channel_list` parameter (list). Example feature used: `tv_ad_daily_cost` | Calculates the adstock values for each marketing channel daily cost. | Prefix `adstock_` is added to all columns used. Example: `adstock_tv_ad_daily_cost` |
 |`no_mkt_days_imputation`| Based on `mkt_columns_to_impute_dict` parameter (dict) | Utilises `mkt_columns_to_impute_dict` containing imputation values for specified marketing cost features for days without any marketing events.| No new features created. Only affects `tv_ad_daily_cost`, `radio_ad_daily_cost`, `instagram_ad_daily_cost`, `facebook_ad_daily_cost`, `youtube_ad_daily_cost`,`poster_campaign_daily_cost`, `digital_daily_cost` |
 ---
-<br />
 
 ### Input(s)
 
@@ -186,7 +173,6 @@ The diagram below provides a general overview of the module.
 | Expanding window split | Folder containing training, validation and testing datasets folds generated using expanding window time-index split configured by days. | data/04_data_split/expanding_window/ |
 | Sliding window split | Folder containing training, validation and testing datasets folds generated using sliding window time-index split configured by days. | data/04_data_split/sliding_window/ |
 ---
-<br />
 
 ### Output(s)
 
@@ -196,7 +182,6 @@ The diagram below provides a general overview of the module.
 | Validation dataset | Validation dataset folder containing fold-outlet files with engineered columns. | data/04a_time_agnostic_feature_engineering/sliding_window/validation/ |
 | Testing dataset | Testing dataset folder  containing fold-outlet files with engineered columns. | data/04a_time_agnostic_feature_engineering/sliding_window/testing/ |
 ---
-<br />
 
 ## 6. Time-Dependent Feature Engineering
 This module serves to facilitate feature engineering processes which are supposedly time-dependent (or time-sensitive) based on outputs generated under the previous section.
@@ -205,14 +190,12 @@ The key feature engineering works in this module are as follows:
 - One-hot and ordinal encodings
 - StandardScaler and Normalizer
 - Lag feature generation
-- *LightweightMMM* feature generation **(can be enabled/disabled via parameters.yml)**
 - *Tsfresh* feature generation **(can be enabled/disabled via parameters.yml)**
-- Merge all feature engineered columns together (including *LightweightMMM* and *Tsfresh*)
+- Merge all feature engineered columns together (including *Tsfresh*)
 
 The diagram below provides a general overview of the module.
 
 ![Pipeline Design](./assets/time_dependent_feature_engineering.png)
-<br />
 
 ### Core functions
 | Function name | Feature of interest (snakecased feature names) | Description | New feature name | 
@@ -225,28 +208,14 @@ The diagram below provides a general overview of the module.
 | `apply_feature_encoding_fit` | Based on `fe_ordinal_encoding_dict` parameter (dict) and `fe_one_hot_encoding_col_list` parameter (list) specified in parameters.yml.|Applies fit on columns identified for one-hot encoding or ordinal encoding using sklearn library. | - |
 | `apply_feature_encoding_transform` | Based on learned encodings from generated artefacts from `apply_feature_encoding_fit` function specified in parameters.yml. |Applies transform on columns identified for one-hot encoding or ordinal encoding using sklearn library based on learned encodings. | For one-hot encoding, learned encoding names are used. For ordinal encoding, a prefix of `ord_` is appended to columns used. |
 ---
-<br />
 
 ### Generated Artefacts (with physical file)
 | Name | File type | Directory Path |
 | --- | --- | --- |
 | `feature_encoding.pkl` | pickle | data/05_feature_engineering/artefacts/feature_encoding.pkl |
 | `std_norm.pkl` | pickle | data/05_feature_engineering/artefacts/std_norm.pkl |
-| `lightweightmmm_fitted_params.json`| json | data/05_feature_engineering/lightweightmmm_features/artefacts/lightweightmmm_fitted_params.json |
 | `fold<number>_tsfresh_relevant_features.json` | json | data/05_feature_engineering/tsfresh_features/artefacts/tsfresh_relevant_features/|
-
 ---
-<br />
-
-### *LightweightMMM* (configurable for enabling/disabling)
-The following functions **are skipped** if *`include_lightweightMMM`* parameter in `parameters.yml` is set to False.
-
-| Function name | Feature of interest (snakecased feature names) | Description | New feature name | 
-| --- | --- | --- | --- |
-| `extract_mmm_params_for_folds` | Based on `fe_target_feature_name` (numeric target feature) and `mkt_channel_list` (list of marketing cost features) parameters in parameters.yml. | Stores learned fitted lightweightMMM parameters (adstock/carryover) in a dictionary for function below.<br /> <br />  **Caveat: Due to half-normal distribution utilised, values are added with 0.0001 to ensure positive values are porocessed and prevent errors.**| - |
-| `generate_mmm_features_for_outlets` | References the extracted *lightweightMMM* information from the generated dictionary in the previous function.| Generates separate *LightweightMMM* features and adds the derived adstock/carryover costs to daily marketing cost to represent marketing effects. | No new feature name created as existing marketing cost features list `mkt_channel_list` are updated. Example: <ul><li>`tv_ad_daily_cost`</li><li>`radio_ad_daily_cost`</li><li>`instagram_ad_daily_cost`</li><li> `facebook_ad_daily_cost`</li><li>`youtube_ad_daily_cost`</li><li>`poster_campaign_daily_cost`</li><li>`digital_daily_cost`</li></ul> |
----
-<br />
 
 ### *Tsfresh* (configurable for enabling/disabling)
 The following functions **are skipped** if *`include_tsfresh`* parameter in `parameters.yml` is set to `False`.
@@ -255,7 +224,6 @@ The following functions **are skipped** if *`include_tsfresh`* parameter in `par
 | `run_tsfresh_feature_selection_process` | Based on `fe_target_feature_name` (numeric target feature) parameter specified in parameters.yml. | Derives and construct relevant tsfresh features based on dataframe predictors and predicted features. |-|
 | `run_tsfresh_feature_engineering_process` |Based on `fe_target_feature_name` (numeric target feature) parameter specified in parameters.yml. | Creates tsfresh features based on learnt tsfresh artefacts | New feature names are prefixed by value configured in `fe_target_feature_name`. Example with 'proxyrevenue' used `proxyrevenue_cwt_coefficients_coeff_0_w_5_widths_2_5_10_20` |
 ---
-<br />
 
 ### Input(s)
 
@@ -265,30 +233,28 @@ The following functions **are skipped** if *`include_tsfresh`* parameter in `par
 | Validation dataset | Validation dataset folder containing fold-outlet files with engineered columns. | data/04a_time_agnostic_feature_engineering/sliding_window/validation/ |
 | Testing dataset | Testing dataset folder  containing fold-outlet files with engineered columns. | data/04a_time_agnostic_feature_engineering/sliding_window/testing/ |
 ---
-<br />
 
 ### Intermediate files
 
 | Component | Description | Data directory |
 | --- | --- | --- |
-| Training dataset (processed) | Training dataset folder containing engineered features **without *tsfresh* and *lightweightMMM* features**. | data/05_feature_engineering/no_tsfresh_lightweightmmm/training/ |
-| Validation dataset (processed) | Validation dataset folder containing engineered features **without *tsfresh* and *lightweightMMM* features**. | data/05_feature_engineering/no_tsfresh_lightweightmmm/validation/ |
-| Testing dataset (processed) | Validation dataset folder containing engineered features **without *tsfresh* and *lightweightMMM* features**. | data/05_feature_engineering/no_tsfresh_lightweightmmm/testing/ |
+| Training dataset (processed) | Training dataset folder containing engineered features **without *tsfresh***. | data/05_feature_engineering/no_tsfresh/training/ |
+| Validation dataset (processed) | Validation dataset folder containing engineered features **without *tsfresh***. | data/05_feature_engineering/no_tsfresh/validation/ |
+| Testing dataset (processed) | Validation dataset folder containing engineered features **without *tsfresh***. | data/05_feature_engineering/no_tsfresh/testing/ |
 | Lag features dataset | Folder containing generated lag features for each outlet (using entire dataset). | data/05_feature_engineering/lag_features/ |
-| *LightweightMMM* features dataset | Folder containing fold-based generated lightweightMMM features (adstock & carry-over) using a sample outlet since marketing cost features for each outlet in the same fold are treated equivalent. This is due to differing time periods covered by **each fold**.  | data/05_feature_engineering/lightweightMMM/ |
 | *Tsfresh* features dataset | Folder containing generated derived tsfeatures for each outlet per fold. | data/05_feature_engineering/tsfresh/ |
 
 ### Output(s)
 
 | Component | Description | Data directory |
 | --- | --- | --- |
-| Training dataset | Training dataset folder containing engineered features with *tsfresh* and/or *lightweightMMM* features | data/05_feature_engineering/features_merged/training/ |
-| Validation dataset | Validation dataset folder containing engineered features with *tsfresh* and/or *lightweightMMM* features| data/05_feature_engineering/features_merged/validation/ |
-| Testing dataset | Testing dataset folder containing engineered features with *tsfresh* and/or *lightweightMMM* features| data/05_feature_engineering/features_merged/testing/ |
+| Training dataset | Training dataset folder containing engineered features with *tsfresh* features | data/05_feature_engineering/features_merged/training/ |
+| Validation dataset | Validation dataset folder containing engineered features with *tsfresh* features| data/05_feature_engineering/features_merged/validation/ |
+| Testing dataset | Testing dataset folder containing engineered features with *tsfresh* features| data/05_feature_engineering/features_merged/testing/ |
 ---
-<br />
 
 ## 7. Model-specific Preprocessing
+
 This module is primarily used to conduct any model-specific preprocessing steps, especially when more models are experimented with some requiring specialised inputs conversion, continuing from [Time-dependent feature engineering](#6-time-dependent-feature-engineering) module.
 
 Subsequently, numerical columns are retained with the removal of non-numerical columns, redundant columns (i.e. single-valued column(s)) and rows containing null values are implemented before splitting the dataset into predictors and predicted feature for model training purposes. This is to ensure model training can proceed without issues.
@@ -304,11 +270,10 @@ Feature-engineered data customised for the specific predictive models being used
 
 | Component | Description | Data directory |
 | --- | --- | --- |
-| Training dataset | Training dataset folder containing engineered features with *tsfresh* and/or *lightweightMMM* features | data/05_feature_engineering/features_merged/training/ |
-| Validation dataset | Validation dataset folder containing engineered features with *tsfresh* and/or *lightweightMMM* features| data/05_feature_engineering/features_merged/validation/ |
-| Testing dataset | Testing dataset folder containing engineered features with *tsfresh* and/or *lightweightMMM* features| data/05_feature_engineering/features_merged/testing/ |
+| Training dataset | Training dataset folder containing engineered features with *tsfresh* features | data/05_feature_engineering/features_merged/training/ |
+| Validation dataset | Validation dataset folder containing engineered features with *tsfresh* features| data/05_feature_engineering/features_merged/validation/ |
+| Testing dataset | Testing dataset folder containing engineered features with *tsfresh* features| data/05_feature_engineering/features_merged/testing/ |
 ---
-<br />
 
 ### Output(s)
 
@@ -318,4 +283,3 @@ Feature-engineered data customised for the specific predictive models being used
 | Validation dataset | Validation dataset folder containing processed features (removed null rows/single-constant columns) with all engineered features.| data/06_model_specific_preprocessing/<ordered_model or ebm>/validation/ |
 | Testing dataset | Testing dataset folder containing processed features (removed null rows/single-constant columns) with all engineered features.| data/06_model_specific_preprocessing/<ordered_model or ebm>/testing/ |
 ---
-<br />
