@@ -246,15 +246,15 @@ lag_features_partitions_dict:
 
 feature_engineering_training:
   <<: *catalog_partitioned_default
-  path: data/05_feature_engineering/no_tsfresh_lightweightmmm/training
+  path: data/05_feature_engineering/no_tsfresh/training
 
 feature_engineering_validation:
   <<: *catalog_partitioned_default
-  path: data/05_feature_engineering/no_tsfresh_lightweightmmm/validation
+  path: data/05_feature_engineering/no_tsfresh/validation
 
 feature_engineering_testing:
   <<: *catalog_partitioned_default
-  path: data/05_feature_engineering/no_tsfresh_lightweightmmm/testing
+  path: data/05_feature_engineering/no_tsfresh/testing
 
 feature_encoding_dict:
   type: pickle.PickleDataSet
@@ -263,30 +263,6 @@ feature_encoding_dict:
   versioned: true
   load_args:
     encoding: 'utf-8'
-
-
-### lightweightmmm 
-lightweightmmm_fitted_params:
-  type: json.JSONDataSet
-  filepath: data/05_feature_engineering/lightweightmmm_features/artefacts/lightweightmmm_fitted_params.json
-
-lightweightmmm_features_training:
-  <<: *catalog_partitioned_default
-  path: data/05_feature_engineering/lightweightmmm_features/training
-  layer: lightweightmmm_features_training
-  
-
-lightweightmmm_features_validation:
-  <<: *catalog_partitioned_default
-  path: data/05_feature_engineering/lightweightmmm_features/validation
-  layer: lightweightmmm_features_validation
-  
-
-lightweightmmm_features_testing:
-  <<: *catalog_partitioned_default
-  path: data/05_feature_engineering/lightweightmmm_features/testing
-  layer: lightweightmmm_features_testing
-  
 
 merged_features_training:
   <<: *catalog_partitioned_default

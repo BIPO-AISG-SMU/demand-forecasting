@@ -16,11 +16,3 @@ tests.pipelines.data\_preprocessing.test\_nodes module
    :members:
    :undoc-members:
    :show-inheritance:
-
-tests.pipelines.data\_preprocessing.test\_pipeline module
----------------------------------------------------------
-
-.. automodule:: tests.pipelines.data_preprocessing.test_pipeline
-   :members:
-   :undoc-members:
-   :show-inheritance:

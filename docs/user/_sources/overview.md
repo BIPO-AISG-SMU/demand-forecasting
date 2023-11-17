@@ -30,24 +30,32 @@ The following diagram illustrates how a user or an external system may interact 
 └── bipo_demand_forecasting/
     ├── conf/ (Created and to be bind mounted)
     |    └── base/
-    |        └──parameters
-    |           ├──model_training.yml
-    |           └──data_split.yml
-    |        ├──parameters.yml
-    |        ├──logging.yml
-    |        ├──inference_parameters.yml
-    |        ├──constants.yml
-    |        └──catalog.yml
+    |        ├── parameters
+    |        |   ├── model_training.yml
+    |        |   └── data_split.yml
+    |        ├── parameters.yml
+    |        ├── logging.yml
+    |        ├── inference_parameters.yml
+    |        ├── constants.yml
+    |        └── catalog.yml
     ├── data/ (Created and to be bind mounted)
     ├── logs/ (Created and to be bind mounted)
     ├── models/ (Created and to be bind mounted)
     ├── mlruns/ (Created and to be bind mounted)
+    ├── notebooks/
+    |   └── Baseline_Model_LSTM_4bins.ipynb
     ├── docker/
+    |   ├── bipo-model-serving.Dockerfile
     |   └── bipo-model-training-cpu.Dockerfile
     ├── docs/
     ├── scripts/
-    |   ├── run_model_training.bat
-    |   └── run_data_pipeline.bat
+    |   ├── build_push_kedro_data_training_pipeline.bat
+    |   ├── build_push_model_training.bat
+    |   ├── kedro_docker_run_testing.bat
+    |   ├── run_data_pipeline.bat
+    |   └── run_model_training.bat
+    ├── src/
+    |   └── requirements.txt
     └── bipo-conda-env.yml
 ```
 
@@ -114,7 +122,7 @@ The trained model file would be stored in an AWS S3 bucket. To ensure successful
 | Path | Description |
 | :- | - |
 | **notebooks/** | Contains Jupyter notebooks with standalone code (not part of ML pipeline).|
-|`Model Explanation.ipynb`|Notebooks used to generate and display explanations for EBM and OrderedModel.|
+|`Baseline_Model_LSTM_4bins.ipynb`|Notebooks used to predict 4 categories of sales using the LSTM (TSAI) baseline model.|
 
 ### Scripts
 
@@ -125,6 +133,10 @@ The trained model file would be stored in an AWS S3 bucket. To ensure successful
 |`run_inference_endpoint.sh`|Script to load and run the model serving Docker container.|
 |`run_model_training.bat`|Script to load and run the model training Docker container.|
 |`run_data_pipeline.bat`|Script to load and run the data pipeline (within the training Docker container) to generate new datasets for model training.|
+| `build_push_kedro_data_training_pipeline.bat`| Builds and pushes Kedro data pipeline Docker image to registry. |
+| `build_push_model_training.bat`              | Creates and uploads model training Docker image to registry.  |
+| `kedro_docker_run_testing.bat`               | Tests Kedro pipeline execution within a Docker container.     |
+| `run_data_pipeline.bat`                      | Runs data preprocessing pipeline in Docker for dataset preparation. |
 
 ### OS port usage
 

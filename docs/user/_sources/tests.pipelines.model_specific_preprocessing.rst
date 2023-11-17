@@ -5,14 +5,3 @@ tests.pipelines.model\_specific\_preprocessing package
    :members:
    :undoc-members:
    :show-inheritance:
-
-Submodules
-----------
-
-tests.pipelines.model\_specific\_preprocessing.test\_pipeline module
---------------------------------------------------------------------
-
-.. automodule:: tests.pipelines.model_specific_preprocessing.test_pipeline
-   :members:
-   :undoc-members:
-   :show-inheritance:

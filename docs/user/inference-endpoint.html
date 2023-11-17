@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Model Serving Endpoint &#8212; BIPO Demand Forecasting v1.0.0 documentation</title>
   
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/doctools.js"></script>
@@ -49,7 +49,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Inference Module" href="inference-module.html" />
-    <link rel="prev" title="Experiment Tracking" href="experiment-tracking.html" />
+    <link rel="prev" title="Archive of Model Experiments" href="experiments-archive.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -130,6 +130,7 @@
   
   
   
+  
     <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
   
 </a></div>
@@ -147,12 +148,13 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-pipeline.html">Data Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-pipeline-configuration.html">Data Pipeline Configuration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments-archive.html">Archive of Model Experiments</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="current nav bd-sidenav">
@@ -162,10 +164,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests.html">Unit Tests</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
@@ -181,13 +184,21 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.v1.html">bipo_fastapi.v1 package</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_merge.html">tests.pipelines.data_merge package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_split.html">tests.pipelines.data_split package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_evaluation.html">tests.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_specific_preprocessing.html">tests.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_training.html">tests.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.time_agnostic_feature_engineering.html">tests.pipelines.time_agnostic_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -340,7 +351,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-run-endpoint">How to Run Endpoint</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#starting-the-endpoint">1. Starting the Endpoint</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interacting-with-the-api-through-swagger-ui">2. Interacting with the API through Swagger UI</a></li>
@@ -348,9 +362,9 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#request-format">Request Format</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outlet-attributes">outlet_attributes</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lag-sales-attributes">lag_sales attributes</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mkt-attributes">mkt_attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outlet-attributes">Outlet Attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lag-sales-attributes">Lag Sales Attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marketing-attributes">Marketing Attributes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-fields">Optional Fields</a></li>
 </ul>
 </li>
@@ -375,17 +389,20 @@ document.write(`
                   
   <section id="model-serving-endpoint">
 <h1>Model Serving Endpoint<a class="headerlink" href="#model-serving-endpoint" title="Permalink to this heading">#</a></h1>
-<p>This document provides detailed information on how to interact with our model serving endpoint, which facilitates predictions through a REST API. Ensure you’ve followed the <a class="reference internal" href="inference-deployment-env-setup.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">Environment</span> <span class="pre">Setup</span></code></span></a> before diving in.</p>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
-<p>Our model serving endpoint is designed to take in input data, feed it into a trained model, and deliver the model predictions in real-time. If you’re unfamiliar with REST APIs, consider browsing <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API">MDN Web Docs</a> or <a class="reference external" href="https://restfulapi.net/">REST API Tutorial</a> for foundational knowledge.</p>
+<p>This document provides detailed information on how to interact with our model serving endpoint, which facilitates predictions through a REST API. The endpoint is designed to take in input data, feed it into a trained model, and deliver the model predictions in real-time. If you’re unfamiliar with REST APIs, consider browsing <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API">MDN Web Docs</a> or <a class="reference external" href="https://restfulapi.net/">REST API Tutorial</a> for foundational knowledge.</p>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h3>
+<p>Ensure you’ve followed the <a class="reference internal" href="inference-deployment-env-setup.html"><span class="doc std std-doc">Environment Setup guide</span></a> before diving in.</p>
+</section>
 </section>
 <section id="how-to-run-endpoint">
 <h2>How to Run Endpoint<a class="headerlink" href="#how-to-run-endpoint" title="Permalink to this heading">#</a></h2>
 <section id="starting-the-endpoint">
 <h3>1. Starting the Endpoint<a class="headerlink" href="#starting-the-endpoint" title="Permalink to this heading">#</a></h3>
-<p>To run the Docker image containing the endpoint, execute the following command in your home directory. This assumes that your model, data, and configurations are stored in specific directories on your host machine. Note that all paths used must be absolute paths.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bash<span class="w"> </span>~/bipo_demand_forecasting/scripts/fastapi/api-entrypoint.sh
+<p>To run the Docker image containing the endpoint, execute the following command in the <strong>root project directory</strong>. This assumes that your model, data, and configurations are stored in specific directories on your host machine.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bash<span class="w"> </span>./scripts/run_inference_pipeline.sh
 </pre></div>
 </div>
 </section>
@@ -393,7 +410,7 @@ document.write(`
 <h3>2. Interacting with the API through Swagger UI<a class="headerlink" href="#interacting-with-the-api-through-swagger-ui" title="Permalink to this heading">#</a></h3>
 <p>After starting the Docker container, you can easily interact with the API endpoints using the Swagger UI, a powerful tool for visualizing and testing API endpoints.</p>
 <ol class="arabic">
-<li><p><strong>Access the Interface</strong>: Open your preferred web browser and navigate to the Swagger UI, typically located at http://&lt;VM_IP_address&gt;:8000/docs</p></li>
+<li><p><strong>Access the Interface</strong>: Open your preferred web browser and navigate to the Swagger UI, located at http://&lt;VM_IP_address&gt;:8000/docs</p></li>
 <li><p><strong>Submit Requests</strong>: The interface provides an interactive platform to send requests and view responses. To initiate a request:</p>
 <ol class="arabic simple">
 <li><p>Locate the POST <code class="docutils literal notranslate"><span class="pre">/api/v1/model/predict</span></code> endpoint.</p></li>
@@ -421,16 +438,20 @@ document.write(`
 </section>
 <section id="request-format">
 <h2>Request Format<a class="headerlink" href="#request-format" title="Permalink to this heading">#</a></h2>
+<p>The request body is made up of three main sections:</p>
 <ol class="arabic simple">
-<li><p>outlet_attributes</p></li>
-<li><p>lag_sales_attributes</p></li>
-<li><p>mkt_attributes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">outlet_attributes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lag_sales_attributes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mkt_attributes</span></code></p></li>
 </ol>
+<blockquote>
+<div><p>Notes on including sufficient request inputs:</p>
 <ul class="simple">
-<li><p>Minimum number of days required for lag_sales_attributes is the first 7 days. E.g. today is 18 Oct, expected lag sales is from 4-17 Oct, and minimum lag sales to be given is from 4-10 Oct, while the remaining lag sales values will be imputed.</p></li>
+<li><p>Minimum number of days required for <code class="docutils literal notranslate"><span class="pre">lag_sales_attributes</span></code> is the first 7 days. For example, if today is 18 Oct, expected lag sales is from 4-17 Oct, and minimum lag sales to be given is from 4-10 Oct, while the remaining lag sales values will be imputed.</p></li>
+<li><p>In addition to including campaings which coincide with the inference period in the request, also include campaigns which end 2 months or less from the start of the inference period. This is to account for adstock features, where there is a lagged effect of advertising which may continue beyond the campaign duration. For example, if the inference period is from 1 to 7 Nov, include campaigns which end on 1 Sep or later in the request.</p></li>
 </ul>
-<p>The request below shows the default values.</p>
-<p>To obtain predictions, format your POST request as follows:</p>
+</div></blockquote>
+<p>The sample request body below shows the default values.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;outlet_attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
@@ -551,56 +572,56 @@ document.write(`
 </pre></div>
 </div>
 <section id="outlet-attributes">
-<h3>outlet_attributes<a class="headerlink" href="#outlet-attributes" title="Permalink to this heading">#</a></h3>
+<h3>Outlet Attributes<a class="headerlink" href="#outlet-attributes" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<tr class="row-odd"><th class="head text-left"><p>Attribute</p></th>
 <th class="head"><p>Type</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">inference_date</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">inference_date</span></code></p></td>
 <td><p>List[str]</p></td>
 <td><p>List of dates linked to the inference period attributes, formatted as “YYYY-MM-DD”.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cost_centre_code</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">cost_centre_code</span></code></p></td>
 <td><p>int</p></td>
 <td><p>Numeric code identifying the cost centre.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">location</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">location</span></code></p></td>
 <td><p>str</p></td>
 <td><p>Geographical point where the sale occurred.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
 <td><p>str</p></td>
 <td><p>Category or classification of the sale (e.g., retail, online).</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">factor</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">factor</span></code></p></td>
 <td><p>List[float]</p></td>
 <td><p>List of scores indicating likelihood or propensity of sales, with higher values signaling greater likelihood.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_daily_rainfall_total_mm</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">is_daily_rainfall_total_mm</span></code></p></td>
 <td><p>List[bool]</p></td>
 <td><p>List of boolean values: True if it rained on the given date; otherwise False.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">maximum_temperature_c</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">maximum_temperature_c</span></code></p></td>
 <td><p>List[float]</p></td>
 <td><p>List of the day’s highest recorded temperature in degree celcius.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_public_holiday</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">is_public_holiday</span></code></p></td>
 <td><p>List[bool]</p></td>
 <td><p>List of boolean values: True if the date is a public holiday; otherwise False.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_school_holiday</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">is_school_holiday</span></code></p></td>
 <td><p>List[bool]</p></td>
 <td><p>List of boolean values: True if the date falls within school holiday periods; otherwise False.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_pandemic_restrictions</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">is_pandemic_restrictions</span></code></p></td>
 <td><p>List[bool]</p></td>
 <td><p>List of boolean values: True if there are pandemic restrictions implemented on that day; otherwise False.</p></td>
 </tr>
-<tr class="row-even"><td><p><br></p></td>
+<tr class="row-even"><td class="text-left"><p><br></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
@@ -608,62 +629,113 @@ document.write(`
 </table>
 </section>
 <section id="lag-sales-attributes">
-<h3>lag_sales attributes<a class="headerlink" href="#lag-sales-attributes" title="Permalink to this heading">#</a></h3>
+<h3>Lag Sales Attributes<a class="headerlink" href="#lag-sales-attributes" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<tr class="row-odd"><th class="head text-left"><p>Attribute</p></th>
 <th class="head"><p>Type</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lag_sales_date</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lag_sales_date</span></code></p></td>
 <td><p>List[str]</p></td>
 <td><p>List of dates linked to the lag sales attributes, formatted as “YYYY-MM-DD”.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">lag_sales</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lag_sales</span></code></p></td>
 <td><p>List[float]</p></td>
 <td><p>Sequential list of sales figures from the last 14 days, starting from the previous day up to two weeks prior.</p></td>
 </tr>
-<tr class="row-even"><td><p><br></p></td>
+<tr class="row-even"><td class="text-left"><p><br></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="mkt-attributes">
-<h3>mkt_attributes<a class="headerlink" href="#mkt-attributes" title="Permalink to this heading">#</a></h3>
+<section id="marketing-attributes">
+<h3>Marketing Attributes<a class="headerlink" href="#marketing-attributes" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<tr class="row-odd"><th class="head text-left"><p>Attribute</p></th>
 <th class="head"><p>Type</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">campaign_name</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">campaign_name</span></code></p></td>
 <td><p>str</p></td>
 <td><p>Designation of the associated marketing campaign.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">campaign_start_date</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">campaign_start_date</span></code></p></td>
 <td><p>str</p></td>
 <td><p>Date when the marketing campaign commenced, formatted as “YYYY-MM-DD”.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">campaign_end_date</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">campaign_end_date</span></code></p></td>
 <td><p>str</p></td>
 <td><p>Date when the marketing campaign concluded, formatted as “YYYY-MM-DD”.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">marketing_channels</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">marketing_channels</span></code></p></td>
 <td><p>List[str]</p></td>
 <td><p>List of marketing channels.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">total_cost</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">total_cost</span></code></p></td>
 <td><p>List[float]</p></td>
 <td><p>List of aggregate expenditure associated with the campaign for each marketing channel.</p></td>
 </tr>
 </tbody>
 </table>
+<p>This sample of <code class="docutils literal notranslate"><span class="pre">mkt_attributes</span></code> includes multiple campaigns in the request:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;mkt_attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;campaign_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;campaign 1&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;campaign_start_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-10-01&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;campaign_end_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-10-30&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;marketing_channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;TV Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Radio Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Instagram Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Facebook Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Youtube Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Poster Campaign&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Digital&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;total_cost&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;campaign_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;campaign 2&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;campaign_start_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-11-01&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;campaign_end_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-11-30&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;marketing_channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;TV Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Radio Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Instagram Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Facebook Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Youtube Ad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Poster Campaign&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Digital&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;total_cost&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+</pre></div>
+</div>
 </section>
 <section id="optional-fields">
 <h3>Optional Fields<a class="headerlink" href="#optional-fields" title="Permalink to this heading">#</a></h3>
@@ -700,7 +772,7 @@ document.write(`
 </section>
 <section id="response-format">
 <h2>Response Format<a class="headerlink" href="#response-format" title="Permalink to this heading">#</a></h2>
-<p>The server’s response contains the prediction for 7 consecutive days which is the default. The response below shows the prediction for 2 days for simplicity.</p>
+<p>The server’s response contains the prediction for 7 consecutive days which is the default. (For simplicity, the sample response below shows the prediction for 2 days only.)</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;sales_predictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
@@ -733,33 +805,33 @@ document.write(`
 </div>
 <table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<tr class="row-odd"><th class="head text-left"><p>Attribute</p></th>
 <th class="head"><p>Type</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sales_predictions</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">sales_predictions</span></code></p></td>
 <td><p>list</p></td>
 <td><p>List of sales forecasts corresponding to input data.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">date</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">date</span></code></p></td>
 <td><p>str</p></td>
 <td><p>Date of the prediction in “YYYY-MM-DD” format, matching the input API request.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cost_centre_code</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">cost_centre_code</span></code></p></td>
 <td><p>int</p></td>
 <td><p>Identifier for a specific outlet, matching the input API request.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sales_class_id</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">sales_class_id</span></code></p></td>
 <td><p>str</p></td>
 <td><p>ID linked to the class with the highest probability from the <code class="docutils literal notranslate"><span class="pre">probabilities</span></code> attribute.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sales_class_name</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">sales_class_name</span></code></p></td>
 <td><p>str</p></td>
 <td><p>Descriptive name based on <code class="docutils literal notranslate"><span class="pre">sales_class_id</span></code> and the highest probability.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">probabilities</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">probabilities</span></code></p></td>
 <td><p>Dict[str, float]</p></td>
 <td><p>Dictionary mapping class IDs to likelihood scores, determining <code class="docutils literal notranslate"><span class="pre">sales_class_id</span></code> and <code class="docutils literal notranslate"><span class="pre">sales_class_name</span></code>.</p></td>
 </tr>
@@ -833,12 +905,12 @@ document.write(`
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="experiment-tracking.html"
+       href="experiments-archive.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Experiment Tracking</p>
+        <p class="prev-next-title">Archive of Model Experiments</p>
       </div>
     </a>
     <a class="right-next"
@@ -865,7 +937,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-run-endpoint">How to Run Endpoint</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#starting-the-endpoint">1. Starting the Endpoint</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interacting-with-the-api-through-swagger-ui">2. Interacting with the API through Swagger UI</a></li>
@@ -873,9 +948,9 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#request-format">Request Format</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outlet-attributes">outlet_attributes</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lag-sales-attributes">lag_sales attributes</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mkt-attributes">mkt_attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outlet-attributes">Outlet Attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lag-sales-attributes">Lag Sales Attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marketing-attributes">Marketing Attributes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-fields">Optional Fields</a></li>
 </ul>
 </li>
@@ -934,8 +1009,8 @@ By AI Singapore
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>
