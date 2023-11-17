@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>tests.pipelines.data_preprocessing package &#8212; BIPO Demand Forecasting v1.0.0 documentation</title>
   
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/doctools.js"></script>
@@ -48,8 +48,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'tests.pipelines.data_preprocessing';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="tests.pipelines.feature_engineering package" href="tests.pipelines.feature_engineering.html" />
-    <link rel="prev" title="tests.pipelines.data_loader package" href="tests.pipelines.data_loader.html" />
+    <link rel="next" title="tests.pipelines.data_split package" href="tests.pipelines.data_split.html" />
+    <link rel="prev" title="tests.pipelines.data_merge package" href="tests.pipelines.data_merge.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -130,6 +130,7 @@
   
   
   
+  
     <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
   
 </a></div>
@@ -147,12 +148,13 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-pipeline.html">Data Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-pipeline-configuration.html">Data Pipeline Configuration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments-archive.html">Archive of Model Experiments</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -162,10 +164,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests.html">Unit Tests</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">bipo</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">src</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
@@ -181,13 +184,21 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a></li>
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="tests.html">tests package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l3 current active has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.v1.html">bipo_fastapi.v1 package</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="tests.html">tests package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_merge.html">tests.pipelines.data_merge package</a></li>
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_split.html">tests.pipelines.data_split package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_evaluation.html">tests.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_specific_preprocessing.html">tests.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_training.html">tests.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.time_agnostic_feature_engineering.html">tests.pipelines.time_agnostic_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -341,30 +352,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-tests.pipelines.data_preprocessing.test_nodes">tests.pipelines.data_preprocessing.test_nodes module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.default_values"><code class="docutils literal notranslate"><span class="pre">default_values()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue"><code class="docutils literal notranslate"><span class="pre">mock_non_revenue()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue_diff_columns"><code class="docutils literal notranslate"><span class="pre">mock_non_revenue_diff_columns()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue_diff_dates"><code class="docutils literal notranslate"><span class="pre">mock_non_revenue_diff_dates()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.mock_revenue_partitioned"><code class="docutils literal notranslate"><span class="pre">mock_revenue_partitioned()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_incorrect_input"><code class="docutils literal notranslate"><span class="pre">test_const_value_perc_check_incorrect_input()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_outside_range"><code class="docutils literal notranslate"><span class="pre">test_const_value_perc_check_outside_range()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_within_range"><code class="docutils literal notranslate"><span class="pre">test_const_value_perc_check_within_range()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_date_validity_check_correct_dates"><code class="docutils literal notranslate"><span class="pre">test_date_validity_check_correct_dates()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_date_validity_check_incorrect_format"><code class="docutils literal notranslate"><span class="pre">test_date_validity_check_incorrect_format()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_date_validity_check_inverted_dates"><code class="docutils literal notranslate"><span class="pre">test_date_validity_check_inverted_dates()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_non_proxy_revenue_data_multiple_dataframes"><code class="docutils literal notranslate"><span class="pre">test_merge_non_proxy_revenue_data_multiple_dataframes()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_non_proxy_revenue_data_multiple_dataframes_diff_dates"><code class="docutils literal notranslate"><span class="pre">test_merge_non_proxy_revenue_data_multiple_dataframes_diff_dates()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_non_proxy_revenue_data_single_dataframe"><code class="docutils literal notranslate"><span class="pre">test_merge_non_proxy_revenue_data_single_dataframe()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_outlet_and_other_df_feature_correct_output_type"><code class="docutils literal notranslate"><span class="pre">test_merge_outlet_and_other_df_feature_correct_output_type()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_outlet_and_other_df_feature_empty_revenue_partitioned"><code class="docutils literal notranslate"><span class="pre">test_merge_outlet_and_other_df_feature_empty_revenue_partitioned()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_outlet_and_other_df_feature_zero_value_threshold"><code class="docutils literal notranslate"><span class="pre">test_merge_outlet_and_other_df_feature_zero_value_threshold()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_outlet_exclusion_list_check_correct_input"><code class="docutils literal notranslate"><span class="pre">test_outlet_exclusion_list_check_correct_input()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_outlet_exclusion_list_check_correct_output_type"><code class="docutils literal notranslate"><span class="pre">test_outlet_exclusion_list_check_correct_output_type()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_outlet_exclusion_list_check_incorrect_input"><code class="docutils literal notranslate"><span class="pre">test_outlet_exclusion_list_check_incorrect_input()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-tests.pipelines.data_preprocessing.test_pipeline">tests.pipelines.data_preprocessing.test_pipeline module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tests-pipelines-data-preprocessing-test-nodes-module">tests.pipelines.data_preprocessing.test_nodes module</a></li>
 </ul>
             </nav>
         </div>
@@ -381,118 +369,8 @@ document.write(`
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="module-tests.pipelines.data_preprocessing.test_nodes">
-<span id="tests-pipelines-data-preprocessing-test-nodes-module"></span><h2>tests.pipelines.data_preprocessing.test_nodes module<a class="headerlink" href="#module-tests.pipelines.data_preprocessing.test_nodes" title="Permalink to this heading">#</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.default_values">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">default_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#default_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.default_values" title="Permalink to this definition">#</a></dt>
-<dd><p>Fixture to provide default configuration values.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">mock_non_revenue</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#mock_non_revenue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue_diff_columns">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">mock_non_revenue_diff_columns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#mock_non_revenue_diff_columns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue_diff_columns" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue_diff_dates">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">mock_non_revenue_diff_dates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#mock_non_revenue_diff_dates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue_diff_dates" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.mock_revenue_partitioned">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">mock_revenue_partitioned</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#mock_revenue_partitioned"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.mock_revenue_partitioned" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_incorrect_input">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">test_const_value_perc_check_incorrect_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#test_const_value_perc_check_incorrect_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_incorrect_input" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_outside_range">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">test_const_value_perc_check_outside_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#test_const_value_perc_check_outside_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_outside_range" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_within_range">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">test_const_value_perc_check_within_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#test_const_value_perc_check_within_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_within_range" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.test_date_validity_check_correct_dates">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">test_date_validity_check_correct_dates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#test_date_validity_check_correct_dates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.test_date_validity_check_correct_dates" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.test_date_validity_check_incorrect_format">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">test_date_validity_check_incorrect_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#test_date_validity_check_incorrect_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.test_date_validity_check_incorrect_format" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.test_date_validity_check_inverted_dates">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">test_date_validity_check_inverted_dates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#test_date_validity_check_inverted_dates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.test_date_validity_check_inverted_dates" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.test_merge_non_proxy_revenue_data_multiple_dataframes">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">test_merge_non_proxy_revenue_data_multiple_dataframes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mock_non_revenue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mock_non_revenue_diff_columns</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#test_merge_non_proxy_revenue_data_multiple_dataframes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_non_proxy_revenue_data_multiple_dataframes" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.test_merge_non_proxy_revenue_data_multiple_dataframes_diff_dates">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">test_merge_non_proxy_revenue_data_multiple_dataframes_diff_dates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mock_non_revenue_diff_columns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mock_non_revenue_diff_dates</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#test_merge_non_proxy_revenue_data_multiple_dataframes_diff_dates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_non_proxy_revenue_data_multiple_dataframes_diff_dates" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.test_merge_non_proxy_revenue_data_single_dataframe">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">test_merge_non_proxy_revenue_data_single_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mock_non_revenue_diff_dates</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#test_merge_non_proxy_revenue_data_single_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_non_proxy_revenue_data_single_dataframe" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.test_merge_outlet_and_other_df_feature_correct_output_type">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">test_merge_outlet_and_other_df_feature_correct_output_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mock_revenue_partitioned</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mock_non_revenue</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#test_merge_outlet_and_other_df_feature_correct_output_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_outlet_and_other_df_feature_correct_output_type" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.test_merge_outlet_and_other_df_feature_empty_revenue_partitioned">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">test_merge_outlet_and_other_df_feature_empty_revenue_partitioned</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mock_non_revenue</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#test_merge_outlet_and_other_df_feature_empty_revenue_partitioned"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_outlet_and_other_df_feature_empty_revenue_partitioned" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.test_merge_outlet_and_other_df_feature_zero_value_threshold">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">test_merge_outlet_and_other_df_feature_zero_value_threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mock_revenue_partitioned</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mock_non_revenue</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#test_merge_outlet_and_other_df_feature_zero_value_threshold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_outlet_and_other_df_feature_zero_value_threshold" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.test_outlet_exclusion_list_check_correct_input">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">test_outlet_exclusion_list_check_correct_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#test_outlet_exclusion_list_check_correct_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.test_outlet_exclusion_list_check_correct_input" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.test_outlet_exclusion_list_check_correct_output_type">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">test_outlet_exclusion_list_check_correct_output_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#test_outlet_exclusion_list_check_correct_output_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.test_outlet_exclusion_list_check_correct_output_type" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="tests.pipelines.data_preprocessing.test_nodes.test_outlet_exclusion_list_check_incorrect_input">
-<span class="sig-prename descclassname"><span class="pre">tests.pipelines.data_preprocessing.test_nodes.</span></span><span class="sig-name descname"><span class="pre">test_outlet_exclusion_list_check_incorrect_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/pipelines/data_preprocessing/test_nodes.html#test_outlet_exclusion_list_check_incorrect_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.pipelines.data_preprocessing.test_nodes.test_outlet_exclusion_list_check_incorrect_input" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-</section>
-<section id="module-tests.pipelines.data_preprocessing.test_pipeline">
-<span id="tests-pipelines-data-preprocessing-test-pipeline-module"></span><h2>tests.pipelines.data_preprocessing.test_pipeline module<a class="headerlink" href="#module-tests.pipelines.data_preprocessing.test_pipeline" title="Permalink to this heading">#</a></h2>
-<p>This is a boilerplate test file for pipeline ‘data_preprocessing’
-generated using Kedro 0.18.10.
-Please add your pipeline tests here.</p>
-<p>Kedro recommends using <cite>pytest</cite> framework, more info about it can be found
-in the official documentation:
-<a class="reference external" href="https://docs.pytest.org/en/latest/getting-started.html">https://docs.pytest.org/en/latest/getting-started.html</a></p>
+<section id="tests-pipelines-data-preprocessing-test-nodes-module">
+<h2>tests.pipelines.data_preprocessing.test_nodes module<a class="headerlink" href="#tests-pipelines-data-preprocessing-test-nodes-module" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -508,20 +386,20 @@ in the official documentation:
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="tests.pipelines.data_loader.html"
+       href="tests.pipelines.data_merge.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">tests.pipelines.data_loader package</p>
+        <p class="prev-next-title">tests.pipelines.data_merge package</p>
       </div>
     </a>
     <a class="right-next"
-       href="tests.pipelines.feature_engineering.html"
+       href="tests.pipelines.data_split.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">tests.pipelines.feature_engineering package</p>
+        <p class="prev-next-title">tests.pipelines.data_split package</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -541,30 +419,7 @@ in the official documentation:
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-tests.pipelines.data_preprocessing.test_nodes">tests.pipelines.data_preprocessing.test_nodes module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.default_values"><code class="docutils literal notranslate"><span class="pre">default_values()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue"><code class="docutils literal notranslate"><span class="pre">mock_non_revenue()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue_diff_columns"><code class="docutils literal notranslate"><span class="pre">mock_non_revenue_diff_columns()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue_diff_dates"><code class="docutils literal notranslate"><span class="pre">mock_non_revenue_diff_dates()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.mock_revenue_partitioned"><code class="docutils literal notranslate"><span class="pre">mock_revenue_partitioned()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_incorrect_input"><code class="docutils literal notranslate"><span class="pre">test_const_value_perc_check_incorrect_input()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_outside_range"><code class="docutils literal notranslate"><span class="pre">test_const_value_perc_check_outside_range()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_within_range"><code class="docutils literal notranslate"><span class="pre">test_const_value_perc_check_within_range()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_date_validity_check_correct_dates"><code class="docutils literal notranslate"><span class="pre">test_date_validity_check_correct_dates()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_date_validity_check_incorrect_format"><code class="docutils literal notranslate"><span class="pre">test_date_validity_check_incorrect_format()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_date_validity_check_inverted_dates"><code class="docutils literal notranslate"><span class="pre">test_date_validity_check_inverted_dates()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_non_proxy_revenue_data_multiple_dataframes"><code class="docutils literal notranslate"><span class="pre">test_merge_non_proxy_revenue_data_multiple_dataframes()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_non_proxy_revenue_data_multiple_dataframes_diff_dates"><code class="docutils literal notranslate"><span class="pre">test_merge_non_proxy_revenue_data_multiple_dataframes_diff_dates()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_non_proxy_revenue_data_single_dataframe"><code class="docutils literal notranslate"><span class="pre">test_merge_non_proxy_revenue_data_single_dataframe()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_outlet_and_other_df_feature_correct_output_type"><code class="docutils literal notranslate"><span class="pre">test_merge_outlet_and_other_df_feature_correct_output_type()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_outlet_and_other_df_feature_empty_revenue_partitioned"><code class="docutils literal notranslate"><span class="pre">test_merge_outlet_and_other_df_feature_empty_revenue_partitioned()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_merge_outlet_and_other_df_feature_zero_value_threshold"><code class="docutils literal notranslate"><span class="pre">test_merge_outlet_and_other_df_feature_zero_value_threshold()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_outlet_exclusion_list_check_correct_input"><code class="docutils literal notranslate"><span class="pre">test_outlet_exclusion_list_check_correct_input()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_outlet_exclusion_list_check_correct_output_type"><code class="docutils literal notranslate"><span class="pre">test_outlet_exclusion_list_check_correct_output_type()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests.pipelines.data_preprocessing.test_nodes.test_outlet_exclusion_list_check_incorrect_input"><code class="docutils literal notranslate"><span class="pre">test_outlet_exclusion_list_check_incorrect_input()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-tests.pipelines.data_preprocessing.test_pipeline">tests.pipelines.data_preprocessing.test_pipeline module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tests-pipelines-data-preprocessing-test-nodes-module">tests.pipelines.data_preprocessing.test_nodes module</a></li>
 </ul>
   </nav></div>
 
@@ -612,8 +467,8 @@ By AI Singapore
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

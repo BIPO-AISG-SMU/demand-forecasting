@@ -33,14 +33,6 @@ bipo.pipelines.feature\_engineering.lag\_feature\_generation module
    :undoc-members:
    :show-inheritance:
 
-bipo.pipelines.feature\_engineering.lightweightmmm module
----------------------------------------------------------
-
-.. automodule:: bipo.pipelines.feature_engineering.lightweightmmm
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 bipo.pipelines.feature\_engineering.nodes module
 ------------------------------------------------
 

@@ -8,7 +8,6 @@ Below is a visual representation of the MLflow tracking server. This server faci
 
 ![MLflow Dashboard](./assets/experiment_tracking_local_remote.png)
 
-
 ### MLflow Dashboard Overview
 
 Below is an illustrative snapshot that showcases a typical layout of the MLflow Dashboard when conducting model experiments. 
@@ -19,35 +18,18 @@ To explore further details about a specific run, click on the hyperlink located 
 
 ![Detailed view of a specific run on the MLflow Dashboard](./assets/experiment_tracking_remote_run.png)
 
-
 ## Setup
 
-### Configuration File: `parameters.yml`
-
-Before embarking on any experiments, make sure to adjust the MLflow configurations in the `parameters.yml` file, which is commonly housed in the `conf/base/` folder.
-
-#### Configuration Parameters
-
-MLflow tracking is disabled by default. You can choose to enable MLflow feature using the `enable_mlflow` parameter by setting it to `True`.
-
-Here's a sample configuration:
-
-```yaml
-# MLflow Tracking Server
-enable_mlflow: False
-is_remote_mlflow: False
-tracking_uri: "http://10.43.130.112:5005"
-experiment_name_prefix: "bipo" # Example experiment_name: bipo-ebm
-```
-
+### Key Parameters in `parameters.yml`
 
 | Parameter                | Type   | Description                                       | Default Value               |
 | ------------------------ | ------ | ------------------------------------------------- | --------------------------- |
 | `enable_mlflow`          | `bool` | Whether to enable MLflow tracking                 | False                       |
 | `is_remote_mlflow`       | `bool` | Whether the MLflow server is remote               | False                       |
 | `tracking_uri`           | `str`  | URI for the MLflow tracking server                | "http://10.43.130.112:5005" |
-| `experiment_name_prefix` | `str`  | Prefix for naming experiments (Example: bipo-ebm) | "bipo"                      |
+| `experiment_name_prefix` | `str`  | Prefix for naming experiments (Example: bipo-ebm) | "bipo"  
 
+MLflow tracking is disabled by default. You can choose to enable MLflow feature using the `enable_mlflow` parameter by setting it to `True`.
 
 ### Tracking Modes: Local vs Remote
 
@@ -85,6 +67,7 @@ To create a new experiment that aligns with the `experiment_name_prefix` setting
 Following these steps ensures your remote tracking aligns with the configurations in your `parameters.yml` file.
 
 ### Troubleshooting
+
 If you encounter issues accessing the remote server, ensure that:
 
 - The server's URI is correct.
@@ -92,9 +75,11 @@ If you encounter issues accessing the remote server, ensure that:
 - Any required authentication details are correctly set.
 
 ## Configuring Runs
+
 When you start a new run in MLflow, a unique identifier, also known as a "run name", is generated for that particular run. This is important for distinguishing between various runs, especially when you are tracking multiple experiments or different configurations of the same model.
 
 ### How Run Names are Generated
+
 The run name is automatically generated in the model training submodule. It consists of the model name and a timestamp. For example, if you are running an experiment with a model named "ebm" and the current timestamp is "1020_150102" (indicating it was run on October 20 at 15:01:02), then the generated run name will be `ebm-1020_150102`.
 
 ## Logging of Model Parameters and Performance Metrics
@@ -114,7 +99,7 @@ The file `model_training.yml` in `conf/base/parameters` contains the parameters 
 
 The model evaluation submodule calculates and logs key performance metrics, namely precision, recall, accuracy, and F1 score.
 
-## Frequently Asked Questions
+## MLflow FAQ
 
 ### How can I launch the MLflow UI on my local machine?
 

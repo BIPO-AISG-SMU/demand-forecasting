@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,9 +33,9 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/doctools.js"></script>
@@ -127,6 +127,7 @@
   
   
   
+  
     <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
   
 </a></div>
@@ -144,12 +145,13 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-pipeline.html">Data Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-pipeline-configuration.html">Data Pipeline Configuration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments-archive.html">Archive of Model Experiments</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -159,10 +161,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests.html">Unit Tests</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
@@ -178,13 +181,21 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.v1.html">bipo_fastapi.v1 package</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_merge.html">tests.pipelines.data_merge package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_split.html">tests.pipelines.data_split package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_evaluation.html">tests.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_specific_preprocessing.html">tests.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_training.html">tests.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.time_agnostic_feature_engineering.html">tests.pipelines.time_agnostic_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -478,13 +489,6 @@ document.write(`
 </li>
       </ul></li>
       <li>
-    bipo.pipelines.feature_engineering.lightweightmmm
-
-      <ul>
-        <li><a href="bipo.pipelines.feature_engineering.html#module-bipo.pipelines.feature_engineering.lightweightmmm">module</a>
-</li>
-      </ul></li>
-      <li>
     bipo.pipelines.feature_engineering.nodes
 
       <ul>
@@ -512,8 +516,6 @@ document.write(`
         <li><a href="bipo.pipelines.feature_engineering.html#module-bipo.pipelines.feature_engineering.tsfresh_main">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     bipo.pipelines.feature_engineering.tsfresh_node
 
@@ -521,6 +523,8 @@ document.write(`
         <li><a href="bipo.pipelines.feature_engineering.html#module-bipo.pipelines.feature_engineering.tsfresh_node">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     bipo.pipelines.model_evaluation
 
@@ -718,7 +722,7 @@ document.write(`
       <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.cost_centre_code">cost_centre_code (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id11">[1]</a>
 
       <ul>
-        <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.cost_centre_code">(bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id23">[1]</a>
+        <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.cost_centre_code">(bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id24">[1]</a>
 </li>
       </ul></li>
       <li><a href="bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.create_bool_feature_and_differencing">create_bool_feature_and_differencing() (in module bipo.pipelines.time_agnostic_feature_engineering.nodes)</a>
@@ -735,10 +739,12 @@ document.write(`
 </li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lag_feature_generation.create_lag_weekly_avg_sales">create_lag_weekly_avg_sales() (in module bipo.pipelines.feature_engineering.lag_feature_generation)</a>
 </li>
-      <li><a href="bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation.create_min_max_feature_diff">create_min_max_feature_diff() (in module bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation)</a>
+      <li><a href="bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation.create_marketing_counts_start_end_features">create_marketing_counts_start_end_features() (in module bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation.create_min_max_feature_diff">create_min_max_feature_diff() (in module bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation)</a>
+</li>
       <li><a href="bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.create_mkt_campaign_counts_start_end">create_mkt_campaign_counts_start_end() (in module bipo.pipelines.time_agnostic_feature_engineering.nodes)</a>
 </li>
       <li><a href="bipo.pipelines.data_loader.html#bipo.pipelines.data_loader.create_pipeline">create_pipeline() (in module bipo.pipelines.data_loader)</a>
@@ -790,16 +796,12 @@ document.write(`
       <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.LagSalesAttribute.date">date (bipo_fastapi.schemas.LagSalesAttribute attribute)</a>
 
       <ul>
-        <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.date">(bipo_fastapi.schemas.OutletAttribute attribute)</a>
-</li>
-        <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.date">(bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id24">[1]</a>
+        <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.date">(bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id25">[1]</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="bipo.pipelines.data_preprocessing.html#bipo.pipelines.data_preprocessing.nodes.date_validity_check">date_validity_check() (in module bipo.pipelines.data_preprocessing.nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.default_values">default_values() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
 </li>
       <li><a href="bipo.pipelines.data_split.html#bipo.pipelines.data_split.nodes.do_time_based_data_split">do_time_based_data_split() (in module bipo.pipelines.data_split.nodes)</a>
 </li>
@@ -821,10 +823,10 @@ document.write(`
       </ul></li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.binning.equal_freq_binning_fit">equal_freq_binning_fit() (in module bipo.pipelines.feature_engineering.binning)</a>
 </li>
-      <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.binning.equal_freq_binning_transform">equal_freq_binning_transform() (in module bipo.pipelines.feature_engineering.binning)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.binning.equal_freq_binning_transform">equal_freq_binning_transform() (in module bipo.pipelines.feature_engineering.binning)</a>
+</li>
       <li><a href="bipo.pipelines.model_evaluation.html#bipo.pipelines.model_evaluation.nodes.evaluate">evaluate() (in module bipo.pipelines.model_evaluation.nodes)</a>
 </li>
       <li><a href="bipo.pipelines.model_training.html#bipo.pipelines.model_training.nodes.explain_ebm">explain_ebm() (in module bipo.pipelines.model_training.nodes)</a>
@@ -832,8 +834,6 @@ document.write(`
       <li><a href="bipo_fastapi.html#bipo_fastapi.common.explain_ebm_inference">explain_ebm_inference() (in module bipo_fastapi.common)</a>
 </li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe.extract_features">extract_features() (bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe method)</a>
-</li>
-      <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.extract_mmm_params_for_folds">extract_mmm_params_for_folds() (in module bipo.pipelines.feature_engineering.lightweightmmm)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -855,27 +855,23 @@ document.write(`
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.generate_adstock">generate_adstock() (in module bipo.pipelines.time_agnostic_feature_engineering.nodes)</a>
+</li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lag_feature_generation.generate_data_groups">generate_data_groups() (in module bipo.pipelines.feature_engineering.lag_feature_generation)</a>
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.common.generate_default_daily_date">generate_default_daily_date() (in module bipo_fastapi.common)</a>
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.common.generate_default_lag_date">generate_default_lag_date() (in module bipo_fastapi.common)</a>
 </li>
-      <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.nodes.generate_lag">generate_lag() (in module bipo.pipelines.feature_engineering.nodes)</a>
-</li>
-      <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features">generate_mmm_features() (in module bipo.pipelines.feature_engineering.lightweightmmm)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features_for_outlets">generate_mmm_features_for_outlets() (in module bipo.pipelines.feature_engineering.lightweightmmm)</a>
+      <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.nodes.generate_lag">generate_lag() (in module bipo.pipelines.feature_engineering.nodes)</a>
 </li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe.generate_relevance_table">generate_relevance_table() (bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe method)</a>
 </li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.get_common_outlet_relevant_features">get_common_outlet_relevant_features() (in module bipo.pipelines.feature_engineering.tsfresh_node)</a>
 </li>
       <li><a href="bipo.pipelines.data_split.html#bipo.pipelines.data_split.nodes.get_date_info">get_date_info() (in module bipo.pipelines.data_split.nodes)</a>
-</li>
-      <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.get_fitted_parameters">get_fitted_parameters() (in module bipo.pipelines.feature_engineering.lightweightmmm)</a>
 </li>
       <li><a href="bipo.html#bipo.utils.get_project_path">get_project_path() (in module bipo.utils)</a>
 </li>
@@ -901,19 +897,19 @@ document.write(`
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.nodes.impute_lag_sales_df">impute_lag_sales_df() (in module bipo_fastapi.nodes)</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.inference_date">inference_date (bipo_fastapi.schemas.OutletAttribute attribute)</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.inference_date">inference_date (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id13">[1]</a>
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.config.Settings.INTERMEDIATE_OUTPUT_PATH">INTERMEDIATE_OUTPUT_PATH (bipo_fastapi.config.Settings attribute)</a>, <a href="bipo_fastapi.html#id2">[1]</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_daily_rainfall_total_mm">is_daily_rainfall_total_mm (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id13">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_daily_rainfall_total_mm">is_daily_rainfall_total_mm (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id14">[1]</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_pandemic_restrictions">is_pandemic_restrictions (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id14">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_pandemic_restrictions">is_pandemic_restrictions (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id15">[1]</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_public_holiday">is_public_holiday (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id15">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_public_holiday">is_public_holiday (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id16">[1]</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_school_holiday">is_school_holiday (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id16">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.is_school_holiday">is_school_holiday (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id17">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -923,7 +919,7 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.LagSalesAttribute.lag_sales">lag_sales (bipo_fastapi.schemas.LagSalesAttribute attribute)</a>, <a href="bipo_fastapi.html#id6">[1]</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes.lag_sales_attributes">lag_sales_attributes (bipo_fastapi.schemas.SalesAttributes attribute)</a>, <a href="bipo_fastapi.html#id20">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes.lag_sales_attributes">lag_sales_attributes (bipo_fastapi.schemas.SalesAttributes attribute)</a>, <a href="bipo_fastapi.html#id21">[1]</a>
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.LagSalesAttribute.lag_sales_date">lag_sales_date (bipo_fastapi.schemas.LagSalesAttribute attribute)</a>
 </li>
@@ -949,7 +945,7 @@ document.write(`
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.hooks.load_kedro_logger">load_kedro_logger() (in module bipo_fastapi.hooks)</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.location">location (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id17">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.location">location (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id18">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -961,7 +957,9 @@ document.write(`
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.MarketingAttribute">MarketingAttribute (class in bipo_fastapi.schemas)</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.maximum_temperature_c">maximum_temperature_c (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id18">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.maximum_temperature_c">maximum_temperature_c (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id19">[1]</a>
+</li>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.nodes.merge_adstock_and_marketing_df">merge_adstock_and_marketing_df() (in module bipo_fastapi.nodes)</a>
 </li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lag_feature_generation.merge_fold_and_generated_lag">merge_fold_and_generated_lag() (in module bipo.pipelines.feature_engineering.lag_feature_generation)</a>
 
@@ -973,7 +971,7 @@ document.write(`
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.nodes.merge_generated_features_to_main">merge_generated_features_to_main() (in module bipo_fastapi.nodes)</a>
 </li>
-      <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.merge_mmm_features_with_fold_outlets">merge_mmm_features_with_fold_outlets() (in module bipo.pipelines.feature_engineering.lightweightmmm)</a>
+      <li><a href="bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.merge_mkt_data_and_adstock_data">merge_mkt_data_and_adstock_data() (in module bipo.pipelines.time_agnostic_feature_engineering.nodes)</a>
 </li>
       <li><a href="bipo.pipelines.data_preprocessing.html#bipo.pipelines.data_preprocessing.nodes.merge_non_proxy_revenue_data">merge_non_proxy_revenue_data() (in module bipo.pipelines.data_preprocessing.nodes)</a>
 </li>
@@ -987,17 +985,9 @@ document.write(`
 </li>
       <li><a href="bipo.pipelines.data_loader.html#bipo.pipelines.data_loader.nodes.merge_unique_daily_partitions">merge_unique_daily_partitions() (in module bipo.pipelines.data_loader.nodes)</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes.mkt_attributes">mkt_attributes (bipo_fastapi.schemas.SalesAttributes attribute)</a>, <a href="bipo_fastapi.html#id21">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes.mkt_attributes">mkt_attributes (bipo_fastapi.schemas.SalesAttributes attribute)</a>, <a href="bipo_fastapi.html#id22">[1]</a>
 </li>
       <li><a href="bipo.pipelines.model_training.html#bipo.pipelines.model_training.nodes.mlflow_tracking">mlflow_tracking() (in module bipo.pipelines.model_training.nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue">mock_non_revenue() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue_diff_columns">mock_non_revenue_diff_columns() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.mock_non_revenue_diff_dates">mock_non_revenue_diff_dates() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.mock_revenue_partitioned">mock_revenue_partitioned() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
 </li>
       <li>
     module
@@ -1040,8 +1030,6 @@ document.write(`
         <li><a href="bipo.pipelines.feature_engineering.html#module-bipo.pipelines.feature_engineering.encoding">bipo.pipelines.feature_engineering.encoding</a>
 </li>
         <li><a href="bipo.pipelines.feature_engineering.html#module-bipo.pipelines.feature_engineering.lag_feature_generation">bipo.pipelines.feature_engineering.lag_feature_generation</a>
-</li>
-        <li><a href="bipo.pipelines.feature_engineering.html#module-bipo.pipelines.feature_engineering.lightweightmmm">bipo.pipelines.feature_engineering.lightweightmmm</a>
 </li>
         <li><a href="bipo.pipelines.feature_engineering.html#module-bipo.pipelines.feature_engineering.nodes">bipo.pipelines.feature_engineering.nodes</a>
 </li>
@@ -1107,43 +1095,21 @@ document.write(`
 </li>
         <li><a href="tests.pipelines.data_loader.html#module-tests.pipelines.data_loader">tests.pipelines.data_loader</a>
 </li>
-        <li><a href="tests.pipelines.data_loader.html#module-tests.pipelines.data_loader.test_nodes">tests.pipelines.data_loader.test_nodes</a>
-</li>
-        <li><a href="tests.pipelines.data_loader.html#module-tests.pipelines.data_loader.test_pipeline">tests.pipelines.data_loader.test_pipeline</a>
-</li>
         <li><a href="tests.pipelines.data_merge.html#module-tests.pipelines.data_merge">tests.pipelines.data_merge</a>
-</li>
-        <li><a href="tests.pipelines.data_merge.html#module-tests.pipelines.data_merge.test_pipeline">tests.pipelines.data_merge.test_pipeline</a>
 </li>
         <li><a href="tests.pipelines.data_preprocessing.html#module-tests.pipelines.data_preprocessing">tests.pipelines.data_preprocessing</a>
 </li>
-        <li><a href="tests.pipelines.data_preprocessing.html#module-tests.pipelines.data_preprocessing.test_nodes">tests.pipelines.data_preprocessing.test_nodes</a>
-</li>
-        <li><a href="tests.pipelines.data_preprocessing.html#module-tests.pipelines.data_preprocessing.test_pipeline">tests.pipelines.data_preprocessing.test_pipeline</a>
-</li>
         <li><a href="tests.pipelines.data_split.html#module-tests.pipelines.data_split">tests.pipelines.data_split</a>
-</li>
-        <li><a href="tests.pipelines.data_split.html#module-tests.pipelines.data_split.test_pipeline">tests.pipelines.data_split.test_pipeline</a>
 </li>
         <li><a href="tests.pipelines.feature_engineering.html#module-tests.pipelines.feature_engineering">tests.pipelines.feature_engineering</a>
 </li>
-        <li><a href="tests.pipelines.feature_engineering.html#module-tests.pipelines.feature_engineering.test_pipeline">tests.pipelines.feature_engineering.test_pipeline</a>
-</li>
         <li><a href="tests.pipelines.model_evaluation.html#module-tests.pipelines.model_evaluation">tests.pipelines.model_evaluation</a>
-</li>
-        <li><a href="tests.pipelines.model_evaluation.html#module-tests.pipelines.model_evaluation.test_pipeline">tests.pipelines.model_evaluation.test_pipeline</a>
 </li>
         <li><a href="tests.pipelines.model_specific_preprocessing.html#module-tests.pipelines.model_specific_preprocessing">tests.pipelines.model_specific_preprocessing</a>
 </li>
-        <li><a href="tests.pipelines.model_specific_preprocessing.html#module-tests.pipelines.model_specific_preprocessing.test_pipeline">tests.pipelines.model_specific_preprocessing.test_pipeline</a>
-</li>
         <li><a href="tests.pipelines.model_training.html#module-tests.pipelines.model_training">tests.pipelines.model_training</a>
 </li>
-        <li><a href="tests.pipelines.model_training.html#module-tests.pipelines.model_training.test_pipeline">tests.pipelines.model_training.test_pipeline</a>
-</li>
-        <li><a href="tests.pipelines.pre_feature_engineering.html#module-tests.pipelines.pre_feature_engineering">tests.pipelines.pre_feature_engineering</a>
-</li>
-        <li><a href="tests.pipelines.pre_feature_engineering.html#module-tests.pipelines.pre_feature_engineering.test_pipeline">tests.pipelines.pre_feature_engineering.test_pipeline</a>
+        <li><a href="tests.pipelines.time_agnostic_feature_engineering.html#module-tests.pipelines.time_agnostic_feature_engineering">tests.pipelines.time_agnostic_feature_engineering</a>
 </li>
       </ul></li>
   </ul></td>
@@ -1170,7 +1136,7 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.encoding.ordinal_encoding_transform">ordinal_encoding_transform() (in module bipo.pipelines.feature_engineering.encoding)</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes.outlet_attributes">outlet_attributes (bipo_fastapi.schemas.SalesAttributes attribute)</a>, <a href="bipo_fastapi.html#id22">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes.outlet_attributes">outlet_attributes (bipo_fastapi.schemas.SalesAttributes attribute)</a>, <a href="bipo_fastapi.html#id23">[1]</a>
 </li>
       <li><a href="bipo.pipelines.data_preprocessing.html#bipo.pipelines.data_preprocessing.nodes.outlet_exclusion_list_check">outlet_exclusion_list_check() (in module bipo.pipelines.data_preprocessing.nodes)</a>
 </li>
@@ -1190,19 +1156,17 @@ document.write(`
 </li>
       <li><a href="bipo.pipelines.model_evaluation.html#bipo.pipelines.model_evaluation.nodes.predict">predict() (in module bipo.pipelines.model_evaluation.nodes)</a>
 </li>
-      <li><a href="bipo.pipelines.data_split.html#bipo.pipelines.data_split.nodes.prepare_for_split">prepare_for_split() (in module bipo.pipelines.data_split.nodes)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.probabilities">probabilities (bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id25">[1]</a>
+      <li><a href="bipo.pipelines.data_split.html#bipo.pipelines.data_split.nodes.prepare_for_split">prepare_for_split() (in module bipo.pipelines.data_split.nodes)</a>
+</li>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.probabilities">probabilities (bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id26">[1]</a>
 </li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe.process_extracted_tsfresh_features_index">process_extracted_tsfresh_features_index() (bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe method)</a>
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.nodes.process_final_merged_df">process_final_merged_df() (in module bipo_fastapi.nodes)</a>
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.nodes.process_marketing_df">process_marketing_df() (in module bipo_fastapi.nodes)</a>
-</li>
-      <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.process_mmm_df">process_mmm_df() (in module bipo.pipelines.feature_engineering.lightweightmmm)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1234,13 +1198,13 @@ document.write(`
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.sales_class_id">sales_class_id (bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id26">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.sales_class_id">sales_class_id (bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id27">[1]</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.sales_class_name">sales_class_name (bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id27">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPrediction.sales_class_name">sales_class_name (bipo_fastapi.schemas.SalesPrediction attribute)</a>, <a href="bipo_fastapi.html#id28">[1]</a>
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.config.Settings.SALES_CLASS_NAMES">SALES_CLASS_NAMES (bipo_fastapi.config.Settings attribute)</a>, <a href="bipo_fastapi.html#id5">[1]</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPredictions.sales_predictions">sales_predictions (bipo_fastapi.schemas.SalesPredictions attribute)</a>, <a href="bipo_fastapi.html#id28">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesPredictions.sales_predictions">sales_predictions (bipo_fastapi.schemas.SalesPredictions attribute)</a>, <a href="bipo_fastapi.html#id29">[1]</a>
 </li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.SalesAttributes">SalesAttributes (class in bipo_fastapi.schemas)</a>
 </li>
@@ -1270,50 +1234,6 @@ document.write(`
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_incorrect_input">test_const_value_perc_check_incorrect_input() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_outside_range">test_const_value_perc_check_outside_range() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_const_value_perc_check_within_range">test_const_value_perc_check_within_range() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_date_validity_check_correct_dates">test_date_validity_check_correct_dates() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_date_validity_check_incorrect_format">test_date_validity_check_incorrect_format() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_date_validity_check_inverted_dates">test_date_validity_check_inverted_dates() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_loader.html#tests.pipelines.data_loader.test_nodes.test_load_and_partition_proxy_revenue_data">test_load_and_partition_proxy_revenue_data() (in module tests.pipelines.data_loader.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_loader.html#tests.pipelines.data_loader.test_nodes.test_load_and_structure_marketing_data">test_load_and_structure_marketing_data() (in module tests.pipelines.data_loader.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_loader.html#tests.pipelines.data_loader.test_nodes.test_load_and_structure_propensity_data">test_load_and_structure_propensity_data() (in module tests.pipelines.data_loader.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_loader.html#tests.pipelines.data_loader.test_nodes.test_load_and_structure_weather_data">test_load_and_structure_weather_data() (in module tests.pipelines.data_loader.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_merge_non_proxy_revenue_data_multiple_dataframes">test_merge_non_proxy_revenue_data_multiple_dataframes() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_merge_non_proxy_revenue_data_multiple_dataframes_diff_dates">test_merge_non_proxy_revenue_data_multiple_dataframes_diff_dates() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_merge_non_proxy_revenue_data_single_dataframe">test_merge_non_proxy_revenue_data_single_dataframe() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_merge_outlet_and_other_df_feature_correct_output_type">test_merge_outlet_and_other_df_feature_correct_output_type() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_merge_outlet_and_other_df_feature_empty_revenue_partitioned">test_merge_outlet_and_other_df_feature_empty_revenue_partitioned() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_merge_outlet_and_other_df_feature_zero_value_threshold">test_merge_outlet_and_other_df_feature_zero_value_threshold() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_loader.html#tests.pipelines.data_loader.test_nodes.test_merge_unique_csv_xlsx_df">test_merge_unique_csv_xlsx_df() (in module tests.pipelines.data_loader.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_outlet_exclusion_list_check_correct_input">test_outlet_exclusion_list_check_correct_input() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_outlet_exclusion_list_check_correct_output_type">test_outlet_exclusion_list_check_correct_output_type() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_preprocessing.html#tests.pipelines.data_preprocessing.test_nodes.test_outlet_exclusion_list_check_incorrect_input">test_outlet_exclusion_list_check_incorrect_input() (in module tests.pipelines.data_preprocessing.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_loader.html#tests.pipelines.data_loader.test_nodes.test_rename_columns">test_rename_columns() (in module tests.pipelines.data_loader.test_nodes)</a>
-</li>
-      <li><a href="tests.pipelines.data_loader.html#tests.pipelines.data_loader.test_nodes.test_rename_merge_unique_csv_xlsx_df_col_index">test_rename_merge_unique_csv_xlsx_df_col_index() (in module tests.pipelines.data_loader.test_nodes)</a>
-</li>
       <li>
     tests
 
@@ -1336,20 +1256,6 @@ document.write(`
 </li>
       </ul></li>
       <li>
-    tests.pipelines.data_loader.test_nodes
-
-      <ul>
-        <li><a href="tests.pipelines.data_loader.html#module-tests.pipelines.data_loader.test_nodes">module</a>
-</li>
-      </ul></li>
-      <li>
-    tests.pipelines.data_loader.test_pipeline
-
-      <ul>
-        <li><a href="tests.pipelines.data_loader.html#module-tests.pipelines.data_loader.test_pipeline">module</a>
-</li>
-      </ul></li>
-      <li>
     tests.pipelines.data_merge
 
       <ul>
@@ -1357,33 +1263,10 @@ document.write(`
 </li>
       </ul></li>
       <li>
-    tests.pipelines.data_merge.test_pipeline
-
-      <ul>
-        <li><a href="tests.pipelines.data_merge.html#module-tests.pipelines.data_merge.test_pipeline">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
     tests.pipelines.data_preprocessing
 
       <ul>
         <li><a href="tests.pipelines.data_preprocessing.html#module-tests.pipelines.data_preprocessing">module</a>
-</li>
-      </ul></li>
-      <li>
-    tests.pipelines.data_preprocessing.test_nodes
-
-      <ul>
-        <li><a href="tests.pipelines.data_preprocessing.html#module-tests.pipelines.data_preprocessing.test_nodes">module</a>
-</li>
-      </ul></li>
-      <li>
-    tests.pipelines.data_preprocessing.test_pipeline
-
-      <ul>
-        <li><a href="tests.pipelines.data_preprocessing.html#module-tests.pipelines.data_preprocessing.test_pipeline">module</a>
 </li>
       </ul></li>
       <li>
@@ -1394,38 +1277,19 @@ document.write(`
 </li>
       </ul></li>
       <li>
-    tests.pipelines.data_split.test_pipeline
-
-      <ul>
-        <li><a href="tests.pipelines.data_split.html#module-tests.pipelines.data_split.test_pipeline">module</a>
-</li>
-      </ul></li>
-      <li>
     tests.pipelines.feature_engineering
 
       <ul>
         <li><a href="tests.pipelines.feature_engineering.html#module-tests.pipelines.feature_engineering">module</a>
 </li>
       </ul></li>
-      <li>
-    tests.pipelines.feature_engineering.test_pipeline
-
-      <ul>
-        <li><a href="tests.pipelines.feature_engineering.html#module-tests.pipelines.feature_engineering.test_pipeline">module</a>
-</li>
-      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     tests.pipelines.model_evaluation
 
       <ul>
         <li><a href="tests.pipelines.model_evaluation.html#module-tests.pipelines.model_evaluation">module</a>
-</li>
-      </ul></li>
-      <li>
-    tests.pipelines.model_evaluation.test_pipeline
-
-      <ul>
-        <li><a href="tests.pipelines.model_evaluation.html#module-tests.pipelines.model_evaluation.test_pipeline">module</a>
 </li>
       </ul></li>
       <li>
@@ -1436,13 +1300,6 @@ document.write(`
 </li>
       </ul></li>
       <li>
-    tests.pipelines.model_specific_preprocessing.test_pipeline
-
-      <ul>
-        <li><a href="tests.pipelines.model_specific_preprocessing.html#module-tests.pipelines.model_specific_preprocessing.test_pipeline">module</a>
-</li>
-      </ul></li>
-      <li>
     tests.pipelines.model_training
 
       <ul>
@@ -1450,24 +1307,10 @@ document.write(`
 </li>
       </ul></li>
       <li>
-    tests.pipelines.model_training.test_pipeline
+    tests.pipelines.time_agnostic_feature_engineering
 
       <ul>
-        <li><a href="tests.pipelines.model_training.html#module-tests.pipelines.model_training.test_pipeline">module</a>
-</li>
-      </ul></li>
-      <li>
-    tests.pipelines.pre_feature_engineering
-
-      <ul>
-        <li><a href="tests.pipelines.pre_feature_engineering.html#module-tests.pipelines.pre_feature_engineering">module</a>
-</li>
-      </ul></li>
-      <li>
-    tests.pipelines.pre_feature_engineering.test_pipeline
-
-      <ul>
-        <li><a href="tests.pipelines.pre_feature_engineering.html#module-tests.pipelines.pre_feature_engineering.test_pipeline">module</a>
+        <li><a href="tests.pipelines.time_agnostic_feature_engineering.html#module-tests.pipelines.time_agnostic_feature_engineering">module</a>
 </li>
       </ul></li>
       <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.MarketingAttribute.total_cost">total_cost (bipo_fastapi.schemas.MarketingAttribute attribute)</a>
@@ -1478,17 +1321,13 @@ document.write(`
 </li>
       <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_main.TsfreshFe">TsfreshFe (class in bipo.pipelines.feature_engineering.tsfresh_main)</a>
 </li>
-      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.type">type (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id19">[1]</a>
+      <li><a href="bipo_fastapi.html#bipo_fastapi.schemas.OutletAttribute.type">type (bipo_fastapi.schemas.OutletAttribute attribute)</a>, <a href="bipo_fastapi.html#id20">[1]</a>
 </li>
   </ul></td>
 </tr></table>
 
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.lightweightmmm.validate_lags">validate_lags() (in module bipo.pipelines.feature_engineering.lightweightmmm)</a>
-</li>
-  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="bipo.pipelines.data_split.html#bipo.pipelines.data_split.nodes.validate_split_params">validate_split_params() (in module bipo.pipelines.data_split.nodes)</a>
 </li>
@@ -1556,8 +1395,8 @@ By AI Singapore
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

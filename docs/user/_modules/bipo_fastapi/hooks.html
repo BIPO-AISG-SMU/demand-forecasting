@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,9 +33,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -127,6 +127,7 @@
   
   
   
+  
     <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
   
 </a></div>
@@ -144,12 +145,13 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../data-pipeline.html">Data Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data-pipeline-configuration.html">Data Pipeline Configuration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../training-pipeline.html">Training Pipeline</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="../../experiment-tracking.html">Experiment Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../experiments-archive.html">Archive of Model Experiments</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -159,10 +161,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unit-tests.html">Unit Tests</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
@@ -178,13 +181,21 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../bipo_fastapi.html">bipo_fastapi package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../bipo_fastapi.html">bipo_fastapi package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../bipo_fastapi.v1.html">bipo_fastapi.v1 package</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.data_merge.html">tests.pipelines.data_merge package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.data_split.html">tests.pipelines.data_split package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.model_evaluation.html">tests.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.model_specific_preprocessing.html">tests.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.model_training.html">tests.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tests.pipelines.time_agnostic_feature_engineering.html">tests.pipelines.time_agnostic_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -297,28 +308,30 @@ document.write(`
 <span class="kn">from</span> <span class="nn">kedro.pipeline.node</span> <span class="kn">import</span> <span class="n">Node</span>
 <span class="kn">from</span> <span class="nn">kedro.framework.project</span> <span class="kn">import</span> <span class="n">settings</span>
 <span class="kn">from</span> <span class="nn">kedro.config</span> <span class="kn">import</span> <span class="n">ConfigLoader</span>
-<span class="kn">import</span> <span class="nn">os</span> 
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">bipo_fastapi.load_data_catalog</span> <span class="kn">import</span> <span class="n">load_data_catalog</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
 <span class="n">conf_loader</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="p">(</span><span class="n">conf_source</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">CONF_SOURCE</span><span class="p">)</span>
 <span class="n">conf_inference</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;inference*&quot;</span><span class="p">)</span>
 
+
 <div class="viewcode-block" id="ParamsHooks"><a class="viewcode-back" href="../../bipo_fastapi.html#bipo_fastapi.hooks.ParamsHooks">[docs]</a><span class="k">class</span> <span class="nc">ParamsHooks</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Hooks related to parameters.&quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="ParamsHooks.before_node_run"><a class="viewcode-back" href="../../bipo_fastapi.html#bipo_fastapi.hooks.ParamsHooks.before_node_run">[docs]</a>    <span class="nd">@hook_impl</span>
     <span class="k">def</span> <span class="nf">before_node_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
-<span class="sd">        - overwrite the start_date and end_date parameters before running the node with modify_params tag.</span>
-<span class="sd">        - instantiate logging</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Overwrite the start_date and end_date parameters before running the node with modify_params tag. Instantiate logging</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            node (Node): pipeline node </span>
-<span class="sd">            inputs (Dict[str, Any]): node inputs </span>
+<span class="sd">            node (Node): Pipeline node</span>
+<span class="sd">            inputs (Dict[str, Any]): Node inputs</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            Union[dict, None]: overwrites node inputs by returning a dictionary if the node tags is &quot;modify_params&quot;. Otherwise, returns None </span>
+<span class="sd">            Union[dict, None]: Overwrites node inputs by returning a dictionary if the node tags is &quot;modify_params&quot;. Otherwise, returns None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">catalog</span> <span class="o">=</span> <span class="n">load_data_catalog</span><span class="p">()</span>
         <span class="k">if</span> <span class="s2">&quot;modify_params&quot;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
@@ -330,10 +343,11 @@ document.write(`
             <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">]}</span>
         <span class="c1"># logging</span>
         <span class="n">load_kedro_logger</span><span class="p">()</span>
-        <span class="k">return</span> <span class="kc">None</span> </div></div>
+        <span class="k">return</span> <span class="kc">None</span></div></div>
+
 
 <div class="viewcode-block" id="load_kedro_logger"><a class="viewcode-back" href="../../bipo_fastapi.html#bipo_fastapi.hooks.load_kedro_logger">[docs]</a><span class="k">def</span> <span class="nf">load_kedro_logger</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;load kedro config for logging purposes </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load kedro logging configuration dictionary.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
@@ -341,14 +355,13 @@ document.write(`
     <span class="n">conf_loader</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="p">(</span><span class="n">conf_source</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">CONF_SOURCE</span><span class="p">)</span>
     <span class="n">config_dict</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;logging*&quot;</span><span class="p">)</span>
     <span class="n">file_handler_list</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;info_file_handler&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;debug_file_handler&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;error_file_handler&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;info_file_handler&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;debug_file_handler&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_file_handler&quot;</span><span class="p">,</span>
     <span class="p">]</span>
 
     <span class="k">for</span> <span class="n">file_handler_type</span> <span class="ow">in</span> <span class="n">file_handler_list</span><span class="p">:</span>
         <span class="c1"># Assumes of the format logs/info.log or similar structure</span>
-        <span class="c1"># base, extension = os.path.splitext(filename)</span>
         <span class="n">level_info_name</span> <span class="o">=</span> <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;handlers&quot;</span><span class="p">][</span><span class="n">file_handler_type</span><span class="p">][</span><span class="s2">&quot;level&quot;</span><span class="p">]</span>
         <span class="c1"># Get current run date in ddmmyyyy format</span>
         <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
@@ -374,11 +387,11 @@ document.write(`
     <span class="k">return</span> <span class="kc">None</span></div>
 
 
-<span class="c1"># create hook_manager which is used as input in the kedro runner object</span>
+<span class="c1"># Create hook_manager which is used as input in the kedro runner object</span>
 <span class="n">hook_manager</span> <span class="o">=</span> <span class="n">hook</span><span class="o">.</span><span class="n">_create_hook_manager</span><span class="p">()</span>
 <span class="n">hook_manager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">ParamsHooks</span><span class="p">())</span>
 
-<span class="c1"># load kedro config which will be called in init.py </span>
+<span class="c1"># Load kedro config which will be called in init.py</span>
 <span class="n">load_kedro_logger</span><span class="p">()</span>
 </pre></div>
 
@@ -441,8 +454,8 @@ By AI Singapore
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

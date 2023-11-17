@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>tests.pipelines.model_training package &#8212; BIPO Demand Forecasting v1.0.0 documentation</title>
   
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/doctools.js"></script>
@@ -48,6 +48,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'tests.pipelines.model_training';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tests.pipelines.time_agnostic_feature_engineering package" href="tests.pipelines.time_agnostic_feature_engineering.html" />
+    <link rel="prev" title="tests.pipelines.model_specific_preprocessing package" href="tests.pipelines.model_specific_preprocessing.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -128,6 +130,7 @@
   
   
   
+  
     <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
   
 </a></div>
@@ -145,11 +148,13 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-pipeline.html">Data Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-pipeline-configuration.html">Data Pipeline Configuration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments-archive.html">Archive of Model Experiments</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -159,10 +164,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests.html">Unit Tests</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">src</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
@@ -178,13 +184,21 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.v1.html">bipo_fastapi.v1 package</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="tests.html">tests package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_merge.html">tests.pipelines.data_merge package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_split.html">tests.pipelines.data_split package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_evaluation.html">tests.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_specific_preprocessing.html">tests.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">tests.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.time_agnostic_feature_engineering.html">tests.pipelines.time_agnostic_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -314,9 +328,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -332,15 +344,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-tests.pipelines.model_training.test_pipeline">tests.pipelines.model_training.test_pipeline module</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -352,18 +355,6 @@ document.write(`
                   
   <section id="module-tests.pipelines.model_training">
 <span id="tests-pipelines-model-training-package"></span><h1>tests.pipelines.model_training package<a class="headerlink" href="#module-tests.pipelines.model_training" title="Permalink to this heading">#</a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
-</section>
-<section id="module-tests.pipelines.model_training.test_pipeline">
-<span id="tests-pipelines-model-training-test-pipeline-module"></span><h2>tests.pipelines.model_training.test_pipeline module<a class="headerlink" href="#module-tests.pipelines.model_training.test_pipeline" title="Permalink to this heading">#</a></h2>
-<p>This is a boilerplate test file for pipeline ‘model_training’
-generated using Kedro 0.18.11.
-Please add your pipeline tests here.</p>
-<p>Kedro recommends using <cite>pytest</cite> framework, more info about it can be found
-in the official documentation:
-<a class="reference external" href="https://docs.pytest.org/en/latest/getting-started.html">https://docs.pytest.org/en/latest/getting-started.html</a></p>
-</section>
 </section>
 
 
@@ -377,27 +368,30 @@ in the official documentation:
                 <footer class="prev-next-footer">
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="tests.pipelines.model_specific_preprocessing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">tests.pipelines.model_specific_preprocessing package</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="tests.pipelines.time_agnostic_feature_engineering.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">tests.pipelines.time_agnostic_feature_engineering package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-tests.pipelines.model_training.test_pipeline">tests.pipelines.model_training.test_pipeline module</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
@@ -441,8 +435,8 @@ By AI Singapore
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

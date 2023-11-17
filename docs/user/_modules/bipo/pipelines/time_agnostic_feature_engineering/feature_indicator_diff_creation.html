@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="../../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,9 +33,9 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/doctools.js"></script>
@@ -127,6 +127,7 @@
   
   
   
+  
     <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
   
 </a></div>
@@ -144,11 +145,13 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../data-pipeline.html">Data Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data-pipeline-configuration.html">Data Pipeline Configuration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../experiment-tracking.html">Experiment Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../experiments-archive.html">Archive of Model Experiments</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -158,10 +161,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../unit-tests.html">Unit Tests</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
@@ -177,13 +181,21 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../bipo_fastapi.html">bipo_fastapi package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../bipo_fastapi.html">bipo_fastapi package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../bipo_fastapi.v1.html">bipo_fastapi.v1 package</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_merge.html">tests.pipelines.data_merge package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_split.html">tests.pipelines.data_split package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.model_evaluation.html">tests.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.model_specific_preprocessing.html">tests.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.model_training.html">tests.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.time_agnostic_feature_engineering.html">tests.pipelines.time_agnostic_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -461,6 +473,128 @@ document.write(`
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unable to create a boolean representation of </span><span class="si">{</span><span class="n">pandemic_col</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="create_marketing_counts_start_end_features"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.feature_indicator_diff_creation.create_marketing_counts_start_end_features">[docs]</a><span class="k">def</span> <span class="nf">create_marketing_counts_start_end_features</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">mkt_campaign_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">mkt_count_col_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">mkt_start</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">mkt_end</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which creates marketing start and marketing end indicator features based on provided &#39;mkt_campaign_col&#39; feature info.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): Dataframe to be processed.</span>
+<span class="sd">        mkt_campaign_col (str): Specified marketing campaign column in dataframe to reference when processing dataframe.</span>
+<span class="sd">        mkt_count_col_name (str): Column name containing number of marketing events that are active.</span>
+<span class="sd">        mkt_start (str): Column name for an indicator feature representing start of a marketing event.</span>
+<span class="sd">        mkt_end (str): Column name for an indicator feature representing end of a marketing event.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Updated dataframe with generated mkt_count_col_name,mkt_start and mkt_end columns.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">mkt_campaign_col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="c1"># Strip &quot;,[,] symbols from marketing campaign col to facilitate event substring comparisons.</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">mkt_campaign_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mkt_campaign_col</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;[]&quot;&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Create a new features representing a up/down shift of marketing campaign col. This is used as part of condition involved in deciding if a date contains the start/end of a marketing event.</span>
+        <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2">_shift_down&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">mkt_campaign_col</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">()</span><span class="o">.</span><span class="n">bfill</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;rows&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2">_shift_up&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">mkt_campaign_col</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">ffill</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;rows&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="c1"># Check if an event also exist in previous time period through column comparison.</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_name_subset_as_prev&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="n">mkt_campaign_col</span><span class="p">]</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2">_shift_down&quot;</span><span class="p">],</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Get number of events for each day. Defaults to 0</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">mkt_count_col_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">mkt_campaign_col</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;None&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))</span> <span class="k">if</span> <span class="n">x</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Compare number of ongoing campaigns of between the day and the day before. For first entry without difference, treat as no change assuming event is a continuation.</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;mkt_count_diff_prev&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mkt_count_col_name</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;mkt_count_diff_prev&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Construct condition for marketing start where 1) the day must have at least an event with its event name not being part of any events in previous time period; OR 2), if there is positive value when comparing total events occurring based on mkt_count_diff_prev col.</span>
+        <span class="n">mkt_start_condition</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mkt_count_col_name</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_name_subset_as_prev&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;mkt_count_diff_prev&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Apply condition and set value to numeric.</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">mkt_start</span><span class="p">]</span> <span class="o">=</span> <span class="n">mkt_start_condition</span>
+
+        <span class="c1"># Similar to the case right above,</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;mkt_count_diff&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mkt_count_col_name</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;mkt_count_diff&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Compare number of ongoing campaigns of between the day and the day before to identify if there is an increase in length which signifies new campaign AND there must be change in the marketing events. Alternatively, the increase in total events count as well indicates a start of new marketing event</span>
+
+        <span class="c1"># Construct condition for marketing start where the day must have at least an event with its event name not being part of any events in previous time period OR, if there is positive value when comparing total events occurring based on mkt_count_diff_next col.</span>
+        <span class="n">mkt_start_condition</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mkt_count_col_name</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_name_subset_as_prev&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;mkt_count_diff_prev&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Apply condition and set value to numeric.</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">mkt_start</span><span class="p">]</span> <span class="o">=</span> <span class="n">mkt_start_condition</span>
+
+        <span class="n">df</span><span class="p">[</span><span class="n">mkt_start</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mkt_start</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="c1"># Compare number of ongoing campaigns of between the day and the day next. For last entry without difference, treat as no change assuming event continues.</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;mkt_count_diff_next&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mkt_count_col_name</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;mkt_count_diff_next&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Check if same event occurs for next day. For no event,</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_name_subset_as_next&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="n">mkt_campaign_col</span><span class="p">]</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2">_shift_up&quot;</span><span class="p">],</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># For marketing end condition, check that 1) there is at least a marketing event AND the marketing event next day is not the same as current day; OR 2) that the next day total marketing event is lesser.</span>
+        <span class="n">mkt_end_condition</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mkt_count_col_name</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_name_subset_as_next&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;mkt_count_diff_next&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">mkt_end</span><span class="p">]</span> <span class="o">=</span> <span class="n">mkt_end_condition</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">mkt_end</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mkt_end</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Created a indicator features related to start/end for </span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Drop created temporary columns</span>
+
+        <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
+            <span class="n">columns</span><span class="o">=</span><span class="p">[</span>
+                <span class="s2">&quot;is_name_subset_as_prev&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;is_name_subset_as_next&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mkt_count_diff_prev&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mkt_count_diff_next&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2">_shift_up&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2">_shift_down&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Simply assume marketing counts, start and end of campaigns indicator are 0 if column required is wrongly referenced, i.e assume no marketing events info at all.</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Unable to create a boolean indicator for start/end of a marketing event based on given column: </span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2"> as it does not exist.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">mkt_count_col_name</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">mkt_start</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">mkt_end</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[[</span><span class="n">mkt_count_col_name</span><span class="p">,</span> <span class="n">mkt_start</span><span class="p">,</span> <span class="n">mkt_end</span><span class="p">]]</span></div>
 </pre></div>
 
                 </article>
@@ -522,8 +656,8 @@ By AI Singapore
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

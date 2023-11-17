@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="../../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,9 +33,9 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/doctools.js"></script>
@@ -127,6 +127,7 @@
   
   
   
+  
     <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
   
 </a></div>
@@ -144,11 +145,13 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../data-pipeline.html">Data Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data-pipeline-configuration.html">Data Pipeline Configuration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../experiment-tracking.html">Experiment Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../experiments-archive.html">Archive of Model Experiments</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -158,10 +161,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../unit-tests.html">Unit Tests</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
@@ -177,13 +181,21 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../bipo_fastapi.html">bipo_fastapi package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../bipo_fastapi.html">bipo_fastapi package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../bipo_fastapi.v1.html">bipo_fastapi.v1 package</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_merge.html">tests.pipelines.data_merge package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_split.html">tests.pipelines.data_split package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.model_evaluation.html">tests.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.model_specific_preprocessing.html">tests.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.model_training.html">tests.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.time_agnostic_feature_engineering.html">tests.pipelines.time_agnostic_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -293,7 +305,7 @@ document.write(`
   <h1>Source code for bipo.pipelines.time_agnostic_feature_engineering.nodes</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
 <span class="kn">from</span> <span class="nn">kedro.config</span> <span class="kn">import</span> <span class="n">ConfigLoader</span>
 <span class="kn">from</span> <span class="nn">bipo</span> <span class="kn">import</span> <span class="n">settings</span>
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -303,7 +315,9 @@ document.write(`
     <span class="n">create_is_holiday_feature</span><span class="p">,</span>
     <span class="n">create_is_raining_feature</span><span class="p">,</span>
     <span class="n">create_is_pandemic_feature</span><span class="p">,</span>
+    <span class="n">create_marketing_counts_start_end_features</span><span class="p">,</span>
 <span class="p">)</span>
+
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LOGGER_NAME</span><span class="p">)</span>
 <span class="n">conf_loader</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="p">(</span><span class="n">conf_source</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">CONF_SOURCE</span><span class="p">)</span>
 <span class="n">conf_const</span> <span class="o">=</span> <span class="n">conf_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;constants*&quot;</span><span class="p">)</span>
@@ -368,11 +382,10 @@ document.write(`
 <span class="sd">        params_dict (Dict[str, Any]): Dictionary containing parameters referenced from parameters.yml.</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        None</span>
+<span class="sd">        None.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Tuple containing:</span>
-<span class="sd">        - pd.DataFrame: Updated marketing dataframe with generated boolean column.</span>
+<span class="sd">        pd.DataFrame: Dataframe containing generated marketing features.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mkt_campaign_col</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;fe_mkt_column_name&quot;</span><span class="p">]</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing marketing campaign name column: </span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -390,53 +403,36 @@ document.write(`
     <span class="n">default_date_col</span> <span class="o">=</span> <span class="n">conf_const</span><span class="p">[</span><span class="s2">&quot;default_date_col&quot;</span><span class="p">]</span>
 
     <span class="c1"># Convert new datetimeindex to dataframe. Drop excess column when converting datetime index to dataframe</span>
-    <span class="n">new_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span>
-        <span class="n">start</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
-        <span class="n">end</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
-        <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;D&quot;</span><span class="p">,</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">default_date_col</span><span class="p">)</span>
-
+    <span class="n">new_df</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span>
+            <span class="n">start</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
+            <span class="n">end</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
+            <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;D&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">default_date_col</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">default_date_col</span><span class="p">)</span>
+    <span class="p">)</span>
     <span class="c1"># Ensure index is converted to datetime</span>
     <span class="n">new_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">new_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">new_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">default_date_col</span>
+
+    <span class="k">if</span> <span class="n">default_date_col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">default_date_col</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># Use new_df as a base for df to be joined to based on index, which is time</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">new_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">mkt_campaign_col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-        <span class="c1"># Fill null with None before deriving number of campaigns as listed in the form of [Campaign1,Campaign2].Splitting a string without &#39;,&#39; results in itself.</span>
-        <span class="n">df</span><span class="p">[</span><span class="n">mkt_count_col_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">df</span><span class="p">[</span><span class="n">mkt_campaign_col</span><span class="p">]</span>
-            <span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;None&quot;</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))</span> <span class="k">if</span> <span class="n">x</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">new_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
 
-        <span class="c1"># Compare number of ongoing campaigns of between the day and the day before to identify if there is an increase in length which signifies new campaign</span>
-        <span class="n">df</span><span class="p">[</span><span class="n">mkt_start</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mkt_count_col_name</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span>
-        <span class="c1"># Due to differencing, we need to impute first entry. Set to 0 (false) by assuming that an event is unlikely to start on the first entry of the data.</span>
-        <span class="n">df</span><span class="p">[</span><span class="n">mkt_start</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mkt_start</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-        <span class="p">)</span>
+    <span class="c1"># Do imputation across all dates of interest where marketing events dont exist.</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">no_mkt_days_imputation</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">params_dict</span><span class="p">)</span>
 
-        <span class="c1"># Compare number of ongoing campaigns of between the day and the day before to identify if there is an decrease in length which signifies new campaign.</span>
-
-        <span class="n">df</span><span class="p">[</span><span class="n">mkt_end</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mkt_count_col_name</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span>
-        <span class="n">df</span><span class="p">[</span><span class="n">mkt_end</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mkt_end</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-
-        <span class="c1"># Due to differencing effect for ending of campaign,we need to shift the values up since calculation is applied on later index instead of previous time index. This results in last entry having null. Set to 0 (false) by assuming that an event is unlikely to end on the last entry of the data.</span>
-        <span class="n">df</span><span class="p">[</span><span class="n">mkt_end</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mkt_end</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Created a indicator features related to start/end for </span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
-
-    <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># Assume marketing counts, start and end of campaigns indicator are 0 if wrong column is referenced.</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Unable to create a boolean indicator for start/end of a marketing event based on given column: </span><span class="si">{</span><span class="n">mkt_campaign_col</span><span class="si">}</span><span class="s2"> as it does not exist.</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">mkt_count_col_name</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">mkt_start</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">mkt_end</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">df</span><span class="p">[[</span><span class="n">mkt_count_col_name</span><span class="p">,</span> <span class="n">mkt_start</span><span class="p">,</span> <span class="n">mkt_end</span><span class="p">]]</span></div>
+    <span class="k">return</span> <span class="n">create_marketing_counts_start_end_features</span><span class="p">(</span>
+        <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+        <span class="n">mkt_campaign_col</span><span class="o">=</span><span class="n">mkt_campaign_col</span><span class="p">,</span>
+        <span class="n">mkt_count_col_name</span><span class="o">=</span><span class="n">mkt_count_col_name</span><span class="p">,</span>
+        <span class="n">mkt_start</span><span class="o">=</span><span class="n">mkt_start</span><span class="p">,</span>
+        <span class="n">mkt_end</span><span class="o">=</span><span class="n">mkt_end</span><span class="p">,</span>
+    <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="drop_columns"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.drop_columns">[docs]</a><span class="k">def</span> <span class="nf">drop_columns</span><span class="p">(</span>
@@ -479,7 +475,8 @@ document.write(`
 
 
 <div class="viewcode-block" id="merge_fold_partitions_and_gen_mkt_data"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.merge_fold_partitions_and_gen_mkt_data">[docs]</a><span class="k">def</span> <span class="nf">merge_fold_partitions_and_gen_mkt_data</span><span class="p">(</span>
-    <span class="n">partitioned_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">gen_mkt_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+    <span class="n">partitioned_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
+    <span class="n">gen_mkt_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which left joins existing fold partitions and generated marketing dataframe features if exist. Otherwise, return the input partitioned_dict parameter.</span>
 
@@ -507,8 +504,29 @@ document.write(`
     <span class="k">return</span> <span class="n">partitioned_dict</span></div>
 
 
+<div class="viewcode-block" id="merge_mkt_data_and_adstock_data"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.merge_mkt_data_and_adstock_data">[docs]</a><span class="k">def</span> <span class="nf">merge_mkt_data_and_adstock_data</span><span class="p">(</span>
+    <span class="n">mkt_data_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">adstock_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which left joins existing marketing data and generated adstock features if exist. Otherwise, return the input partitioned_dict parameter.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        mkt_data_dict (Dict[str, pd.DataFrame]): dictionary containing the marketing dataframes</span>
+<span class="sd">        adstock_df (pd.DataFrame): adstock features dataframe</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">adstock_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">mkt_data_dict</span>
+    <span class="n">adstock_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">adstock_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">merged_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">mkt_data_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">merged_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">adstock_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">adstock_columns</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s2">&quot;adstock&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span>
+        <span class="n">merged_df</span><span class="p">[</span><span class="n">adstock_columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="n">adstock_columns</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">merged_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span>
+    <span class="k">return</span> <span class="n">merged_dict</span></div>
+
+
 <div class="viewcode-block" id="no_mkt_days_imputation"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.no_mkt_days_imputation">[docs]</a><span class="k">def</span> <span class="nf">no_mkt_days_imputation</span><span class="p">(</span>
-    <span class="n">partitioned_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which imputes dataframes from partitioned_dict with an imputation dictionary referenced from params_dict input for days where no marketing related activities exist.</span>
 
@@ -528,25 +546,20 @@ document.write(`
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Imputation dict provided is empty. Skipping this process.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="n">load_func</span> <span class="k">for</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">load_func</span><span class="p">)</span> <span class="ow">in</span> <span class="n">partitioned_input</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
 
-    <span class="n">mkt_column_name</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;fe_mkt_column_name&quot;</span><span class="p">]</span>
-    <span class="n">partition_output_dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="c1"># Impute if dictionary is not empty.</span>
-    <span class="k">for</span> <span class="n">partition_id</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">partitioned_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Imputing features based on provided imputation dictionary: </span><span class="si">{</span><span class="n">impute_dict</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Imputing features based on provided imputation dictionary: </span><span class="si">{</span><span class="n">impute_dict</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Impute cost values</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">impute_dict</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="s2">&quot;Unable to impute with the provided keys into the dataframe. Some features might not be imputed.</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># Impute cost values</span>
-            <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">impute_dict</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-            <span class="n">partition_output_dict</span><span class="p">[</span><span class="n">partition_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
-
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s2">&quot;Unable to impute with the provided keys into the dataframe. Some features might not be imputed.</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">partition_output_dict</span></div>
+    <span class="k">return</span> <span class="n">df</span></div>
 
 
 <div class="viewcode-block" id="segregate_outlet_based_train_val_test_folds"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.segregate_outlet_based_train_val_test_folds">[docs]</a><span class="k">def</span> <span class="nf">segregate_outlet_based_train_val_test_folds</span><span class="p">(</span>
@@ -612,6 +625,85 @@ document.write(`
         <span class="n">validation_dict</span><span class="p">,</span>
         <span class="n">testing_dict</span><span class="p">,</span>
     <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="generate_adstock"><a class="viewcode-back" href="../../../../bipo.pipelines.time_agnostic_feature_engineering.html#bipo.pipelines.time_agnostic_feature_engineering.nodes.generate_adstock">[docs]</a><span class="k">def</span> <span class="nf">generate_adstock</span><span class="p">(</span>
+    <span class="n">marketing_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates adstock features from the daily costs of each marketing channel in the given marketing dataframe.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        marketing_df: marketing dataframe</span>
+<span class="sd">        params_dict (Dict[str, Any]): Dictionary of parameters as referenced from parameters.yml.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Dataframe containing the generated adstock features.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">marketing_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Read from parameters yml</span>
+    <span class="n">tv_ad_lag_weight</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tv_ad_lag_weight&quot;</span><span class="p">]</span>
+    <span class="n">radio_ad_lag_weight</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;radio_ad_lag_weight&quot;</span><span class="p">]</span>
+    <span class="n">instagram_ad_lag_weight</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;instagram_ad_lag_weight&quot;</span><span class="p">]</span>
+    <span class="n">facebook_ad_lag_weight</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;facebook_ad_lag_weight&quot;</span><span class="p">]</span>
+    <span class="n">youtube_ad_lag_weight</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;youtube_ad_lag_weight&quot;</span><span class="p">]</span>
+    <span class="n">poster_campaign_ad_lag_weight</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;poster_campaign_ad_lag_weight&quot;</span><span class="p">]</span>
+    <span class="n">digital_lag_weight</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;digital_lag_weight&quot;</span><span class="p">]</span>
+    <span class="n">mkt_cost_col_list</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;mkt_channel_list&quot;</span><span class="p">]</span>
+    <span class="n">adstock_value_threshold</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;adstock_value_threshold&quot;</span><span class="p">]</span>
+    <span class="n">adstock_days_threshold</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;adstock_days_threshold&quot;</span><span class="p">]</span>
+    <span class="n">include_adstock</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;include_adstock&quot;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">include_adstock</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="c1"># Ensure the marketing channels in lag_weight_list matches the order of the mkt_cost_col_list, so that the lag_weight matches its corresponding column name.</span>
+    <span class="n">lag_weight_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">tv_ad_lag_weight</span><span class="p">,</span>
+        <span class="n">radio_ad_lag_weight</span><span class="p">,</span>
+        <span class="n">instagram_ad_lag_weight</span><span class="p">,</span>
+        <span class="n">facebook_ad_lag_weight</span><span class="p">,</span>
+        <span class="n">youtube_ad_lag_weight</span><span class="p">,</span>
+        <span class="n">poster_campaign_ad_lag_weight</span><span class="p">,</span>
+        <span class="n">digital_lag_weight</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lag_weight_list</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mkt_cost_col_list</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="s2">&quot;Length of lag_weight_list is not equal to length of mkt_channel_list&quot;</span>
+        <span class="p">)</span>
+    <span class="n">channel_pair_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">lag_weight_list</span><span class="p">,</span> <span class="n">mkt_cost_col_list</span><span class="p">))</span>
+    <span class="n">df_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting adstock feature generation&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">column_pair</span> <span class="ow">in</span> <span class="n">channel_pair_list</span><span class="p">:</span>
+        <span class="n">lag_weight</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="n">column_pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">column_pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">new_column</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;adstock_</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">new_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">column</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">df_length</span><span class="p">):</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">row</span><span class="p">],</span> <span class="n">new_column</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">new_column</span><span class="p">]</span> <span class="o">*</span> <span class="n">lag_weight</span>
+                <span class="o">+</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">row</span><span class="p">],</span> <span class="n">column</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="n">threshold_value</span> <span class="o">=</span> <span class="n">adstock_value_threshold</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">row</span><span class="p">],</span> <span class="n">column</span><span class="p">]</span>
+        <span class="n">threshold_days</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># calculate carryover effects of adstock which extend beyond the given data range, where media channel costs are zero since they are outside the data range.</span>
+        <span class="k">while</span> <span class="p">(</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">row</span><span class="p">],</span> <span class="n">new_column</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold_value</span>
+            <span class="ow">and</span> <span class="n">threshold_days</span> <span class="o">&lt;=</span> <span class="n">adstock_days_threshold</span>
+        <span class="p">):</span>
+            <span class="n">next_day_index</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">row</span><span class="p">]</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">next_day_index</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">next_day_index</span><span class="p">])],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">)</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">new_column</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">row</span><span class="p">],</span> <span class="n">new_column</span><span class="p">]</span> <span class="o">*</span> <span class="n">lag_weight</span> <span class="o">+</span> <span class="mi">0</span>
+            <span class="p">)</span>
+            <span class="n">row</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">threshold_days</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adstock effects carried over for </span><span class="si">{</span><span class="n">threshold_days</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s2"> days&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Completed adstock feature generation&quot;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="s2">&quot;^adstock&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
 </pre></div>
 
                 </article>
@@ -673,8 +765,8 @@ By AI Singapore
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

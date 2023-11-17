@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Data Pipeline &#8212; BIPO Demand Forecasting v1.0.0 documentation</title>
   
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/doctools.js"></script>
@@ -48,7 +48,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'data-pipeline';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Training Pipeline" href="training-pipeline.html" />
+    <link rel="next" title="Data Pipeline Configuration" href="data-pipeline-configuration.html" />
     <link rel="prev" title="Overview of Kedro (v0.18.11)" href="kedro-overview.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -130,6 +130,7 @@
   
   
   
+  
     <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
   
 </a></div>
@@ -147,12 +148,13 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-pipeline-configuration.html">Data Pipeline Configuration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments-archive.html">Archive of Model Experiments</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -162,10 +164,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests.html">Unit Tests</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
@@ -181,13 +184,21 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.v1.html">bipo_fastapi.v1 package</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_merge.html">tests.pipelines.data_merge package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_split.html">tests.pipelines.data_split package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_evaluation.html">tests.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_specific_preprocessing.html">tests.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_training.html">tests.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.time_agnostic_feature_engineering.html">tests.pipelines.time_agnostic_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -342,11 +353,14 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sources">Data Sources</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-architecture-and-considerations">Design Architecture and Considerations:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture">Architecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#design-considerations">Design Considerations</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loader">1. Data Loader</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-s">Input(s)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-s">Output(s)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#important-note-please-note"><strong>IMPORTANT NOTE, PLEASE NOTE:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#important-note-on-pipeline-execution">Important Note on Pipeline Execution</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing">2. Data Preprocessing</a><ul class="nav section-nav flex-column">
@@ -359,30 +373,29 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Output(s)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-split">4. Data split</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-split">4. Data Split</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Input(s)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Output(s)</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-agnostic-feature-engineering">5. Time-Agnostic Feature Engineering</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-various-time-agnostic-feature-engineering-functions">Table of various time-agnostic feature engineering functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core-functions">Core Functions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Input(s)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Output(s)</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-dependent-feature-engineering">6. Time-Dependent Feature Engineering</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core-functions">Core functions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generated-artefacts-with-physical-file">Generated Artefacts (with physical file)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightweightmmm-configurable-for-enabling-disabling"><em>LightweightMMM</em> (configurable for enabling/disabling)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tsfresh-configurable-for-enabling-disabling"><em>Tsfresh</em> (configurable for enabling/disabling)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Input(s)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intermediate-files">Intermediate files</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Output(s)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Core Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generated-artefacts">Generated Artefacts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tsfresh-configurable-for-enabling-disabling"><em>tsfresh</em> (configurable for enabling/disabling)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Input(s)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intermediate-files">Intermediate Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Output(s)</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-specific-preprocessing">7. Model-specific Preprocessing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Input(s)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Output(s)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Input(s)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Output(s)</a></li>
 </ul>
 </li>
 </ul>
@@ -447,24 +460,18 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tr>
 </tbody>
 </table>
-<hr class="docutils" />
-<br />
 </section>
-<section id="design-architecture-and-considerations">
-<h2>Design Architecture and Considerations:<a class="headerlink" href="#design-architecture-and-considerations" title="Permalink to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p><strong>Modularity</strong>: Flexibility and maintainability of components.</p></li>
-<li><p><strong>Module Decoupling</strong>: Faster adaptation to changing requirements without significant overall impact to entire program as much as possible.</p></li>
-<li><p><strong>Configurability</strong>: To facilitate experimentation of various data/model manipulataion approaches.</p></li>
-</ol>
+<hr class="docutils" />
+<section id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Permalink to this heading">#</a></h2>
 <p>The data pipeline architecture diagram below provides a high-level overview of the key processing steps in transforming raw data for model training.</p>
 <p><img alt="Pipeline Design" src="_images/data_pipeline_training.png" /></p>
 <table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p><strong>Modules</strong></p></th>
-<th class="head"><p><strong>Activity</strong></p></th>
-<th class="head"><p><strong>Configuration File</strong>^</p></th>
-<th class="head"><p><strong>Output Store</strong></p></th>
+<tr class="row-odd"><th class="head"><p>Submodules</p></th>
+<th class="head"><p>Activity</p></th>
+<th class="head"><p>Configuration File^</p></th>
+<th class="head"><p>Output Store</p></th>
 </tr>
 </thead>
 <tbody>
@@ -494,12 +501,12 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 <td><p>Split Data</p></td>
 </tr>
 <tr class="row-odd"><td><p>Time Agnostic Feature Engineering</p></td>
-<td><p>Feature engineering processes that are not time dependent. This includes:<ul><li>Boolean feature creation based on defined condition(s);</li><li>Differencing of (multiple) paired features; and</li><li>General value imputation.</li></ul></p></td>
+<td><p>Feature engineering processes that are not time dependent. This includes:<ul><li>Boolean feature creation based on defined condition(s);</li><li>Adstock feature engineering;</li><li>Differencing of (multiple) paired features; and</li><li>General value imputation.</li></ul></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code></p></td>
 <td><p>Feature Engineered Data</p></td>
 </tr>
 <tr class="row-even"><td><p>Time Dependent Feature Engineering</p></td>
-<td><p>Feature engineering processes that are time dependent. This includes:<ul><li>One-hot/Ordinal encoding;</li><li>Standardisation/Normalisation of values; and</li><li><em>LightweightMMM</em> and <em>tsfresh</em> feature engineering.</li></ul></p></td>
+<td><p>Feature engineering processes that are time dependent. This includes:<ul><li>One-hot/Ordinal encoding;</li><li>Standardisation/Normalisation of values; and</li><li><em>tsfresh</em> feature engineering.</li></ul></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">constants.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code></p></td>
 <td><p>Feature Engineered Data</p></td>
 </tr>
@@ -511,15 +518,23 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tbody>
 </table>
 <hr class="docutils" />
-<p>^Note: <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> is as used as fallback when invalid values are set in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> OR assumed defaults for processing. Not all parameters are covered as applying default values do not make sense. **
-<br><br/></p>
+<blockquote>
+<div><p>Note: <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> is used as a fallback when invalid values are set in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> OR assumed defaults for processing. Not all parameters are covered as applying default values do not make sense.</p>
+</div></blockquote>
+<section id="design-considerations">
+<h3>Design Considerations<a class="headerlink" href="#design-considerations" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Modularity</strong>: Flexibility and maintainability of components.</p></li>
+<li><p><strong>Module Decoupling</strong>: Faster adaptation to changing requirements without significant overall impact to entire program as much as possible.</p></li>
+<li><p><strong>Configurability</strong>: To facilitate experimentation of various data/model manipulataion approaches.</p></li>
+</ol>
+</section>
 </section>
 <section id="data-loader">
 <h2>1. Data Loader<a class="headerlink" href="#data-loader" title="Permalink to this heading">#</a></h2>
-<p>This module focuses on ingesting and restructuring raw and multiple common time-indexed data into unique daily-based time-index representations, while unique daily records are merged based on common time-index. Files are then segregate into outlet proxy revenue and non revenue categories.</p>
-<p>The diagram below provides a general overview of the module.</p>
-<p><img alt="Pipeline Design" src="_images/data_loader.png" />
-<br /></p>
+<p>This submodule focuses on ingesting and restructuring raw and multiple common time-indexed data into unique daily-based time-index representations, while unique daily records are merged based on common time-index. Files are then segregate into outlet proxy revenue and non revenue categories.</p>
+<p>The diagram below provides a general overview of the submodule.</p>
+<p><img alt="Pipeline Design" src="_images/data_loader.png" /></p>
 <section id="input-s">
 <h3>Input(s)<a class="headerlink" href="#input-s" title="Permalink to this heading">#</a></h3>
 <table class="table">
@@ -548,9 +563,8 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tr>
 </tbody>
 </table>
-<hr class="docutils" />
-<br />
 </section>
+<hr class="docutils" />
 <section id="output-s">
 <h3>Output(s)<a class="headerlink" href="#output-s" title="Permalink to this heading">#</a></h3>
 <table class="table">
@@ -571,28 +585,24 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tr>
 </tbody>
 </table>
-<hr class="docutils" />
-<br />
 </section>
-<section id="important-note-please-note">
-<h3><strong>IMPORTANT NOTE, PLEASE NOTE:</strong><a class="headerlink" href="#important-note-please-note" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>For pipeline execution with Kedro, Data Loader module needs to be executed first separately before executing other modules that follows subsequently.</p></li>
-<li><p>This is due to Data Loader module output definition which explicitly defines a mapping for processed file for each file input, whereas the input to Data Preprocessing module is folder-specific definition (where Data Loader processed file(s) resides) is seen by Kedro to be different entities. As a result, Data Preprocessing maybe executed when not all files are fully processed in the Data Loader module.</p></li>
-</ul>
+<hr class="docutils" />
+<section id="important-note-on-pipeline-execution">
+<h3>Important Note on Pipeline Execution<a class="headerlink" href="#important-note-on-pipeline-execution" title="Permalink to this heading">#</a></h3>
+<p>For pipeline execution with Kedro, Data Loader submodule needs to be executed first separately before executing other modules that follows subsequently.</p>
+<p>This is due to Data Loader submodule output definition which explicitly defines a mapping for processed file for each file input, whereas the input to Data Preprocessing submodule is folder-specific definition (where Data Loader processed file(s) resides) is seen by Kedro to be different entities. As a result, Data Preprocessing maybe executed when not all files are fully processed in the Data Loader submodule.</p>
 </section>
 </section>
 <section id="data-preprocessing">
 <h2>2. Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this heading">#</a></h2>
-<p>The data_preprocessing module applies feature combining using all files non-proxy revenue datasets with individual outlet proxy revenue datasets using generated outputs in previous module, Data Loader. Data filterings comprising the following are implemented:</p>
+<p>The data_preprocessing submodule applies feature combining using all files non-proxy revenue datasets with individual outlet proxy revenue datasets using generated outputs in previous submodule, Data Loader. Data filterings comprising the following are implemented:</p>
 <ul class="simple">
 <li><p>Outlets containing data points within required dates are extracted.</p></li>
 <li><p>Specified outlets to be excluded.</p></li>
 <li><p>Outlets with zero-values exceeding a proportion are filtered out (configurable in parameters.yml). This is to prevent binning issues downstream prior to modeling as equal frequency binning is used.</p></li>
 </ul>
-<p>The diagram below provides a general overview of the module.</p>
-<p><img alt="Pipeline Design" src="_images/data_preprocessing.png" />
-<br /></p>
+<p>The diagram below provides a general overview of the submodule.</p>
+<p><img alt="Pipeline Design" src="_images/data_preprocessing.png" /></p>
 <section id="id1">
 <h3>Input(s)<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <table class="table">
@@ -613,9 +623,8 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tr>
 </tbody>
 </table>
-<hr class="docutils" />
-<br />
 </section>
+<hr class="docutils" />
 <section id="id2">
 <h3>Output(s)<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <table class="table">
@@ -632,16 +641,14 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tr>
 </tbody>
 </table>
+</section>
+</section>
 <hr class="docutils" />
-<br />
-</section>
-</section>
 <section id="data-merge">
 <h2>3. Data Merge<a class="headerlink" href="#data-merge" title="Permalink to this heading">#</a></h2>
-<p>This module concatenates the individual outlet proxy revenue dataset files generated in previous module, Data Preprocessing into a single file to facilitate time-index split which is handled in next module, Data Split.</p>
-<p>The diagram below provides a general overview of the module.</p>
-<p><img alt="Pipeline Design" src="_images/data_merge.png" />
-<br /></p>
+<p>This submodule concatenates the individual outlet proxy revenue dataset files generated in previous submodule, Data Preprocessing into a single file to facilitate time-index split which is handled in next submodule, Data Split.</p>
+<p>The diagram below provides a general overview of the submodule.</p>
+<p><img alt="Pipeline Design" src="_images/data_merge.png" /></p>
 <section id="id3">
 <h3>Input(s)<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <table class="table">
@@ -658,9 +665,8 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tr>
 </tbody>
 </table>
-<hr class="docutils" />
-<br />
 </section>
+<hr class="docutils" />
 <section id="id4">
 <h3>Output(s)<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <table class="table">
@@ -677,22 +683,20 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tr>
 </tbody>
 </table>
+</section>
+</section>
 <hr class="docutils" />
-<br />
-</section>
-</section>
 <section id="data-split">
-<h2>4. Data split<a class="headerlink" href="#data-split" title="Permalink to this heading">#</a></h2>
-<p>This module takes the output of Data Merge and implements all <strong>three</strong> time-dependent data splits, namely</p>
+<h2>4. Data Split<a class="headerlink" href="#data-split" title="Permalink to this heading">#</a></h2>
+<p>This submodule takes the output of Data Merge and implements all <strong>three</strong> time-dependent data splits, namely</p>
 <ul class="simple">
 <li><p>simple split;</p></li>
 <li><p>expanding window; and</p></li>
 <li><p>sliding window.</p></li>
 </ul>
 <p>Split parameters are configurable via <code class="docutils literal notranslate"><span class="pre">conf/base/parameters/data_split.yml</span></code>. Before conducting splits, checks would be made to validate inputs. If invalid inputs are set, <code class="docutils literal notranslate"><span class="pre">conf/base/constants.yml</span></code> containing default fallback values would be used.</p>
-<p>The diagram below provides a general overview of the module.</p>
-<p><img alt="Pipeline Design" src="_images/data_split.png" />
-<br /></p>
+<p>The diagram below provides a general overview of the submodule.</p>
+<p><img alt="Pipeline Design" src="_images/data_split.png" /></p>
 <section id="id5">
 <h3>Input(s)<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <table class="table">
@@ -709,9 +713,8 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tr>
 </tbody>
 </table>
-<hr class="docutils" />
-<br />
 </section>
+<hr class="docutils" />
 <section id="id6">
 <h3>Output(s)<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <table class="table">
@@ -736,14 +739,13 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tr>
 </tbody>
 </table>
+</section>
+</section>
 <hr class="docutils" />
-<br />
-</section>
-</section>
 <section id="time-agnostic-feature-engineering">
 <h2>5. Time-Agnostic Feature Engineering<a class="headerlink" href="#time-agnostic-feature-engineering" title="Permalink to this heading">#</a></h2>
-<p>This module serves to facilitate feature engineering processes which are  time-agnostic based on configured data split source using fold information and name of data split as configured in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code>. Upon completion of necessary feature engineering works, each training, validation and test folds are partitioned into files by outlets and stored in respective <code class="docutils literal notranslate"><span class="pre">training</span></code>, <code class="docutils literal notranslate"><span class="pre">validation</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> folders.</p>
-<p>The key feature engineering works in this module are as follows:</p>
+<p>This submodule serves to facilitate feature engineering processes which are  time-agnostic based on configured data split source using fold information and name of data split as configured in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code>. Upon completion of necessary feature engineering works, each training, validation and test folds are partitioned into files by outlets and stored in respective <code class="docutils literal notranslate"><span class="pre">training</span></code>, <code class="docutils literal notranslate"><span class="pre">validation</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> folders.</p>
+<p>The key feature engineering works in this submodule are as follows:</p>
 <ul class="simple">
 <li><p>Boolean indicator feature generation based on conditions (under <code class="docutils literal notranslate"><span class="pre">feature_indicator_diff_creation.py</span></code>).</p>
 <ul>
@@ -753,10 +755,10 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 <li><p>Differencing of values using list of 2 columns features (under <code class="docutils literal notranslate"><span class="pre">feature_indicator_diff_creation.py</span></code>)</p></li>
 <li><p>Marketing cost imputation for days without any marketing events</p></li>
 </ul>
-<p>The diagram below provides a general overview of the module.</p>
+<p>The diagram below provides a general overview of the submodule.</p>
 <p><img alt="Pipeline Design" src="_images/time_agnostic_feature_engineering.png" /></p>
-<section id="table-of-various-time-agnostic-feature-engineering-functions">
-<h3>Table of various time-agnostic feature engineering functions<a class="headerlink" href="#table-of-various-time-agnostic-feature-engineering-functions" title="Permalink to this heading">#</a></h3>
+<section id="core-functions">
+<h3>Core Functions<a class="headerlink" href="#core-functions" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Function name</p></th>
@@ -796,23 +798,27 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">no_mkt_days_imputation</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">generate_adstock</span></code></p></td>
+<td><p>Based on <code class="docutils literal notranslate"><span class="pre">mkt_channel_list</span></code> parameter (list). Example feature used: <code class="docutils literal notranslate"><span class="pre">tv_ad_daily_cost</span></code></p></td>
+<td><p>Calculates the adstock values for each marketing channel daily cost.</p></td>
+<td><p>Prefix <code class="docutils literal notranslate"><span class="pre">adstock_</span></code> is added to all columns used. Example: <code class="docutils literal notranslate"><span class="pre">adstock_tv_ad_daily_cost</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">no_mkt_days_imputation</span></code></p></td>
 <td><p>Based on <code class="docutils literal notranslate"><span class="pre">mkt_columns_to_impute_dict</span></code> parameter (dict)</p></td>
 <td><p>Utilises <code class="docutils literal notranslate"><span class="pre">mkt_columns_to_impute_dict</span></code> containing imputation values for specified marketing cost features for days without any marketing events.</p></td>
 <td><p>No new features created. Only affects <code class="docutils literal notranslate"><span class="pre">tv_ad_daily_cost</span></code>, <code class="docutils literal notranslate"><span class="pre">radio_ad_daily_cost</span></code>, <code class="docutils literal notranslate"><span class="pre">instagram_ad_daily_cost</span></code>, <code class="docutils literal notranslate"><span class="pre">facebook_ad_daily_cost</span></code>, <code class="docutils literal notranslate"><span class="pre">youtube_ad_daily_cost</span></code>,<code class="docutils literal notranslate"><span class="pre">poster_campaign_daily_cost</span></code>, <code class="docutils literal notranslate"><span class="pre">digital_daily_cost</span></code></p></td>
 </tr>
 </tbody>
 </table>
-<hr class="docutils" />
-<br />
 </section>
+<hr class="docutils" />
 <section id="id7">
 <h3>Input(s)<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Component</p></th>
 <th class="head"><p>Description</p></th>
-<th class="head"><p>Data directory</p></th>
+<th class="head"><p>Data Directory</p></th>
 </tr>
 </thead>
 <tbody>
@@ -830,16 +836,15 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tr>
 </tbody>
 </table>
-<hr class="docutils" />
-<br />
 </section>
+<hr class="docutils" />
 <section id="id8">
 <h3>Output(s)<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Component</p></th>
 <th class="head"><p>Description</p></th>
-<th class="head"><p>Data directory</p></th>
+<th class="head"><p>Data Directory</p></th>
 </tr>
 </thead>
 <tbody>
@@ -857,27 +862,24 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tr>
 </tbody>
 </table>
+</section>
+</section>
 <hr class="docutils" />
-<br />
-</section>
-</section>
 <section id="time-dependent-feature-engineering">
 <h2>6. Time-Dependent Feature Engineering<a class="headerlink" href="#time-dependent-feature-engineering" title="Permalink to this heading">#</a></h2>
-<p>This module serves to facilitate feature engineering processes which are supposedly time-dependent (or time-sensitive) based on outputs generated under the previous section.</p>
-<p>The key feature engineering works in this module are as follows:</p>
+<p>This submodule serves to facilitate feature engineering processes which are supposedly time-dependent (or time-sensitive) based on outputs generated under the previous section.</p>
+<p>The key feature engineering works in this submodule are as follows:</p>
 <ul class="simple">
 <li><p>One-hot and ordinal encodings</p></li>
 <li><p>StandardScaler and Normalizer</p></li>
 <li><p>Lag feature generation</p></li>
-<li><p><em>LightweightMMM</em> feature generation <strong>(can be enabled/disabled via parameters.yml)</strong></p></li>
-<li><p><em>Tsfresh</em> feature generation <strong>(can be enabled/disabled via parameters.yml)</strong></p></li>
-<li><p>Merge all feature engineered columns together (including <em>LightweightMMM</em> and <em>Tsfresh</em>)</p></li>
+<li><p><em>tsfresh</em> feature generation <strong>(can be enabled/disabled via parameters.yml)</strong></p></li>
+<li><p>Merge all feature engineered columns together (including <em>tsfresh</em>)</p></li>
 </ul>
-<p>The diagram below provides a general overview of the module.</p>
-<p><img alt="Pipeline Design" src="_images/time_dependent_feature_engineering.png" />
-<br /></p>
-<section id="core-functions">
-<h3>Core functions<a class="headerlink" href="#core-functions" title="Permalink to this heading">#</a></h3>
+<p>The diagram below provides a general overview of the submodule.</p>
+<p><img alt="Pipeline Design" src="_images/time_dependent_feature_engineering.png" /></p>
+<section id="id9">
+<h3>Core Functions<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Function name</p></th>
@@ -924,15 +926,14 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tr>
 </tbody>
 </table>
-<hr class="docutils" />
-<br />
 </section>
-<section id="generated-artefacts-with-physical-file">
-<h3>Generated Artefacts (with physical file)<a class="headerlink" href="#generated-artefacts-with-physical-file" title="Permalink to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="generated-artefacts">
+<h3>Generated Artefacts<a class="headerlink" href="#generated-artefacts" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>File type</p></th>
+<th class="head"><p>File Type</p></th>
 <th class="head"><p>Directory Path</p></th>
 </tr>
 </thead>
@@ -945,48 +946,16 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 <td><p>pickle</p></td>
 <td><p>data/05_feature_engineering/artefacts/std_norm.pkl</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lightweightmmm_fitted_params.json</span></code></p></td>
-<td><p>json</p></td>
-<td><p>data/05_feature_engineering/lightweightmmm_features/artefacts/lightweightmmm_fitted_params.json</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fold&lt;number&gt;_tsfresh_relevant_features.json</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fold&lt;number&gt;_tsfresh_relevant_features.json</span></code></p></td>
 <td><p>json</p></td>
 <td><p>data/05_feature_engineering/tsfresh_features/artefacts/tsfresh_relevant_features/</p></td>
 </tr>
 </tbody>
 </table>
-<hr class="docutils" />
-<br />
 </section>
-<section id="lightweightmmm-configurable-for-enabling-disabling">
-<h3><em>LightweightMMM</em> (configurable for enabling/disabling)<a class="headerlink" href="#lightweightmmm-configurable-for-enabling-disabling" title="Permalink to this heading">#</a></h3>
-<p>The following functions <strong>are skipped</strong> if <em><code class="docutils literal notranslate"><span class="pre">include_lightweightMMM</span></code></em> parameter in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> is set to False.</p>
-<table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Function name</p></th>
-<th class="head"><p>Feature of interest (snakecased feature names)</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>New feature name</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">extract_mmm_params_for_folds</span></code></p></td>
-<td><p>Based on <code class="docutils literal notranslate"><span class="pre">fe_target_feature_name</span></code> (numeric target feature) and <code class="docutils literal notranslate"><span class="pre">mkt_channel_list</span></code> (list of marketing cost features) parameters in parameters.yml.</p></td>
-<td><p>Stores learned fitted lightweightMMM parameters (adstock/carryover) in a dictionary for function below.<br /> <br />  <strong>Caveat: Due to half-normal distribution utilised, values are added with 0.0001 to ensure positive values are porocessed and prevent errors.</strong></p></td>
-<td><p>-</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">generate_mmm_features_for_outlets</span></code></p></td>
-<td><p>References the extracted <em>lightweightMMM</em> information from the generated dictionary in the previous function.</p></td>
-<td><p>Generates separate <em>LightweightMMM</em> features and adds the derived adstock/carryover costs to daily marketing cost to represent marketing effects.</p></td>
-<td><p>No new feature name created as existing marketing cost features list <code class="docutils literal notranslate"><span class="pre">mkt_channel_list</span></code> are updated. Example: <ul><li><code class="docutils literal notranslate"><span class="pre">tv_ad_daily_cost</span></code></li><li><code class="docutils literal notranslate"><span class="pre">radio_ad_daily_cost</span></code></li><li><code class="docutils literal notranslate"><span class="pre">instagram_ad_daily_cost</span></code></li><li> <code class="docutils literal notranslate"><span class="pre">facebook_ad_daily_cost</span></code></li><li><code class="docutils literal notranslate"><span class="pre">youtube_ad_daily_cost</span></code></li><li><code class="docutils literal notranslate"><span class="pre">poster_campaign_daily_cost</span></code></li><li><code class="docutils literal notranslate"><span class="pre">digital_daily_cost</span></code></li></ul></p></td>
-</tr>
-</tbody>
-</table>
 <hr class="docutils" />
-<br />
-</section>
 <section id="tsfresh-configurable-for-enabling-disabling">
-<h3><em>Tsfresh</em> (configurable for enabling/disabling)<a class="headerlink" href="#tsfresh-configurable-for-enabling-disabling" title="Permalink to this heading">#</a></h3>
+<h3><em>tsfresh</em> (configurable for enabling/disabling)<a class="headerlink" href="#tsfresh-configurable-for-enabling-disabling" title="Permalink to this heading">#</a></h3>
 <p>The following functions <strong>are skipped</strong> if <em><code class="docutils literal notranslate"><span class="pre">include_tsfresh</span></code></em> parameter in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
 <table class="table">
 <thead>
@@ -1009,11 +978,10 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tr>
 </tbody>
 </table>
-<hr class="docutils" />
-<br />
 </section>
-<section id="id9">
-<h3>Input(s)<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="id10">
+<h3>Input(s)<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Component</p></th>
@@ -1036,11 +1004,10 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tr>
 </tbody>
 </table>
-<hr class="docutils" />
-<br />
 </section>
+<hr class="docutils" />
 <section id="intermediate-files">
-<h3>Intermediate files<a class="headerlink" href="#intermediate-files" title="Permalink to this heading">#</a></h3>
+<h3>Intermediate Files<a class="headerlink" href="#intermediate-files" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Component</p></th>
@@ -1050,34 +1017,30 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Training dataset (processed)</p></td>
-<td><p>Training dataset folder containing engineered features <strong>without <em>tsfresh</em> and <em>lightweightMMM</em> features</strong>.</p></td>
-<td><p>data/05_feature_engineering/no_tsfresh_lightweightmmm/training/</p></td>
+<td><p>Training dataset folder containing engineered features <strong>without <em>tsfresh</em></strong>.</p></td>
+<td><p>data/05_feature_engineering/no_tsfresh/training/</p></td>
 </tr>
 <tr class="row-odd"><td><p>Validation dataset (processed)</p></td>
-<td><p>Validation dataset folder containing engineered features <strong>without <em>tsfresh</em> and <em>lightweightMMM</em> features</strong>.</p></td>
-<td><p>data/05_feature_engineering/no_tsfresh_lightweightmmm/validation/</p></td>
+<td><p>Validation dataset folder containing engineered features <strong>without <em>tsfresh</em></strong>.</p></td>
+<td><p>data/05_feature_engineering/no_tsfresh/validation/</p></td>
 </tr>
 <tr class="row-even"><td><p>Testing dataset (processed)</p></td>
-<td><p>Validation dataset folder containing engineered features <strong>without <em>tsfresh</em> and <em>lightweightMMM</em> features</strong>.</p></td>
-<td><p>data/05_feature_engineering/no_tsfresh_lightweightmmm/testing/</p></td>
+<td><p>Validation dataset folder containing engineered features <strong>without <em>tsfresh</em></strong>.</p></td>
+<td><p>data/05_feature_engineering/no_tsfresh/testing/</p></td>
 </tr>
 <tr class="row-odd"><td><p>Lag features dataset</p></td>
 <td><p>Folder containing generated lag features for each outlet (using entire dataset).</p></td>
 <td><p>data/05_feature_engineering/lag_features/</p></td>
 </tr>
-<tr class="row-even"><td><p><em>LightweightMMM</em> features dataset</p></td>
-<td><p>Folder containing fold-based generated lightweightMMM features (adstock &amp; carry-over) using a sample outlet since marketing cost features for each outlet in the same fold are treated equivalent. This is due to differing time periods covered by <strong>each fold</strong>.</p></td>
-<td><p>data/05_feature_engineering/lightweightMMM/</p></td>
-</tr>
-<tr class="row-odd"><td><p><em>Tsfresh</em> features dataset</p></td>
+<tr class="row-even"><td><p><em>tsfresh</em> features dataset</p></td>
 <td><p>Folder containing generated derived tsfeatures for each outlet per fold.</p></td>
 <td><p>data/05_feature_engineering/tsfresh/</p></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="id10">
-<h3>Output(s)<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<section id="id11">
+<h3>Output(s)<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Component</p></th>
@@ -1087,32 +1050,33 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Training dataset</p></td>
-<td><p>Training dataset folder containing engineered features with <em>tsfresh</em> and/or <em>lightweightMMM</em> features</p></td>
+<td><p>Training dataset folder containing engineered features with <em>tsfresh</em> features</p></td>
 <td><p>data/05_feature_engineering/features_merged/training/</p></td>
 </tr>
 <tr class="row-odd"><td><p>Validation dataset</p></td>
-<td><p>Validation dataset folder containing engineered features with <em>tsfresh</em> and/or <em>lightweightMMM</em> features</p></td>
+<td><p>Validation dataset folder containing engineered features with <em>tsfresh</em> features</p></td>
 <td><p>data/05_feature_engineering/features_merged/validation/</p></td>
 </tr>
 <tr class="row-even"><td><p>Testing dataset</p></td>
-<td><p>Testing dataset folder containing engineered features with <em>tsfresh</em> and/or <em>lightweightMMM</em> features</p></td>
+<td><p>Testing dataset folder containing engineered features with <em>tsfresh</em> features</p></td>
 <td><p>data/05_feature_engineering/features_merged/testing/</p></td>
 </tr>
 </tbody>
 </table>
+</section>
+</section>
 <hr class="docutils" />
-<br />
-</section>
-</section>
 <section id="model-specific-preprocessing">
 <h2>7. Model-specific Preprocessing<a class="headerlink" href="#model-specific-preprocessing" title="Permalink to this heading">#</a></h2>
-<p>This module is primarily used to conduct any model-specific preprocessing steps, especially when more models are experimented with some requiring specialised inputs conversion, continuing from Time-dependent feature engineering module.</p>
+<p>This submodule is primarily used to conduct any model-specific preprocessing steps, especially when more models are experimented with some requiring specialised inputs conversion, continuing from Time-dependent feature engineering submodule.</p>
 <p>Subsequently, numerical columns are retained with the removal of non-numerical columns, redundant columns (i.e. single-valued column(s)) and rows containing null values are implemented before splitting the dataset into predictors and predicted feature for model training purposes. This is to ensure model training can proceed without issues.</p>
-<p><strong>Note: The existing OrderedModel and EBM used do not have a specific preprocessing step required that differs from each other. Should there be new models be considered, this module is to be utilised for necessary model-specific preprocessing works.</strong></p>
-<p>The diagram below provides a general overview of the module.</p>
+<blockquote>
+<div><p>Note: The existing OrderedModel and EBM used do not have a specific preprocessing step required that differs from each other. Should there be new models be considered, this submodule is to be utilised for necessary model-specific preprocessing works.</p>
+</div></blockquote>
+<p>The diagram below provides a general overview of the submodule.</p>
 <p><img alt="Pipeline Design" src="_images/model_specific_preprocessing.png" /></p>
-<section id="id11">
-<h3>Input(s)<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<section id="id12">
+<h3>Input(s)<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
 <p>Feature-engineered data customised for the specific predictive models being used in the analysis.</p>
 <table class="table">
 <thead>
@@ -1123,24 +1087,23 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Training dataset</p></td>
-<td><p>Training dataset folder containing engineered features with <em>tsfresh</em> and/or <em>lightweightMMM</em> features</p></td>
+<td><p>Training dataset folder containing engineered features with <em>tsfresh</em> features</p></td>
 <td><p>data/05_feature_engineering/features_merged/training/</p></td>
 </tr>
 <tr class="row-odd"><td><p>Validation dataset</p></td>
-<td><p>Validation dataset folder containing engineered features with <em>tsfresh</em> and/or <em>lightweightMMM</em> features</p></td>
+<td><p>Validation dataset folder containing engineered features with <em>tsfresh</em> features</p></td>
 <td><p>data/05_feature_engineering/features_merged/validation/</p></td>
 </tr>
 <tr class="row-even"><td><p>Testing dataset</p></td>
-<td><p>Testing dataset folder containing engineered features with <em>tsfresh</em> and/or <em>lightweightMMM</em> features</p></td>
+<td><p>Testing dataset folder containing engineered features with <em>tsfresh</em> features</p></td>
 <td><p>data/05_feature_engineering/features_merged/testing/</p></td>
 </tr>
 </tbody>
 </table>
-<hr class="docutils" />
-<br />
 </section>
-<section id="id12">
-<h3>Output(s)<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="id13">
+<h3>Output(s)<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Component</p></th>
@@ -1164,7 +1127,7 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 </tbody>
 </table>
 <hr class="docutils" />
-<br /></section>
+</section>
 </section>
 </section>
 
@@ -1189,11 +1152,11 @@ Function descriptions are only provided in the sections of Time-agnostic feature
       </div>
     </a>
     <a class="right-next"
-       href="training-pipeline.html"
+       href="data-pipeline-configuration.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Training Pipeline</p>
+        <p class="prev-next-title">Data Pipeline Configuration</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1214,11 +1177,14 @@ Function descriptions are only provided in the sections of Time-agnostic feature
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sources">Data Sources</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-architecture-and-considerations">Design Architecture and Considerations:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture">Architecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#design-considerations">Design Considerations</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loader">1. Data Loader</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-s">Input(s)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-s">Output(s)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#important-note-please-note"><strong>IMPORTANT NOTE, PLEASE NOTE:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#important-note-on-pipeline-execution">Important Note on Pipeline Execution</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing">2. Data Preprocessing</a><ul class="nav section-nav flex-column">
@@ -1231,30 +1197,29 @@ Function descriptions are only provided in the sections of Time-agnostic feature
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Output(s)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-split">4. Data split</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-split">4. Data Split</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Input(s)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Output(s)</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-agnostic-feature-engineering">5. Time-Agnostic Feature Engineering</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-various-time-agnostic-feature-engineering-functions">Table of various time-agnostic feature engineering functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core-functions">Core Functions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Input(s)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Output(s)</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-dependent-feature-engineering">6. Time-Dependent Feature Engineering</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core-functions">Core functions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generated-artefacts-with-physical-file">Generated Artefacts (with physical file)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightweightmmm-configurable-for-enabling-disabling"><em>LightweightMMM</em> (configurable for enabling/disabling)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tsfresh-configurable-for-enabling-disabling"><em>Tsfresh</em> (configurable for enabling/disabling)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Input(s)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intermediate-files">Intermediate files</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Output(s)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Core Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generated-artefacts">Generated Artefacts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tsfresh-configurable-for-enabling-disabling"><em>tsfresh</em> (configurable for enabling/disabling)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Input(s)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intermediate-files">Intermediate Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Output(s)</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-specific-preprocessing">7. Model-specific Preprocessing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Input(s)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Output(s)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Input(s)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Output(s)</a></li>
 </ul>
 </li>
 </ul>
@@ -1304,8 +1269,8 @@ By AI Singapore
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

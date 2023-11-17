@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="../../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,9 +33,9 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/doctools.js"></script>
@@ -127,6 +127,7 @@
   
   
   
+  
     <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
   
 </a></div>
@@ -144,12 +145,13 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../data-pipeline.html">Data Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data-pipeline-configuration.html">Data Pipeline Configuration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../training-pipeline.html">Training Pipeline</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="../../../../experiment-tracking.html">Experiment Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../experiments-archive.html">Archive of Model Experiments</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -159,10 +161,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../unit-tests.html">Unit Tests</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
@@ -178,13 +181,21 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../bipo_fastapi.html">bipo_fastapi package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../bipo_fastapi.html">bipo_fastapi package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../bipo_fastapi.v1.html">bipo_fastapi.v1 package</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_merge.html">tests.pipelines.data_merge package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.data_split.html">tests.pipelines.data_split package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.model_evaluation.html">tests.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.model_specific_preprocessing.html">tests.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.model_training.html">tests.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../tests.pipelines.time_agnostic_feature_engineering.html">tests.pipelines.time_agnostic_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -383,10 +394,9 @@ document.write(`
         <span class="k">if</span> <span class="n">relevance_table_list</span><span class="p">:</span>
             <span class="c1"># To store fold based outlet relevant features</span>
             <span class="n">relevant_features_dict</span> <span class="o">=</span> <span class="n">get_common_outlet_relevant_features</span><span class="p">(</span>
-                <span class="n">relevance_table_list</span>
+                <span class="n">relevance_table_list</span><span class="p">,</span> <span class="n">params_dict</span>
             <span class="p">)</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">relevant_features_dict</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">relevance_table_list</span><span class="p">:</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No relevant features generated for </span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">relevant_features_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># Save as artefacts dictionary for current fold</span>
@@ -500,7 +510,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="get_common_outlet_relevant_features"><a class="viewcode-back" href="../../../../bipo.pipelines.feature_engineering.html#bipo.pipelines.feature_engineering.tsfresh_node.get_common_outlet_relevant_features">[docs]</a><span class="k">def</span> <span class="nf">get_common_outlet_relevant_features</span><span class="p">(</span>
-    <span class="n">relevance_table_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="kc">None</span><span class="p">]],</span>
+    <span class="n">relevance_table_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="kc">None</span><span class="p">]],</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Function which combines multiple outlets&#39; relevance tables</span>
 
@@ -512,17 +522,30 @@ document.write(`
 <span class="sd">        Dict[str, float]: Dictionary of relevant features that is in a suitable format for tsfresh extract features.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Relevant features generated for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">relevance_table_list</span><span class="p">)</span><span class="si">}</span><span class="s2"> outlets.&quot;</span><span class="p">)</span>
-
+    <span class="n">target_feature</span> <span class="o">=</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;fe_target_feature_name&quot;</span><span class="p">]</span>  <span class="c1"># Raw target column</span>
+    <span class="n">tsfresh_features</span> <span class="o">=</span> <span class="n">TsfreshFe</span><span class="p">(</span>
+        <span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(),</span>
+        <span class="n">date_column</span><span class="o">=</span><span class="n">constants</span><span class="p">[</span><span class="s2">&quot;default_date_col&quot;</span><span class="p">],</span>
+        <span class="n">target_feature</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_target_feature&quot;</span><span class="p">],</span>
+        <span class="n">days_per_group</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_days_per_group&quot;</span><span class="p">],</span>
+        <span class="n">bin_labels_list</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;binning_dict&quot;</span><span class="p">][</span><span class="n">target_feature</span><span class="p">],</span>
+        <span class="n">tsfresh_features_list</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_features_list&quot;</span><span class="p">],</span>
+        <span class="n">shift_period</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;sma_tsfresh_shift_period&quot;</span><span class="p">],</span>
+        <span class="n">n_significant</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_n_significant&quot;</span><span class="p">],</span>
+        <span class="n">num_features</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_num_features&quot;</span><span class="p">],</span>
+        <span class="n">relevant_features_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="c1"># For case of only single relevance table, take as it is, otherwise use tsfresh combine_relevance_tables</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">relevance_table_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">combined_relevance_table</span> <span class="o">=</span> <span class="n">relevance_table_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">combined_relevance_table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;p_value&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">combined_relevance_table</span> <span class="o">=</span> <span class="n">combined_relevance_table</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span>
+            <span class="p">:</span> <span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;tsfresh_num_features&quot;</span><span class="p">]</span>
+        <span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">combined_relevance_table</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">tsfresh</span><span class="o">.</span><span class="n">feature_selection</span><span class="o">.</span><span class="n">relevance</span><span class="o">.</span><span class="n">combine_relevance_tables</span><span class="p">(</span>
-                <span class="n">relevance_table_list</span>
-            <span class="p">)</span>
+        <span class="n">combined_relevance_table</span> <span class="o">=</span> <span class="n">tsfresh_features</span><span class="o">.</span><span class="n">combine_relevance_table</span><span class="p">(</span>
+            <span class="n">relevance_table_list</span>
         <span class="p">)</span>
-
     <span class="c1"># Retrieve values of combined relevance tables</span>
     <span class="n">features</span> <span class="o">=</span> <span class="n">combined_relevance_table</span><span class="p">[</span><span class="s2">&quot;feature&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)</span><span class="si">}</span><span class="s2"> relevant features selected after combination.&quot;</span><span class="p">)</span>
@@ -641,8 +664,8 @@ By AI Singapore
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

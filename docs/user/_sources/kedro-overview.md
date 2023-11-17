@@ -5,6 +5,7 @@
 Kedro is an open-source Python framework for creating reproducible, maintainable, and **modular** data science code. It borrows concepts from software engineering best practices and applies them to machine learning code. More information on Kedro is available in its [documentation](https://kedro.readthedocs.io/en/stable/).
 
 ## Elements of Kedro
+
 ![kedro overview](./assets/kedro_overview.png)
 
 Although Kedro has numerous feature and functionalities, not all of them are used in this project. The key elements utilised in the context of the Demand Forecasting module are:
@@ -15,7 +16,7 @@ Although Kedro has numerous feature and functionalities, not all of them are use
 - [Configuration](https://docs.kedro.org/en/0.18.5/kedro_project_setup/configuration.html)
   - Base folder for default settings. 
   - Local folder for user specific config like IDE settings, security credentials. 
-  - Project config is located in [base](../conf/base/) folder, consisting of YAML files. 
+  - Project config is located in `/conf/base/`` folder, consisting of YAML files. 
 - [Data Catalog](https://docs.kedro.org/en/stable/data/index.html)
   - Registry of all data sources, and specified with a [catalog.yml](../conf/base/catalog.yml) file.
   - Used as node inputs/outputs  
@@ -50,6 +51,7 @@ Additional features:
 - Visualization within [Kedro-Viz](https://docs.kedro.org/en/stable/visualisation/kedro-viz_visualisation.html) which shows a flowchart of pipelines
 
 ## Configuration
+
 - Can be loaded directly as a node input.
   ```
   # src/bipo/pipelines/model_training/pipeline.py
@@ -101,7 +103,9 @@ Additional features:
   # instantiate parameters
   model = conf_params["model"] 
   ```
+
 ## Nodes 
+
 - arguments consist of func, inputs, outputs, name, tags.
 - use of node tags allows selection of specific nodes to be run. 
 ```
@@ -151,6 +155,7 @@ pipeline_instance = pipeline(
         pipeline_instance = pipeline_instance.only_nodes_with_tags("model_training")
 ```
 ## [Pipeline Namespace](https://docs.kedro.org/en/0.18.0/tutorial/namespace_pipelines.html)
+
 - arguments consist of pipe, inputs, outputs, parameters, namespace.
 - namespace is added as a prefix to node inputs and outputs within the pipeline. 
 - inputs and outputs are used to specify the respective inputs and outputs which we want to exclude adding the namespace prefix.   
@@ -201,7 +206,6 @@ def create_pipeline(**kwargs) -> Pipeline:
   
   # expanding_window_pipeline and sliding_window pipeline are similar, just with a change in namespace which is their respective split approach. 
 ```
-
 
 ## Creating Kedro Pipelines
 

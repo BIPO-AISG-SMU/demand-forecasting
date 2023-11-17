@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>bipo.pipelines.feature_engineering package &#8212; BIPO Demand Forecasting v1.0.0 documentation</title>
   
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/doctools.js"></script>
@@ -130,6 +130,7 @@
   
   
   
+  
     <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
   
 </a></div>
@@ -147,12 +148,13 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-pipeline.html">Data Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-pipeline-configuration.html">Data Pipeline Configuration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments-archive.html">Archive of Model Experiments</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -162,10 +164,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests.html">Unit Tests</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">bipo</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">src</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="bipo.html">bipo package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="bipo.pipelines.html">bipo.pipelines package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
@@ -181,13 +184,21 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.v1.html">bipo_fastapi.v1 package</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_merge.html">tests.pipelines.data_merge package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_split.html">tests.pipelines.data_split package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_evaluation.html">tests.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_specific_preprocessing.html">tests.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_training.html">tests.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.time_agnostic_feature_engineering.html">tests.pipelines.time_agnostic_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -359,16 +370,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lag_feature_generation.create_sma_lags"><code class="docutils literal notranslate"><span class="pre">create_sma_lags()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lag_feature_generation.generate_data_groups"><code class="docutils literal notranslate"><span class="pre">generate_data_groups()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lag_feature_generation.merge_fold_and_generated_lag"><code class="docutils literal notranslate"><span class="pre">merge_fold_and_generated_lag()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-bipo.pipelines.feature_engineering.lightweightmmm">bipo.pipelines.feature_engineering.lightweightmmm module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.extract_mmm_params_for_folds"><code class="docutils literal notranslate"><span class="pre">extract_mmm_params_for_folds()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features"><code class="docutils literal notranslate"><span class="pre">generate_mmm_features()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features_for_outlets"><code class="docutils literal notranslate"><span class="pre">generate_mmm_features_for_outlets()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.get_fitted_parameters"><code class="docutils literal notranslate"><span class="pre">get_fitted_parameters()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.merge_mmm_features_with_fold_outlets"><code class="docutils literal notranslate"><span class="pre">merge_mmm_features_with_fold_outlets()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.process_mmm_df"><code class="docutils literal notranslate"><span class="pre">process_mmm_df()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.validate_lags"><code class="docutils literal notranslate"><span class="pre">validate_lags()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-bipo.pipelines.feature_engineering.nodes">bipo.pipelines.feature_engineering.nodes module</a><ul class="nav section-nav flex-column">
@@ -696,159 +697,6 @@ generated using Kedro 0.18.10</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, pd.DataFrame]</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-bipo.pipelines.feature_engineering.lightweightmmm">
-<span id="bipo-pipelines-feature-engineering-lightweightmmm-module"></span><h2>bipo.pipelines.feature_engineering.lightweightmmm module<a class="headerlink" href="#module-bipo.pipelines.feature_engineering.lightweightmmm" title="Permalink to this heading">#</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.lightweightmmm.extract_mmm_params_for_folds">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.lightweightmmm.</span></span><span class="sig-name descname"><span class="pre">extract_mmm_params_for_folds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitioned_outlet_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/lightweightmmm.html#extract_mmm_params_for_folds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.lightweightmmm.extract_mmm_params_for_folds" title="Permalink to this definition">#</a></dt>
-<dd><p>Function which receives fitted parameters for each training fold using a single outlet in view of common time-index and marketing values across all outlets.</p>
-<p>These fitted parameters are stored into a Dictionary based on fold from training data folds, which are used to generate additional marketing features.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>partitioned_outlet_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Kedro IncrementalDataSet dictionary containing individual outlet related features dataframe as values with filename as identifier.</p></li>
-<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary of parameters as referenced from parameters.yml.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary containing fold info as keys as well as fitted LightweightMMM artefacts in a dictionary as value.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, Dict]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.lightweightmmm.</span></span><span class="sig-name descname"><span class="pre">generate_mmm_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lightweightmmm_params_artefact</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outlet_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mmm_lags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adstock_normalise</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mkt_cost_col_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/lightweightmmm.html#generate_mmm_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features" title="Permalink to this definition">#</a></dt>
-<dd><p>Generate lightweightmmm features for a single outlet as called by generate_mmm_features_for_outlets. This includes 2 features - adstock and carryover. This is used for inference (1 outlet), and used as a helper function in run_generate_mmm_features_pipeline during training (multiple outlets).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>lightweightmmm_params_artefact</strong> (<em>Dict</em>) – Fitted parameters artefact stored as dictionary using Kedro’s  JSONDatset datatype</p></li>
-<li><p><strong>outlet_df</strong> (<em>pd.DataFrame</em>) – inference dataframe</p></li>
-<li><p><strong>mmm_lags</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Lag periods applied for mmm feature generation</p></li>
-<li><p><strong>adstock_normalise</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – True to normalise adstock values. Otherwise False.</p></li>
-<li><p><strong>mkt_cost_col_list</strong> (<em>List</em>) – list of marketing daily cost column names</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dataframe containing generated lightweightmmm features</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features_for_outlets">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.lightweightmmm.</span></span><span class="sig-name descname"><span class="pre">generate_mmm_features_for_outlets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extracted_mmm_params_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partitioned_outlet_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/lightweightmmm.html#generate_mmm_features_for_outlets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features_for_outlets" title="Permalink to this definition">#</a></dt>
-<dd><p>Generates lightweightmmm features for each single outlet from each fold. All outlets have the same marketing features, and hence only 1 dataframe will be generated for each fold.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>extracted_mmm_params_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Dict</em><em>]</em><em>)</em>) – Dictionary containing fold-based LightweightMMM fitted parameters artefacts</p></li>
-<li><p><strong>Dict</strong><strong>[</strong><strong>str</strong> (<em>partitioned_outlet_input</em>) – Kedro IncrementalDataSet dictionary containing individual outlet related features dataframe as values with filename as identifier.</p></li>
-<li><p><strong>pd.DataFrame</strong><strong>]</strong><strong>)</strong> – Kedro IncrementalDataSet dictionary containing individual outlet related features dataframe as values with filename as identifier.</p></li>
-<li><p><strong>params_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary of parameters as referenced from parameters.yml.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary contain dictionaries of extracted lightweightMMM features by outlet.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, Dict]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.lightweightmmm.get_fitted_parameters">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.lightweightmmm.</span></span><span class="sig-name descname"><span class="pre">get_fitted_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marketing_channel_costs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_marketing_costs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_columns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weekday_seasonality</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seasonality_frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">365</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/lightweightmmm.html#get_fitted_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.lightweightmmm.get_fitted_parameters" title="Permalink to this definition">#</a></dt>
-<dd><p>Function which gets fitted parameters based on training fold marketing costs and returns 3 parameters.</p>
-<p>Lag_weight is extracted from fitted adstock model, while ad_effect_retention_rate and peak_effect_delay are extracted from fitted carryover model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>marketing_channel_costs</strong> (<em>ndarray</em>) – individual marketing channel daily costs</p></li>
-<li><p><strong>total_marketing_costs</strong> (<em>ndarray</em>) – total cost of each marketing channel</p></li>
-<li><p><strong>channel_columns</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – list of marketing channel columns</p></li>
-<li><p><strong>weekday_seasonality</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Whether to estimate a weekday (7) parameter as per LightweightMMM definition.</p></li>
-<li><p><strong>seasonality_frequency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Frequency of the time period used. Default is 52 as in 52 weeks per year as per LightweightMMM definition.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dictionary containing parameter name as keys, and the corresponding parameters as values.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, List]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.lightweightmmm.merge_mmm_features_with_fold_outlets">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.lightweightmmm.</span></span><span class="sig-name descname"><span class="pre">merge_mmm_features_with_fold_outlets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partitioned_outlet_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partitioned_mmm_input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/lightweightmmm.html#merge_mmm_features_with_fold_outlets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.lightweightmmm.merge_mmm_features_with_fold_outlets" title="Permalink to this definition">#</a></dt>
-<dd><p>Function which left merges a fold-based generated LightweightMMM features to each outlet based on common time-index. This is on the assumption that LightweightMMM features are applicable across all-outlets regardless of outlet types.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>partitioned_outlet_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Dataframe partitioned by outlets from Kedro PartitionedDataSet.</p></li>
-<li><p><strong>partitioned_mmm_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Generated fold-based LightweightMMM features dataframe partitioned by folds.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>None.</strong> – </p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary containing merged dataframes involving both lightweightMMM features and input outlet dataframe features. Otherwise, returns partitioned_outlet_input with dataframe lazy loading function.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, pd.DataFrame]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.lightweightmmm.process_mmm_df">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.lightweightmmm.</span></span><span class="sig-name descname"><span class="pre">process_mmm_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marketing_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mmm_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/lightweightmmm.html#process_mmm_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.lightweightmmm.process_mmm_df" title="Permalink to this definition">#</a></dt>
-<dd><p>Function processes mmm dataframes which include adstock and carryover. Previous day’s adstock/carryover values are added to the current day’s daily cost to get the final daily cost which takes into account adstock/carryover effects.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>marketing_df</strong> (<em>pd.DataFrame</em>) – Marketing dataframe to be processed.</p></li>
-<li><p><strong>mmm_df</strong> (<em>pd.DataFrame</em>) – mmm dataframe, which is either adstock/carryover dataframe</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>processed mmm df</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.lightweightmmm.validate_lags">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.lightweightmmm.</span></span><span class="sig-name descname"><span class="pre">validate_lags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_lags</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/lightweightmmm.html#validate_lags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.lightweightmmm.validate_lags" title="Permalink to this definition">#</a></dt>
-<dd><p>Function which validates the input num_lags and attempts to typecast into integer. If negative value is obtained, a default value referencing constants.yml would be used. Same applies if non-numerical value is provided.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>num_lags</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – _description_</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Validated num_lags with corrected value.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1238,7 +1086,7 @@ For every feature the influence on the target is evaluated by univariate tests a
 
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo.pipelines.feature_engineering.tsfresh_node.get_common_outlet_relevant_features">
-<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.tsfresh_node.</span></span><span class="sig-name descname"><span class="pre">get_common_outlet_relevant_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">relevance_table_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/tsfresh_node.html#get_common_outlet_relevant_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.tsfresh_node.get_common_outlet_relevant_features" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">bipo.pipelines.feature_engineering.tsfresh_node.</span></span><span class="sig-name descname"><span class="pre">get_common_outlet_relevant_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">relevance_table_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo/pipelines/feature_engineering/tsfresh_node.html#get_common_outlet_relevant_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo.pipelines.feature_engineering.tsfresh_node.get_common_outlet_relevant_features" title="Permalink to this definition">#</a></dt>
 <dd><p>Function which combines multiple outlets’ relevance tables</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1263,7 +1111,7 @@ For every feature the influence on the target is evaluated by univariate tests a
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>partitioned_outlet_input</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>]) – Dict[str, pd.DataFrame]: Kedro MemoryDataSet dictionary partitioned by outlets loaded in memory containing outlet dataframes.</p></li>
+<li><p><strong>partitioned_outlet_input</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>]) – Dict[str, pd.DataFrame]: Kedro MemoryDataSet dictionary partitioned by outlets loaded in memory containing outlet dataframes.</p></li>
 <li><p><strong>partitioned_mmm_input</strong> – Dict[str, pd.DataFrame]: Kedro IncrementalDataset of dataframe representing fold-based outlets.</p></li>
 </ul>
 </dd>
@@ -1388,16 +1236,6 @@ For every feature the influence on the target is evaluated by univariate tests a
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lag_feature_generation.merge_fold_and_generated_lag"><code class="docutils literal notranslate"><span class="pre">merge_fold_and_generated_lag()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-bipo.pipelines.feature_engineering.lightweightmmm">bipo.pipelines.feature_engineering.lightweightmmm module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.extract_mmm_params_for_folds"><code class="docutils literal notranslate"><span class="pre">extract_mmm_params_for_folds()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features"><code class="docutils literal notranslate"><span class="pre">generate_mmm_features()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.generate_mmm_features_for_outlets"><code class="docutils literal notranslate"><span class="pre">generate_mmm_features_for_outlets()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.get_fitted_parameters"><code class="docutils literal notranslate"><span class="pre">get_fitted_parameters()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.merge_mmm_features_with_fold_outlets"><code class="docutils literal notranslate"><span class="pre">merge_mmm_features_with_fold_outlets()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.process_mmm_df"><code class="docutils literal notranslate"><span class="pre">process_mmm_df()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.lightweightmmm.validate_lags"><code class="docutils literal notranslate"><span class="pre">validate_lags()</span></code></a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-bipo.pipelines.feature_engineering.nodes">bipo.pipelines.feature_engineering.nodes module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.nodes.apply_binning_fit"><code class="docutils literal notranslate"><span class="pre">apply_binning_fit()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo.pipelines.feature_engineering.nodes.apply_binning_transform"><code class="docutils literal notranslate"><span class="pre">apply_binning_transform()</span></code></a></li>
@@ -1484,8 +1322,8 @@ By AI Singapore
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>bipo_fastapi package &#8212; BIPO Demand Forecasting v1.0.0 documentation</title>
   
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/doctools.js"></script>
@@ -48,7 +48,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'bipo_fastapi';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="tests package" href="tests.html" />
+    <link rel="next" title="bipo_fastapi.v1 package" href="bipo_fastapi.v1.html" />
     <link rel="prev" title="bipo.pipelines.time_agnostic_feature_engineering package" href="bipo.pipelines.time_agnostic_feature_engineering.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -130,6 +130,7 @@
   
   
   
+  
     <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
   
 </a></div>
@@ -147,12 +148,13 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-pipeline.html">Data Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-pipeline-configuration.html">Data Pipeline Configuration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments-archive.html">Archive of Model Experiments</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="nav bd-sidenav">
@@ -162,10 +164,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests.html">Unit Tests</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">bipo</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">src</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
@@ -181,13 +184,21 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">bipo_fastapi package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">bipo_fastapi package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.v1.html">bipo_fastapi.v1 package</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_merge.html">tests.pipelines.data_merge package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_split.html">tests.pipelines.data_split package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_evaluation.html">tests.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_specific_preprocessing.html">tests.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_training.html">tests.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.time_agnostic_feature_engineering.html">tests.pipelines.time_agnostic_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -340,6 +351,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-bipo_fastapi.common">bipo_fastapi.common module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.common.explain_ebm_inference"><code class="docutils literal notranslate"><span class="pre">explain_ebm_inference()</span></code></a></li>
@@ -386,10 +398,12 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.load_data_catalog.load_data_catalog"><code class="docutils literal notranslate"><span class="pre">load_data_catalog()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo-fastapi-main-module">bipo_fastapi.main module</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-bipo_fastapi.nodes">bipo_fastapi.nodes module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.nodes.convert_to_string"><code class="docutils literal notranslate"><span class="pre">convert_to_string()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.nodes.fill_date_range"><code class="docutils literal notranslate"><span class="pre">fill_date_range()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.nodes.impute_lag_sales_df"><code class="docutils literal notranslate"><span class="pre">impute_lag_sales_df()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.nodes.merge_adstock_and_marketing_df"><code class="docutils literal notranslate"><span class="pre">merge_adstock_and_marketing_df()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.nodes.merge_generated_features_to_main"><code class="docutils literal notranslate"><span class="pre">merge_generated_features_to_main()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.nodes.merge_pipeline_output"><code class="docutils literal notranslate"><span class="pre">merge_pipeline_output()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.nodes.process_final_merged_df"><code class="docutils literal notranslate"><span class="pre">process_final_merged_df()</span></code></a></li>
@@ -423,7 +437,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute"><code class="docutils literal notranslate"><span class="pre">OutletAttribute</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute.date"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute.inference_date"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.inference_date</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute.cost_centre_code"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.cost_centre_code</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute.location"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.location</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute.type"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.type</span></code></a></li>
@@ -436,23 +450,23 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.cost_centre_code</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute.ensure_datetime"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.ensure_datetime()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.factor</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute.inference_date"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.inference_date</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_daily_rainfall_total_mm</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_pandemic_restrictions</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_public_holiday</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_school_holiday</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.location</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.maximum_temperature_c</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.inference_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_daily_rainfall_total_mm</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_pandemic_restrictions</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_public_holiday</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_school_holiday</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.location</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.maximum_temperature_c</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id20"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.type</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesAttributes"><code class="docutils literal notranslate"><span class="pre">SalesAttributes</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesAttributes.outlet_attributes"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.outlet_attributes</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesAttributes.lag_sales_attributes"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.lag_sales_attributes</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesAttributes.mkt_attributes"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.mkt_attributes</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id20"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.lag_sales_attributes</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id21"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.mkt_attributes</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id22"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.outlet_attributes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id21"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.lag_sales_attributes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id22"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.mkt_attributes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id23"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.outlet_attributes</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesPrediction"><code class="docutils literal notranslate"><span class="pre">SalesPrediction</span></code></a><ul class="nav section-nav flex-column">
@@ -461,16 +475,16 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesPrediction.sales_class_id"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_id</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesPrediction.sales_class_name"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_name</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesPrediction.probabilities"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.probabilities</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id23"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.cost_centre_code</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id24"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.date</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id25"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.probabilities</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id26"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_id</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id27"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id24"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.cost_centre_code</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id25"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id26"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.probabilities</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id27"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id28"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_name</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesPredictions"><code class="docutils literal notranslate"><span class="pre">SalesPredictions</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesPredictions.sales_predictions"><code class="docutils literal notranslate"><span class="pre">SalesPredictions.sales_predictions</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id28"><code class="docutils literal notranslate"><span class="pre">SalesPredictions.sales_predictions</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id29"><code class="docutils literal notranslate"><span class="pre">SalesPredictions.sales_predictions</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -488,6 +502,14 @@ document.write(`
                   
   <section id="module-bipo_fastapi">
 <span id="bipo-fastapi-package"></span><h1>bipo_fastapi package<a class="headerlink" href="#module-bipo_fastapi" title="Permalink to this heading">#</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bipo_fastapi.v1.html">bipo_fastapi.v1 package</a></li>
+</ul>
+</div>
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 </section>
@@ -496,21 +518,21 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo_fastapi.common.explain_ebm_inference">
 <span class="sig-prename descclassname"><span class="pre">bipo_fastapi.common.</span></span><span class="sig-name descname"><span class="pre">explain_ebm_inference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_input_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_y_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/common.html#explain_ebm_inference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.common.explain_ebm_inference" title="Permalink to this definition">#</a></dt>
-<dd><p>ebm explainability for each single prediction. This function is used in inference pipeline.</p>
+<dd><p>EBM explainability for each single prediction. This function is used in inference pipeline.</p>
 <ol class="arabic simple">
 <li><p>local: breakdown of how much each term contributed to the prediction for a single sample. For inference. The intercept reflects the average case. In regression, the intercept is the average y-value of the train set (e.g., $5.51 if predicting cost). In classification, the intercept is the log of the base rate (e.g., -2.3 if the base rate is 10%).</p></li>
 </ol>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> (<em>ExplainableBoostingClassifier</em>) – ebm model weights</p></li>
+<li><p><strong>model</strong> (<em>ExplainableBoostingClassifier</em>) – EBM model weights.</p></li>
 <li><p><strong>partitioned_input</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>pd.DataFrame</em><em>]</em>) – Kedro IncrementalDataSet Dictionary containing fold-based training dataset containing features and target variables identified with suffixes _X and _y.</p></li>
 <li><p><strong>x</strong> (<em>pd.Series</em><em>, </em><em>optional</em>) – 1 row of the X test dataset for local explainability, which corresponds to a single inference point.</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – Single actual y value for local explainability.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>plotly figure. Also saves the plotly figure/static image locally</p>
+<dd class="field-even"><p>plotly figure. Also saves the plotly figure/static image locally.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>plotly.graph_objs</p>
@@ -527,7 +549,7 @@ document.write(`
 <dd class="field-odd"><p><strong>num_dates</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of days. Defaults to 7 days.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>list of dates for inference</p>
+<dd class="field-even"><p>list of dates for inference in the format ‘YYYY-MM-DD’.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>num_days_list (List)</p>
@@ -544,7 +566,7 @@ document.write(`
 <dd class="field-odd"><p><strong>num_dates</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of days. Defaults to 14.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>list of lag dates for inference</p>
+<dd class="field-even"><p>list of lag dates for inference.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>previous_days_list (List)</p>
@@ -559,8 +581,7 @@ document.write(`
 <dt class="sig sig-object py" id="bipo_fastapi.config.Settings">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bipo_fastapi.config.</span></span><span class="sig-name descname"><span class="pre">Settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_env_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&lt;object</span> <span class="pre">object&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_env_file_encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_env_nested_delimiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_secrets_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/config.html#Settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.config.Settings" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSettings</span></code></p>
-<p>Defines the application settings.</p>
-<p>This class uses pydantic’s BaseSettings for environment variable parsing.</p>
+<p>Defines the application settings using pydantic’s BaseSettings.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="bipo_fastapi.config.Settings.API_NAME">
 <span class="sig-name descname"><span class="pre">API_NAME</span></span><a class="headerlink" href="#bipo_fastapi.config.Settings.API_NAME" title="Permalink to this definition">#</a></dt>
@@ -671,7 +692,7 @@ document.write(`
 <span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/custom_dataset.html#CustomCSVDataSet.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.custom_dataset.CustomCSVDataSet.load" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -688,22 +709,20 @@ document.write(`
 <dt class="sig sig-object py" id="bipo_fastapi.hooks.ParamsHooks">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bipo_fastapi.hooks.</span></span><span class="sig-name descname"><span class="pre">ParamsHooks</span></span><a class="reference internal" href="_modules/bipo_fastapi/hooks.html#ParamsHooks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.hooks.ParamsHooks" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Hooks related to parameters.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="bipo_fastapi.hooks.ParamsHooks.before_node_run">
 <span class="sig-name descname"><span class="pre">before_node_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/hooks.html#ParamsHooks.before_node_run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.hooks.ParamsHooks.before_node_run" title="Permalink to this definition">#</a></dt>
-<dd><ul class="simple">
-<li><p>overwrite the start_date and end_date parameters before running the node with modify_params tag.</p></li>
-<li><p>instantiate logging</p></li>
-</ul>
+<dd><p>Overwrite the start_date and end_date parameters before running the node with modify_params tag. Instantiate logging</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<em>Node</em>) – pipeline node</p></li>
-<li><p><strong>inputs</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – node inputs</p></li>
+<li><p><strong>node</strong> (<em>Node</em>) – Pipeline node</p></li>
+<li><p><strong>inputs</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Node inputs</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>overwrites node inputs by returning a dictionary if the node tags is “modify_params”. Otherwise, returns None</p>
+<dd class="field-even"><p>Overwrites node inputs by returning a dictionary if the node tags is “modify_params”. Otherwise, returns None</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)">dict</a>, None]</p>
@@ -716,7 +735,7 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo_fastapi.hooks.load_kedro_logger">
 <span class="sig-prename descclassname"><span class="pre">bipo_fastapi.hooks.</span></span><span class="sig-name descname"><span class="pre">load_kedro_logger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/hooks.html#load_kedro_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.hooks.load_kedro_logger" title="Permalink to this definition">#</a></dt>
-<dd><p>load kedro config for logging purposes</p>
+<dd><p>Load kedro logging configuration dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -730,13 +749,13 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo_fastapi.load_data_catalog.load_artefact">
 <span class="sig-prename descclassname"><span class="pre">bipo_fastapi.load_data_catalog.</span></span><span class="sig-name descname"><span class="pre">load_artefact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artefact_filepath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/load_data_catalog.html#load_artefact"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.load_data_catalog.load_artefact" title="Permalink to this definition">#</a></dt>
-<dd><p>loads json/pickle artefact dictionary from specified filepath</p>
+<dd><p>Loads json/pickle artefact dictionary from specified filepath</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>artefact_filepath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – directory path of the artefact</p>
+<dd class="field-odd"><p><strong>artefact_filepath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Directory path of the artefact</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>artefact dictionary</p>
+<dd class="field-even"><p>Artefact dictionary</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)">dict</a></p>
@@ -747,10 +766,10 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo_fastapi.load_data_catalog.load_data_catalog">
 <span class="sig-prename descclassname"><span class="pre">bipo_fastapi.load_data_catalog.</span></span><span class="sig-name descname"><span class="pre">load_data_catalog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/load_data_catalog.html#load_data_catalog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.load_data_catalog.load_data_catalog" title="Permalink to this definition">#</a></dt>
-<dd><p>load data files and artefacts and add them into a data catalog</p>
+<dd><p>Load data files and artefacts and add them into a data catalog</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>catalog containing all necessary data files</p>
+<dd class="field-odd"><p>Catalog containing all necessary data files</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>DataCatalog</p>
@@ -759,18 +778,21 @@ document.write(`
 </dd></dl>
 
 </section>
+<section id="bipo-fastapi-main-module">
+<h2>bipo_fastapi.main module<a class="headerlink" href="#bipo-fastapi-main-module" title="Permalink to this heading">#</a></h2>
+</section>
 <section id="module-bipo_fastapi.nodes">
 <span id="bipo-fastapi-nodes-module"></span><h2>bipo_fastapi.nodes module<a class="headerlink" href="#module-bipo_fastapi.nodes" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo_fastapi.nodes.convert_to_string">
 <span class="sig-prename descclassname"><span class="pre">bipo_fastapi.nodes.</span></span><span class="sig-name descname"><span class="pre">convert_to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/nodes.html#convert_to_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.nodes.convert_to_string" title="Permalink to this definition">#</a></dt>
-<dd><p>convert campaign name column to a string datatype. This is unnecessary in the data pipeline as the dataframe has been saved as a csv file and the campaign name is saved as a string.</p>
+<dd><p>Convert campaign name column to a string datatype. This is unnecessary in the data pipeline as the dataframe has been saved as a csv file and the campaign name is saved as a string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – </p>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – Input DataFrame with a column to be converted to string.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dataframe with transformed campaign name column</p>
+<dd class="field-even"><p>Dataframe with transformed campaign name column.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
@@ -781,16 +803,16 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo_fastapi.nodes.fill_date_range">
 <span class="sig-prename descclassname"><span class="pre">bipo_fastapi.nodes.</span></span><span class="sig-name descname"><span class="pre">fill_date_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/nodes.html#fill_date_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.nodes.fill_date_range" title="Permalink to this definition">#</a></dt>
-<dd><p>generate extra empty rows to fill the given dataframe up to the specified date</p>
+<dd><p>Generate extra empty rows to fill the given dataframe up to the specified date.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – given dataframe</p></li>
-<li><p><strong>end_date</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – end date</p></li>
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Given dataframe.</p></li>
+<li><p><strong>end_date</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – End date.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dataframe that is filled with empty rows to the specified date</p>
+<dd class="field-even"><p>Dataframe that is filled with empty rows to the specified date.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
@@ -801,25 +823,23 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo_fastapi.nodes.impute_lag_sales_df">
 <span class="sig-prename descclassname"><span class="pre">bipo_fastapi.nodes.</span></span><span class="sig-name descname"><span class="pre">impute_lag_sales_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lag_sales_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outlet_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/nodes.html#impute_lag_sales_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.nodes.impute_lag_sales_df" title="Permalink to this definition">#</a></dt>
-<dd><ul class="simple">
-<li><p>Imputes lag sales if the given lag sales is less than the required number of days (ie. 14 days from today when the prediction is made). It is assumed that at least, the first 7 days of lag sales is given, as the most recent data might be unavailable. (E.g today is 18 Oct, expected lag sales is 4-17 Oct, and minimum lag sales to be given from 4-10 Oct).</p></li>
-<li><p>Extends the df by adding empty rows until the last date of the inference period. This ensures there is enough rows to shift forward when generating lag features.</p></li>
-<li><p>Also renames lag sales column to proxyrevenue.</p></li>
-<li><p>Assumes the dates are all 1 day increments. (ie. not 4 may, 6 may..)</p></li>
-</ul>
+<dd><p>Imputes lag sales if the given lag sales is less than the required number of days (ie. 14 days from today when the prediction is made). It is assumed that at least, the first 7 days of lag sales is given, as the most recent data might be unavailable. (E.g today is 18 Oct, expected lag sales is 4-17 Oct, and minimum lag sales to be given from 4-10 Oct).
+- Extends the df by adding empty rows until the last date of the inference period. This ensures there is enough rows to shift forward when generating lag features.
+- Also renames lag sales column to proxyrevenue.
+- Assumes the dates are all 1 day increments. (ie. not 4 may, 6 may..).</p>
 <p>Also, add empty rows to match length of outlet_df. As generation of lag features and tsfresh will shift the values forward to match prediction period.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lag_sales_df</strong> (<em>pd.DataFrame</em>) – lag sales df</p></li>
-<li><p><strong>outlet_df</strong> (<em>pd.DataFrame</em>) – outlet df</p></li>
+<li><p><strong>lag_sales_df</strong> (<em>pd.DataFrame</em>) – lag sales df.</p></li>
+<li><p><strong>outlet_df</strong> (<em>pd.DataFrame</em>) – Outlet data.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>None</strong> – </p>
+<dd class="field-even"><p><strong>None.</strong> – </p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Lag sales df with complete values</p>
+<dd class="field-odd"><p>Lag sales df with complete values.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>pd.DataFrame</p>
@@ -828,18 +848,41 @@ document.write(`
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="bipo_fastapi.nodes.merge_generated_features_to_main">
-<span class="sig-prename descclassname"><span class="pre">bipo_fastapi.nodes.</span></span><span class="sig-name descname"><span class="pre">merge_generated_features_to_main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generated_features_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">main_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/nodes.html#merge_generated_features_to_main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.nodes.merge_generated_features_to_main" title="Permalink to this definition">#</a></dt>
-<dd><p>merge generated_features_df to the main_df for marketing and lag_sales pipeline</p>
+<dt class="sig sig-object py" id="bipo_fastapi.nodes.merge_adstock_and_marketing_df">
+<span class="sig-prename descclassname"><span class="pre">bipo_fastapi.nodes.</span></span><span class="sig-name descname"><span class="pre">merge_adstock_and_marketing_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adstock_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marketing_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/nodes.html#merge_adstock_and_marketing_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.nodes.merge_adstock_and_marketing_df" title="Permalink to this definition">#</a></dt>
+<dd><p>merge adstock features and marketing dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>generated_features_df</strong> (<em>pd.DataFrame</em>) – generated_features_df</p></li>
-<li><p><strong>main_df</strong> (<em>pd.DataFrame</em>) – merged df consisting of lag_sales, outlet, marketing</p></li>
+<li><p><strong>adstock_df</strong> (<em>pd.DataFrame</em>) – adstock features dataframe</p></li>
+<li><p><strong>marketing_df</strong> (<em>pd.DataFrame</em>) – marketing dataframe</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>final processed marketing dataframe with adstock features</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bipo_fastapi.nodes.merge_generated_features_to_main">
+<span class="sig-prename descclassname"><span class="pre">bipo_fastapi.nodes.</span></span><span class="sig-name descname"><span class="pre">merge_generated_features_to_main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generated_features_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">main_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/nodes.html#merge_generated_features_to_main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.nodes.merge_generated_features_to_main" title="Permalink to this definition">#</a></dt>
+<dd><p>Merge generated_features_df to the main_df for marketing and lag_sales pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>generated_features_df</strong> (<em>pd.DataFrame</em>) – Generated_features_df.</p></li>
+<li><p><strong>main_df</strong> (<em>pd.DataFrame</em>) – Merged df consisting of lag_sales, outlet, marketing.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame resulting from joining main_df and generated_features_df.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -847,17 +890,17 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo_fastapi.nodes.merge_pipeline_output">
 <span class="sig-prename descclassname"><span class="pre">bipo_fastapi.nodes.</span></span><span class="sig-name descname"><span class="pre">merge_pipeline_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lag_sales_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marketing_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outlet_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/nodes.html#merge_pipeline_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.nodes.merge_pipeline_output" title="Permalink to this definition">#</a></dt>
-<dd><p>merge outputs from lag_sales, marketing, and outlet pipelines. lag_sales</p>
+<dd><p>Merge outputs from lag_sales, marketing, and outlet pipelines. lag_sales.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lag_sales_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – output from lag_sales pipeline</p></li>
-<li><p><strong>marketing_df</strong> (<em>pd.DataFrame</em>) – output from marketing pipeline</p></li>
-<li><p><strong>outlet_df</strong> (<em>pd.DataFrame</em>) – output from outlet pipeline</p></li>
+<li><p><strong>lag_sales_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Output from lag_sales pipeline.</p></li>
+<li><p><strong>marketing_df</strong> (<em>pd.DataFrame</em>) – Output from marketing pipeline.</p></li>
+<li><p><strong>outlet_df</strong> (<em>pd.DataFrame</em>) – Output from outlet pipeline.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>merged dataframe</p>
+<dd class="field-even"><p>Merged dataframe.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
@@ -868,16 +911,20 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo_fastapi.nodes.process_final_merged_df">
 <span class="sig-prename descclassname"><span class="pre">bipo_fastapi.nodes.</span></span><span class="sig-name descname"><span class="pre">process_final_merged_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">merged_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/nodes.html#process_final_merged_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.nodes.process_final_merged_df" title="Permalink to this definition">#</a></dt>
-<dd><ul class="simple">
-<li><p>drop unnecessary columns</p></li>
-<li><p>convert boolean features to numeric</p></li>
-</ul>
+<dd><p>Drop unnecessary columns and convert boolean features to numeric.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>merged_df</strong> (<em>pd.DataFrame</em>) – final merged dataframe after processing and feature engineering</p>
+<dd class="field-odd"><p><strong>merged_df</strong> (<em>pd.DataFrame</em>) – Final merged dataframe after processing and feature engineering.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The processed DataFrame with unnecessary columns removed.</dt><dd><p>and boolean features converted to numeric.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>merged_df (pd.DataFrame)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -885,19 +932,16 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="bipo_fastapi.nodes.process_marketing_df">
 <span class="sig-prename descclassname"><span class="pre">bipo_fastapi.nodes.</span></span><span class="sig-name descname"><span class="pre">process_marketing_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/nodes.html#process_marketing_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.nodes.process_marketing_df" title="Permalink to this definition">#</a></dt>
-<dd><ul class="simple">
-<li><p>add Date index name to df generated by create_mkt_campaign_counts_start_end</p></li>
-<li><p>merge based on common index with the base_df generated by load_and_structure_marketing_data.</p></li>
-</ul>
+<dd><p>Add Date index name to df generated by create_mkt_campaign_counts_start_end. Merge based on common index with the base_df generated by load_and_structure_marketing_data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe containing engineered marketing features</p></li>
-<li><p><strong>base_df</strong> (<em>pd.DataFrame</em>) – base marketing dataframe</p></li>
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Dataframe containing engineered marketing features.</p></li>
+<li><p><strong>base_df</strong> (<em>pd.DataFrame</em>) – Base marketing dataframe.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>final processed marketing dataframe</p>
+<dd class="field-even"><p>Final processed marketing dataframe.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
@@ -912,15 +956,15 @@ document.write(`
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – memorydataset</p></li>
-<li><p><strong>partition_filepath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – </p></li>
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Memorydataset</p></li>
+<li><p><strong>partition_filepath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The file path where the partitioned dataset should be saved.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True. This function only returns True to faciliate unit test. The main purpose of this function is to save the memorydataset locally as a csv file.</p>
+<dd class="field-even"><p>The DataFrame loaded as a partitioned dataset.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -929,13 +973,13 @@ document.write(`
 <dt class="sig sig-object py" id="bipo_fastapi.nodes.transform_mkt_input">
 <span class="sig-prename descclassname"><span class="pre">bipo_fastapi.nodes.</span></span><span class="sig-name descname"><span class="pre">transform_mkt_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mkt_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/nodes.html#transform_mkt_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.nodes.transform_mkt_input" title="Permalink to this definition">#</a></dt>
 <dd><p>Function to prepare marketing dataframe for transform_model_input function.
-This function will rename and convert date related string to datetime format, and convert the campaign name to string</p>
+This function will rename and convert date related string to datetime format, and convert the campaign name to string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>mkt_df</strong> (<em>pd.DataFrame</em>) – Raw inference Marketing dataframe</p>
+<dd class="field-odd"><p><strong>mkt_df</strong> (<em>pd.DataFrame</em>) – Raw inference Marketing dataframe.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Processed inference Marketing dataframe</p>
+<dd class="field-even"><p>Processed inference Marketing dataframe.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>mkt_df (pd.DataFrame)</p>
@@ -982,16 +1026,16 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="bipo_fastapi.schemas.LagSalesAttribute.ensure_datetime">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ensure_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/schemas.html#LagSalesAttribute.ensure_datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.schemas.LagSalesAttribute.ensure_datetime" title="Permalink to this definition">#</a></dt>
-<dd><p>function to check if the date is in YYYY-MM-DD format</p>
+<dd><p>Function to check if the date is in YYYY-MM-DD format</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>date_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – list of dates</p>
+<dd class="field-odd"><p><strong>date_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – List of dates</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – if date is not in the correct format</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – If date is not in the correct format</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>original date_list is no error is raise</p>
+<dd class="field-odd"><p>Original date_list is no error is raise</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>date_list</p>
@@ -1023,7 +1067,7 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="bipo_fastapi.schemas.MarketingAttribute.campaign_name">
 <span class="sig-name descname"><span class="pre">campaign_name</span></span><a class="headerlink" href="#bipo_fastapi.schemas.MarketingAttribute.campaign_name" title="Permalink to this definition">#</a></dt>
-<dd><p>Name of the marketing campaign. (Optional. If nothing provided, it will be None)</p>
+<dd><p>Name of the marketing campaign. (Optional. If nothing provided, it will be None).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
@@ -1034,7 +1078,7 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="bipo_fastapi.schemas.MarketingAttribute.campaign_start_date">
 <span class="sig-name descname"><span class="pre">campaign_start_date</span></span><a class="headerlink" href="#bipo_fastapi.schemas.MarketingAttribute.campaign_start_date" title="Permalink to this definition">#</a></dt>
-<dd><p>The start date of a marketing campaign, in “YYYY-MM-DD” format. (Optional. If nothing provided, it will be None)</p>
+<dd><p>The start date of a marketing campaign, in “YYYY-MM-DD” format. (Optional. If nothing provided, it will be None).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
@@ -1045,7 +1089,7 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="bipo_fastapi.schemas.MarketingAttribute.campaign_end_date">
 <span class="sig-name descname"><span class="pre">campaign_end_date</span></span><a class="headerlink" href="#bipo_fastapi.schemas.MarketingAttribute.campaign_end_date" title="Permalink to this definition">#</a></dt>
-<dd><p>The end date of a marketing campaign, in “YYYY-MM-DD” format. (Optional. If nothing provided, it will be None)</p>
+<dd><p>The end date of a marketing campaign, in “YYYY-MM-DD” format. (Optional. If nothing provided, it will be None).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
@@ -1056,7 +1100,7 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="bipo_fastapi.schemas.MarketingAttribute.marketing_channels">
 <span class="sig-name descname"><span class="pre">marketing_channels</span></span><a class="headerlink" href="#bipo_fastapi.schemas.MarketingAttribute.marketing_channels" title="Permalink to this definition">#</a></dt>
-<dd><p>Individual marketing channels. Default input is from default_marketing_channels</p>
+<dd><p>Individual marketing channels. Default input is from default_marketing_channels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]</p>
@@ -1067,7 +1111,7 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="bipo_fastapi.schemas.MarketingAttribute.campaign_total_costs">
 <span class="sig-name descname"><span class="pre">campaign_total_costs</span></span><a class="headerlink" href="#bipo_fastapi.schemas.MarketingAttribute.campaign_total_costs" title="Permalink to this definition">#</a></dt>
-<dd><p>The total cost of each marketing channels from 1 campaign. (Optional. If nothing provided, it will be None)</p>
+<dd><p>The total cost of each marketing channels from 1 campaign. (Optional. If nothing provided, it will be None).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a>]</p>
@@ -1093,16 +1137,16 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="bipo_fastapi.schemas.MarketingAttribute.ensure_datetime">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ensure_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date_string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/schemas.html#MarketingAttribute.ensure_datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.schemas.MarketingAttribute.ensure_datetime" title="Permalink to this definition">#</a></dt>
-<dd><p>function to check if the date is in YYYY-MM-DD format</p>
+<dd><p>function to check if the date is in YYYY-MM-DD format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>date_string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – str of start and end date</p>
+<dd class="field-odd"><p><strong>date_string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – str of start and end date.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – if date is not in the correct format</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – if date is not in the correct format.</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>original date_list is no error is raise</p>
+<dd class="field-odd"><p>original date_list is no error is raise.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>date_list</p>
@@ -1131,12 +1175,12 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 that include weather conditions, marketing data, past sales, and temporal data. These
 features can be used for predicting sales and other retail analytics tasks.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bipo_fastapi.schemas.OutletAttribute.date">
-<span class="sig-name descname"><span class="pre">date</span></span><a class="headerlink" href="#bipo_fastapi.schemas.OutletAttribute.date" title="Permalink to this definition">#</a></dt>
-<dd><p>The date associated with these attributes, in “YYYY-MM-DD” format.</p>
+<dt class="sig sig-object py" id="bipo_fastapi.schemas.OutletAttribute.inference_date">
+<span class="sig-name descname"><span class="pre">inference_date</span></span><a class="headerlink" href="#bipo_fastapi.schemas.OutletAttribute.inference_date" title="Permalink to this definition">#</a></dt>
+<dd><p>The dates associated with these attributes, in “YYYY-MM-DD” format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+<dd class="field-odd"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1248,7 +1292,7 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="bipo_fastapi.schemas.OutletAttribute.ensure_datetime">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ensure_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/schemas.html#OutletAttribute.ensure_datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.schemas.OutletAttribute.ensure_datetime" title="Permalink to this definition">#</a></dt>
-<dd><p>function to check if the date is in YYYY-MM-DD format</p>
+<dd><p>Function to check if the date is in YYYY-MM-DD format</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>date_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – list of dates</p>
@@ -1271,43 +1315,43 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bipo_fastapi.schemas.OutletAttribute.inference_date">
-<span class="sig-name descname"><span class="pre">inference_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#bipo_fastapi.schemas.OutletAttribute.inference_date" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="id13">
-<span class="sig-name descname"><span class="pre">is_daily_rainfall_total_mm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id13" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">inference_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id13" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id14">
-<span class="sig-name descname"><span class="pre">is_pandemic_restrictions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id14" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_daily_rainfall_total_mm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id14" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id15">
-<span class="sig-name descname"><span class="pre">is_public_holiday</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id15" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_pandemic_restrictions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id15" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id16">
-<span class="sig-name descname"><span class="pre">is_school_holiday</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id16" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_public_holiday</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id16" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id17">
-<span class="sig-name descname"><span class="pre">location</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><a class="headerlink" href="#id17" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_school_holiday</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id17" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id18">
-<span class="sig-name descname"><span class="pre">maximum_temperature_c</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id18" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">location</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><a class="headerlink" href="#id18" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id19">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><a class="headerlink" href="#id19" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">maximum_temperature_c</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id19" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id20">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><a class="headerlink" href="#id20" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1316,7 +1360,7 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 <dt class="sig sig-object py" id="bipo_fastapi.schemas.SalesAttributes">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bipo_fastapi.schemas.</span></span><span class="sig-name descname"><span class="pre">SalesAttributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bipo_fastapi/schemas.html#SalesAttributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bipo_fastapi.schemas.SalesAttributes" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
-<p>A Pydantic model representing a list of sales attributes.</p>
+<p>A Pydantic model that aggregates various types of sales attributes.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="bipo_fastapi.schemas.SalesAttributes.outlet_attributes">
 <span class="sig-name descname"><span class="pre">outlet_attributes</span></span><a class="headerlink" href="#bipo_fastapi.schemas.SalesAttributes.outlet_attributes" title="Permalink to this definition">#</a></dt>
@@ -1351,18 +1395,18 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id20">
-<span class="sig-name descname"><span class="pre">lag_sales_attributes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference internal" href="#bipo_fastapi.schemas.LagSalesAttribute" title="bipo_fastapi.schemas.LagSalesAttribute"><code class="xref py py-class docutils literal notranslate"><span class="pre">LagSalesAttribute</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id20" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="id21">
-<span class="sig-name descname"><span class="pre">mkt_attributes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference internal" href="#bipo_fastapi.schemas.MarketingAttribute" title="bipo_fastapi.schemas.MarketingAttribute"><code class="xref py py-class docutils literal notranslate"><span class="pre">MarketingAttribute</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id21" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">lag_sales_attributes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference internal" href="#bipo_fastapi.schemas.LagSalesAttribute" title="bipo_fastapi.schemas.LagSalesAttribute"><code class="xref py py-class docutils literal notranslate"><span class="pre">LagSalesAttribute</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id21" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id22">
-<span class="sig-name descname"><span class="pre">outlet_attributes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference internal" href="#bipo_fastapi.schemas.OutletAttribute" title="bipo_fastapi.schemas.OutletAttribute"><code class="xref py py-class docutils literal notranslate"><span class="pre">OutletAttribute</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id22" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mkt_attributes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference internal" href="#bipo_fastapi.schemas.MarketingAttribute" title="bipo_fastapi.schemas.MarketingAttribute"><code class="xref py py-class docutils literal notranslate"><span class="pre">MarketingAttribute</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id22" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id23">
+<span class="sig-name descname"><span class="pre">outlet_attributes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference internal" href="#bipo_fastapi.schemas.OutletAttribute" title="bipo_fastapi.schemas.OutletAttribute"><code class="xref py py-class docutils literal notranslate"><span class="pre">OutletAttribute</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id23" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1428,28 +1472,28 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id23">
-<span class="sig-name descname"><span class="pre">cost_centre_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></em><a class="headerlink" href="#id23" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="id24">
-<span class="sig-name descname"><span class="pre">date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><a class="headerlink" href="#id24" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_centre_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></em><a class="headerlink" href="#id24" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id25">
-<span class="sig-name descname"><span class="pre">probabilities</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id25" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><a class="headerlink" href="#id25" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id26">
-<span class="sig-name descname"><span class="pre">sales_class_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><a class="headerlink" href="#id26" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">probabilities</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id26" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id27">
-<span class="sig-name descname"><span class="pre">sales_class_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><a class="headerlink" href="#id27" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">sales_class_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><a class="headerlink" href="#id27" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id28">
+<span class="sig-name descname"><span class="pre">sales_class_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><a class="headerlink" href="#id28" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1471,8 +1515,8 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id28">
-<span class="sig-name descname"><span class="pre">sales_predictions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference internal" href="#bipo_fastapi.schemas.SalesPrediction" title="bipo_fastapi.schemas.SalesPrediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">SalesPrediction</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id28" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id29">
+<span class="sig-name descname"><span class="pre">sales_predictions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference internal" href="#bipo_fastapi.schemas.SalesPrediction" title="bipo_fastapi.schemas.SalesPrediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">SalesPrediction</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#id29" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1501,11 +1545,11 @@ features can be used for predicting sales and other retail analytics tasks.</p>
       </div>
     </a>
     <a class="right-next"
-       href="tests.html"
+       href="bipo_fastapi.v1.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">tests package</p>
+        <p class="prev-next-title">bipo_fastapi.v1 package</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1524,6 +1568,7 @@ features can be used for predicting sales and other retail analytics tasks.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-bipo_fastapi.common">bipo_fastapi.common module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.common.explain_ebm_inference"><code class="docutils literal notranslate"><span class="pre">explain_ebm_inference()</span></code></a></li>
@@ -1570,10 +1615,12 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.load_data_catalog.load_data_catalog"><code class="docutils literal notranslate"><span class="pre">load_data_catalog()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo-fastapi-main-module">bipo_fastapi.main module</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-bipo_fastapi.nodes">bipo_fastapi.nodes module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.nodes.convert_to_string"><code class="docutils literal notranslate"><span class="pre">convert_to_string()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.nodes.fill_date_range"><code class="docutils literal notranslate"><span class="pre">fill_date_range()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.nodes.impute_lag_sales_df"><code class="docutils literal notranslate"><span class="pre">impute_lag_sales_df()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.nodes.merge_adstock_and_marketing_df"><code class="docutils literal notranslate"><span class="pre">merge_adstock_and_marketing_df()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.nodes.merge_generated_features_to_main"><code class="docutils literal notranslate"><span class="pre">merge_generated_features_to_main()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.nodes.merge_pipeline_output"><code class="docutils literal notranslate"><span class="pre">merge_pipeline_output()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.nodes.process_final_merged_df"><code class="docutils literal notranslate"><span class="pre">process_final_merged_df()</span></code></a></li>
@@ -1607,7 +1654,7 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute"><code class="docutils literal notranslate"><span class="pre">OutletAttribute</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute.date"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute.inference_date"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.inference_date</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute.cost_centre_code"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.cost_centre_code</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute.location"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.location</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute.type"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.type</span></code></a></li>
@@ -1620,23 +1667,23 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.cost_centre_code</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute.ensure_datetime"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.ensure_datetime()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.factor</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.OutletAttribute.inference_date"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.inference_date</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_daily_rainfall_total_mm</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_pandemic_restrictions</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_public_holiday</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_school_holiday</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.location</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.maximum_temperature_c</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.inference_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_daily_rainfall_total_mm</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_pandemic_restrictions</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_public_holiday</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.is_school_holiday</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.location</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.maximum_temperature_c</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id20"><code class="docutils literal notranslate"><span class="pre">OutletAttribute.type</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesAttributes"><code class="docutils literal notranslate"><span class="pre">SalesAttributes</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesAttributes.outlet_attributes"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.outlet_attributes</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesAttributes.lag_sales_attributes"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.lag_sales_attributes</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesAttributes.mkt_attributes"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.mkt_attributes</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id20"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.lag_sales_attributes</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id21"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.mkt_attributes</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id22"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.outlet_attributes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id21"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.lag_sales_attributes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id22"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.mkt_attributes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id23"><code class="docutils literal notranslate"><span class="pre">SalesAttributes.outlet_attributes</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesPrediction"><code class="docutils literal notranslate"><span class="pre">SalesPrediction</span></code></a><ul class="nav section-nav flex-column">
@@ -1645,16 +1692,16 @@ features can be used for predicting sales and other retail analytics tasks.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesPrediction.sales_class_id"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_id</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesPrediction.sales_class_name"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_name</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesPrediction.probabilities"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.probabilities</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id23"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.cost_centre_code</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id24"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.date</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id25"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.probabilities</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id26"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_id</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id27"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id24"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.cost_centre_code</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id25"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id26"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.probabilities</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id27"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id28"><code class="docutils literal notranslate"><span class="pre">SalesPrediction.sales_class_name</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesPredictions"><code class="docutils literal notranslate"><span class="pre">SalesPredictions</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bipo_fastapi.schemas.SalesPredictions.sales_predictions"><code class="docutils literal notranslate"><span class="pre">SalesPredictions.sales_predictions</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id28"><code class="docutils literal notranslate"><span class="pre">SalesPredictions.sales_predictions</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id29"><code class="docutils literal notranslate"><span class="pre">SalesPredictions.sales_predictions</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1706,8 +1753,8 @@ By AI Singapore
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

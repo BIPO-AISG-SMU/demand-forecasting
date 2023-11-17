@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Inference Module &#8212; BIPO Demand Forecasting v1.0.0 documentation</title>
   
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/doctools.js"></script>
@@ -130,6 +130,7 @@
   
   
   
+  
     <p class="title logo__title">BIPO Demand Forecasting v1.0.0 documentation</p>
   
 </a></div>
@@ -147,12 +148,13 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="kedro-overview.html">Overview of Kedro (v0.18.11)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-pipeline.html">Data Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-pipeline-configuration.html">Data Pipeline Configuration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Training</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="training-pipeline.html">Training Pipeline</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="experiment-tracking.html">Experiment Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments-archive.html">Archive of Model Experiments</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Serving</span></p>
 <ul class="current nav bd-sidenav">
@@ -162,10 +164,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary Guides</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests.html">Unit Tests</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">bipo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="bipo.html">bipo package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="bipo.pipelines.html">bipo.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="bipo.pipelines.data_loader.html">bipo.pipelines.data_loader package</a></li>
@@ -181,13 +184,21 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="bipo_fastapi.html">bipo_fastapi package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="bipo_fastapi.v1.html">bipo_fastapi.v1 package</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="tests.pipelines.html">tests.pipelines package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_loader.html">tests.pipelines.data_loader package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_merge.html">tests.pipelines.data_merge package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_preprocessing.html">tests.pipelines.data_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.data_split.html">tests.pipelines.data_split package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pipelines.feature_engineering.html">tests.pipelines.feature_engineering package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.pre_feature_engineering.html">tests.pipelines.pre_feature_engineering package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_evaluation.html">tests.pipelines.model_evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_specific_preprocessing.html">tests.pipelines.model_specific_preprocessing package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.model_training.html">tests.pipelines.model_training package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.pipelines.time_agnostic_feature_engineering.html">tests.pipelines.time_agnostic_feature_engineering package</a></li>
 </ul>
 </li>
 </ul>
@@ -343,16 +354,17 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-configuration">Pipeline Configuration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-structure-in-container">File Structure in Container</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-s">Input(s)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-s">Output(s)</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fastapi-app">1. FastAPI app</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kedro-inference-pipeline">2. Kedro inference pipeline</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-module-configuration">Inference module configuration</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-the-inference-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">inference_parameters.yml</span></code> File</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-the-constants-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> File</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kedro-pipeline">2. Kedro pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-parameters-yml">Key Parameters in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-inference-parameters-yml">Key Parameters in <code class="docutils literal notranslate"><span class="pre">inference_parameters.yml</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-constants-yml">Key Parameters in <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -371,10 +383,10 @@ document.write(`
 <p>This document provides detailed information on the inference module. Ensure you’ve followed the <a class="reference internal" href="inference-deployment-env-setup.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">Environment</span> <span class="pre">Setup</span></code></span></a> before diving in.</p>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>The Inference Module is responsible for executing model predictions. The given input data via the API request is converted into 3 csv files - marketing, lag sales, and outlet. They are used as inputs in the kedro inference pipeline to generate the model input data to be used by the loaded model for prediction. These predictions can be utilised in various downstream applications, analytics, or reporting tools.</p></li>
-<li><p>Note that a kedro runner object is used to execute the kedro pipeline, as the inference pipeline’s inputs are generated by a prior process from the API request. Thus, the ‘kedro run’ command which is executed in the terminal for the data and training pipelines is now executed within a script, as it is a downstream process following the conversion of the API request into csv files.</p></li>
-</ul>
+<p>The Inference Module is responsible for executing model predictions. The given input data via the API request is converted into 3 CSV files - marketing, lag sales, and outlet. These are then used as inputs to the Kedro-based inference pipeline to generate the model input data to be used by the loaded model for prediction. The output predictions may be utilised in various downstream applications.</p>
+<blockquote>
+<div><p>Note that a <a class="reference external" href="https://docs.kedro.org/en/stable/kedro.runner.SequentialRunner.html#kedro.runner.SequentialRunner">Kedro SequentialRunner object</a> is used to execute the Kedro pipeline, as the inference pipeline’s inputs are generated by a prior process from the API request. Thus, the <code class="docutils literal notranslate"><span class="pre">kedro</span> <span class="pre">run</span></code> command which is executed in the terminal for the data and training pipelines is now executed within a script, as it is a downstream process following the conversion of the API request into CSV files.</p>
+</div></blockquote>
 <p><img alt="Inference Pipeline Flowchart" src="_images/inference_pipeline_flowchart.png" /></p>
 </section>
 <section id="pipeline-configuration">
@@ -432,20 +444,34 @@ document.write(`
 </section>
 <section id="file-structure-in-container">
 <h2>File Structure in Container<a class="headerlink" href="#file-structure-in-container" title="Permalink to this heading">#</a></h2>
-<p>The following file structure depicts the key directories and files contained in the containerised inference submodule. <strong>This is not the same directory with the host computer which docker is running.</strong></p>
+<p>The following file structure depicts the key directories and files contained in the containerised inference submodule. <strong>This is not the same directory with the host computer on which Docker is running.</strong></p>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h3>
+<p>If it is the first time running the model serving (inference) container on the current environment, please perform the steps below.</p>
+<ol class="arabic simple">
+<li><p>Create the necessary subdirectories in <code class="docutils literal notranslate"><span class="pre">data/08_model_inference_output</span></code>.</p></li>
+<li><p>Ensure that there is one non-empty CSV file in <strong>each</strong> of the <code class="docutils literal notranslate"><span class="pre">inference_lag_sales_data</span></code>, <code class="docutils literal notranslate"><span class="pre">inference_mkt_data</span></code>, <code class="docutils literal notranslate"><span class="pre">inference_outlet_data</span></code> directories before running the inference pipeline. Otherwise, create one non-empty CSV file in each of the 3 directories as they cannot be empty. The non-empty CSV file may contain zero rows, but must include at least one column.</p></li>
+</ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>├──/app/bipo_demand_forecasting/
-    ├── conf/ (mounted)
-    ├── data/ (mounted)
+    ├── conf/
+    ├── data/ 
+    |   └── 08_model_inference_output/
+    |       ├── ebm_explanation
+    |       ├── encoding_artefact
+    |       ├── inference_lag_sales_data
+    |       ├── inference_mkt_data
+    |       ├── inference_outlet_data    
+    |       └── std_norm_artefact
     ├── docker/ 
-    ├── models/ (mounted)
-    ├── logs/ (mounted)
+    ├── models/
+    ├── logs/ 
     │   ├── info.log
     │   └── error.log
     ├── scripts/
     └── src/
         ├── bipo/
-        │   ├── pipelines/
-        │   │   └── ...
+        │   └── pipelines/
+        │       └── ...
         ├── bipo_fastapi/
         │   ├── v1/ (model inference)
         |   │   └── routers/ (code separation into multiple files)
@@ -455,79 +481,73 @@ document.write(`
         │   ├── deps.py
         │   ├── hooks.py
         │   ├── load_data_catalog.py
-        │   ├── main.py (entrypoint for inference)
+        │   ├── main.py
         │   ├── nodes.py
         │   ├── pipeline.py
-        │   ├── schemas.py
-        │   
+        │   └── schemas.py
         ├── requirements.txt
         └── utils.py
 </pre></div>
 </div>
+</section>
 <section id="input-s">
 <h3>Input(s)<a class="headerlink" href="#input-s" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Component</p></th>
 <th class="head"><p>Description</p></th>
-<th class="head"><p>Data directory</p></th>
+<th class="head"><p>Data Directory</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Marketing csv file</p></td>
-<td><p>Marketing csv generated from request, which is used in kedro inference pipeline.</p></td>
+<tr class="row-even"><td><p>Marketing CSV file</p></td>
+<td><p>Marketing CSV generated from the request and used in Kedro inference pipeline.</p></td>
 <td><p>data/08_model_inference_output/inference_mkt_data/inference_mkt_data.csv</p></td>
 </tr>
-<tr class="row-odd"><td><p>Lag sales csv file</p></td>
-<td><p>Lag sales csv generated from request, which is used in kedro inference pipeline.</p></td>
+<tr class="row-odd"><td><p>Lag sales CSV file</p></td>
+<td><p>Lag sales CSV generated from the request and used in Kedro inference pipeline.</p></td>
 <td><p>data/08_model_inference_output/inference_lag_sales_data/inference_lag_sales_data.csv</p></td>
 </tr>
-<tr class="row-even"><td><p>Outlet csv file</p></td>
-<td><p>Outlet csv generated from request, which is used in kedro inference pipeline.</p></td>
+<tr class="row-even"><td><p>Outlet CSV file</p></td>
+<td><p>Outlet CSV generated from the request and used in Kedro inference pipeline.</p></td>
 <td><p>data/08_model_inference_output/inference_outlet_data/inference_outlet_data.csv</p></td>
 </tr>
-<tr class="row-odd"><td><p>Model weight</p></td>
-<td><p>Model weights in pkl format, which is loaded in Fastapi app and used to make predictions.</p></td>
-<td><p>models/model_weight_filename.pkl</p></td>
+<tr class="row-odd"><td><p>Trained model weights</p></td>
+<td><p>Model weights in <code class="docutils literal notranslate"><span class="pre">pkl</span></code> format, which is loaded by the FastAPI app and used to make predictions.</p></td>
+<td><p>models/<code class="docutils literal notranslate"><span class="pre">&lt;model_weight_filename&gt;</span></code>.pkl</p></td>
 </tr>
-<tr class="row-even"><td><p>feature_encoding artefact</p></td>
-<td><p>Folder containing the feature encoding pkl artefact.</p></td>
+<tr class="row-even"><td><p>Feature encoding artefact</p></td>
+<td><p>Directory containing the feature encoding artefact in <code class="docutils literal notranslate"><span class="pre">pkl</span></code> format.</p></td>
 <td><p>data/08_model_inference_output/encoding_artefact</p></td>
 </tr>
-<tr class="row-odd"><td><p>standardization/normalization artefact</p></td>
-<td><p>Folder containing the standardization/normalization pkl artefact.</p></td>
+<tr class="row-odd"><td><p>Standardization/ normalization artefact</p></td>
+<td><p>Directory containing the standardization/normalization artefact in <code class="docutils literal notranslate"><span class="pre">pkl</span></code> format.</p></td>
 <td><p>data/08_model_inference_output/std_norm_artefact</p></td>
 </tr>
-<tr class="row-even"><td><p>tsfresh artefact</p></td>
-<td><p>Folder containing the tsfresh json artefact.</p></td>
+<tr class="row-even"><td><p><em>tsfresh</em> artefact</p></td>
+<td><p>Directory containing the <em>tsfresh</em> JSON artefact. This file is generated only when <em>tsfresh</em> is used in the data pipeline for generation of datasets for model training. Refer to the <a class="reference internal" href="#./data-pipeline#6-time-dependent-feature-engineering"><span class="xref myst">Data Pipeline documentation</span></a>.</p></td>
 <td><p>data/05_feature_engineering/tsfresh_features/artefacts/tsfresh_relevant_features</p></td>
-</tr>
-<tr class="row-odd"><td><p>lightweightmmm artefact</p></td>
-<td><p>Folder containing the lightweight_mmm json artefact.</p></td>
-<td><p>data/05_feature_engineering/lightweightmmm_features/artefacts</p></td>
 </tr>
 </tbody>
 </table>
-<hr class="docutils" />
-<br />
 </section>
+<hr class="docutils" />
 <section id="output-s">
 <h3>Output(s)<a class="headerlink" href="#output-s" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Component</p></th>
 <th class="head"><p>Description</p></th>
-<th class="head"><p>Data directory</p></th>
+<th class="head"><p>Data Directory</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Model input data</p></td>
 <td><p>In memory dataframe generated by kedro inference pipeline, which is used by the loaded model in the FastAPI app to make predictions.</p></td>
-<td><p>In memory</p></td>
+<td><p>None; in memory</p></td>
 </tr>
 </tbody>
 </table>
-<br />
 </section>
 </section>
 <section id="fastapi-app">
@@ -536,78 +556,71 @@ document.write(`
 <thead>
 <tr class="row-odd"><th class="head"><p>Scripts</p></th>
 <th class="head"><p>Description</p></th>
-<th class="head"><p>Data directory</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>model.py</p></td>
-<td><p>Fastapi router for model prediction</p></td>
-<td><p>src/bipo_fastapi/v1/routers/model.py</p></td>
+<tr class="row-even"><td><p><strong>src/bipo_fastapi/</strong></p></td>
+<td><p>Contains all Python scripts related to the inference pipeline</p></td>
 </tr>
-<tr class="row-odd"><td><p>common.py</p></td>
-<td><p>Common functions which are used to generate default API values and ebm prediction explainability.</p></td>
-<td><p>src/bipo_fastapi/common.py</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">v1/routers/model.py</span></code></p></td>
+<td><p>FastAPI router for model prediction</p></td>
 </tr>
-<tr class="row-even"><td><p>config.py</p></td>
-<td><p>Defines the application’s default settings.</p></td>
-<td><p>src/bipo_fastapi/config.py</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">common.py</span></code></p></td>
+<td><p>Common functions which are used to generate default API values and EBM prediction explainability</p></td>
 </tr>
-<tr class="row-odd"><td><p>deps.py</p></td>
-<td><p>Make predictions with the trained model, which is called by model.py</p></td>
-<td><p>src/bipo_fastapi/deps.py</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">config.py</span></code></p></td>
+<td><p>Defines the application’s default settings</p></td>
 </tr>
-<tr class="row-even"><td><p>main.py</p></td>
-<td><p>Application entrypoint.</p></td>
-<td><p>src/bipo_fastapi/main.py</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">deps.py</span></code></p></td>
+<td><p>Make predictions with the trained model, which is called by <code class="docutils literal notranslate"><span class="pre">model.py</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>schemas.py</p></td>
-<td><p>Description of the request fields and uses pydantic to validate the user request input.</p></td>
-<td><p>src/bipo_fastapi/schemas.py</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">main.py</span></code></p></td>
+<td><p>Application entrypoint</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">schemas.py</span></code></p></td>
+<td><p>Contains the <a class="reference external" href="https://docs.pydantic.dev/latest/">Pydantic</a> schema of the request fields, which is used to validate the user request input</p></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="kedro-inference-pipeline">
-<h2>2. Kedro inference pipeline<a class="headerlink" href="#kedro-inference-pipeline" title="Permalink to this heading">#</a></h2>
+<section id="kedro-pipeline">
+<h2>2. Kedro pipeline<a class="headerlink" href="#kedro-pipeline" title="Permalink to this heading">#</a></h2>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Scripts</p></th>
 <th class="head"><p>Description</p></th>
-<th class="head"><p>Data directory</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>custom_dataset.py</p></td>
-<td><p>Defines a custom csv dataset class to provide additional load arguments when loading a csv dataset for kedro’s IncrementalDataSet.</p></td>
-<td><p>src/bipo_fastapi/custom_dataset.py</p></td>
+<tr class="row-even"><td><p><strong>src/bipo_fastapi/</strong></p></td>
+<td><p>Contains all Python scripts related to the inference pipeline</p></td>
 </tr>
-<tr class="row-odd"><td><p>hooks.py</p></td>
-<td><p>Kedro hooks for modifying node inputs, and logging purposes.</p></td>
-<td><p>src/bipo_fastapi/hooks.py</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">custom_dataset.py</span></code></p></td>
+<td><p>Defines a custom CSV dataset class to provide additional load arguments when loading a CSV dataset for Kedro’s <code class="docutils literal notranslate"><span class="pre">IncrementalDataSet</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>load_data_catalog.py</p></td>
-<td><p>Load the data catalog as the kedro runner object does not make use of the catalog.yml file.</p></td>
-<td><p>src/bipo_fastapi/load_data_catalog.py</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hooks.py</span></code></p></td>
+<td><p>Kedro hooks for modifying node inputs, and logging purposes</p></td>
 </tr>
-<tr class="row-odd"><td><p>nodes.py</p></td>
-<td><p>Functions used as nodes in the inference pipeline.</p></td>
-<td><p>src/bipo_fastapi/nodes.py</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">load_data_catalog.py</span></code></p></td>
+<td><p>Loads the data catalog, as the Kedro runner object does not make use of the <code class="docutils literal notranslate"><span class="pre">catalog.yml</span></code> file</p></td>
 </tr>
-<tr class="row-even"><td><p>pipeline.py</p></td>
-<td><p>Consists of pipelines to generate model input data for model prediction. It is divided into 2 main pipelines: <ol><li> Independent pipeline: Consists of 3 pipelines - marketing, lag sales and outlet pipelines which process the 3 dataframes generated from the API request. </li><li> Dependent pipeline: merge the 3 processed dataframes from the independent pipeline and subsequently perform encoding, standardization/normalization to generate the model input data.</p></td>
-<td><p>src/bipo_fastapi/pipeline.py</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nodes.py</span></code></p></td>
+<td><p>Functions used as nodes in the inference pipeline</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pipeline.py</span></code></p></td>
+<td><p>Consists of pipelines to generate model input data for model prediction. It is divided into 2 main pipelines: <ol><li> Independent pipeline: Consists of 3 pipelines - marketing, lag sales and outlet pipelines which process the 3 dataframes generated from the API request. </li><li> Dependent pipeline: Merges the 3 processed dataframes from the independent pipeline and subsequently performs encoding and standardization/normalization to generate the model input data.</p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <hr class="docutils" />
-<section id="inference-module-configuration">
-<h2>Inference module configuration<a class="headerlink" href="#inference-module-configuration" title="Permalink to this heading">#</a></h2>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">#</a></h2>
 <p>This section captures some of the key parameters from the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">inference_parameters.yml</span></code> and <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> files.</p>
 <p>As much as possible, key functions from the data pipeline are reused. Their configurations will be governed by their respective implementations in the data pipeline.</p>
 <table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Key functions reused from data pipeline</p></th>
+<tr class="row-odd"><th class="head"><p>Key Function from Data Pipeline</p></th>
 <th class="head"><p>Location</p></th>
 </tr>
 </thead>
@@ -618,8 +631,8 @@ document.write(`
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">create_mkt_campaign_counts_start_end()</span></code></p></td>
 <td><p>src/bipo/pipelines/time_agnostic_feature_engineering/nodes</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">generate_mmm_features()</span></code></p></td>
-<td><p>src/bipo/pipelines/feature_engineering/lightweightmmm</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">generate_adstock()</span></code></p></td>
+<td><p>src/bipo/pipelines/time_agnostic_feature_engineering/nodes</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">generate_lag()</span></code></p></td>
 <td><p>src/bipo/pipelines/feature_engineering/nodes</p></td>
@@ -639,13 +652,10 @@ document.write(`
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">standard_norm_transform()</span></code></p></td>
 <td><p>src/bipo/pipelines/feature_engineering/standardize_normalize</p></td>
 </tr>
-<tr class="row-odd"><td><p><br></p></td>
-<td><p></p></td>
-</tr>
 </tbody>
 </table>
-<section id="key-parameters-in-the-parameters-yml-file">
-<h3>Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File<a class="headerlink" href="#key-parameters-in-the-parameters-yml-file" title="Permalink to this heading">#</a></h3>
+<section id="key-parameters-in-parameters-yml">
+<h3>Key Parameters in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code><a class="headerlink" href="#key-parameters-in-parameters-yml" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
@@ -657,14 +667,19 @@ document.write(`
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">output_type</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>ebm explainability output type</p></td>
+<td><p>EBM explainability output type</p></td>
 <td><p>‘html’</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">include_adstock</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether to include adstock features for inference</p></td>
+<td><p>True</p></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="key-parameters-in-the-inference-parameters-yml-file">
-<h3>Key Parameters in the <code class="docutils literal notranslate"><span class="pre">inference_parameters.yml</span></code> File<a class="headerlink" href="#key-parameters-in-the-inference-parameters-yml-file" title="Permalink to this heading">#</a></h3>
+<section id="key-parameters-in-inference-parameters-yml">
+<h3>Key Parameters in <code class="docutils literal notranslate"><span class="pre">inference_parameters.yml</span></code><a class="headerlink" href="#key-parameters-in-inference-parameters-yml" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">default_request_fields</span></code> contains the default values in the API request.</p>
 <table class="table">
 <thead>
@@ -682,55 +697,47 @@ document.write(`
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_number_of_lag_days</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-<td><p>Minimum number of lag days in user request input.</p></td>
+<td><p>Minimum number of lag days in user request input</p></td>
 <td><p>7</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">path_to_model</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Filepath of the model used for prediction in inference module.</p></td>
-<td><p>models/ebm_20231019.pkl</p></td>
+<td><p>File path of the model used for prediction</p></td>
+<td><p>‘models/ebm_20231019.pkl’</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">columns_to_drop_list</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
-<td><p>A list of unnecessary column names to drop in the final processing step before data is used as model input for prediction.</p></td>
-<td><p>[“name”,”location”]</p></td>
+<td><p>A list of unnecessary column names to drop in the final processing step before data is used as model input for prediction</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[&quot;name&quot;,&quot;location&quot;]</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bool_to_numeric_col_list</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
-<td><p>A list of column names to be converted from boolean to numeric.</p></td>
-<td><p>[“is_daily_rainfall_total_mm”,”is_public_holiday”,”is_school_holiday”,”is_pandemic_restrictions”]</p></td>
+<td><p>A list of column names to be converted from boolean to numeric</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[&quot;is_daily_rainfall_total_mm&quot;,&quot;is_public_holiday&quot;,&quot;is_school_holiday&quot;,&quot;is_pandemic_restrictions&quot;]</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">include_tsfresh</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-<td><p>Whether to include tsfresh features for inference. Has to match the loaded model weight (e.g if loaded model is trained on tsfresh features, then this parameter has to be True.)</p></td>
+<td><p>Whether to include <em>tsfresh</em> features for inference. Must match the loaded model weight (e.g. if loaded model is trained on <em>tsfresh</em> features, then this parameter has to be <code class="docutils literal notranslate"><span class="pre">True</span></code>).</p></td>
 <td><p>True</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">include_lightweight_mmm</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-<td><p>Whether to include lightweight_mmm features for inference. Has to match the loaded model weight (e.g if loaded model is trained on lightweight_mmm features, then this parameter has to be True.)</p></td>
-<td><p>True</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">artefact_fold</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">artefact_fold</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Fold number of the best performing fold.</p></td>
-<td><p>fold1</p></td>
+<td><p>Fold ID of the best performing fold</p></td>
+<td><p>‘fold1’</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">enable_explainability</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">enable_explainability</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-<td><p>Whether to enable ebm explainability for predictions.</p></td>
+<td><p>Whether to enable ebm explainability for predictions</p></td>
 <td><p>True</p></td>
-</tr>
-<tr class="row-odd"><td><p><br></p></td>
-<td><p></p></td>
-<td><p></p></td>
-<td><p></p></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="key-parameters-in-the-constants-yml-file">
-<h3>Key Parameters in the <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> File<a class="headerlink" href="#key-parameters-in-the-constants-yml-file" title="Permalink to this heading">#</a></h3>
-<p>Note: Please avoid making alterations to these parameters, as any modifications can significantly impact the pipeline and potentially lead to failures.</p>
+<section id="key-parameters-in-constants-yml">
+<h3>Key Parameters in <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code><a class="headerlink" href="#key-parameters-in-constants-yml" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>Note: Please avoid making alterations to these parameters, as any modifications can significantly impact the pipeline and potentially lead to failures.</p>
+</div></blockquote>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
@@ -742,62 +749,57 @@ document.write(`
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lag_sales_filename</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Name of lag sales csv file that is generated from API request.</p></td>
+<td><p>Name of lag sales CSV file that is generated from API request</p></td>
 <td><p>inference_lag_sales_data</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">marketing_filename</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Name of marketing csv file that is generated from API request.</p></td>
+<td><p>Name of marketing CSV file that is generated from API request</p></td>
 <td><p>inference_mkt_data</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">outlet_filename</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Name of outlet csv file that is generated from API request.</p></td>
+<td><p>Name of outlet CSV file that is generated from API request</p></td>
 <td><p>inference_outlet_data</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">marketing_filepath</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Filepath of marketing csv file that is generated from API request.</p></td>
-<td><p>data/08_model_inference_output/inference_mkt_data/inference_mkt_data.csv</p></td>
+<td><p>Filepath of marketing CSV file that is generated from API request</p></td>
+<td><p>data/08_model_inference_output/inference_mkt_data/inference_mkt_data.CSV</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lag_sales_filepath</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Filepath of lag sales csv file that is generated from API request.</p></td>
-<td><p>data/08_model_inference_output/inference_lag_sales_data/inference_lag_sales_data.csv</p></td>
+<td><p>Filepath of lag sales CSV file that is generated from API request</p></td>
+<td><p>data/08_model_inference_output/inference_lag_sales_data/inference_lag_sales_data.CSV</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">outlet_filepath</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Filepath of outlet csv file that is generated from API request.</p></td>
-<td><p>data/08_model_inference_output/inference_outlet_data/inference_outlet_data.csv</p></td>
+<td><p>Filepath of outlet CSV file that is generated from API request</p></td>
+<td><p>data/08_model_inference_output/inference_outlet_data/inference_outlet_data.CSV</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lag_sales_partition_filepath</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Directory filepath of lag sales csv file that is generated from API request.</p></td>
+<td><p>Directory filepath of lag sales CSV file that is generated from API request</p></td>
 <td><p>data/08_model_inference_output/inference_lag_sales_data</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tsfresh_relevant_features_filepath</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Directory filepath of tsfresh artefact.</p></td>
+<td><p>Filepath of <em>tsfresh</em> artefact</p></td>
 <td><p>data/05_feature_engineering/tsfresh_features/artefacts/tsfresh_relevant_features</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lightweightmmm_params_filepath</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">std_norm_filepath</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Directory filepath of lightweight_mmm artefact.</p></td>
-<td><p>data/05_feature_engineering/lightweightmmm_features/artefacts</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">std_norm_filepath</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Directory filepath of standardization/normalization artefact.</p></td>
+<td><p>Filepath of standardization/normalization artefact.</p></td>
 <td><p>data/08_model_inference_output/std_norm_artefact</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">encoding_filepath</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">encoding_filepath</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Directory filepath of encoding artefact.</p></td>
+<td><p>Filepath of encoding artefact</p></td>
 <td><p>data/08_model_inference_output/encoding_artefact</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ebm_explain_filepath</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ebm_explain_filepath</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td><p>Directory filepath of ebm explainability.</p></td>
+<td><p>Filepath of EBM explainability</p></td>
 <td><p>data/08_model_inference_output/ebm_explanation</p></td>
 </tr>
 </tbody>
@@ -853,16 +855,17 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-configuration">Pipeline Configuration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-structure-in-container">File Structure in Container</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-s">Input(s)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-s">Output(s)</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fastapi-app">1. FastAPI app</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kedro-inference-pipeline">2. Kedro inference pipeline</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-module-configuration">Inference module configuration</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-the-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code> File</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-the-inference-parameters-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">inference_parameters.yml</span></code> File</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-the-constants-yml-file">Key Parameters in the <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code> File</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kedro-pipeline">2. Kedro pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-parameters-yml">Key Parameters in <code class="docutils literal notranslate"><span class="pre">parameters.yml</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-inference-parameters-yml">Key Parameters in <code class="docutils literal notranslate"><span class="pre">inference_parameters.yml</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parameters-in-constants-yml">Key Parameters in <code class="docutils literal notranslate"><span class="pre">constants.yml</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -912,8 +915,8 @@ By AI Singapore
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>
