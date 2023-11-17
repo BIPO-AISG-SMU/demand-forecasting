@@ -5,23 +5,25 @@ The main objective of unit testing is to isolate written code to test and determ
 
 Unit testing is a component of test-driven development (TDD) methodology that takes a meticulous approach in building a product by means of continual testing and revision. This testing method is also the first level of software testing, which is performed before other testing methods such as integration testing. Unit tests are typically isolated to ensure a unit does not rely on any external code or functions. Teams should perform unit tests frequently, either manually or more often automated.
 
-## Unit test coverage
-The unit test coverages covers only the following modules in the pipeline:
-- data_loader
-- data_preprocessing
-- feature_engineering
-    - encoding.py
-        - _ordinal_encoding_transform_
-        - _one_hot_encoding_transform_
-    - lag_feature_generation.py
-        - _create_simple_lags_
-        - _create_sma_lags_
-    - standardize_normalize.py
-        - _standard_norm_transform_
-- time_agnostic_feature_engineering
-    - feature_indicator_creation.py
+## Unit Testing Coverage
 
-## Running Pytest and Configuring Pytest with coverage report
+Within the Demand Forecasting module, the unit tests covers the following modules in the pipeline:
+- `data_loader`
+- `data_preprocessing`
+- `feature_engineering`
+    - `encoding.py`
+        - `_ordinal_encoding_transform_`
+        - `_one_hot_encoding_transform_`
+    - `lag_feature_generation.py`
+        - `_create_simple_lags_`
+        - `_create_sma_lags_`
+    - `standardize_normalize.py`
+        - `_standard_norm_transform_`
+- `time_agnostic_feature_engineering`
+    - `feature_indicator_creation.py`
+
+## Running Pytest
+
 Open up a terminal/command prompt, change directory to the project folder with the necessary conda/python environment containing pytest library activated. Example: 
 ```
 (bipo-unit-test) <path/to/100E_projects_BIPO> pytest
@@ -72,8 +74,8 @@ test_nodes.py:5 Exception
 ```
 
 ### Configuring Pytest
-To configure pytest to generate a coverage report after execution, you can install as a pip library and configure the 'pytest-cov' plugin for
-using pytest-cov by adding the following lines to the *pyproject.toml* file in the repository root folder.
+
+To configure Pytest to generate a coverage report after execution, you can install the [pytest-cov](https://pypi.org/project/pytest-cov/) plugin and configure it by adding the following lines to `pyproject.toml` in the repository root folder.
 
 ```
 [tool.pytest.ini_options]
@@ -82,7 +84,7 @@ addopts = """
 --cov src/<package_name> -ra"""
 ```
 
-A simple coverage report generated looks similar as follows:
+A simple coverage report generated looks similar to the below:
 
 ```
 ---------- coverage: platform linux, python 3.10.13-final-0 ----------
@@ -97,14 +99,13 @@ src/bipo/hooks/MemoryProfilingHooks.py                                          
 .
 ```
 
-For more details, refer to official documentation on [Kedro Automated Testing](https://docs.kedro.org/en/stable/development/automated_testing.html). 
+For more details, refer to Kedro's documentation on [Automated Testing](https://docs.kedro.org/en/stable/development/automated_testing.html). 
 
-## Writing Unit Tests and conventions
-1. All unit tests should be written in test_nodes.py. By default, when creating new kedro pipeline via the command, 'kedro pipeline create \<pipeline name>', *test_pipeline.py* is created, only test_pipeline.py is created. You have to create a *test_node.py* file yourself for writing unit tests.
+## Conventions in Writing Unit Tests 
 
-2. Please ensure that all classes and functions used for test must have a '*Test*' prefix and '*test*' prefix respectively.
+1. All unit tests should be written in `test_nodes.py`. By default, when creating new Kedro pipeline via the command, `kedro pipeline create <pipeline name>`, only `test_pipeline.py` is created. You need to manually create `test_nodes.py` yourself.
 
-3. Note that, any function and classes written without the 'Test'/'test' prefix would be ignored by pytest during execution. No errors/warning is generated as such.
+2. All unit testing classes and functions must be named with a `Test` prefix and `test_` prefix respectively. Note that any classes or functions not named with the `Test` or `test_` prefixes would be ignored by pytest during execution, with no errors or warnings generated.
 
 4. For each fixture used by a test function, there is typically a parameter (named after the defined fixture) in the test function’s definition. An example is shown as follows:
 
@@ -127,11 +128,11 @@ def test_create_min_max_feature_diff(self, create_preprocessing_datapoints):
 .
 ```
 
-### About fixtures
----
-They are everything that a unit test needs to do its job.
+### About Fixtures
 
-Example of using a Fixture for generating dataframe rows:
+Fixtures are used to feed some data to the tests such as database connections, URLs to test and some sort of input data.
+
+Example of using a fixture for generating dataframe rows via a factory method:
 
 ```
 @pytest.fixture(scope="module")
@@ -145,9 +146,9 @@ def create_preprocessing_datapoints(self):
     return _create_preprocessing_datapoints
 ```
 
-For more resources:
+## Additional Resources
 - [Pytest fixture](https://docs.pytest.org/en/6.2.x/fixture.html)
-- [Effective python Testing](https://realpython.com/pytest-python-testing/#:~:text=pytest%20fixtures%20are%20a%20way,that%20fixture%20as%20an%20argument.)
-- [Python Unit Tests](https://www.dataquest.io/blog/unit-tests-python/)
+- [Effective Python Testing With Pytest](https://realpython.com/pytest-python-testing/)
+- [A Beginner's Guide to Unit Tests in Python](https://www.dataquest.io/blog/unit-tests-python/)
 
-**Note: Tests don’t have to be limited to a single fixture, either. They can depend on as many fixtures as you want, and fixtures can use other fixtures as well.**
+> Note: Tests don’t have to be limited to a single fixture, either. They can depend on as many fixtures as you want, and fixtures can use other fixtures as well.

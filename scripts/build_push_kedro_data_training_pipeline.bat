@@ -4,7 +4,7 @@ echo "Activating bipo-df env"
 
 @REM yaml variables
 set docker_registry=registry.aisingapore.net/100e-bipo
-set image_name=bipo-training-pipeline:0.1.3
+set image_name=bipo-training-pipeline:0.1.5
 set docker_file=bipo-model-training-cpu.Dockerfile
 echo "Activate bipo-df env"
 

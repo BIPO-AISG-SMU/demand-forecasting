@@ -10,6 +10,9 @@ PROJECT_PATH = get_project_path()
 CONF_LOADER = ConfigLoader(conf_source=PROJECT_PATH / "conf")
 CONF_INFERENCE_FIELDS = CONF_LOADER.get("inference*")["default_request_fields"]
 
+# Define default number of inputs here for OutletAttribute
+default_num_inference_date = CONF_INFERENCE_FIELDS["default_num_inference_date"]
+
 
 class OutletAttribute(BaseModel):
     """A Pydantic model for encapsulating all sales attributes linked to a particular date.
@@ -30,9 +33,6 @@ class OutletAttribute(BaseModel):
         is_school_holiday (bool): Indicator if the day was during school holidays.
         is_pandemic_restrictions (bool): Indicator if the day has any pandemic restrictions.
     """
-
-    # Define default number of inputs here for OutletAttribute
-    default_num_inference_date = CONF_INFERENCE_FIELDS["default_num_inference_date"]
 
     # All these inputs will become a dict
     inference_date: List[str] = Field(
@@ -107,18 +107,13 @@ class LagSalesAttribute(BaseModel):
     # Define default number of inputs here for LagsAttribute
     default_num_lag_sales_date = CONF_INFERENCE_FIELDS["default_num_lag_sales_date"]
 
-    conf_inference_thresholds = CONF_LOADER.get("inference*")["request_thresholds"]
-
-    lag_sales_date: conlist(
-        str, min_items=conf_inference_thresholds["min_number_of_lag_days"]
-    ) = Field(
-        default=generate_default_lag_date(
-            CONF_INFERENCE_FIELDS["default_num_lag_sales_date"]
-        )
+    conf_inference_thresholds = CONF_LOADER.get("inference*")["request_thresholds"][
+        "min_number_of_lag_days"
+    ]
+    lag_sales_date: conlist(str, min_items=conf_inference_thresholds) = Field(
+        default=generate_default_lag_date(default_num_lag_sales_date)
     )
-    lag_sales: conlist(
-        float, min_items=conf_inference_thresholds["min_number_of_lag_days"]
-    ) = Field(
+    lag_sales: conlist(float, min_items=conf_inference_thresholds) = Field(
         default=[CONF_INFERENCE_FIELDS["default_lag_sales"]]
         * default_num_lag_sales_date
     )

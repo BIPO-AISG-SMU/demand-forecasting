@@ -198,12 +198,15 @@ def process_marketing_df(df: pd.DataFrame, base_df: pd.DataFrame) -> pd.DataFram
     Returns:
         pd.DataFrame: Final processed marketing dataframe.
     """
-    gen_mkt_df.index.names = [conf_const["default_date_col"]]
-    df = base_df.merge(gen_mkt_df, how="left", left_index=True, right_index=True)
+    df.index.names = [CONF_CONST["default_date_col"]]
+    df = base_df.merge(df, how="left", left_index=True, right_index=True)
     return df
 
-def merge_adstock_and_marketing_df(adstock_df: pd.DataFrame,marketing_df:pd.DataFrame) -> pd.DataFrame:
-    """merge adstock features and marketing dataframe 
+
+def merge_adstock_and_marketing_df(
+    adstock_df: pd.DataFrame, marketing_df: pd.DataFrame
+) -> pd.DataFrame:
+    """merge adstock features and marketing dataframe
 
     Args:
         adstock_df (pd.DataFrame): adstock features dataframe
@@ -211,9 +214,10 @@ def merge_adstock_and_marketing_df(adstock_df: pd.DataFrame,marketing_df:pd.Data
     Returns:
         pd.DataFrame: final processed marketing dataframe with adstock features
     """
-    adstock_df.index.names = [conf_const["default_date_col"]]
+    adstock_df.index.names = [CONF_CONST["default_date_col"]]
     df = adstock_df.merge(marketing_df, how="left", left_index=True, right_index=True)
     return df
+
 
 def merge_generated_features_to_main(
     generated_features_df: pd.DataFrame, main_df: pd.DataFrame

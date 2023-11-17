@@ -13,12 +13,12 @@ Ensure you've followed the [Environment Setup guide](inference-deployment-env-se
 To run the Docker image containing the endpoint, execute the following command in the **root project directory**. This assumes that your model, data, and configurations are stored in specific directories on your host machine.
 
 ```bash
-$ bash ./scripts/fastapi/api-entrypoint.sh
+$ bash ./scripts/run_inference_pipeline.sh
 ```
 
 ### 2. Interacting with the API through Swagger UI
 
-   After starting the Docker container, you can easily interact with the API endpoints using the Swagger UI, a powerful tool for visualizing and testing API endpoints.
+After starting the Docker container, you can easily interact with the API endpoints using the Swagger UI, a powerful tool for visualizing and testing API endpoints.
 
 1. **Access the Interface**: Open your preferred web browser and navigate to the Swagger UI, located at http://<VM_IP_address>:8000/docs
 2. **Submit Requests**: The interface provides an interactive platform to send requests and view responses. To initiate a request:
@@ -28,7 +28,7 @@ $ bash ./scripts/fastapi/api-entrypoint.sh
     4. Click `Execute` to send the request.
 3. **Viewing Responses**: After submission, the prediction response will be displayed directly within the Swagger UI. To understand the structure and meaning of the response, refer to the [Response Format](#response-format) section.
 
-      ![Swagger UI Interactive Interface](assets/swaggerUI.png)
+    ![Swagger UI Interactive Interface](assets/swaggerUI.png)
 
 ### 3. Terminating the Endpoint
 

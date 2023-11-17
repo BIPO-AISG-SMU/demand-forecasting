@@ -47,7 +47,7 @@ This sub-section outlines the key parameters in the `parameters.yml` configurati
 
 | Parameter | Type | Description | Default Value |
 | --- | --- | --- | --- |
-| `include_adstock` | `bool` | Control that determines if adstock features should be included in feature engineering pipeline process. If False, the parameters below do not apply. | False |
+| `include_adstock` | `bool` | Control that determines if adstock features should be included in feature engineering pipeline process. If set to True, adstock features will be generated, and the user should include all marketing cost features in the `fe_columns_to_drop_list` to prevent correlated features from being input into the model. If False, the parameters below do not apply. | False |
 | `adstock_value_threshold` | `float` | Percentage of adstock value on the last campaign date to be used as the cut-off value, for stopping the generation of adstock values beyond the campaign duration. | 0.05 |
 | `adstock_days_threshold` | `int` | Number of days beyond the campaign duration to be used as the cut-off value, for stopping the generation of adstock values beyond the campaign duration. | 60 |
 | `tv_ad_lag_weight` | `float` | Lag weight for tv_ad  | 0.5 |

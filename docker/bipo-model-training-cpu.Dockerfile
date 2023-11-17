@@ -13,8 +13,7 @@ useradd -m -d /home/kedro_docker -s /bin/bash -g ${KEDRO_GID} -u ${KEDRO_UID} ke
 
 WORKDIR /home/kedro_docker
 USER kedro_docker
-
 COPY --chown=${KEDRO_UID}:${KEDRO_GID} . .
-
+EXPOSE 8000 
 #can be overridden from the Docker Command Line Interface
 # CMD ["kedro", "run"]

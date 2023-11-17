@@ -29,6 +29,7 @@ from bipo.pipelines.time_agnostic_feature_engineering.nodes import (
 LOGGER = logging.getLogger(settings.LOGGER_NAME)
 CONF_LOADER = ConfigLoader(conf_source=settings.CONF_SOURCE)
 CONF_INFERENCE = CONF_LOADER.get("inference*")
+CONF_PARAMS = CONF_LOADER["parameters"]
 
 
 def create_marketing_pipeline() -> Pipeline:
@@ -37,7 +38,6 @@ def create_marketing_pipeline() -> Pipeline:
     Returns:
         Pipeline: Marketing pipeline.
     """
-    conf_params = CONF_LOADER["parameters"]
     marketing_pipeline = Pipeline(
         [
             node(
@@ -93,7 +93,7 @@ def create_marketing_pipeline() -> Pipeline:
         ]
     )
     # filter selected nodes by their tags to include/exclude adstock features
-    if conf_params["include_adstock"]:
+    if CONF_PARAMS["include_adstock"]:
         return marketing_pipeline.only_nodes_with_tags("inference", "adstock")
     else:
         return marketing_pipeline.only_nodes_with_tags("inference")
@@ -187,7 +187,7 @@ def create_merge_pipeline_outputs() -> Pipeline:
         Pipeline: merge_pipeline_outputs pipeline.
     """
     # includes adstock and tsfresh
-    if conf_inference["include_tsfresh"] and conf_params["include_adstock"]:
+    if CONF_INFERENCE["include_tsfresh"] and CONF_PARAMS["include_adstock"]:
         return Pipeline(
             [
                 node(
@@ -203,7 +203,7 @@ def create_merge_pipeline_outputs() -> Pipeline:
             ]
         )
     # include adstock, but not tsfresh
-    elif conf_params["include_adstock"] and not conf_inference["include_tsfresh"]:
+    elif CONF_PARAMS["include_adstock"] and not CONF_INFERENCE["include_tsfresh"]:
         return Pipeline(
             [
                 node(
@@ -219,7 +219,7 @@ def create_merge_pipeline_outputs() -> Pipeline:
             ]
         )
     # include tsfresh but not adstock
-    elif conf_inference["include_tsfresh"] and not conf_params["include_adstock"]:
+    elif CONF_INFERENCE["include_tsfresh"] and not CONF_PARAMS["include_adstock"]:
         return Pipeline(
             [
                 node(

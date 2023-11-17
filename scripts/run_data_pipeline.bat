@@ -1,8 +1,8 @@
 echo off
 
 @REM Define your Docker image and registry
-set docker_registry=registry.aisingapore.net/100e-bipo
-set image_name=bipo-training-pipeline:0.1.3
+set docker_registry=""
+set image_name=bipo-training-pipeline:0.1.5
 set image_tag_name=%docker_registry%/%image_name%
 
 @REM Define volume variables from host directories

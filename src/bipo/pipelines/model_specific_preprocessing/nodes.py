@@ -97,7 +97,7 @@ def reorder_data(
     partitioned_input_validation: Dict[str, pd.DataFrame],
     partitioned_input_testing: Dict[str, pd.DataFrame],
 ) -> OrdDict[str, pd.DataFrame]:
-    """Function which pairs up files from training and validation subfolders containing fold-based merged outlets data in 'data' directory by using an OrderedDict to update corresponding alternating training, validation prefix folds before model training can be done.
+    """Function which pairs up files from training, validation and testing subfolders containing fold-based merged outlets data in 'data' directory by using an OrderedDict to update corresponding alternating training, validation and testing prefix folds before model training can be done.
 
     Args:
         partitioned_input_training (Dict[str, pd.DataFrame]): A dictionary with partition ids as keys and dataframe as values for training data.
