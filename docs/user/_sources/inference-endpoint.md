@@ -10,7 +10,7 @@ Ensure you've followed the [Environment Setup guide](inference-deployment-env-se
 ## How to Run Endpoint
 
 ### 1. Starting the Endpoint
-To run the Docker image containing the endpoint, execute the following command in the **root project directory**. This assumes that your model, data, and configurations are stored in specific directories on your host machine.
+To run the Docker image containing the endpoint, execute the following command in the **root project directory**. This assumes that your model, data, and configurations are stored in specific directories on your host machine. Before running `run_inference_pipeline.sh`, please ensure `docker_registry` and `image_name` is filled. 
 
 ```bash
 $ bash ./scripts/run_inference_pipeline.sh
@@ -36,9 +36,9 @@ After starting the Docker container, you can easily interact with the API endpoi
 - **Background Execution**: If the container is running in the background, use the following command to stop it:
 
 ```bash
-docker stop --name bipo_inference_initial
+docker stop <docker_container_id>
 ```
-Note: Replace `bipo_inference_initial` with the name you used when starting the container, if different.
+Note: Replace `<docker_container_id>` with the name you used when starting the container, if different. This can be identified via the command "docker ps -a"
 
 ## Request Format
 
