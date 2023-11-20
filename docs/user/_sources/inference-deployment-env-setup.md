@@ -32,14 +32,13 @@ unzip bipo_demand_forecasting.zip
 
 Open a terminal and navigate to your $HOME folder (i.e /home/<username>). Please run the following command with elevated privilege:
 ```
-$ sudo bash bipo_demand_forecasting/src/apt-install.sh
+$ sudo bash bipo_demand_forecasting/scripts/apt-install.sh
 ```
 
 The contents of the `apt-install.sh` script are as follows:
 ```
 #!/usr/bin/sh
 set -e
-#set -x
 
 # Bash Variables. Bipo main directory and its subdir folder
 bipo_dir=bipo_demand_forecasting
@@ -116,7 +115,7 @@ All Python library dependencies are install via `requirements.txt` within the pr
         ├── base/ (all configurations here)
             ├──catalog.yml
             ├──constants.yml
-            ├──logging_inference.yml
+            ├──inference_parameters.yml
             ├──logging.yml
             └─ parameters.yml
         ├── __init__.py
@@ -127,19 +126,26 @@ All Python library dependencies are install via `requirements.txt` within the pr
     ├── logs/ (Empty folder; to be bind mounted)
     ├── scripts/ (Scripts for binaries installation and docker run)
         ├── apt-install.sh
-        └─ docker_run.sh 
-    ├── docker/ (Not for mounting, contains docker image)
+        ├── run_inference_pipeline.sh 
+        └─ ...
+    ├── docker/ (Not for mounting, contains docker files)
     └─ models/ (Contains model; to be bind mounted)
-        └─ orderedmodel_prob_20230816.pkl (Model file)
+        └─ ebm_model_20231116.pkl (Model file)
 ```
-2. Do not modify/delete the name of the pkl file as this exact file is referenced in the docker container that is spinned up. Ensure that there is read permissions by typing the following command:
+Modify the name of the pkl file in the `inference_parameters.yml` as this exact file is referenced in the docker container that is spinned up: 
+```
+file_paths:
+  intermediate_output_path: "data/08_model_inference_output"
+  path_to_model: "models/ebm_model_20231116.pkl"
+```
+Ensure that there is read permissions by typing the following command:
 
 ``` bash
-ls -la ~/bipo_demand_forecasting/models/orderedmodel_prob_20230816.pkl
+ls -la ~/bipo_demand_forecasting/models/ebm_model_20231116.pkl
 ```
 You should see 'r' in the first column block of output.
 ``` bash
--rwxr-xr-x 1 aisg aisg 16128131 Aug 18 12:57 /home/aisg/bipo_demand_forecasting/models/orderedmodel_prob_20230816.pkl
+-rwxr-xr-x 1 aisg aisg 16128131 Nov 16 12:57 /home/aisg/bipo_demand_forecasting/models/ebm_model_20231116.pkl
 ```
 ## Getting Started
 
@@ -179,14 +185,14 @@ $ sudo systemctl start docker
 
 3. Docker load the provided tar.gz archive file using the following command:
 ``` bash
-$ docker load --input bipo_demand_forecasting/docker/bipo_inference_initial.tar
+$ docker load --input bipo_demand_forecasting/docker/<docker_image.tar>
 ```
 
 4. After loading the image, check if it is loaded in the VM Docker registry with the command `docker image ls` and you should see the following:
 ```
 $ docker image ls
 REPOSITORY                                           TAG       IMAGE ID            CREATED       SIZE
-registry.aisingapore.net/100e-bipo/bipo_inference    initial   <ID of the image>   XX days ago   XXXMB
+registry.aisingapore.net/100e-bipo/<docker_image>    initial   <ID of the image>   XX days ago   XXXMB
 ```
 
 If typing Docker commands results in a *"Permission denied"* error, please request your administrator to add the current user to Docker group with the following command to elevate your rights to access Docker:
